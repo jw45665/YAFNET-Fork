@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Web;
+
 namespace YAF.Core.Utilities;
 
 /// <summary>
@@ -614,6 +616,8 @@ public static class JavaScriptBlocks
     {
         return $$$"""
                      var textarea = document.getElementById('{{{editorId}}}');
+                     
+                     const noAttachmentsText = '{{{HttpUtility.HtmlEncode(BoardContext.Current.Get<ILocalization>().GetText("ATTACHMENTS", "NO_ATTACHMENTS"))}}}';
 
                      sceditor.create(textarea, {
                          autoUpdate: true,
@@ -888,9 +892,11 @@ public static class JavaScriptBlocks
                      placeholderValue: "{{placeHolder}}",
                      resetScrollPosition: false
                  });
-
+                 
+                 var forumsSelectValue = document.getElementById('{{forumDropDownId}}');
+                 
                  var query = {
-                     ForumId: document.getElementById('{{forumDropDownId}}').value,
+                     ForumId: forumsSelectValue.value,
                      TopicId: {{BoardContext.Current.PageTopicID}},
                      PageSize: 0,
                      Page: 0,
@@ -906,7 +912,7 @@ public static class JavaScriptBlocks
                  
                      if (event.detail.value.length > 2) {
                          var query = {
-                             ForumId: document.getElementById('{{forumDropDownId}}').value,
+                             ForumId: forumsSelectValue.value,
                              TopicId: {{BoardContext.Current.PageTopicID}},
                              PageSize: 15,
                              Page: 0,
@@ -953,6 +959,28 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
+    /// The load topics by forum js.
+    /// </summary>
+    /// <returns>System.String.</returns>
+    public static string LoadTopicsByForumJs()
+    {
+        return $$"""
+             
+             topicsSelect.clearChoices();
+             
+             var query = {
+                 ForumId: event.detail.choice.value,
+                 TopicId: {{BoardContext.Current.PageTopicID}},
+                 PageSize: 0,
+                 Page: 0,
+                 SearchTerm: ""
+             };
+             topicsSelect.setChoices(function () { return loadChoiceOptions(query, "/api/Topic/GetTopics") });
+             
+             """;
+    }
+
+    /// <summary>
     /// select forum load JS.
     /// </summary>
     /// <param name="forumDropDownId">
@@ -970,6 +998,9 @@ public static class JavaScriptBlocks
     /// <param name="selectedHiddenId">
     /// The selected Hidden Id.
     /// </param>
+    /// <param name="topicsSelectJs">
+    /// The topics select js.
+    /// </param>
     /// <returns>
     /// Returns the select topics load JS.
     /// </returns>
@@ -978,7 +1009,8 @@ public static class JavaScriptBlocks
         string placeHolder,
         bool forumLink,
         bool allForumsOption,
-        string selectedHiddenId = null)
+        string selectedHiddenId = null,
+        string topicsSelectJs = null)
     {
         // forum link
         var forumLinkJs = forumLink
@@ -1008,6 +1040,8 @@ public static class JavaScriptBlocks
                                  ? $$"""
                                      forumsSelect.passedElement.element.addEventListener("choice", function (event) {
                                          document.getElementById("{{selectedHiddenId}}").value = event.detail.choice.value;
+                                         
+                                         {{topicsSelectJs}}
                                      });
                                      """
                                  : string.Empty;
