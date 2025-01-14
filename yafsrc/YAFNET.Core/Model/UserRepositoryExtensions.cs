@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -355,12 +355,6 @@ public static class UserRepositoryExtensions
     /// <param name="userId">
     /// The user Id.
     /// </param>
-    /// <param name="name">
-    /// The name.
-    /// </param>
-    /// <param name="displayName">
-    /// The display Name.
-    /// </param>
     /// <param name="flags">
     /// The flags.
     /// </param>
@@ -371,8 +365,6 @@ public static class UserRepositoryExtensions
         this IRepository<User> repository,
         int boardId,
         int userId,
-        string name,
-        string displayName,
         int flags,
         int rankId)
     {
@@ -380,8 +372,6 @@ public static class UserRepositoryExtensions
             () => new User
                       {
                           BoardID = boardId,
-                          Name = name,
-                          DisplayName = displayName,
                           Flags = flags,
                           RankID = rankId
                       },
@@ -449,6 +439,9 @@ public static class UserRepositoryExtensions
     /// <param name="providerUserKey">
     /// The provider user key.
     /// </param>
+    /// <param name="pageSize">
+    /// The default page size.
+    /// </param>
     /// <param name="isApproved">
     /// The is approved.
     /// </param>
@@ -465,6 +458,7 @@ public static class UserRepositoryExtensions
         string displayName,
         string email,
         string providerUserKey,
+        int pageSize,
         bool isApproved,
         User existingUser = null)
     {
@@ -545,7 +539,7 @@ public static class UserRepositoryExtensions
                         TimeZone = TimeZoneInfo.Local.Id,
                         Flags = approvedFlag,
                         ProviderUserKey = providerUserKey,
-                        PageSize = 5
+                        PageSize = pageSize
                     });
         }
 
@@ -1221,7 +1215,7 @@ public static class UserRepositoryExtensions
             {
                 data = new byte[stream.Length];
                 stream.Seek(0, SeekOrigin.Begin);
-                stream.Read(data, 0, stream.Length.ToType<int>());
+                stream.ReadExactly(data, 0, stream.Length.ToType<int>());
             }
 
             repository.UpdateOnly(

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -59,15 +59,12 @@ public class LatestInformationService : IHaveServiceLocator, ILatestInformationS
     /// Gets the latest version information.
     /// </summary>
     /// <returns>Returns the LatestVersionInformation</returns>
-    public async Task<dynamic> GetLatestVersion()
+    public async Task<dynamic> GetLatestVersionAsync()
     {
         dynamic version = new ExpandoObject();
 
         try
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.SystemDefault |
-                                                   SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
-
             var client = new HttpClient(new HttpClientHandler());
 
             client.DefaultRequestHeaders.UserAgent.ParseAdd("YAF.NET");

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -44,11 +44,6 @@ public class PostDataHelperWrapper
     private MessageFlags messageFlags;
 
     /// <summary>
-    /// The current data row for this post.
-    /// </summary>
-    private PagedMessage row;
-
-    /// <summary>
     /// The _topic flags.
     /// </summary>
     private TopicFlags topicFlags;
@@ -75,20 +70,18 @@ public class PostDataHelperWrapper
     /// <summary>
     /// Gets or sets DataRow.
     /// </summary>
-    public PagedMessage DataRow
-    {
-        get => this.row;
+    public PagedMessage DataRow {
+        get;
 
-        set
-        {
-            this.row = value;
+        set {
+            field = value;
 
             // get all flags for forum, topic and message
-            if (this.row != null)
+            if (field != null)
             {
-                this.forumFlags = new ForumFlags(this.row.ForumFlags);
-                this.topicFlags = new TopicFlags(this.row.TopicFlags);
-                this.messageFlags = new MessageFlags(this.row.Flags);
+                this.forumFlags = new ForumFlags(field.ForumFlags);
+                this.topicFlags = new TopicFlags(field.TopicFlags);
+                this.messageFlags = new MessageFlags(field.Flags);
             }
             else
             {

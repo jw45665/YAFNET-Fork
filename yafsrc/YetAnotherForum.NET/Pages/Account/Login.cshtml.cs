@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,7 +25,6 @@
 namespace YAF.Pages.Account;
 
 using System;
-using System.Net;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Authorization;
@@ -261,9 +260,6 @@ public class LoginModel : AccountPage
 
         var properties = this.Get<SignInManager<AspNetUsers>>()
             .ConfigureExternalAuthenticationProperties(auth, redirectUrl);
-
-        ServicePointManager.SecurityProtocol = SecurityProtocolType.SystemDefault | SecurityProtocolType.Tls12
-                                               | SecurityProtocolType.Tls13;
 
         return Task.FromResult<ActionResult>(new ChallengeResult(auth, properties));
     }

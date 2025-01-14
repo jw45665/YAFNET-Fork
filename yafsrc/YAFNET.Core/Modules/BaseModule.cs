@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -57,7 +57,7 @@ public abstract class BaseModule : Autofac.Module, IHaveSortOrder
                             AppDomain.CurrentDomain.GetAssemblies().Where(
                                 a => a.FullName.StartsWith("Autofac") && a.FullName.StartsWith("FarsiLibrary")
                                                                       && a.FullName.StartsWith("ServiceStack.")))
-                        .Except(new[] { Assembly.GetExecutingAssembly() }).Where(a => !a.IsDynamic).Distinct()
+                        .Except([Assembly.GetExecutingAssembly()]).Where(a => !a.IsDynamic).Distinct()
                         .OrderByDescending(x => x.GetAssemblySortOrder())
         ];
 #if DEBUG

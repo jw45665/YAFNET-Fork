@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -114,7 +114,7 @@ public static class JavaScriptBlocks
                           shouldSort: false,
                           removeItemButton: true,
                           placeholder: false,
-                          classNames: { containerOuter: "choices w-100" },
+                          classNames: { containerOuter: ['choices', 'w-100'] },
                           resetScrollPosition: false,
                           callbackOnCreateTemplates: createTagsSelectTemplates
                         });
@@ -162,14 +162,14 @@ public static class JavaScriptBlocks
                   
                           if (listBox.scrollTop >= scrollableHeight) {
                               const resultsPerPage = 15 * 2,
-                                  choices = tagsSelect._currentState.choices,
+                                  choices = tagsSelect._store.choices,
                   
                                   lastItem = choices[choices.length - 1],
                   
                                   currentPage = lastItem.customProperties.page,
                   
                                   total = lastItem.customProperties.page == 0
-                                      ? tagsSelect._currentState.choices.length
+                                      ? tagsSelect._store.choices.length
                                       : resultsPerPage;
                   
                   
@@ -626,7 +626,7 @@ public static class JavaScriptBlocks
                          locale: '{{{locale}}}',
                          toolbar: '{{{toolbar}}}',
                          root: '',
-                         plugins: 'plaintext',
+                         plugins: 'plaintext,dragdrop',
                          styles: [{{{styles}}}],
                          extensionsUrl: '{{{extensionsUrl}}}',
                          albumsPreviewUrl: '/api/Albums/GetImagePreview?imageId=',
@@ -664,7 +664,7 @@ public static class JavaScriptBlocks
     {
         return $$"""
                          	 ,dragdrop: {
-                         	 handlePaste: false,
+                         	 handlePaste: true,
                          	 handleFile: function (file, createPlaceholder) {
                  var placeholder = createPlaceholder();
 
@@ -888,7 +888,7 @@ public static class JavaScriptBlocks
                  var topicsSelect = new Choices("#{{topicDropDownId}}", {
                      allowHTML: false,
                      shouldSort: false,
-                     classNames: { containerOuter: "choices w-100" },
+                     classNames: { containerOuter: ['choices', 'w-100'] },
                      placeholderValue: "{{placeHolder}}",
                      resetScrollPosition: false
                  });
@@ -905,7 +905,7 @@ public static class JavaScriptBlocks
                  topicsSelect.setChoices(function () { return loadChoiceOptions(query, "/api/Topic/GetTopics") });
 
                  topicsSelect.passedElement.element.addEventListener("choice", function (event) {
-                     document.getElementById("{{topicHiddenId}}").value = event.detail.choice.value;
+                     document.getElementById("{{topicHiddenId}}").value = event.detail.value;
                  });
 
                  topicsSelect.passedElement.element.addEventListener("search", function (event) {
@@ -930,14 +930,14 @@ public static class JavaScriptBlocks
                  
                          if (listBox.scrollTop >= scrollableHeight) {
                              const resultsPerPage = 15 * 2,
-                                 choices = topicsSelect._currentState.choices,
+                                 choices = topicsSelect._store.choices,
                  
                                  lastItem = choices[choices.length - 1],
                  
                                  currentPage = lastItem.customProperties.page,
                  
                                  total = lastItem.customProperties.page == 0
-                                     ? topicsSelect._currentState.choices.length
+                                     ? topicsSelect._store.choices.length
                                      : resultsPerPage;
                  
                  
@@ -969,7 +969,7 @@ public static class JavaScriptBlocks
              topicsSelect.clearChoices();
              
              var query = {
-                 ForumId: event.detail.choice.value,
+                 ForumId: event.detail.value,
                  TopicId: {{BoardContext.Current.PageTopicID}},
                  PageSize: 0,
                  Page: 0,
@@ -1017,12 +1017,12 @@ public static class JavaScriptBlocks
                               ? """
                                 forumsSelect.passedElement.element.addEventListener("choice", function (event) {
                                     var json;
-                                
-                                    if (event.detail.choice.customProperties) {
+                                    
+                                    if (event.detail.customProperties) {
                                         try {
-                                            json = JSON.parse(event.detail.choice.customProperties);
+                                            json = JSON.parse(event.detail.customProperties);
                                         } catch (e) {
-                                            json = event.detail.choice.customProperties;
+                                            json = event.detail.customProperties;
                                         }
                                 
                                         if (json.url !== undefined) {
@@ -1039,7 +1039,7 @@ public static class JavaScriptBlocks
         var selectHiddenJs = selectedHiddenId.IsSet()
                                  ? $$"""
                                      forumsSelect.passedElement.element.addEventListener("choice", function (event) {
-                                         document.getElementById("{{selectedHiddenId}}").value = event.detail.choice.value;
+                                         document.getElementById("{{selectedHiddenId}}").value = event.detail.value;
                                          
                                          {{topicsSelectJs}}
                                      });
@@ -1056,7 +1056,7 @@ public static class JavaScriptBlocks
                  var forumsSelect = new Choices("#{{forumDropDownId}}", {
                      allowHTML: true,
                      shouldSort: false,
-                     classNames: { containerOuter: "choices w-100 choices-forum" },
+                     classNames: { containerOuter: ['choices', 'w-100', 'choices-forum'] },
                      {{placeholderValue}}
                      resetScrollPosition: false,
                      callbackOnCreateTemplates: createForumSelectTemplates
@@ -1099,14 +1099,14 @@ public static class JavaScriptBlocks
                  
                          if (listBox.scrollTop >= scrollableHeight) {
                              const resultsPerPage = 15 * 2,
-                                 choices = forumsSelect._currentState.choices,
+                                 choices = forumsSelect._store.choices,
                  
                                  lastItem = choices[choices.length - 1],
                  
                                  currentPage = lastItem.customProperties.page,
                  
                                  total = lastItem.customProperties.page == 0
-                                     ? forumsSelect._currentState.choices.length
+                                     ? forumsSelect._store.choices.length
                                      : resultsPerPage;
                  
                              if (total < lastItem.customProperties.total) {
@@ -1589,7 +1589,7 @@ public static class JavaScriptBlocks
                  var userSelect = new Choices("#{{selectClientId}}", {
                      allowHTML: false,
                      shouldSort: false,
-                     classNames: { containerOuter: "choices w-100" },
+                     classNames: { containerOuter: ['choices', 'w-100'] },
                      placeholderValue: "{{placeHolder}}",
                      resetScrollPosition: false
                  });
@@ -1604,7 +1604,7 @@ public static class JavaScriptBlocks
                  userSelect.setChoices(function () { return loadChoiceOptions(query, "/api/User/GetUsers") });
 
                  userSelect.passedElement.element.addEventListener("choice", function (event) {
-                     document.getElementById("{{hiddenUserId}}").value = event.detail.choice.value;
+                     document.getElementById("{{hiddenUserId}}").value = event.detail.value;
                  });
 
                  userSelect.passedElement.element.addEventListener("search", function (event) {
@@ -1628,14 +1628,14 @@ public static class JavaScriptBlocks
                  
                          if (listBox.scrollTop >= scrollableHeight) {
                              const resultsPerPage = 15 * 2,
-                                 choices = userSelect._currentState.choices,
+                                 choices = userSelect._store.choices,
                  
                                  lastItem = choices[choices.length - 1],
                  
                                  currentPage = lastItem.customProperties.page,
                  
                                  total = lastItem.customProperties.page == 0
-                                     ? userSelect._currentState.choices.length
+                                     ? userSelect._store.choices.length
                                      : resultsPerPage;
                  
                  
@@ -1901,7 +1901,7 @@ public static class JavaScriptBlocks
                                             shouldSort: false,
                                             placeholderValue: document.querySelector(".select2-select").getAttribute("placeholder"),
                                             classNames: {
-                                                containerOuter: "choices w-100"
+                                                containerOuter: ['choices', 'w-100']
                                             }
                                         });
                                         }

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -39,7 +39,6 @@ using YAF.Types.Extensions;
 using YAF.Types.Objects;
 using YAF.Types.Models;
 
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 /// <summary>
@@ -115,11 +114,11 @@ public class SettingsModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public async Task OnGetAsync()
+    public Task OnGetAsync()
     {
         this.Input = new SettingsInputModel();
 
-        await this.BindDataAsync();
+        return this.BindDataAsync();
     }
 
     /// <summary>
@@ -162,6 +161,7 @@ public class SettingsModel : AdminPage
         boardSettings.BaseUrlMask = this.Input.ForumBaseUrlMask;
         boardSettings.ForumEmail = this.Input.ForumEmail;
         boardSettings.DigestSendEveryXHours = this.Input.DigestSendEveryXHours;
+        boardSettings.PageSizeDefault = this.Input.DefaultPageSize;
 
         if (this.Input.BoardLogo.IsSet())
         {
@@ -180,12 +180,12 @@ public class SettingsModel : AdminPage
     /// <summary>
     /// Increases the CDV version on click.
     /// </summary>
-    public async Task OnPostIncreaseVersionAsync()
+    public Task OnPostIncreaseVersionAsync()
     {
         this.PageBoardContext.BoardSettings.CdvVersion++;
         this.Get<BoardSettingsService>().SaveRegistry(this.PageBoardContext.BoardSettings);
 
-        await this.BindDataAsync();
+        return this.BindDataAsync();
     }
 
     /// <summary>
@@ -262,6 +262,7 @@ public class SettingsModel : AdminPage
 
         this.Input.DefaultNotificationSetting = boardSettings.DefaultNotificationSetting.ToInt();
         this.Input.DefaultCollapsiblePanelState = boardSettings.DefaultCollapsiblePanelState.ToInt();
+        this.Input.DefaultPageSize = boardSettings.PageSizeDefault;
 
         this.Input.NotificationOnUserRegisterEmailList = boardSettings.NotificationOnUserRegisterEmailList;
         this.Input.EmailModeratorsOnModeratedPost = boardSettings.EmailModeratorsOnModeratedPost;

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -44,16 +44,6 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// The context lifetime container.
     /// </summary>
     private readonly ILifetimeScope contextLifetimeContainer;
-
-    /// <summary>
-    /// The load message.
-    /// </summary>
-    private SessionMessageService loadMessage;
-
-    /// <summary>
-    /// The inline elements
-    /// </summary>
-    private InlineElements inlineElements;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BoardContext"/> class. BoardContext Constructor
@@ -118,13 +108,13 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// <summary>
     /// Gets the current Page Load Message
     /// </summary>
-    public SessionMessageService SessionMessageService => this.loadMessage ??= new SessionMessageService();
+    public SessionMessageService SessionMessageService => field ??= new SessionMessageService();
 
     /// <summary>
     /// Gets the inline elements.
     /// </summary>
     /// <value>The inline elements.</value>
-    public InlineElements InlineElements => this.inlineElements ??= new InlineElements();
+    public InlineElements InlineElements => field ??= new InlineElements();
 
     /// <summary>
     /// Gets the Provides access to the Service Locator
@@ -201,6 +191,19 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     public void SessionNotify(string message, MessageTypes messageType)
     {
         this.SessionMessageService.AddSession(message, messageType);
+    }
+
+    /// <summary>
+    /// Add Notify message to session
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <param name="messageType">Type of the message.</param>
+    /// <param name="redirectPage">the Page to redirect to.</param>
+    public IActionResult SessionNotify(string message, MessageTypes messageType, ForumPages redirectPage)
+    {
+        this.SessionMessageService.AddSession(message, messageType);
+
+        return this.CurrentForumPage.Get<LinkBuilder>().Redirect(redirectPage);
     }
 
     /// <summary>

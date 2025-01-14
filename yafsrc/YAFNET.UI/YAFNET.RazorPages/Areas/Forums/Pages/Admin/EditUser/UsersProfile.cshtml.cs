@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -268,10 +268,10 @@ public class UsersProfileModel : AdminPage
             }
         }
 
-        if (this.Input.Interests.IsSet() && this.Input.Interests.Trim().Length > 400)
+        if (this.Input.Interests.IsSet() && this.Input.Interests.Trim().Length > 4000)
         {
             this.PageBoardContext.SessionNotify(
-                this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "INTERESTS"), 400),
+                this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "INTERESTS"), 4000),
                 MessageTypes.warning);
             return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
         }

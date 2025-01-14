@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -122,7 +122,7 @@ public class GeneralModule : BaseModule
     /// </param>
     private static void RegisterModules(ContainerBuilder builder)
     {
-        var assemblies = ExtensionAssemblies.Concat(new[] { Assembly.GetExecutingAssembly() }).ToArray();
+        var assemblies = ExtensionAssemblies.Concat([Assembly.GetExecutingAssembly()]).ToArray();
 
         // forum modules...
         builder.RegisterAssemblyTypes(assemblies).AssignableTo<IBaseForumModule>().As<IBaseForumModule>()
@@ -137,7 +137,7 @@ public class GeneralModule : BaseModule
     /// </param>
     private static void RegisterPages(ContainerBuilder builder)
     {
-        var assemblies = ExtensionAssemblies.Concat(new[] { Assembly.GetExecutingAssembly() }).ToArray();
+        var assemblies = ExtensionAssemblies.Concat([Assembly.GetExecutingAssembly()]).ToArray();
 
         builder.RegisterAssemblyTypes(assemblies).AssignableTo<ILocatablePage>().AsImplementedInterfaces()
             .SingleInstance();

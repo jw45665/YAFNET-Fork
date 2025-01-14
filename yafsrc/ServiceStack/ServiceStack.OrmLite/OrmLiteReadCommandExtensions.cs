@@ -1696,7 +1696,7 @@ public static class OrmLiteReadCommandExtensions
     static internal long ToLong(object result)
     {
         return result switch {
-            DBNull => default,
+            DBNull => 0,
             int i => i,
             decimal result1 => Convert.ToInt64(result1),
             ulong => (long)Convert.ToUInt64(result),
@@ -1857,15 +1857,20 @@ public static class OrmLiteReadCommandExtensions
         ModelDefinition refModelDef,
         FieldDefinition fieldDef)
     {
-        var refField =
-            (fieldDef == null
-                 ? null
-                 : modelDef.FieldDefinitions.FirstOrDefault(
-                     x => x.ForeignKey != null && x.ForeignKey.ReferenceType == refModelDef.ModelType &&
-                          fieldDef.IsSelfRefField(x))) ??
-            modelDef.FieldDefinitions.FirstOrDefault(
-                x => x.ForeignKey != null && x.ForeignKey.ReferenceType == refModelDef.ModelType) ??
-            modelDef.FieldDefinitions.FirstOrDefault(refModelDef.IsRefField);
+        if (fieldDef == null)
+        {
+            return null;
+        }
+
+        if (fieldDef.ReferenceSelfId != null)
+        {
+            return modelDef.FieldDefinitions.FirstOrDefault(x => x.Name == fieldDef.ReferenceSelfId);
+        }
+
+        var refField = modelDef.FieldDefinitions.FirstOrDefault(x => x.ForeignKey != null && x.ForeignKey.ReferenceType == refModelDef.ModelType && fieldDef.IsSelfRefField(x)) ??
+                       modelDef.FieldDefinitions.FirstOrDefault(
+                           x => x.ForeignKey != null && x.ForeignKey.ReferenceType == refModelDef.ModelType) ??
+                       modelDef.FieldDefinitions.FirstOrDefault(refModelDef.IsRefField);
 
         return refField;
     }

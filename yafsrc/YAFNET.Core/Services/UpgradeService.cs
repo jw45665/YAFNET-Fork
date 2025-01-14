@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -266,6 +266,13 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
         if (prevVersion < 93)
         {
             var migrator = new Migrator(this.DbAccess.ResolveDbFactory(), typeof(Migration93));
+
+            migrator.Run();
+        }
+
+        if (prevVersion < 94)
+        {
+            var migrator = new Migrator(this.DbAccess.ResolveDbFactory(), typeof(Migration94));
 
             migrator.Run();
         }

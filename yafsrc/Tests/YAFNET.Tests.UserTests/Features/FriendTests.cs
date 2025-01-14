@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -124,7 +124,7 @@ public class FriendTests : TestBase
                         "My Friends function is not available for that User, or is disabled for that Forum");
 
                     await page.GetByRole(AriaRole.Combobox, new PageGetByRoleOptions { Name = "friend mode" })
-                        .SelectOptionAsync(new[] { "3" });
+                        .SelectOptionAsync(["3"]);
 
                     // Select the First Request
                     await page.Locator("//button[contains(@formaction,'Approve')]").First.ClickAsync();
@@ -173,7 +173,7 @@ public class FriendTests : TestBase
                         "My Friends function is not available for that User, or is disabled for that Forum");
 
                     await page.GetByRole(AriaRole.Combobox, new PageGetByRoleOptions { Name = "friend mode" })
-                        .SelectOptionAsync(new[] { "3" });
+                        .SelectOptionAsync(["3"]);
 
                     // Select the First Request
                     await page.Locator("//button[contains(@formaction,'Deny')]").First.ClickAsync();
@@ -224,7 +224,7 @@ public class FriendTests : TestBase
                         "My Friends function is not available for that User, or is disabled for that Forum");
 
                     await page.GetByRole(AriaRole.Combobox, new PageGetByRoleOptions { Name = "friend mode" })
-                        .SelectOptionAsync(new[] { "3" });
+                        .SelectOptionAsync(["3"]);
 
                     // Select the First Request
                     await page.Locator("//button[contains(@formaction,'ApproveAdd')]").First.ClickAsync();

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -121,6 +121,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
                 displayName,
                 user.Email,
                 user.Id,
+                this.Get<BoardSettings>().PageSizeDefault,
                 user.IsApproved);
 
             var roles = await this.Get<IAspNetRolesHelper>().GetRolesForUserAsync(user);

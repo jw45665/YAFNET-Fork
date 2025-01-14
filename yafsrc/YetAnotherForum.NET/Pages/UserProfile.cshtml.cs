@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -183,9 +183,9 @@ public class UserProfileModel : ForumPage
     /// <value>The suspend units.</value>
     public List<SelectListItem> SuspendUnits =>
     [
-        new SelectListItem(this.GetText("PROFILE", "DAYS"), "1"),
-        new SelectListItem(this.GetText("PROFILE", "HOURS"), "2"),
-        new SelectListItem(this.GetText("PROFILE", "MINUTES"), "3")
+        new(this.GetText("PROFILE", "DAYS"), "1"),
+        new(this.GetText("PROFILE", "HOURS"), "2"),
+        new(this.GetText("PROFILE", "MINUTES"), "3")
     ];
 
     /// <summary>

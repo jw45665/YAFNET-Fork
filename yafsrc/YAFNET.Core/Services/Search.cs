@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -970,7 +970,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
         var booleanFilter = new BooleanFilter
                                 {
-                                    new(new TermsFilter(new Term("TopicId", filter)), Occur.MUST_NOT)
+                                    new FilterClause(new TermsFilter(new Term("TopicId", filter)), Occur.MUST_NOT)
                                 };
 
         var hitsLimit = this.Get<BoardSettings>().ReturnSearchMax;

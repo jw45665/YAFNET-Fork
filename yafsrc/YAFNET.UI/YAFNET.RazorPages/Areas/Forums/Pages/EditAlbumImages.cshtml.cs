@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -22,6 +22,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+using YAF.Core.Helpers;
 
 namespace YAF.Pages;
 
@@ -158,7 +160,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
     /// </summary>
     /// <param name="albumId">The album identifier.</param>
     /// <param name="imageId">The image identifier.</param>
-    public void OnPostDeleteImage(int? albumId, int imageId)
+    public IActionResult OnPostDeleteImage(int? albumId, int imageId)
     {
         var path = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Uploads);
 
@@ -167,7 +169,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
             imageId,
             this.PageBoardContext.PageUserID);
 
-        this.BindData(albumId);
+        return this.BindData(albumId);
     }
 
     /// <summary>
@@ -175,7 +177,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
     /// </summary>
     /// <param name="albumId">The album identifier.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    public async Task OnPostUploadAsync(int? albumId)
+    public async Task<IActionResult> OnPostUploadAsync(int? albumId)
     {
         try
         {
@@ -184,15 +186,20 @@ public class EditAlbumImagesModel : ForumPageRegistered
                 albumId = await this.SaveAttachmentsAsync(this.ImageFiles, albumId);
             }
 
-            this.BindData(albumId);
+            return this.BindData(albumId);
         }
         catch (Exception x)
         {
-            if (x.GetType() != typeof(ThreadAbortException))
+            if (x.GetType() == typeof(ThreadAbortException))
             {
-                this.Get<ILogger<EditAlbumImagesModel>>().Log(this.PageBoardContext.PageUserID, this, x);
-                this.PageBoardContext.Notify(x.Message, MessageTypes.danger);
+                return this.BindData(null);
             }
+
+            this.Get<ILogger<EditAlbumImagesModel>>().Log(this.PageBoardContext.PageUserID, this, x);
+
+            this.PageBoardContext.Notify(x.Message, MessageTypes.danger);
+
+            return this.BindData(null);
         }
     }
 
@@ -295,7 +302,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
         // clear the cache for this user to update albums|images stats...
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Albums, new { u = this.PageBoardContext.PageUserID });
+        return this.Get<LinkBuilder>().Redirect(ForumPages.EditAlbumImages);
     }
 
     /// <summary>
@@ -332,7 +339,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
 
             // remove the "period"
             extension = extension.Replace(".", string.Empty);
-            string[] imageExtensions = ["jpg", "gif", "png", "bmp"];
+            var imageExtensions = StaticDataHelper.ImageFormats();
 
             // If we don't get a match from the db, then the extension is not allowed
             // also, check to see an image is being uploaded.

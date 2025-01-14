@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -82,7 +82,7 @@ public class VersionModel : AdminPage
         {
             var version = this.Get<IDataCache>().GetOrSet(
                 "LatestVersion",
-                () => this.Get<ILatestInformationService>().GetLatestVersion().Result,
+                () => this.Get<ILatestInformationService>().GetLatestVersionAsync().Result,
                 TimeSpan.FromDays(1));
 
             string lastVersion = version.Version;

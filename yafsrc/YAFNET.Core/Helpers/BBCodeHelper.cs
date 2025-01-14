@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,7 +32,7 @@ using System.Web;
 /// <summary>
 /// The bb code helper.
 /// </summary>
-public static class BBCodeHelper
+public static partial class BBCodeHelper
 {
     /// <summary>
     /// The find user quoting.
@@ -90,10 +90,7 @@ public static class BBCodeHelper
     /// </returns>
     public static string EncodeCodeBlocks(string text)
     {
-        var regex = new Regex(
-            @"\](?<inner>(.*?))\[/code\]",
-            RegexOptions.IgnoreCase | RegexOptions.Singleline,
-            TimeSpan.FromMilliseconds(100));
+        var regex = CodeBlockRegex();
 
         return regex.Replace(
             text,
@@ -120,4 +117,11 @@ public static class BBCodeHelper
             text,
             match => $"]{HttpUtility.HtmlDecode(match.Groups["inner"].Value)}[/code]");
     }
+
+    /// <summary>
+    /// Regex for the code block
+    /// </summary>
+    /// <returns>Regex.</returns>
+    [GeneratedRegex(@"\](?<inner>(.*?))\[/code\]", RegexOptions.IgnoreCase | RegexOptions.Singleline, "de-DE")]
+    private static partial Regex CodeBlockRegex();
 }

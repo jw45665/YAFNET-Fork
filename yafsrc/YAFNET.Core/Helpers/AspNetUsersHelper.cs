@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -302,7 +302,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         // Check if there are any avatar images in the uploads folder
         if (!this.Get<BoardSettings>().UseFileTable && this.Get<BoardSettings>().AvatarUpload)
         {
-            string[] imageExtensions = ["jpg", "jpeg", "gif", "png", "bmp"];
+            var imageExtensions = StaticDataHelper.ImageFormats();
 
             imageExtensions.ForEach(
                 extension =>
@@ -595,6 +595,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
             null,
             newEmail,
             user.Id,
+            this.Get<BoardSettings>().PageSizeDefault,
             user.IsApproved);
 
         return true;

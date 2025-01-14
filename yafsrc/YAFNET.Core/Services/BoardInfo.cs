@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -58,7 +58,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     /// <summary>
     /// Gets the Current YAF Build Date
     /// </summary>
-    public DateTime AppVersionDate { get; set; } = new (2024, 09, 22, 09, 27, 00, DateTimeKind.Utc);
+    public DateTime AppVersionDate { get; set; } = new (2025, 01, 02, 07, 52, 00, DateTimeKind.Utc);
 
     /// <summary>
     /// Creates a string that is the YAF Application Version from a long value
@@ -74,7 +74,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
             Minor = 0,
             Build = 0,
             ReleaseType = ReleaseType.RC,
-            ReleaseNumber = 3
+            ReleaseNumber = 4
         };
 
         var versionString = new StringBuilder();

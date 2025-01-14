@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -36,11 +36,6 @@ using YAF.Core.Context;
 public class BBCodeControl : IHaveServiceLocator, IHaveLocalization
 {
     /// <summary>
-    ///   The _localization.
-    /// </summary>
-    private ILocalization localization;
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="BBCodeControl"/> class.
     /// </summary>
     public BBCodeControl()
@@ -71,7 +66,7 @@ public class BBCodeControl : IHaveServiceLocator, IHaveLocalization
     /// <summary>
     ///   Gets Localization.
     /// </summary>
-    public ILocalization Localization => this.localization ??= this.Get<ILocalization>();
+    public ILocalization Localization => field ??= this.Get<ILocalization>();
 
     /// <summary>
     ///   Gets PageContext.

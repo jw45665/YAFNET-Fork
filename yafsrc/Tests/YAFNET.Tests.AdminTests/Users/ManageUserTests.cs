@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -55,7 +55,7 @@ public class ManageUserTests : TestBase
 
                 await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Admin/Users");
 
-                await page.GetByRole(AriaRole.Button, new() { Name = " Filter" }).ClickAsync();
+                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Filter" }).ClickAsync();
 
                 // Search for TestUser
                 var searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
@@ -121,7 +121,7 @@ public class ManageUserTests : TestBase
 
                 await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Admin/Users");
 
-                await page.GetByRole(AriaRole.Button, new() { Name = " Filter" }).ClickAsync();
+                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Filter" }).ClickAsync();
 
                 // Search for TestUser
                 var searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
@@ -145,7 +145,7 @@ public class ManageUserTests : TestBase
 
                 await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Admin/Users");
 
-                await page.GetByRole(AriaRole.Button, new() { Name = " Filter" }).ClickAsync();
+                await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Filter" }).ClickAsync();
 
                 // Search for TestUser
                 searchNameInput = page.Locator("//input[contains(@id,'_Name')]");

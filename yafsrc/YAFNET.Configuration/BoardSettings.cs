@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -290,6 +290,15 @@ public class BoardSettings
         get => this.RegistryBoard.GetValue("ShowTopicsDefault", 0);
 
         set => this.RegistryBoard.SetValue("ShowTopicsDefault", value);
+    }
+
+    /// <summary>
+    /// Gets or sets default page size for new users
+    /// </summary>
+    public int PageSizeDefault {
+        get => this.RegistryBoard.GetValue("PageSizeDefault", 5);
+
+        set => this.RegistryBoard.SetValue("PageSizeDefault", value);
     }
 
     /// <summary>

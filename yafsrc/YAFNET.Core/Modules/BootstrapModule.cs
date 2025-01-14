@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -50,7 +50,7 @@ public class BootstrapModule : BaseModule
         this.RegisterBaseModules<IModule>(
             builder,
             [Assembly.GetExecutingAssembly()],
-            new[] { typeof(BootstrapModule) });
+            [typeof(BootstrapModule)]);
 
         // register all the modules in scanned assemblies
         this.RegisterBaseModules<IModule>(builder, ExtensionAssemblies);

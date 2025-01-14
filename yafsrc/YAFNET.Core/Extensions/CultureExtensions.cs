@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,24 +34,14 @@ using FarsiLibrary.Utils;
 public static class CultureExtensions
 {
     /// <summary>
-    /// The Farsi culture
-    /// </summary>
-    private static CultureInfo faCulture;
-
-    /// <summary>
-    /// The internal Farsi culture
-    /// </summary>
-    private static CultureInfo internalFaCulture;
-
-    /// <summary>
     /// Instance of Farsi culture
     /// </summary>
-    public static CultureInfo FarsiCulture => faCulture ??= new CultureInfo("fa-IR");
+    public static CultureInfo FarsiCulture => field ??= new CultureInfo("fa-IR");
 
     /// <summary>
     /// Instance of Persian Culture with correct date formatting.
     /// </summary>
-    public static CultureInfo PersianCulture => internalFaCulture ??= new PersianCultureInfo();
+    public static CultureInfo PersianCulture => field ??= new PersianCultureInfo();
 
     /// <summary>
     /// The is farsi culture.

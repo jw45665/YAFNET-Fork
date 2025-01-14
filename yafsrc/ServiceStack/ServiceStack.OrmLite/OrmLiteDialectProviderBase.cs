@@ -396,10 +396,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <exception cref="System.ArgumentNullException">converter</exception>
     public void RegisterConverter<T>(IOrmLiteConverter converter)
     {
-        if (converter == null)
-        {
-            throw new ArgumentNullException(nameof(converter));
-        }
+        ArgumentNullException.ThrowIfNull(converter);
 
         converter.DialectProvider = this;
         this.Converters[typeof(T)] = converter;
@@ -1680,7 +1677,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="refSelf">The reference self.</param>
     /// <param name="refModelDef">The reference model definition.</param>
     /// <returns>System.String.</returns>
-    public virtual string GetRefSelfSql<From>(SqlExpression<From> refQ, ModelDefinition modelDef, FieldDefinition refSelf, ModelDefinition refModelDef)
+    public virtual string GetRefSelfSql<From>(SqlExpression<From> refQ, ModelDefinition modelDef, FieldDefinition refSelf, ModelDefinition refModelDef, FieldDefinition refId)
     {
         refQ.Select(this.GetQuotedColumnName(modelDef, refSelf));
         refQ.OrderBy().ClearLimits(); // clear any ORDER BY or LIMIT's in Sub Select's
@@ -1689,7 +1686,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
 
         var sqlRef = $"SELECT {this.GetColumnNames(refModelDef)} " +
                      $"FROM {this.GetQuotedTableName(refModelDef)} " +
-                     $"WHERE {this.GetQuotedColumnName(refModelDef.PrimaryKey)} " +
+                     $"WHERE {this.GetQuotedColumnName(refId)} " +
                      $"IN ({subSqlRef})";
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)
@@ -2088,7 +2085,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             if (fieldDef.AutoId && p.Value != null)
             {
                 var existingId = fieldDef.GetValue(obj);
-                if (existingId is Guid existingGuid && existingGuid != default)
+                if (existingId is Guid existingGuid && existingGuid != Guid.Empty)
                 {
                     p.Value = existingGuid; // Use existing value if not default
                 }

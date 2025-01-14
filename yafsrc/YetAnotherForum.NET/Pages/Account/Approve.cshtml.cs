@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -85,7 +85,7 @@ public class ApproveModel : AccountPage
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<IActionResult> OnGetAsync(string code)
+    public Task<IActionResult> OnGetAsync(string code)
     {
         this.Input = new ApproveInputModel();
 
@@ -93,7 +93,7 @@ public class ApproveModel : AccountPage
 
         this.Input.Key = code;
 
-        return await this.ValidateKeyAsync();
+        return this.ValidateKeyAsync();
     }
 
     /// <summary>

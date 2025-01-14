@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -82,6 +82,12 @@ public class SettingsInputModel
     /// </summary>
     /// <value>The default state of the collapsible panel.</value>
     public int DefaultCollapsiblePanelState { get; set; }
+
+    /// <summary>
+    /// Gets or sets the default size of the page.
+    /// </summary>
+    /// <value>The default size of the page.</value>
+    public int DefaultPageSize { get; set; }
 
     /// <summary>
     /// Gets or sets the notification on user register email list.

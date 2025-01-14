@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -161,7 +161,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
 
         // get the rules engine from the creator...
         var ruleEngine = this.ProcessReplaceRuleFactory(
-            new[] { true /*messageFlags.IsBBCode*/, targetBlankOverride, useNoFollow });
+            [true /*messageFlags.IsBBCode*/, targetBlankOverride, useNoFollow]);
 
         // see if the rules are already populated...
         if (!ruleEngine.HasRules)

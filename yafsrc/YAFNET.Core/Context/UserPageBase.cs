@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -37,11 +37,6 @@ using YAF.Types.Objects.Model;
 /// </summary>
 public abstract class UserPageBase
 {
-    /// <summary>
-    /// The page
-    /// </summary>
-    private Tuple<UserRequestData, Tuple<PageLoad, User, Category, Forum, Topic, Message>, UserLazyData, PageQueryData> page;
-
     /// <summary>
     /// Gets or sets a value indicating whether the page data is loaded.
     /// </summary>
@@ -154,12 +149,12 @@ public abstract class UserPageBase
         {
             if (this.UserPageDataLoaded)
             {
-                return this.page;
+                return field;
             }
 
             if (!Monitor.TryEnter(this))
             {
-                return this.page;
+                return field;
             }
 
             try
@@ -174,12 +169,12 @@ public abstract class UserPageBase
                 Monitor.Exit(this);
             }
 
-            return this.page;
+            return field;
         }
 
         set
         {
-            this.page = value;
+            field = value;
             this.UserPageDataLoaded = value != null;
         }
     }

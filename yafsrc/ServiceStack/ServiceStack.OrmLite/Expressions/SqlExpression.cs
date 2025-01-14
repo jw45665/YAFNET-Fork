@@ -162,23 +162,23 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <summary>
     /// The use field name
     /// </summary>
-    protected bool useFieldName = false;
+    protected bool useFieldName;
     /// <summary>
     /// The select distinct
     /// </summary>
-    protected bool selectDistinct = false;
+    protected bool selectDistinct;
     /// <summary>
     /// The skip parameterization for this expression
     /// </summary>
-    protected bool skipParameterizationForThisExpression = false;
+    protected bool skipParameterizationForThisExpression;
     /// <summary>
     /// The has ensure conditions
     /// </summary>
-    private bool hasEnsureConditions = false;
+    private bool hasEnsureConditions;
     /// <summary>
     /// The in SQL method call
     /// </summary>
-    private bool inSqlMethodCall = false;
+    private bool inSqlMethodCall;
 
     /// <summary>
     /// Gets the sep.
@@ -517,7 +517,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
             if (field.EndsWith(".*"))
             {
-                var tableName = field.Substring(0, field.Length - 2);
+                var tableName = field[..^2];
                 var tableDef = allTableDefs.FirstOrDefault(x => string.Equals(x.Name, tableName, StringComparison.OrdinalIgnoreCase));
                 if (tableDef != null)
                 {
@@ -3387,14 +3387,23 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
         this.VisitFilter(operand, originalLeft, originalRight, ref left, ref right);
 
-        switch (operand)
+        return operand switch
         {
-            case "MOD":
-            case "COALESCE":
-                return new PartialSqlString($"{operand}({left},{right})");
-            default:
-                return new PartialSqlString("(" + left + separator + operand + separator + right + ")");
-        }
+            "MOD" or "COALESCE" => new PartialSqlString(GetCoalesceExpression(b, left.ToString(), right.ToString())),
+            _ => new PartialSqlString("(" + left + separator + operand + separator + right + ")"),
+        };
+    }
+
+    /// <summary>
+    /// Gets the coalesce expression.
+    /// </summary>
+    /// <param name="b">The b.</param>
+    /// <param name="left">The left.</param>
+    /// <param name="right">The right.</param>
+    /// <returns>System.String.</returns>
+    protected virtual string GetCoalesceExpression(BinaryExpression b, object left, object right)
+    {
+        return $"COALESCE({left},{right})";
     }
 
     /// <summary>

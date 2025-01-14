@@ -2,7 +2,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2024 Ingo Herbote
+ * Copyright (C) 2014-2025 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -177,7 +177,7 @@ public class PageAccessEditModel : AdminPage
         var dt = this.GetRepository<AdminPageUserAccess>().List(userId);
 
         // Get admin pages by page prefixes.
-        var listPages = Enum.GetNames(typeof(ForumPages)).Where(e => e.StartsWith("Admin_"));
+        var listPages = Enum.GetNames<ForumPages>().Where(e => e.StartsWith("Admin_"));
 
         // Initialize list with a helper class.
         var pagesAll = new List<AdminPageUserAccess>();
