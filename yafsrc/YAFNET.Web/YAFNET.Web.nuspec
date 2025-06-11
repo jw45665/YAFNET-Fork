@@ -4,7 +4,7 @@
     <id>YAFNET.Web</id>
 	<title>YAFNET.Web</title>
 	<copyright>Copyright © YetAnotherForum.NET and Ingo Herbote. All rights reserved</copyright>
-    <version>4.0.0-rc04</version>
+    <version>4.0.0</version>
     <authors>Ingo Herbote</authors>
     <owners>Ingo Herbote, YAFNET</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
@@ -21,8 +21,8 @@
 			<dependency id="HtmlProperties" version="1.0.0" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.CSharp" version="4.7.0" exclude="Build,Analyzers" />
 			<dependency id="Newtonsoft.Json" version="13.0.3" exclude="Build,Analyzers" />
-			<dependency id="OEmbed.Core" version="2.0.3" exclude="Build,Analyzers" />
-			<dependency id="System.Runtime.Caching" version="9.0.0" exclude="Build,Analyzers" />
+			<dependency id="OEmbed.Core" version="2.0.5" exclude="Build,Analyzers" />
+			<dependency id="System.Runtime.Caching" version="9.0.5" exclude="Build,Analyzers" />
 		</group>
     </dependencies>
     <frameworkReferences>

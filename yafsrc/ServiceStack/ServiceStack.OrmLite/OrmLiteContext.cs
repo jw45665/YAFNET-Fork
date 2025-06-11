@@ -9,7 +9,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
-#if !NET7_0_OR_GREATER
+#if !NET9_0_OR_GREATER
 using System.Runtime.Remoting.Messaging;
 #endif
 using System.Threading;
@@ -38,7 +38,7 @@ public class OrmLiteContext
     [ThreadStatic]
     public static IDictionary ContextItems;
 
-#if NET7_0_OR_GREATER
+#if NET9_0_OR_GREATER
     readonly AsyncLocal<IDictionary> localContextItems = new();
 #endif
 
@@ -63,7 +63,7 @@ public class OrmLiteContext
     /// <returns>IDictionary.</returns>
     private IDictionary GetItems()
     {
-#if NET7_0_OR_GREATER
+#if NET9_0_OR_GREATER
             return UseThreadStatic ? ContextItems : this.localContextItems.Value;
 
 #else
@@ -89,7 +89,7 @@ public class OrmLiteContext
     /// <returns>IDictionary.</returns>
     private IDictionary CreateItems(IDictionary items = null)
     {
-#if NET7_0_OR_GREATER
+#if NET9_0_OR_GREATER
         if (UseThreadStatic)
             {
                 ContextItems = items ??= new Dictionary<object, object>();
@@ -99,7 +99,7 @@ public class OrmLiteContext
                 this.localContextItems.Value = items ??= new ConcurrentDictionary<object, object>();
             }
 
-#else                
+#else
         try
         {
             if (UseThreadStatic)
@@ -131,9 +131,9 @@ public class OrmLiteContext
         }
         else
         {
-#if NET7_0_OR_GREATER
-            this.localContextItems.Value = new ConcurrentDictionary<object, object>();                
-#else                
+#if NET9_0_OR_GREATER
+            this.localContextItems.Value = new ConcurrentDictionary<object, object>();
+#else
             CallContext.FreeNamedDataSlot(_key);
 #endif
         }
@@ -213,7 +213,7 @@ public class OrmLiteContext
         set => SetItem("OrmLiteState", value);
     }
 
-    // Only used when using OrmLite API's against a native IDbConnection (i.e. not from DbFactory) 
+    // Only used when using OrmLite API's against a native IDbConnection (i.e. not from DbFactory)
     /// <summary>
     /// Gets or sets the ts transaction.
     /// </summary>

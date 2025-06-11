@@ -34,7 +34,6 @@ using Microsoft.AspNetCore.Identity;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models.Identity;
@@ -76,7 +75,7 @@ public class EditBoardModel : AdminPage
         this.PageBoardContext.PageLinks.AddAdminIndex();
         this.PageBoardContext.PageLinks.AddLink(
             this.GetText("ADMIN_BOARDS", "TITLE"),
-            this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditBoard));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_EditBoard));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_EDITBOARD", "TITLE"), string.Empty);
     }
 
@@ -191,7 +190,7 @@ public class EditBoardModel : AdminPage
 
             if (board is null)
             {
-                return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+                return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             }
 
             this.Input.Id = board.ID;
@@ -269,7 +268,7 @@ public class EditBoardModel : AdminPage
         // Done
         this.PageBoardContext.BoardSettings = null;
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Boards);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Boards);
     }
 
     /// <summary>

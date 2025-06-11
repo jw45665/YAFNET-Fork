@@ -1,7 +1,6 @@
 ﻿@using YAF.Core.Context
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
-@using YAF.Core.Services
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
@@ -39,7 +38,7 @@
                 lastPostedDateTime);
 
         // Topic Link
-        topicLink = Current.Get<LinkBuilder>().GetTopicLink(Model.LastTopicID, topicName);
+        topicLink = Current.Get<ILinkBuilder>().GetTopicLink(Model.LastTopicID, topicName);
 
         var styles = Current.BoardSettings.UseStyledTopicTitles
             ? Current.Get<IStyleTransform>().Decode(

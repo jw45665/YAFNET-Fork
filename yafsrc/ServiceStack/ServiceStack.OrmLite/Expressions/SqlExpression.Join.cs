@@ -661,12 +661,21 @@ public abstract partial class SqlExpression<T> : ISqlExpression
         var parentDef = sourceDef;
         var childDef = targetDef;
 
-        var refField = parentDef.GetRefFieldDefIfExists(childDef);
-        if (refField == null)
+        var refField = parentDef.GetExplicitRefFieldDefIfExists(childDef);
+        if (refField == null && childDef.GetExplicitRefFieldDefIfExists(parentDef) != null)
         {
             parentDef = targetDef;
             childDef = sourceDef;
-            refField = parentDef.GetRefFieldDefIfExists(childDef);
+            refField = parentDef.GetExplicitRefFieldDefIfExists(childDef);
+        }
+        else
+        {
+            refField = parentDef.GetRefFieldDefIfExists(childDef); if (refField == null)
+            {
+                parentDef = targetDef;
+                childDef = sourceDef;
+                refField = parentDef.GetRefFieldDefIfExists(childDef);
+            }
         }
 
         if (refField == null)
@@ -824,7 +833,7 @@ public abstract partial class SqlExpression<T> : ISqlExpression
             selectDef = typeof(TModel).GetModelDefinition();
             if (selectDef != this.modelDef && this.tableDefs.Contains(selectDef))
             {
-                orderedDefs = this.tableDefs.ToList(); // clone
+                orderedDefs = [.. this.tableDefs]; // clone
                 orderedDefs.Remove(selectDef);
                 orderedDefs.Insert(0, selectDef);
             }

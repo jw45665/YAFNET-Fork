@@ -3,7 +3,6 @@
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
 @using YAF.Core.Model
-@using YAF.Core.Services
 @using YAF.Core.Utilities
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Constants
@@ -35,7 +34,7 @@
                        class=" mb-3"
                        text-localized-page="BUTTON"
                        text-localized-tag="BUTTON_ADDALBUM"
-                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.EditAlbumImages, new {a = "new"}))"></a>
+                   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.EditAlbumImages, new {a = "new"}))"></a>
                 </p>
             }
         </div>
@@ -49,7 +48,7 @@
             {
                 <div class="col">
                     <div class="card mb-4 shadow-sm">
-                        <a href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Album, new { u = album.UserID, a = album.ID }))"
+                        <a href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Album, new { u = album.UserID, a = album.ID }))"
                            target="_parent" title="@Html.HtmlEncode(album.Title)" bs-toggle="tooltip">
                             <img title="@Html.HtmlEncode(album.Title)" alt="@Html.Raw(album.ID)" class="card-img-top"
                                  src='@Html.Raw(Model.Get<IUrlHelper>().Action("GetAlbumCover", "Albums" , new { albumId=album.ID, coverId=album.CoverImageID ?? 0 }))' />
@@ -69,6 +68,7 @@
                                     <p class="card-text mb-3">
                                         @Html.Icon("pen", "text-secondary")
                                         <a class="album-caption border-bottom border-danger border-3" data-type="text"
+                                           id="@Html.Raw(album.ID)"
                                            data-id="@Html.Raw(album.ID)"
                                            data-url="/api/Album/ChangeAlbumTitle"
                                            data-title="@Html.LocalizedText("ALBUM_CHANGE_TITLE")">@caption</a>
@@ -83,7 +83,7 @@
                                         <a role="button" button-style="OutlineSecondary"
                                            button-size="Small"
                                            text-localized-tag="VIEW"
-                                           href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Album, new {u = album.UserID, a = album.ID}))"></a>
+                                           href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Album, new {u = album.UserID, a = album.ID}))"></a>
 
                                         @if (Model.AlbumUser.ID == Model.PageBoardContext.PageUserID)
                                         {
@@ -92,7 +92,7 @@
                                                button-size="Small"
                                                text-localized-page="BUTTON"
                                                text-localized-tag="EDIT"
-                                               href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.EditAlbumImages, new {a = album.ID}))"></a>
+                                               href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.EditAlbumImages, new {a = album.ID}))"></a>
                                         }
                                     </div>
                                 </div>

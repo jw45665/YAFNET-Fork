@@ -111,6 +111,7 @@ public class IndexModel : ForumPage
 
         this.Get<ISessionService>().BoardForumsIndex = index;
 
+
         this.BindData(true);
 
         return this.Partial("_CategoryList", this.Categories);
@@ -208,7 +209,7 @@ public class IndexModel : ForumPage
         }
 
         // Filter Categories
-        this.Categories = this.Get<ISessionService>().Forums.DistinctBy(x => x.CategoryID).ToList();
+        this.Categories = [.. this.Get<ISessionService>().Forums.DistinctBy(x => x.CategoryID)];
 
         this.TimeNow = this.GetTextFormatted(
             "Current_Time",

@@ -460,9 +460,19 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     }
 
     /// <summary>
-    /// The dispose.
+    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
     /// </summary>
     public void Dispose()
+    {
+        this.Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
+    /// Releases unmanaged and - optionally - managed resources.
+    /// </summary>
+    /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+    protected virtual void Dispose(bool disposing)
     {
         this.DisposeWriter();
 
@@ -529,7 +539,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             .ToList();
 
         return results.Count != 0
-                   ? results.Where(item => item != null).GroupBy(x => x.Topic).Select(y => y.FirstOrDefault()).ToList()
+                   ? [.. results.Where(item => item != null).GroupBy(x => x.Topic).Select(y => y.FirstOrDefault())]
                    : [];
     }
 
@@ -554,13 +564,13 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
                    {
                        Topic = doc.Get("Topic"),
                        TopicId = doc.Get("TopicId").ToType<int>(),
-                       TopicUrl = this.Get<LinkBuilder>().GetTopicLink(doc.Get("TopicId").ToType<int>(), doc.Get("Topic")),
+                       TopicUrl = this.Get<ILinkBuilder>().GetTopicLink(doc.Get("TopicId").ToType<int>(), doc.Get("Topic")),
                        Posted = doc.Get("Posted"),
                        UserId = doc.Get("UserId").ToType<int>(),
                        UserName = HttpUtility.HtmlEncode(doc.Get("Author")),
                        UserDisplayName = HttpUtility.HtmlEncode(doc.Get("AuthorDisplay")),
                        ForumName = doc.Get("ForumName"),
-                       ForumUrl = this.Get<LinkBuilder>().GetForumLink(
+                       ForumUrl = this.Get<ILinkBuilder>().GetForumLink(
                            doc.Get("ForumId").ToType<int>(),
                            doc.Get("ForumName")),
                        UserStyle = doc.Get("AuthorStyle")
@@ -754,12 +764,12 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             TopicTags = doc.Get("TopicTags"),
             ForumId = doc.Get("ForumId").ToType<int>(),
             Description = doc.Get("Description"),
-            TopicUrl = this.Get<LinkBuilder>().GetTopicLink(
+            TopicUrl = this.Get<ILinkBuilder>().GetTopicLink(
                 doc.Get("TopicId").ToType<int>(),
                 doc.Get("Topic")),
-            MessageUrl = this.Get<LinkBuilder>().GetMessageLink(doc.Get("Topic"),
+            MessageUrl = this.Get<ILinkBuilder>().GetMessageLink(doc.Get("Topic"),
                 doc.Get("MessageId").ToType<int>()),
-            ForumUrl = this.Get<LinkBuilder>().GetForumLink(
+            ForumUrl = this.Get<ILinkBuilder>().GetForumLink(
                 doc.Get("ForumId").ToType<int>(),
                 doc.Get("ForumName")),
             UserDisplayName = HttpUtility.HtmlEncode(doc.Get("AuthorDisplay")),

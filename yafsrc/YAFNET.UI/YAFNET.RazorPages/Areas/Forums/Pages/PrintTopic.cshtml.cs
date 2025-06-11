@@ -30,7 +30,6 @@ using System.Collections.Generic;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 
@@ -73,7 +72,7 @@ public class PrintTopicModel : ForumPage
     {
         if (!t.HasValue || !this.PageBoardContext.ForumReadAccess)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         var showDeleted = this.PageBoardContext.BoardSettings.ShowDeletedMessagesToAll;

@@ -33,7 +33,6 @@ using Microsoft.Extensions.Logging;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Events;
@@ -97,7 +96,7 @@ public class RegisterModel : AccountPage
 
         if (this.PageBoardContext.BoardSettings.DisableRegistrations)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
         }
 
         if (this.ErrorMessage.IsSet())
@@ -159,7 +158,7 @@ public class RegisterModel : AccountPage
         if (userId is null)
         {
             // something is seriously wrong here -- redirect to failure...
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Failure);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Failure);
         }
 
         this.SaveCustomProfile(userId.Value);

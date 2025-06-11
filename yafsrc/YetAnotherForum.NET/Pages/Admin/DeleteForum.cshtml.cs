@@ -28,7 +28,6 @@ namespace YAF.Pages.Admin;
 using System.Threading.Tasks;
 
 using YAF.Core.Extensions;
-using YAF.Core.Services;
 using YAF.Core.Tasks;
 using YAF.Types.Extensions;
 using YAF.Types.Models;
@@ -38,12 +37,24 @@ using YAF.Types.Models;
 /// </summary>
 public class DeleteForumModel : AdminPage
 {
+    /// <summary>
+    /// Gets or sets a value indicating whether [move topics].
+    /// </summary>
+    /// <value><c>true</c> if [move topics]; otherwise, <c>false</c>.</value>
     [BindProperty]
     public bool MoveTopics { get; set; }
 
+    /// <summary>
+    /// Gets or sets the forum.
+    /// </summary>
+    /// <value>The forum.</value>
     [BindProperty]
     public Forum Forum { get; set; }
 
+    /// <summary>
+    /// Gets or sets the forum list selected.
+    /// </summary>
+    /// <value>The forum list selected.</value>
     [BindProperty]
     public int ForumListSelected { get; set; }
 
@@ -64,7 +75,7 @@ public class DeleteForumModel : AdminPage
 
         this.PageBoardContext.PageLinks.AddLink(
             this.GetText("TEAM", "FORUMS"),
-            this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Forums));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Forums));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_DELETEFORUM", "TITLE"), string.Empty);
     }
 
@@ -77,7 +88,7 @@ public class DeleteForumModel : AdminPage
 
         if (this.Forum is null)
         {
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Forums);
         }
 
         this.ForumListSelected = this.Forum.ID;
@@ -115,6 +126,6 @@ public class DeleteForumModel : AdminPage
             await Task.Delay(4000);
         }
 
-        return this.RedirectToPage(ForumPages.Admin_Forums.GetPageName());
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Forums);
     }
 }

@@ -34,7 +34,6 @@ using Microsoft.Extensions.Logging;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.Exceptions;
 using YAF.Types.Extensions;
 using YAF.Types.Modals;
@@ -54,6 +53,10 @@ public class PostModel : ForumPage
     {
     }
 
+    /// <summary>
+    /// Gets or sets the topic subject.
+    /// </summary>
+    /// <value>The topic subject.</value>
     [TempData]
     public string TopicSubject { get; set; }
 
@@ -96,7 +99,7 @@ public class PostModel : ForumPage
         // in case topic is deleted or not existent
         if (this.PageBoardContext.PageTopic is null)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         this.Get<ISessionService>().SetPageData(new List<PagedMessage>());
@@ -120,7 +123,7 @@ public class PostModel : ForumPage
         }
         else if (!this.PageBoardContext.ForumReadAccess)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         // Clear Multi-quotes if topic is different
@@ -168,7 +171,7 @@ public class PostModel : ForumPage
             return this.PageBoardContext.Notify(this.GetText("WARN_FORUM_LOCKED"), MessageTypes.warning);
         }
 
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             ForumPages.PostMessage,
             new {
                     t = this.PageBoardContext.PageTopicID,
@@ -189,7 +192,7 @@ public class PostModel : ForumPage
             return this.PageBoardContext.Notify(this.GetText("INFO_NOMORETOPICS"), MessageTypes.info);
         }
 
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Posts,
             new { t = previousTopic.ID, name = previousTopic.TopicName });
     }
@@ -205,7 +208,7 @@ public class PostModel : ForumPage
 
         this.PageBoardContext.SessionNotify(this.GetText("INFO_WATCH_TOPIC"), MessageTypes.warning);
 
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Posts,
             new { t = this.PageBoardContext.PageTopic.ID, name = this.PageBoardContext.PageTopic.TopicName });
     }
@@ -220,7 +223,7 @@ public class PostModel : ForumPage
 
         this.PageBoardContext.SessionNotify(this.GetText("INFO_UNWATCH_TOPIC"), MessageTypes.info);
 
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Posts,
            new { t = this.PageBoardContext.PageTopic.ID, name = this.PageBoardContext.PageTopic.TopicName });
     }
@@ -232,7 +235,7 @@ public class PostModel : ForumPage
     {
         if (!this.PageBoardContext.ForumModeratorAccess)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         var flags = this.PageBoardContext.PageTopic.TopicFlags;
@@ -243,7 +246,7 @@ public class PostModel : ForumPage
 
         this.PageBoardContext.SessionNotify(this.GetText("INFO_TOPIC_UNLOCKED"), MessageTypes.info);
 
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Posts,
             new { t = this.PageBoardContext.PageTopic.ID, name = this.PageBoardContext.PageTopic.TopicName });
     }
@@ -288,7 +291,7 @@ public class PostModel : ForumPage
 
             this.Get<ILogger<PostsModel>>().Error(topicException, "No posts were found for topic");
 
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         var firstPost = postList.FirstOrDefault();
@@ -297,7 +300,7 @@ public class PostModel : ForumPage
         {
             if (p != firstPost!.PageIndex)
             {
-                return this.Get<LinkBuilder>().Redirect(ForumPages.Posts,
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Posts,
                     new {
                         m = findMessageId, p = firstPost.PageIndex, name = this.PageBoardContext.PageTopic.TopicName,
                         t = this.PageBoardContext.PageTopic.ID
@@ -334,12 +337,12 @@ public class PostModel : ForumPage
     {
         if (!this.PageBoardContext.ForumModeratorAccess)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         this.GetRepository<Topic>().Delete(this.PageBoardContext.PageForumID, this.PageBoardContext.PageTopicID, true);
 
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Topics,
            new { f = this.PageBoardContext.PageForumID, name = this.PageBoardContext.PageForum.Name });
     }
@@ -351,7 +354,7 @@ public class PostModel : ForumPage
     {
         return this.PageBoardContext.IsGuest
                    ? this.PageBoardContext.Notify(this.GetText("WARN_EMAILLOGIN"), MessageTypes.warning)
-                   : this.Get<LinkBuilder>().Redirect(
+                   : this.Get<ILinkBuilder>().Redirect(
                        ForumPages.EmailTopic,
                       new {t = this.PageBoardContext.PageTopicID});
     }
@@ -362,7 +365,7 @@ public class PostModel : ForumPage
     /// <returns>IActionResult.</returns>
     public IActionResult OnPostReddit()
     {
-        var topicUrl = this.Get<LinkBuilder>().GetLink(
+        var topicUrl = this.Get<ILinkBuilder>().GetLink(
             ForumPages.Posts,
             new {t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName});
 
@@ -380,7 +383,7 @@ public class PostModel : ForumPage
         if (!this.PageBoardContext.ForumModeratorAccess)
         {
             // "You are not a forum moderator.
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         var flags = this.PageBoardContext.PageTopic.TopicFlags;
@@ -391,7 +394,7 @@ public class PostModel : ForumPage
 
         this.PageBoardContext.SessionNotify(this.GetText("INFO_TOPIC_LOCKED"), MessageTypes.info);
 
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Posts,
             new {t = this.PageBoardContext.PageTopic.ID, name = this.PageBoardContext.PageTopic.TopicName});    }
 
@@ -407,7 +410,7 @@ public class PostModel : ForumPage
             return this.PageBoardContext.Notify(this.GetText("INFO_NOMORETOPICS"), MessageTypes.info);
         }
 
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Posts,
             new { t = nextTopic.ID, name = nextTopic.TopicName });
     }

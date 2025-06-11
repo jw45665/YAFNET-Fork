@@ -31,7 +31,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 using YAF.Core.Extensions;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.Extensions;
 using YAF.Types.Flags;
 using YAF.Types.Interfaces.Identity;
@@ -76,7 +75,7 @@ public class EditGroupModel : AdminPage
 
         this.PageBoardContext.PageLinks.AddLink(
             this.GetText("ADMIN_GROUPS", "TITLE"),
-            this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Groups));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Groups));
 
         // current page label (no link)
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_EDITGROUP", "TITLE"), string.Empty);
@@ -105,7 +104,7 @@ public class EditGroupModel : AdminPage
 
         if (this.Group is null)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         // get role flags
@@ -222,7 +221,7 @@ public class EditGroupModel : AdminPage
             await this.Get<IAspNetRolesHelper>().CreateRoleAsync(roleName);
         }
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Groups);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Groups);
     }
 
     /// <summary>

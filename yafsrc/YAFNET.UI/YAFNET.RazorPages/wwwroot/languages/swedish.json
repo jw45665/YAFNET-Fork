@@ -16,7 +16,7 @@
           },
           {
             "@tag": "BECOME_FRIENDS",
-            "#text": "Become Friends"
+            "#text": "Bli vänner"
           },
           {
             "@tag": "CHANGE_PASSWORD",
@@ -222,15 +222,15 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Views banned user agents list"
+            "#text": "Visningar förbjudna användaragenter"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_EDIT",
-            "#text": "Edits banned user agents"
+            "#text": "Redigeringar förbjudna användaragenter"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_IMPORT",
-            "#text": "Imports banned user agents"
+            "#text": "Importerar förbjudna användaragenter"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -557,16 +557,8 @@
             "#text": "Använder MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Använder Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Använder XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Använder YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -993,6 +985,10 @@
         "@name": "ADMIN_ATTACHMENTS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Radera bilagor?"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Användarens bilagor"
           }
@@ -1003,19 +999,19 @@
         "Resource": [
           {
             "@tag": "ADD_UA",
-            "#text": "Add New UserAgent"
+            "#text": "Lägg till nytt användaragent"
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No UserAgents"
+            "#text": "Inga användare"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned UserAgent. Add a new banned UserAgent by clicking the [b]Add New UserAgent[/b] Button Bellow."
+            "#text": "För närvarande finns det ingen förbjuden användare. "
           },
           {
             "@tag": "IMPORT_UA",
-            "#text": "Import UserAgent(s)"
+            "#text": "Importera användaragent"
           },
           {
             "@tag": "MASK",
@@ -1023,15 +1019,15 @@
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned UserAgent Already exists!"
+            "#text": "Den förbjudna användaren finns redan!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The UserAgent was successfully deleted"
+            "#text": "Användaren raderades framgångsrikt"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned UserAgent"
+            "#text": "Förbjuden användare"
           }
         ]
       },
@@ -1040,23 +1036,23 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "UserAgent:"
+            "#text": "Användaragent:"
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The User Agent to ban. You can use Regular Expressions."
+            "#text": "Användaragenten att förbjuda. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define a User Agent."
+            "#text": "Du måste definiera en användaragent."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add Banned UserAgent"
+            "#text": "Lägg till förbjudet användare"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned UserAgent"
+            "#text": "Redigera förbjuden användare"
           }
         ]
       },
@@ -1065,35 +1061,35 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import UserAgent List"
+            "#text": "Importera användarlista"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "Importlista"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "Misslyckades med att importera! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "Välj Importera fil:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing one useragent on each line"
+            "#text": "Måste vara *.txt -fil som innehåller en användaragent på varje rad"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new useragent was found in the upload."
+            "#text": "Ingenting importerat: Ingen ny användaragent hittades i uppladdningen."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new useragent(s) imported successfully."
+            "#text": "{0} Nya användaragent (er) importerade framgångsrikt."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import UserAgent(s)"
+            "#text": "Importera användaragent"
           }
         ]
       },
@@ -1106,11 +1102,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
+            "#text": "Inga förbjudna e -postadresser"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+            "#text": "För närvarande finns det inga förbjudna e -postadresser. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1208,7 +1204,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Du kan hitta en lista över e-postadresser för skräppostbotar på StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, som kan importeras här."
+            "#text": "Du kan hitta en lista över e-postadresser för skräppostbotar på StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, som kan importeras här."
           },
           {
             "@tag": "TITLE",
@@ -1229,15 +1225,23 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
+            "#text": "Inga förbjudna IP -adresser"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+            "#text": "För närvarande finns det inga förbjudna IP -adresser. "
           },
           {
             "@tag": "EXPORT",
             "#text": "Exportera till textfil"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Importera svartlista från missbruk"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Importlista med de senaste IP -adresserna1 från AbuseIPDB.com"
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1355,7 +1359,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Du kan hitta en lista över Spam Bot Ips på StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, som kan importeras här."
+            "#text": "Du kan hitta en lista över Spam Bot Ips på StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, som kan importeras här."
           },
           {
             "@tag": "TITLE",
@@ -1372,11 +1376,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
+            "#text": "Inga förbjudna namn"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] Button Bellow."
+            "#text": "För närvarande finns det inga förbjudna användarnamn. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1474,7 +1478,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Du kan hitta en lista över användarnamn för Spam Bot på StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, som kan importeras här."
+            "#text": "Du kan hitta en lista över användarnamn för Spam Bot på StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, som kan importeras här."
           },
           {
             "@tag": "TITLE",
@@ -1702,7 +1706,7 @@
           },
           {
             "@tag": "ID",
-            "#text": "ID"
+            "#text": "Id"
           },
           {
             "@tag": "NAME",
@@ -1764,6 +1768,14 @@
           {
             "@tag": "BOARD_DEFAULT_NOTIFICATION_HELP",
             "#text": "När ett nytt användarkonto skapas, vilken inställningen för meddelanden är standard?"
+          },
+          {
+            "@tag": "BOARD_DEFAULT_PAGESIZE",
+            "#text": "Standardsidor"
+          },
+          {
+            "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
+            "#text": "Standardsidstorleken för listor för nya användare."
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
@@ -1908,14 +1920,6 @@
           {
             "@tag": "TITLE",
             "#text": "Styrelseinställningar"
-          },
-          {
-            "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
-          },
-          {
-            "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
           }
         ]
       },
@@ -1957,7 +1961,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?"
+            "#text": "Ta bort detta forum permanent inklusive alla ämnen, omröstningar, bilagor och meddelanden som är associerade med det?"
           },
           {
             "@tag": "DELETE_FORUM",
@@ -2248,7 +2252,7 @@
           },
           {
             "@tag": "POST_ACCESS",
-            "#text": "Post Access"
+            "#text": "Åtkomst till"
           },
           {
             "@tag": "POST_ACCESS_HELP",
@@ -3327,22 +3331,6 @@
             "#text": "Bekräftelselösenordet matchar inte"
           },
           {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Facebook-användare:"
-          },
-          {
-            "@tag": "FACEBOOK_USER_HELP",
-            "#text": "Anger om användaren är inloggad via Facebook."
-          },
-          {
-            "@tag": "GOOGLE_USER",
-            "#text": "Google Användare:"
-          },
-          {
-            "@tag": "GOOGLE_USER_HELP",
-            "#text": "Anger om användaren är inloggad via Google."
-          },
-          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Döda användare och förbjuda"
           },
@@ -3573,7 +3561,7 @@
           },
           {
             "@tag": "COPY_TO_CLIPBOARD",
-            "#text": "Copy to clipboard"
+            "#text": "Kopiera till Urklipp"
           },
           {
             "@tag": "DELETE_ALL",
@@ -3787,6 +3775,14 @@
             "#text": "Avbryt automatiskt sessioner för användare som är markerade som \"Don't Track\", t.ex. sökmotorer och botar. Aktivera om du har problem med sessioner."
           },
           {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "ABUSEPDB API -nyckel:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "API -nyckeln för att hämta IP -adressen svartlista."
+          },
+          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Aktiva användare Tid:"
           },
@@ -3968,7 +3964,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Aktiverar/avaktiverar delningsmenyn, där en användare kan skicka e-post, twittra, surfa, gilla på Facebook, Digg, Reddit eller Tumblr till ett ämne."
+            "#text": "Aktiverar/avaktiverar delningsmenyn, där en användare kan skicka e-post, twittra, surfa, gilla på Facebook, Reddit eller Tumblr till ett ämne."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -4092,7 +4088,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "StopForumSpam.com"
+            "#text": "Stopforumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4283,14 +4279,6 @@
             "#text": "Aktiverar/avaktiverar Retweet-knappen, där användaren kan retweeta ett ämnesmeddelande."
           },
           {
-            "@tag": "ENABLE_SSO",
-            "#text": "Aktivera enkel inloggning:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "Om du kryssar i denna ruta kan användarna logga in på ett befintligt konto via Facebook och/eller Twitter. För att aktivera den för Facebook måste du ställa in värdena YAF.FacebookAPIKey och YAF.FacebookSecretKey och för Twitter YAF.TwitterConsumerKey och YAF.TwitterConsumerSecret i app.config (AppSettings)."
-          },
-          {
             "@tag": "ENABLE_USERREPUTATION",
             "#text": "Använd systemet för anseende:"
           },
@@ -4300,11 +4288,27 @@
           },
           {
             "@tag": "ENABLE_WYSIWYG",
-            "#text": "Enable WYSIWYG Editor"
+            "#text": "Aktivera WYSIWYG -redaktör"
           },
           {
             "@tag": "ENABLE_WYSIWYG_HELP",
-            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+            "#text": "Inställning för att aktivera/inaktivera WYSIWYG BBCode Editor"
+          },
+          {
+            "@tag": "ENTER_MODE",
+            "#text": "Editor Enter Mode"
+          },
+          {
+            "@tag": "ENTER_MODE_0",
+            "#text": "Ny"
+          },
+          {
+            "@tag": "ENTER_MODE_1",
+            "#text": "Linjer är trasiga med"
+          },
+          {
+            "@tag": "ENTER_MODE_HELP",
+            "#text": "Ställer in beteendet på Enter -tangenten, som om"
           },
           {
             "@tag": "EVENTLOG_MAX_DAYS",
@@ -4365,14 +4369,6 @@
           {
             "@tag": "FORCE_SEARCHINDED",
             "#text": "Sökindex Uppgift påbörjad."
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "URL-mask för forumbasen:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "Den fullständiga webbadressen till detta forum."
           },
           {
             "@tag": "FORUM_EMAIL",
@@ -5068,11 +5064,11 @@
           },
           {
             "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
+            "#text": "Bläddra till olästa/första inlägget"
           },
           {
             "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+            "#text": "Om det är aktiverat rullar det till det första olästa inlägget/eller första nya inlägget när du öppnar ett ämne"
           },
           {
             "@tag": "SEARCH_MAXLENGTH",
@@ -5428,7 +5424,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "BlogSpam.NET API"
+            "#text": "Blogspam.net API"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -5472,7 +5468,7 @@
           },
           {
             "@tag": "STOPFORUMSPAM_KEY_HELP",
-            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https//www.stopforumspam.com/signup\">Sign Up here<a>."
+            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https://www.stopforumspam.com/signup\">Sign Up here<a>."
           },
           {
             "@tag": "STYLED_NICKS",
@@ -5751,11 +5747,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
+            "#text": "Inga medaljer"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+            "#text": "För närvarande finns det inga medaljer. "
           },
           {
             "@tag": "MOVE_DOWN",
@@ -5879,11 +5875,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Custom Profile Definitions"
+            "#text": "Inga anpassade profildefinitioner"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+            "#text": "För närvarande finns det inga anpassade profildefinitioner. "
           },
           {
             "@tag": "NEW_DEF",
@@ -6149,11 +6145,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
+            "#text": "Inga ersätt ord"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+            "#text": "För närvarande finns det inga ersättningsord. "
           },
           {
             "@tag": "EXPORT",
@@ -6360,11 +6356,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
+            "#text": "Inga skräppostkontrollord"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+            "#text": "För närvarande finns det inga skräppostkontrollord. "
           },
           {
             "@tag": "EXPORT",
@@ -6538,10 +6534,6 @@
           {
             "@tag": "EXPORT_XML",
             "#text": "Exportera alla användare som Xml"
-          },
-          {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Facebook-användare"
           },
           {
             "@tag": "FILTER",
@@ -6720,7 +6712,7 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Banned UserAgents"
+            "#text": "Förbjudna användare"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -7184,10 +7176,6 @@
             "#text": "Klicka här för att visa eller dölja den dolda texten (även kallad spoiler)."
           },
           {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Ange status-ID för den Tweet du vill bädda in."
-          },
-          {
             "@tag": "UERLINKMOD_DESCRIPTION",
             "#text": "Ange användarnamn här"
           },
@@ -7283,7 +7271,7 @@
           },
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
-            "#text": "Friend request removed."
+            "#text": "Vänförfrågan tas bort."
           },
           {
             "@tag": "PENDINGBUDDIES",
@@ -7675,7 +7663,7 @@
           },
           {
             "@tag": "CHARACTERS_LEFT",
-            "#text": "Characters remaining:"
+            "#text": "Karaktärer kvar:"
           },
           {
             "@tag": "COMMON_WORDS",
@@ -7771,7 +7759,7 @@
           },
           {
             "@tag": "FONT_NAME",
-            "#text": "Font Name"
+            "#text": "Teckensnittsnamn"
           },
           {
             "@tag": "FONT_SIZE",
@@ -7879,7 +7867,7 @@
           },
           {
             "@tag": "MEDIA",
-            "#text": "Insert Media"
+            "#text": "Infoga media"
           },
           {
             "@tag": "MENU",
@@ -8027,7 +8015,7 @@
           },
           {
             "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
+            "#text": "Sidstorleksval"
           },
           {
             "@tag": "SHOWHIDE",
@@ -8067,7 +8055,7 @@
           },
           {
             "@tag": "TT_COPY",
-            "#text": "Copy the selected text (Ctrl+C)"
+            "#text": "Kopiera den valda texten (CTRL C)"
           },
           {
             "@tag": "TT_CREATELINK",
@@ -8079,11 +8067,11 @@
           },
           {
             "@tag": "TT_CUT",
-            "#text": "Cut the selected text (Ctrl+X)"
+            "#text": "Klipp ut den valda texten (Ctrl x)"
           },
           {
             "@tag": "TT_DESCRIPTION",
-            "#text": "Description"
+            "#text": "Beskrivning"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8095,11 +8083,11 @@
           },
           {
             "@tag": "TT_IMAGE_DESC",
-            "#text": "Enter Image Description:"
+            "#text": "Ange bildbeskrivning:"
           },
           {
             "@tag": "TT_IMAGE_TITLE",
-            "#text": "Enter Image Url:"
+            "#text": "Ange bild URL:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8119,11 +8107,19 @@
           },
           {
             "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+            "#text": "Klistra in mediadressen i ingången (till exempel en YouTube -video, Spotify -spellista eller Instagram -bild)."
+          },
+          {
+            "@tag": "TT_NOTE",
+            "#text": "Infoga"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Anmärkningstyp"
           },
           {
             "@tag": "TT_PASTE",
-            "#text": "Paste (Ctrl+V)"
+            "#text": "Klistra in (Ctrl V)"
           },
           {
             "@tag": "TT_QUOTE",
@@ -8131,19 +8127,19 @@
           },
           {
             "@tag": "TT_REDO",
-            "#text": "Redo (Ctrl+Y)"
+            "#text": "Röd (ctrl y)"
           },
           {
             "@tag": "TT_REMOVE",
-            "#text": "Remove Format"
+            "#text": "Ta bort formatet"
           },
           {
             "@tag": "TT_SELECT_ALL",
-            "#text": "Select all"
+            "#text": "Välj alla"
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
-            "#text": "Strikethrough"
+            "#text": "Trrikethrough"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8151,15 +8147,15 @@
           },
           {
             "@tag": "TT_UNDO",
-            "#text": "Undo (Ctrl+Z)"
+            "#text": "Ångra (Ctrl Z)"
           },
           {
             "@tag": "TT_URL_DESC",
-            "#text": "Enter URL Description:"
+            "#text": "Ange URL -beskrivning:"
           },
           {
             "@tag": "TT_URL_TITLE",
-            "#text": "Enter URL:"
+            "#text": "Ange URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8317,7 +8313,7 @@
           },
           {
             "@tag": "AW",
-            "#text": "Aruba"
+            "#text": "Araba"
           },
           {
             "@tag": "AZ",
@@ -8397,7 +8393,7 @@
           },
           {
             "@tag": "BZ",
-            "#text": "Belize"
+            "#text": "Belisera"
           },
           {
             "@tag": "CA",
@@ -8561,7 +8557,7 @@
           },
           {
             "@tag": "GD",
-            "#text": "Grenada"
+            "#text": "Grenad"
           },
           {
             "@tag": "GE",
@@ -8617,7 +8613,7 @@
           },
           {
             "@tag": "GW",
-            "#text": "Guinea-Bissau"
+            "#text": "Guinea-bissau"
           },
           {
             "@tag": "GY",
@@ -8633,7 +8629,7 @@
           },
           {
             "@tag": "HN",
-            "#text": "Honduras"
+            "#text": "Honduror"
           },
           {
             "@tag": "HR",
@@ -8745,7 +8741,7 @@
           },
           {
             "@tag": "LC",
-            "#text": "Saint Lucia"
+            "#text": "Helgon"
           },
           {
             "@tag": "LI",
@@ -8753,7 +8749,7 @@
           },
           {
             "@tag": "LK",
-            "#text": "Sri Lanka"
+            "#text": "Sri lanka"
           },
           {
             "@tag": "LR",
@@ -9061,7 +9057,7 @@
           },
           {
             "@tag": "SV",
-            "#text": "El Salvador"
+            "#text": "Elsalvador"
           },
           {
             "@tag": "SY",
@@ -9085,7 +9081,7 @@
           },
           {
             "@tag": "TG",
-            "#text": "Togo"
+            "#text": "Stam"
           },
           {
             "@tag": "TH",
@@ -9322,7 +9318,7 @@
           },
           {
             "@tag": "MARK_ALL_ASREAD",
-            "#text": "Mark All As Read"
+            "#text": "Markera alla som läst"
           },
           {
             "@tag": "MARK_ASREAD",
@@ -9751,10 +9747,6 @@
             "#text": "Du har angett en felaktig URL som Facebookprofil."
           },
           {
-            "@tag": "BAD_GOOGLE",
-            "#text": "Du har angett ett otillåtet värde som Google Profile URL."
-          },
-          {
             "@tag": "BAD_HOME",
             "#text": "Du har angett en ogiltig länk till din hemsida."
           },
@@ -9880,11 +9872,7 @@
           },
           {
             "@tag": "SELECT_THEME_MODE",
-            "#text": "Select the theme mode:"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Ditt SKYPE-ID:"
+            "#text": "Välj temaläge:"
           },
           {
             "@tag": "TIMEZONE",
@@ -9917,15 +9905,15 @@
         "Resource": [
           {
             "@tag": "DISABLE_2FA",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Inaktivera två faktorautentisering"
           },
           {
             "@tag": "DISABLE_TWO_FACTOR_HEADER",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Inaktivera två faktorautentisering"
           },
           {
             "@tag": "ENABLE_2FA",
-            "#text": "Turn on Two Factor Authentication"
+            "#text": "Slå på två faktorautentisering"
           },
           {
             "@tag": "INFO",
@@ -9933,11 +9921,11 @@
           },
           {
             "@tag": "INPUT_CODE",
-            "#text": "Input security code"
+            "#text": "Inmatningssäkerhetskod"
           },
           {
             "@tag": "SETUP_CODE",
-            "#text": "Setup code"
+            "#text": "Installationskod"
           },
           {
             "@tag": "TITLE",
@@ -9945,11 +9933,11 @@
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
-            "#text": "Enable Two Factor Authentication"
+            "#text": "Aktivera tvåfaktorautentisering"
           },
           {
             "@tag": "WRONG_CODE",
-            "#text": "You have entered the wrong 2FA Code!"
+            "#text": "Du har angett fel 2FA -kod!"
           }
         ]
       },
@@ -10161,96 +10149,12 @@
         "@name": "GENDER",
         "Resource": [
           {
-            "@tag": "AGENDER",
-            "#text": "Agender"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgyn"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigender"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Cisgender"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "Kvinnlig till manlig"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Flytande könstillhörighet"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Könsöverskridande"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Frågor om könstillhörighet"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersex"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Man till kvinna"
-          },
-          {
             "@tag": "MAN",
             "#text": "Man"
           },
           {
-            "@tag": "NONBINARY",
-            "#text": "Icke-binär"
-          },
-          {
             "@tag": "OTHER",
             "#text": "Övriga"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trrans"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfeminin"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transpersoner"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Transsexuell man"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmaskulin"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transsexuell"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Transsexuell kvinna"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Två andar"
           },
           {
             "@tag": "WOMAN",
@@ -10303,7 +10207,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Du kan ändra din kontoinformation med hjälp av alternativet Personlig profil -&gt; \"Redigera profil\" i <strong>Brukers kontrollpanel</strong>. Om du vill ändra ditt lösenord finns det en extra sida (Ändra lösenord) för detta i <strong>användarkontrollpanelen</strong>, där du kan ange ett nytt lösenord.</p>\r\n<p><strong>Redigera profilsida</strong></p>\r\n<p>På den här sidan kan du ställa in ett antal obligatoriska och valfria uppgifter, varav en del kommer att visas på din offentliga profil. Med undantag för din e-postadress ska du inte ange information som du inte vill ska vara offentligt synlig.</p>\r\n<p><strong>Om dig</strong></p>\r\n<p>Detta är den grundläggande informationen om dig</p>.\r\n<p><strong>Bostad</strong></p>\r\n<p>Här kan du eventuellt ange den plats där du bor</p>.\r\n<p><strong>Hemsida</strong></p>\r\n<p>Här kan du eventuellt ange en hemsida och/eller en blogg.</p>\r\n<p><strong>Snabbmeddelandetjänster</strong></p>\r\n<p>Här kan du eventuellt ange dina Messenger Ids för tjänster som MSN, XMPP, SKYPE, Facebook och Twitter.</p>\r\n<p><strong>Tidszon</strong></p>\r\n<p>Här kan du ange tidszon för att justera bordets tid och datum till din lokala tid. Och ställa in sommartid om den ska justeras automatiskt.</p>\r\n<p><strong>Inställningar för forum</strong></p>\r\n<p>Här kan du ändra din e-postadress.</p>\r\n<p>Och om administratören har aktiverat det kan du ändra forumets <strong>språk</strong>, <strong>tema</strong> för webbplatsen och <strong>textredigeraren</strong> (som används för att lägga upp meddelanden).</p>\r\n<p>Det finns också en inställning &quot;Single Sign On&quot; (Om den&rsquo;är aktiverad). Om du aktiverar den kan du logga in via Facebook, du anger också ditt Facebook-ID ovan.</p>\r\n\r\n"
+            "#text": "<p>Du kan ändra din kontoinformation med hjälp av alternativet Personlig profil -&gt; \"Redigera profil\" i <strong>Brukers kontrollpanel</strong>. Om du vill ändra ditt lösenord finns det en extra sida (Ändra lösenord) för detta i <strong>användarkontrollpanelen</strong>, där du kan ange ett nytt lösenord.</p>\r\n<p><strong>Redigera profilsida</strong></p>\r\n<p>På den här sidan kan du ställa in ett antal obligatoriska och valfria uppgifter, varav en del kommer att visas på din offentliga profil. Med undantag för din e-postadress ska du inte ange information som du inte vill ska vara offentligt synlig.</p>\r\n<p><strong>Om dig</strong></p>\r\n<p>Detta är den grundläggande informationen om dig</p>.\r\n<p><strong>Bostad</strong></p>\r\n<p>Här kan du eventuellt ange den plats där du bor</p>.\r\n<p><strong>Hemsida</strong></p>\r\n<p>Här kan du eventuellt ange en hemsida och/eller en blogg.</p>\r\n<p><strong>Snabbmeddelandetjänster</strong></p>\r\n<p>Här kan du eventuellt ange dina Messenger Ids för tjänster som  XMPP, Facebook och Twitter.</p>\r\n<p><strong>Tidszon</strong></p>\r\n<p>Här kan du ange tidszon för att justera bordets tid och datum till din lokala tid. Och ställa in sommartid om den ska justeras automatiskt.</p>\r\n<p><strong>Inställningar för forum</strong></p>\r\n<p>Här kan du ändra din e-postadress.</p>\r\n<p>Och om administratören har aktiverat det kan du ändra forumets <strong>språk</strong>, <strong>tema</strong> för webbplatsen och <strong>textredigeraren</strong> (som används för att lägga upp meddelanden).</p>\r\n<p>Det finns också en inställning &quot;Single Sign On&quot; (Om den&rsquo;är aktiverad). Om du aktiverar den kan du logga in via Facebook, du anger också ditt Facebook-ID ovan.</p>\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -10663,7 +10567,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "XMPP Messenger"
+            "#text": "Xmpp messenger"
           }
         ]
       },
@@ -10685,14 +10589,6 @@
           {
             "@tag": "DISABLED",
             "#text": "Administratören för detta forum har inaktiverat denna funktion."
-          },
-          {
-            "@tag": "ECMAREQUIRED",
-            "#text": "För att kunna använda forumet måste du aktivera JavaScript i din webbläsare."
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "The JavaScript version is unsupported. Please use a more new browser version/"
           },
           {
             "@tag": "EXCEPTION",
@@ -10937,7 +10833,7 @@
           },
           {
             "@tag": "FORUMURL",
-            "#text": "Forum Base Url Mask"
+            "#text": "Forumbasadress"
           },
           {
             "@tag": "FROMEMAIL",
@@ -11186,30 +11082,6 @@
             "#text": "Logga in eller registrera dig med {0}"
           },
           {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Anslut ett befintligt forumkonto till ditt {0}-konto Du måste först logga in på forumet. {1}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>E-postadressen på Facebook måste matcha forumanvändarens e-postadress för att användaren ska kunna anslutas.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>Google e-postadress måste matcha forumanvändarens e-postadress för att ansluta användaren.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Logga in eller registrera dig med {0} eller anslut ett befintligt användarkonto med {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Logga in med ett användarkonto som är anslutet till {0}. Om inget konto hittas skapas automatiskt ett nytt konto i forumet."
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Kunde inte få access_token!"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Automatisk inloggning:"
           },
@@ -11220,10 +11092,6 @@
           {
             "@tag": "CAPS_LOCK",
             "#text": "Caps Lock är på"
-          },
-          {
-            "@tag": "CONNECT_VIA",
-            "#text": "Eller anslut via"
           },
           {
             "@tag": "EMAIL",
@@ -11274,64 +11142,20 @@
             "#text": "Skicka lösenord"
           },
           {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "Single Sign On är för närvarande inaktiverat av administratören!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "Enkel inloggning är avaktiverad för den användaren och du måste aktivera den i dina profilinställningar för att kunna använda funktionen."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "Facebook-inloggningen misslyckades, användaren finns inte eller kontot är inte anslutet."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "Facebook-inloggningen misslyckades, ett användarkonto med samma e-postadress som Facebook-kontot finns redan, försök ansluta ditt forumkonto istället."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "Facebook-inloggningen misslyckades eftersom användaren inte har angett någon e-postadress för kontot."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Nya registreringar är inaktiverade."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "Google-inloggningen misslyckades, användaren finns inte eller kontot är inte anslutet."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "Google-inloggningen misslyckades, ett användarkonto med samma e-postadress som Google-kontot finns redan, försök ansluta ditt forumkonto istället."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "The User Account is not connected or not found"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Logga in"
           },
           {
             "@tag": "TWO_FA_INFO",
-            "#text": "Please enter a validation code from your Authenticator app."
+            "#text": "Ange en valideringskod från din autenticator -app."
           },
           {
             "@tag": "TWO_FA_PLACEHOLDER",
-            "#text": "Validation code: ### ###"
+            "#text": "Valideringskod:"
           },
           {
             "@tag": "TWO_FA_VALIDATION",
-            "#text": "Two-Factor Validation"
+            "#text": "Tvåfaktorvalidering"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12002,7 +11826,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Your activity notifications"
+            "#text": "Dina aktivitetsmeddelanden"
           }
         ]
       },
@@ -12011,7 +11835,7 @@
         "Resource": [
           {
             "@tag": "CONVERSATION_TITLE",
-            "#text": "Your Conversations"
+            "#text": "Dina konversationer"
           },
           {
             "@tag": "TITLE",
@@ -12076,7 +11900,7 @@
           },
           {
             "@tag": "PMLIMIT_ALL",
-            "#text": "You have {0} private messages: {1} in Inbox and {2} in Outbox. From a total of {3} allowed. Your mail box is filled to {4}%"
+            "#text": "Du har {0} privata meddelanden: {1} i inkorgen och {2} i outbox. "
           },
           {
             "@tag": "PREVIEWTITLE",
@@ -12221,11 +12045,11 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
+            "#text": "Omröstning"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
+            "#text": "Don"
           },
           {
             "@tag": "POLLHEADER",
@@ -12265,7 +12089,7 @@
           },
           {
             "@tag": "REMOVEPOLL_MSG",
-            "#text": "Poll was removed!"
+            "#text": "Undersökning togs bort!"
           }
         ]
       },
@@ -12563,7 +12387,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "WWW"
+            "#text": "Www"
           },
           {
             "@tag": "HOME_TITLE",
@@ -12615,7 +12439,7 @@
           },
           {
             "@tag": "IP",
-            "#text": "IP"
+            "#text": "Ip"
           },
           {
             "@tag": "JOINED",
@@ -12691,7 +12515,7 @@
           },
           {
             "@tag": "PM",
-            "#text": "PM"
+            "#text": "Pm"
           },
           {
             "@tag": "PM_TITLE",
@@ -12791,19 +12615,11 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
           },
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "Liknande ämnen"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Kontakta {0} via Skype"
           },
           {
             "@tag": "STATISTICS",
@@ -12971,7 +12787,7 @@
           },
           {
             "@tag": "XMPP",
-            "#text": "XMPP"
+            "#text": "Xmpp"
           },
           {
             "@tag": "XMPP_TITLE",
@@ -13077,10 +12893,6 @@
             "#text": "Kön:"
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "Google+ profil:"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "Grupper:"
           },
@@ -13179,10 +12991,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Visa alla inlägg av användare"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype(tm)-ID:"
           },
           {
             "@tag": "SOCIAL_MEDIA",
@@ -13320,7 +13128,7 @@
           },
           {
             "@tag": "RGN_CH_FR",
-            "#text": "Fribourg"
+            "#text": "Frisk"
           },
           {
             "@tag": "RGN_CH_GE",
@@ -13344,7 +13152,7 @@
           },
           {
             "@tag": "RGN_CH_NE",
-            "#text": "Neuchâtel"
+            "#text": "Ny"
           },
           {
             "@tag": "RGN_CH_NW",
@@ -13364,7 +13172,7 @@
           },
           {
             "@tag": "RGN_CH_SO",
-            "#text": "Solothurn"
+            "#text": "Soloturn"
           },
           {
             "@tag": "RGN_CH_SZ",
@@ -13392,7 +13200,7 @@
           },
           {
             "@tag": "RGN_CH_ZG",
-            "#text": "Zug"
+            "#text": "Frodig"
           },
           {
             "@tag": "RGN_CH_ZH",
@@ -13409,7 +13217,7 @@
           },
           {
             "@tag": "RGN_DE_BB",
-            "#text": "Brandenburg"
+            "#text": "Barnaburg"
           },
           {
             "@tag": "RGN_DE_BER",
@@ -13421,11 +13229,11 @@
           },
           {
             "@tag": "RGN_DE_BW",
-            "#text": "Baden-Württemberg"
+            "#text": "Baden-W"
           },
           {
             "@tag": "RGN_DE_HE",
-            "#text": "Hessen"
+            "#text": "Hesse"
           },
           {
             "@tag": "RGN_DE_HH",
@@ -13433,7 +13241,7 @@
           },
           {
             "@tag": "RGN_DE_MV",
-            "#text": "Mecklenburg-Vorpommern"
+            "#text": "Mecklenburg-vorpommern"
           },
           {
             "@tag": "RGN_DE_NI",
@@ -13474,15 +13282,15 @@
         "Resource": [
           {
             "@tag": "RGN_US_AK",
-            "#text": "Alaska"
+            "#text": "Ner"
           },
           {
             "@tag": "RGN_US_AL",
-            "#text": "Alabama"
+            "#text": "Albama"
           },
           {
             "@tag": "RGN_US_AR",
-            "#text": "Arkansas"
+            "#text": "Arkansa"
           },
           {
             "@tag": "RGN_US_AS",
@@ -13506,11 +13314,11 @@
           },
           {
             "@tag": "RGN_US_DC",
-            "#text": "District of Columbia"
+            "#text": "Columbia distrikt"
           },
           {
             "@tag": "RGN_US_DE",
-            "#text": "Delaware"
+            "#text": "Lysande"
           },
           {
             "@tag": "RGN_US_FL",
@@ -13534,7 +13342,7 @@
           },
           {
             "@tag": "RGN_US_ID",
-            "#text": "Idaho"
+            "#text": "Pikett"
           },
           {
             "@tag": "RGN_US_IL",
@@ -13542,7 +13350,7 @@
           },
           {
             "@tag": "RGN_US_IN",
-            "#text": "Indiana"
+            "#text": "Indian"
           },
           {
             "@tag": "RGN_US_KS",
@@ -13610,7 +13418,7 @@
           },
           {
             "@tag": "RGN_US_NJ",
-            "#text": "New Jersey"
+            "#text": "Nyttröja"
           },
           {
             "@tag": "RGN_US_NM",
@@ -13630,7 +13438,7 @@
           },
           {
             "@tag": "RGN_US_OK",
-            "#text": "Oklahoma"
+            "#text": "Oklahola"
           },
           {
             "@tag": "RGN_US_OR",
@@ -13654,7 +13462,7 @@
           },
           {
             "@tag": "RGN_US_SD",
-            "#text": "South Dakota"
+            "#text": "Södra dakota"
           },
           {
             "@tag": "RGN_US_TN",
@@ -14399,14 +14207,6 @@
             "#text": "\r\n      Hello!\r\n\r\n      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):\r\n\r\n      User Name: {user}\r\n      User Email: {email}\r\n\r\n      Administration Link: {adminlink}\r\n    "
           },
           {
-            "@tag": "NOTIFICATION_ON_FACEBOOK_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Facebook Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Facebook)\r\n\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_GOOGLE_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Google Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Google)\r\n\r\n    "
-          },
-          {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_TEXT",
             "#text": "\r\n    Hello {user}.\r\n\r\n    Congratulations you have been awarded with the {medalname} on the {forumname} forum.\r\n  "
           },
@@ -14477,15 +14277,15 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "Auto"
+            "#text": "Bil"
           },
           {
             "@tag": "DARK",
-            "#text": "Dark"
+            "#text": "Mörk"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Light"
+            "#text": "Ljus"
           }
         ]
       },

@@ -26,7 +26,6 @@ namespace YAF.Pages.Admin;
 
 using YAF.Core.Extensions;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.Flags;
 using YAF.Types.Models;
 
@@ -56,7 +55,7 @@ public class EditRankModel : AdminPage
     {
         this.PageBoardContext.PageLinks.AddAdminIndex();
 
-        this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_RANKS", "TITLE"), this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Ranks));
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_RANKS", "TITLE"), this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Ranks));
 
         // current page label (no link)
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_EDITRANK", "TITLE"), string.Empty);
@@ -79,7 +78,7 @@ public class EditRankModel : AdminPage
 
         if (rank is null)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         this.Input.Id = rankId;
@@ -125,6 +124,6 @@ public class EditRankModel : AdminPage
             this.Input.UsrAlbums,
             this.Input.UsrAlbumImages);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Ranks);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Ranks);
     }
 }

@@ -109,7 +109,7 @@ public class TopicsModel : ForumPage
         }
         else if (!this.PageBoardContext.ForumReadAccess)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         if (this.PageBoardContext.PageForum.RemoteURL.IsSet())
@@ -159,15 +159,15 @@ public class TopicsModel : ForumPage
     /// </param>
     public IActionResult OnPostForumSearch(string forumSearch)
     {
-        if (forumSearch.IsNotSet())
+        if (forumSearch.IsSet())
         {
-            this.BindData();
-            return this.Page();
+            return this.Get<ILinkBuilder>().Redirect(
+                ForumPages.Search,
+                new { search = forumSearch, forum = this.PageBoardContext.PageForumID });
         }
 
-        return this.Get<LinkBuilder>().Redirect(
-            ForumPages.Search,
-            new { search = forumSearch, forum = this.PageBoardContext.PageForumID });
+        this.BindData();
+        return this.Page();
     }
 
     /// <summary>

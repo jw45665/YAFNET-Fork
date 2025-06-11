@@ -883,7 +883,7 @@ public static class ForumRepositoryExtensions
         this IRepository<Forum> repository,
         IEnumerable<ModeratorsForums> listSource)
     {
-        return listSource.Select(
+        return [.. listSource.Select(
             forum => new ForumSorted
                          {
                              Category = forum.CategoryName,
@@ -892,14 +892,14 @@ public static class ForumRepositoryExtensions
                                          : HttpUtility.HtmlEncode(forum.ForumName),
                              ForumID = forum.ForumID,
                              Icon = "comments",
-                             ForumLink = BoardContext.Current.Get<LinkBuilder>().GetForumLink(forum.ForumID, forum.ForumName)
-                         }).ToList();
+                             ForumLink = BoardContext.Current.Get<ILinkBuilder>().GetForumLink(forum.ForumID, forum.ForumName)
+                         })];
     }
 
     /// <summary>
     /// The SortList.
     /// </summary>
-    /// <param name="repository">
+    /// <param name="_">
     /// The repository.
     /// </param>
     /// <param name="listSource">
@@ -909,7 +909,7 @@ public static class ForumRepositoryExtensions
     /// Returns the Sorted List
     /// </returns>
     private static List<SelectGroup> SortList(
-        this IRepository<Forum> repository,
+        this IRepository<Forum> _,
         IEnumerable<Tuple<Forum, Category, ActiveAccess>> listSource)
     {
         var enumerable = listSource.ToList();
@@ -926,15 +926,15 @@ public static class ForumRepositoryExtensions
                                           {
                                               id = -category.ID,
                                               text = category.Name,
-                                              children = forumsByCategory.Select(
+                                              children = [.. forumsByCategory.Select(
                                                   forum => new SelectOptions
                                                                {
                                                                    id = forum.ID.ToString(),
                                                                    text = forum.ParentID.HasValue ? $" - {HttpUtility.HtmlEncode(forum.Name)}"
                                                                               : HttpUtility.HtmlEncode(forum.Name),
-                                                                   url = BoardContext.Current.Get<LinkBuilder>().GetForumLink(forum)
-                                                               }).ToList()
-                                          };
+                                                                   url = BoardContext.Current.Get<ILinkBuilder>().GetForumLink(forum)
+                                                               })]
+                    };
 
                     listDestination.Add(selectGroup);
                 });

@@ -47,7 +47,7 @@ public abstract class PclExport
     public static PclExport Instance { get; private set; }
 #if NETSTANDARD2_0
           = new NetStandardPclExport();
-#elif NET7_0_OR_GREATER
+#elif NET9_0_OR_GREATER
         = new Net7PclExport();
 #endif
 
@@ -209,47 +209,6 @@ public abstract class PclExport
                                string userAgent = null,
                                bool? preAuthenticate = null)
     {
-    }
-
-    /// <summary>
-    /// Gets the request stream.
-    /// </summary>
-    /// <param name="webRequest">The web request.</param>
-    /// <returns>Stream.</returns>
-    public virtual Stream GetRequestStream(WebRequest webRequest)
-    {
-        var streamAsync = webRequest.GetRequestStreamAsync();
-        streamAsync.Wait();
-        return streamAsync.Result;
-    }
-
-    /// <summary>
-    /// Gets the response.
-    /// </summary>
-    /// <param name="webRequest">The web request.</param>
-    /// <returns>WebResponse.</returns>
-    public virtual WebResponse GetResponse(WebRequest webRequest)
-    {
-        try
-        {
-            var responseAsync = webRequest.GetResponseAsync();
-            responseAsync.Wait();
-            return responseAsync.Result;
-        }
-        catch (Exception ex)
-        {
-            throw ex.UnwrapIfSingleException();
-        }
-    }
-
-    /// <summary>
-    /// Gets the response asynchronous.
-    /// </summary>
-    /// <param name="webRequest">The web request.</param>
-    /// <returns>Task&lt;WebResponse&gt;.</returns>
-    public virtual Task<WebResponse> GetResponseAsync(WebRequest webRequest)
-    {
-        return webRequest.GetResponseAsync();
     }
 
     /// <summary>
@@ -436,7 +395,7 @@ public abstract class PclExport
     /// Begins the thread affinity.
     /// </summary>
     public virtual void BeginThreadAffinity() { }
-    
+
     /// <summary>
     /// Ends the thread affinity.
     /// </summary>

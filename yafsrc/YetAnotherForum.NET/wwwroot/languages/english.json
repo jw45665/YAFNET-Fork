@@ -557,16 +557,8 @@
             "#text": "Uses MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Uses Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Uses XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Uses YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -995,6 +987,10 @@
           {
             "@tag": "TITLE",
             "#text": "User Attachments"
+          },
+          {
+	          "@tag": "CONFIRM_DELETE",
+	          "#text": "Delete attachment(s)?"
           }
         ]
       },
@@ -1109,7 +1105,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "You can find a list of Spam Bot Email Addresses on StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, that can be imported here."
+            "#text": "You can find a list of Spam Bot Email Addresses on StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, that can be imported here."
           },
           {
             "@tag": "TITLE",
@@ -1139,6 +1135,14 @@
           {
             "@tag": "EMPTY_MESSAGE",
             "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Import Blacklist from AbuseIpDb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Import list with the most recent ip addresses1 from AbuseIpDb.com"
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1256,7 +1260,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "You can find a list of Spam Bot Ips on StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, that can be imported here."
+            "#text": "You can find a list of Spam Bot Ips on StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, that can be imported here."
           },
           {
             "@tag": "TITLE",
@@ -1375,7 +1379,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "You can find a list of Spam Bot user names on StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, that can be imported here."
+            "#text": "You can find a list of Spam Bot user names on StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, that can be imported here."
           },
           {
             "@tag": "TITLE",
@@ -3319,22 +3323,6 @@
             "#text": "Confirmation password does not match"
           },
           {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Facebook User:"
-          },
-          {
-            "@tag": "FACEBOOK_USER_HELP",
-            "#text": "Indicates if the User is logged in via Facebook."
-          },
-          {
-            "@tag": "GOOGLE_USER",
-            "#text": "Google User:"
-          },
-          {
-            "@tag": "GOOGLE_USER_HELP",
-            "#text": "Indicates if the User is logged in via Google."
-          },
-          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Kill User and Ban"
           },
@@ -3960,7 +3948,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Digg, Reddit or Tumblr a Topic."
+            "#text": "Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Reddit or Tumblr a Topic."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -4275,14 +4263,6 @@
             "#text": "Enables/disables the Retweet Button, where the User can retweet a topic message."
           },
           {
-            "@tag": "ENABLE_SSO",
-            "#text": "Enable Single Sign On:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "If checked, users will be able to Login to an existing account via Facebook and/or Google. To Enable it for Facebook you need to setup YAF.FacebookAPIKey and YAF.FacebookSecretKey Values appsettings.json (AppSettings)."
-          },
-          {
             "@tag": "ENABLE_USERREPUTATION",
             "#text": "Use Reputation System:"
           },
@@ -4297,6 +4277,22 @@
           {
             "@tag": "ENABLE_WYSIWYG_HELP",
             "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+          },
+          {
+	          "@tag": "ENTER_MODE",
+	          "#text": "Editor Enter Mode"
+          },
+          {
+	          "@tag": "ENTER_MODE_HELP",
+	          "#text": "Sets the behavior of the Enter key, like whether the 'br'' or an empty 'p' element is to be used as a paragraph separator when indenting text."
+          },
+          {
+	          "@tag": "ENTER_MODE_0",
+	          "#text": "New 'p' paragraphs are created."
+          },
+          {
+	          "@tag": "ENTER_MODE_1",
+	          "#text": "Lines are broken with 'br' elements."
           },
           {
             "@tag": "EVENTLOG_MAX_DAYS",
@@ -4357,14 +4353,6 @@
           {
             "@tag": "FORCE_SEARCHINDED",
             "#text": "Search Index Task started."
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Forum Base URL Mask:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "The full forward-facing url to this forum."
           },
           {
             "@tag": "FORUM_EMAIL",
@@ -4609,6 +4597,14 @@
           {
             "@tag": "IPINFO_ULRL_HELP",
             "#text": "Set it to get details about IPs whereabouts as web page."
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "AbuseIpDb API Key:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "The API Key to retrieve the ip address blacklist."
           },
           {
             "@tag": "LASTPOST_COUNT",
@@ -6532,10 +6528,6 @@
             "#text": "Export All User(s) as Xml"
           },
           {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Facebook User"
-          },
-          {
             "@tag": "FILTER",
             "#text": "Filter by join date since:"
           },
@@ -7174,10 +7166,6 @@
           {
             "@tag": "SPOILERMOD_TOOLTIP",
             "#text": "Click here to show or hide the hidden text (also known as a spoiler)"
-          },
-          {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Enter the Status ID of the Tweet you want to embed"
           },
           {
             "@tag": "UERLINKMOD_DESCRIPTION",
@@ -8088,6 +8076,14 @@
           {
             "@tag": "TT_LISTUNORDERED",
             "#text": "Unordered List"
+          },
+          {
+            "@tag": "TT_NOTE",
+            "#text": "Insert Note"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Note Type"
           },
           {
             "@tag": "TT_QUOTE",
@@ -9743,10 +9739,6 @@
             "#text": "You have entered an incorrect URL as Facebook Profile."
           },
           {
-            "@tag": "BAD_GOOGLE",
-            "#text": "You have entered an illegal value as Google Profile URL."
-          },
-          {
             "@tag": "BAD_HOME",
             "#text": "You have entered an invalid address for your home page."
           },
@@ -9873,10 +9865,6 @@
           {
             "@tag": "SELECT_THEME_MODE",
             "#text": "Select the theme mode:"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Your SKYPE ID:"
           },
           {
             "@tag": "TIMEZONE",
@@ -10153,96 +10141,12 @@
         "@name": "GENDER",
         "Resource": [
           {
-            "@tag": "AGENDER",
-            "#text": "Agender"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgyne"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigender"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Cisgender"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "Female to Male"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Gender Fluid"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Gender Nonconforming"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Gender Questioning"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersex"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Male to Female"
-          },
-          {
             "@tag": "MAN",
             "#text": "Man"
           },
           {
-            "@tag": "NONBINARY",
-            "#text": "Non-binary"
-          },
-          {
             "@tag": "OTHER",
             "#text": "Other"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trrans"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfeminine"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transgender"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Transgender Man"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculine"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transsexual"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Transgender Woman"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Two-Spirit"
           },
           {
             "@tag": "WOMAN",
@@ -10295,7 +10199,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>You can change your account information using Personal Profile -&gt; 'Edit Profile' option from within the <strong>User Control Panel</strong>. If you want to change your Password there is an extra Page (Change Password) for that in the <strong>User Control Panel</strong>, where you can set a new Password.</p>\r\n<p><strong>Edit Profile Page</strong></p>\r\n<p>This page allows you to set a number of required and optional details, some of which will be displayed on your public profile. With the exception of your e-mail address, do not enter information that you do not wish to be publicly viewable.</p>\r\n<p><strong>About You</strong></p>\r\n<p>These are the Basic Information about you</p>\r\n<p><strong>Location</strong></p>\r\n<p>Here you can optionally enter the Place where you live</p>\r\n<p><strong>Home Page</strong></p>\r\n<p>Here you can optionally enter a Home page and/or a Blog.</p>\r\n<p><strong>Instant messaging services</strong></p>\r\n<p>Here you can optionally enter your messenger Ids of services such as XMPP, SKYPE and Facebook.</p>\r\n<p><strong>Time Zone</strong></p>\r\n<p>Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.</p>\r\n<p><strong>Forum Settings</strong></p>\r\n<p>Here you change your Email Address.</p>\r\n<p>And if the Administrator has enabled it you can change the Forum <strong>Language</strong> and the <strong>Theme</strong> of the Site.</p>"
+            "#text": "<p>You can change your account information using Personal Profile -&gt; 'Edit Profile' option from within the <strong>User Control Panel</strong>. If you want to change your Password there is an extra Page (Change Password) for that in the <strong>User Control Panel</strong>, where you can set a new Password.</p>\r\n<p><strong>Edit Profile Page</strong></p>\r\n<p>This page allows you to set a number of required and optional details, some of which will be displayed on your public profile. With the exception of your e-mail address, do not enter information that you do not wish to be publicly viewable.</p>\r\n<p><strong>About You</strong></p>\r\n<p>These are the Basic Information about you</p>\r\n<p><strong>Location</strong></p>\r\n<p>Here you can optionally enter the Place where you live</p>\r\n<p><strong>Home Page</strong></p>\r\n<p>Here you can optionally enter a Home page and/or a Blog.</p>\r\n<p><strong>Instant messaging services</strong></p>\r\n<p>Here you can optionally enter your messenger Ids of services such as XMPP and Facebook.</p>\r\n<p><strong>Time Zone</strong></p>\r\n<p>Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.</p>\r\n<p><strong>Forum Settings</strong></p>\r\n<p>Here you change your Email Address.</p>\r\n<p>And if the Administrator has enabled it you can change the Forum <strong>Language</strong> and the <strong>Theme</strong> of the Site.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -10669,14 +10573,6 @@
           {
             "@tag": "DISABLED",
             "#text": "The administrator of this forum has disabled this feature."
-          },
-          {
-            "@tag": "ECMAREQUIRED",
-            "#text": "To use the forum you should enable JavaScript in your browser."
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "The JavaScript version is unsupported. Please use a newer browser version/"
           },
           {
             "@tag": "EXCEPTION",
@@ -11170,30 +11066,6 @@
             "#text": "Login or Register with {0}"
           },
           {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Connect an Existing forums account with your {0} account You need to login thru the forums first. {1}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>The Facebook email address must match the forum user email address to connect the user.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>The Google email address must match the forum user email address to connect the user.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Login or Register with {0} or connect an existing User Account with {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Login with an user Account that is connected with {0}. Or if no account is found a new account will be automatically created in the forums."
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Could not get access_token!"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Remember me"
           },
@@ -11204,10 +11076,6 @@
           {
             "@tag": "CAPS_LOCK",
             "#text": "Caps Lock is on"
-          },
-          {
-            "@tag": "CONNECT_VIA",
-            "#text": "Or Connect via"
           },
           {
             "@tag": "EMAIL",
@@ -11256,50 +11124,6 @@
           {
             "@tag": "SENDPASSWORD",
             "#text": "Send Password"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "Single Sign On is currently deactivated by the Administrator!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "Single Sign On is deactivated for that User, you need to activate it in your Profile Settings to use that feature."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "The Facebook Login failed, User does not exists, or the account is not connected."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "The Facebook Login failed, an user account with the same email address as the facebook account already exists, please try to connect you your forum account instead."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "The Facebook Login failed, because the user does not provide a email address for the account."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email address!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "New Registrations are disabled."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "The Google Login failed, User does not exists, or the account is not connected."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "The Google Login failed, an user account with the same email address as the Google account already exists, please try to connect you your forum account instead."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email address!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "The User Account is not connected or not found!"
           },
           {
             "@tag": "TITLE",
@@ -12790,14 +12614,6 @@
             "#text": "Similar Topics"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Contact {0} via Skype"
-          },
-          {
             "@tag": "STATISTICS",
             "#text": "Statistics"
           },
@@ -13069,10 +12885,6 @@
             "#text": "Gender:"
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "Google+ Profile:"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "Groups:"
           },
@@ -13171,10 +12983,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "View All Posts by User"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Skype(tm) ID:"
           },
           {
             "@tag": "SOCIAL_MEDIA",
@@ -14132,7 +13940,7 @@
           },
           {
             "@tag": "RULES_TEXT",
-            "#text": "\r\n    [size=7][b]Rules[/b][/size][br]\r\n    It is impossible for owners and operators of this forum to confirm the validity of all posts on this forum. Posts reflect the views and opinion of the author, but not necessarily of the forum owners and operators. If you feel that a posted message is questionable, you are encouraged to notify an administrator of this forum immediately.\r\n\r\n    [br]You agree not to post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws. Doing so may lead to you being permanently banned from this forum. Note that all IP addresses are logged and may aid in enforcing these conditions.\r\n\r\n    [br]You agree that the owners and operators of this forum have the right to remove, edit, move or close any topic at any time should they see fit. As a user you agree to any information you have entered above being stored in a database. While this information will not be disclosed to any third party without your consent the owners and operators cannot be held responsible for any hacking attempt that may lead to the data being compromised.\r\n\r\n    [br]You agree not to use any automated tools for registering and/or posting on this bulletin board. By failing to obey this rule you would be granting us permission to repeatedly query your web server.\r\n\r\n    [br][size=7][b]Privacy Policy[/b][/size][br]\r\n\r\n    [br][size=6][b]1. An overview of data protection[/b][/size][br]\r\n\r\n    [br][size=5][b]General information[/b][/size][br]\r\n    The following information will provide you with an easy to navigate overview of what will happen with your personal data when you visit our website. The term “personal data” comprises all data that can be used to personally identify you. For detailed information about the subject matter of data protection, please consult our Data Protection Declaration, which we have included beneath this copy.\r\n\r\n    [br][size=5][b]Data recording on our website[/b][/size][br]\r\n\r\n    [br][b]Who is the responsible party for the recording of data on this website (i.e. the “controller”)?[/b][br]\r\n\r\n    [br]The data on this website is processed by the operator of the website, whose contact information is available under section “Information about the responsible party” on this website.\r\n\r\n    [br][b]How do we record your data?[/b][br]\r\n\r\n    [br]We collect your data as a result of your sharing of your data with us. This may, for instance be information you enter into our contact form.\r\n\r\n    [br]Our IT systems automatically record other data when you visit our website. This data comprises primarily technical information (e.g. web browser, operating system or time the site was accessed). This information is recorded automatically when you access our website.\r\n\r\n    [br][b]What are the purposes we use your data for?[/b][br]\r\n\r\n    [br]A portion of the information is generated to guarantee the error free provision of the website. Other data may be used to analyze your user patterns.\r\n\r\n    [br][b]What rights do you have as far as your information is concerned?[/b][br]\r\n\r\n    [br]You have the right to receive information about the source, recipients and purposes of your archived personal data at any time without having to pay a fee for such disclosures. You also have the right to demand that your data are rectified, blocked or eradicated. Please do not hesitate to contact us at any time under the address disclosed in section “Information about the responsible party” on this website if you have questions about this or any other data protection related issues. You also have the right to log a complaint with the competent supervising agency.\r\n\r\n    [br][br]\r\n\r\n    [br]Moreover, under certain circumstances, you have the right to demand the restriction of the processing of your personal data. For details, please consult the Data Protection Declaration under section “Right to demand processing restrictions.”\r\n\r\n    [br][size=6][b]2. General information and mandatory information[/b][/size][br]\r\n    [br][size=5][b]Data protection[/b][/size][br]\r\n    [br]The operators of this website and its pages take the protection of your personal data very seriously. Hence, we handle your personal data as confidential information and in compliance with the statutory data protection regulations and this Data Protection Declaration.\r\n\r\n    [br]Whenever you use this website, a variety of personal information will be collected. Personal data comprises data that can be used to personally identify you. This Data Protection Declaration explains which data we collect as well as the purposes we use this data for. It also explains how, and for which purpose the information is collected.\r\n\r\n    [br]We herewith advise you that the transmission of data via the Internet (i.e. through e-mail communications) may be prone to security gaps. It is not possible to completely protect data against third party access.\r\n\r\n    [br][size=5][b]Information about the responsible party (referred to as the “controller” in the GDPR)[/b][/size][br]\r\n    [br]The data processing controller on this website is:\r\n\r\n    [br][br]\r\n    {0}\r\n    [br][br]\r\n\r\n    [br]The controller is the natural person or legal entity that single-handedly or jointly with others makes decisions as to the purposes of and resources for the processing of personal data (e.g. names, e-mail addresses, etc.).\r\n\r\n    [br][size=5][b]Revocation of your consent to the processing of data[/b][/size][br]\r\n    [br]A wide range of data processing transactions are possible only subject to your express consent. You can also revoke at any time any consent you have already given us. To do so, all you are required to do is sent us an informal notification via e-mail. This shall be without prejudice to the lawfulness of any data collection that occurred prior to your revocation.\r\n\r\n    [br][size=5][b]Right to object to the collection of data in special cases; right to object to direct advertising (Art. 21 GDPR)[/b][/size][br]\r\n\r\n    [br][b]In the event that data are processed on the basis of Art. 6 Sect. 1 lit. e or f GDPR, you have the right to at any time object to the processing of your personal data based on grounds arising from your unique situation. This also applies to any profiling based on these provisions. To determine the legal basis, on which any processing of data is based, please consult this Data Protection Declaration. If you log an objection, we will no longer process your affected personal data, unless we are in a position to present compelling protection worthy grounds for the processing of your data, that outweigh your interests, rights and freedoms or if the purpose of the processing is the claiming, exercising or defence of legal entitlements (objection pursuant to Art. 21 Sect. 1 GDPR).[/b]\r\n    [/b]\r\n\r\n\r\n    [br][b]If your personal data is being processed in order to engage in direct advertising, you have the right to at any time object to the processing of your affected personal data for the purposes of such advertising. This also applies to profiling to the extent that it is affiliated with such direct advertising. If you object, your personal data will subsequently no longer be used for direct advertising purposes (objection pursuant to Art. 21 Sect. 2 GDPR).[/b]\r\n\r\n    [br][size=5][b]Right to log a complaint with the competent supervisory agency[/b][/size][br]\r\n    [br]In the event of violations of the GDPR, data subjects are entitled to log a complaint with a supervisory agency, in particular in the member state where they usually maintain their domicile, place of work or at the place where the alleged violation occurred. The right to log a complaint is in effect regardless of any other administrative or court proceedings available as legal recourses.\r\n\r\n    [br][size=5][b]Right to data portability[/b][/size][br]\r\n    [br]You have the right to demand that we hand over any data we automatically process on the basis of your consent or in order to fulfil a contract be handed over to you or a third party in a commonly used, machine readable format. If you should demand the direct transfer of the data to another controller, this will be done only if it is technically feasible.\r\n\r\n    [br][size=5][b]Information about, blockage, rectification and eradication of data[/b][/size][br]\r\n    [br]Within the scope of the applicable statutory provisions, you have the right to at any time demand information about your archived personal data, their source and recipients as well as the purpose of the processing of your data. You may also have a right to have your data rectified, blocked or eradicated. If you have questions about this subject matter or any other questions about personal data, please do not hesitate to contact us at any time at the address provided in section “Information about the responsible party”.\r\n\r\n    [br][size=5][b]Right to demand processing restrictions[/b][/size][br]\r\n    [br]You have the right to demand the imposition of restrictions as far as the processing of your personal data is concerned. To do so, you may contact us at any time at the address provided in section “Information about the responsible party”. The right to demand restriction of processing applies in the following cases:\r\n\r\n    [list]\r\n    [*]In the event that you should dispute the correctness of your data archived by us, we will usually need some time to verify this claim. During the time that this investigation is ongoing, you have the right to demand that we restrict the processing of your personal data.\r\n    [*]If the processing of your personal data was/is conducted in an unlawful manner, you have the option to demand the restriction of the processing of your data in lieu of demanding the eradication of this data.\r\n    [*]If we do not need your personal data any longer and you need it to exercise, defend or claim legal entitlements, you have the right to demand the restriction of the processing of your personal data instead of its eradication.\r\n    [*]If you have raised an objection pursuant to Art. 21 Sect. 1 GDPR, your rights and our rights will have to be weighed against each other. As long as it has not been determined whose interests prevail, you have the right to demand a restriction of the processing of your personal data.\r\n    [/list]\r\n\r\n    [br]If you have restricted the processing of your personal data, these data – with the exception of their archiving – may be processed only subject to your consent or to claim, exercise or defend legal entitlements or to protect the rights of other natural persons or legal entities or for important public interest reasons cited by the European Union or a member state of the EU.\r\n\r\n    [br][size=6][b]3. Recording of data on our website[/b][/size][br]\r\n\r\n    [br][size=5][b]Cookies[/b][/size][br]\r\n    [br]In some instances, our website and its pages use so-called cookies. Cookies do not cause any damage to your computer and do not contain viruses. The purpose of cookies is to make our website more user friendly, effective and more secure. Cookies are small text files that are placed on your computer and stored by your browser.\r\n    [br]\r\n\r\n    [br]Most of the cookies we use are so-called “session cookies.” They are automatically deleted after your leave our site. Other cookies will remain archived on your device until you delete them. These cookies enable us to recognise your browser the next time you visit our website.\r\n    [br]\r\n\r\n    [br]You can adjust the settings of your browser to make sure that you are notified every time cookies are placed and to enable you to accept cookies only in specific cases or to exclude the acceptance of cookies for specific situations or in general and to activate the automatic deletion of cookies when you close your browser. If you deactivate cookies, the functions of this website may be limited.\r\n\r\n    [br]\r\n    [br]Cookies that are required for the performance of the electronic communications transaction or to provide certain functions you want to use (e.g. the shopping cart function), are stored on the basis of Art. 6 Sect. 1 lit. f GDPR. The website operator has a legitimate interest in storing cookies to ensure the technically error free and optimised provision of the operator’s services. If other cookies (e.g. cookies for the analysis of your browsing patterns) should be stored, they are addressed separately in this Data Protection Declaration.\r\n\r\n    [br][size=5][b]Server log files[/b][/size][br]\r\n    [br]The provider of this website and its pages automatically collects and stores information in so-called server log files, which your browser communicates to us automatically. The information comprises:\r\n\r\n    [list]\r\n    [*]The type and version of browser used\r\n    [*]The used operating system\r\n    [*]Referrer URL\r\n    [*]The hostname of the accessing computer\r\n    [*]The time of the server inquiry\r\n    [*]The IP address\r\n    [/list]\r\n\r\n    [br]This data is not merged with other data sources.\r\n    [br]\r\n\r\n    [br]This data is recorded on the basis of Art. 6 Sect. 1 lit. f GDPR. The operator of the website has a legitimate interest in the technically error free depiction and the optimization of the operator’s website. In order to achieve this, server log files must be recorded.\r\n\r\n    [br][size=5][b]Registration on this board[/b][/size][br]\r\n    [br]You have the option to register on our website to be able to use additional website functions. We shall use the data you enter only for the purpose of using the respective offer or service you have registered for. The required information we request at the time of registration must be entered in full. Otherwise we shall reject the registration.\r\n    [br]\r\n\r\n    [br]To notify you of any important changes to the scope of our portfolio or in the event of technical modifications, we shall use the e-mail address provided during the registration process.\r\n\r\n    [br]The basis for the processing of data is Art. 6 Sect. 1 lit. b GDPR, which permits the processing of data for the fulfilment of a contract or for pre-contractual actions.\r\n\r\n    [br]The data recorded during the registration process shall be stored by us as long as you are registered on our website. Subsequently, such data shall be deleted. This shall be without prejudice to mandatory statutory retention obligations.\r\n\r\n    [br][size=6][b]4. Plug-ins and Tools[/b][/size][br]\r\n    [br][size=5][b]Google reCAPTCHA[/b][/size][br]\r\n    [br]We use “Google reCAPTCHA” (hereinafter referred to as “reCAPTCHA”) on our websites. The provider is Google Inc., 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA (“Google”).\r\n\r\n    [br]\r\n    [br]The purpose of reCAPTCHA is to determine whether data entered on our websites (e.g. information entered into a contact form) is being provided by a human user or by an automated program. To determine this, reCAPTCHA analyses the behaviour of the website visitors based on a variety of parameters. This analysis is triggered automatically as soon as the website visitor enters the site. For this analysis, reCAPTCHA evaluates a variety of data (e.g. IP address, time the website visitor spent on the site or cursor movements initiated by the user). The data tracked during such analyses are forwarded to Google.\r\n    [br]\r\n    [br]reCAPTCHA analyses run entirely in the background. Website visitors are not alerted that an analysis is underway.\r\n    [br]\r\n    [br]The data is processed on the basis of Art. 6 Sect. 1 lit. f GDPR. It is in the website operators legitimate interest, to protect the operator’s web content against misuse by automated industrial espionage systems and against SPAM.\r\n    [br]\r\n    [br]For more information about Google reCAPTCHA and to review the Data Privacy Declaration of Google, please follow these link: [url]https://policies.google.com/privacy?hl=en[/url].\r\n\r\n    [br][size=5][b]BlogSpam.net[/b][/size][br]\r\n    [br]This Service if enabled sends the user name and message to the service to determine if the message is spam.\r\n\r\n    [br][size=5][b]StopForumSpam[/b][/size][br]\r\n    [br]This Service, if enabled passes the user name, email address and IP address of the registering member to the service to determine the likelihood a registering account is a spam source.\r\n    [br][url=https://www.stopforumspam.com/gdpr]Privacy Policy[/url].\r\n\r\n    [br][size=5][b]BotScout[/b][/size][br]\r\n    [br]This Service, if enabled passes the user name, email address and IP address of the registering member to the service to determine the likelihood a registering account is a spam source.\r\n    [br][url=http://botscout.com/w3c/]Privacy Policy[/url].\r\n  "
+            "#text": "\r\n    [size=7][b]Rules[/b][/size][br]\r\n    It is impossible for owners and operators of this forum to confirm the validity of all posts on this forum. Posts reflect the views and opinion of the author, but not necessarily of the forum owners and operators. If you feel that a posted message is questionable, you are encouraged to notify an administrator of this forum immediately.\r\n\r\n    [br]You agree not to post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws. Doing so may lead to you being permanently banned from this forum. Note that all IP addresses are logged and may aid in enforcing these conditions.\r\n\r\n    [br]You agree that the owners and operators of this forum have the right to remove, edit, move or close any topic at any time should they see fit. As a user you agree to any information you have entered above being stored in a database. While this information will not be disclosed to any third party without your consent the owners and operators cannot be held responsible for any hacking attempt that may lead to the data being compromised.\r\n\r\n    [br]You agree not to use any automated tools for registering and/or posting on this bulletin board. By failing to obey this rule you would be granting us permission to repeatedly query your web server.\r\n\r\n    [br][size=7][b]Privacy Policy[/b][/size][br]\r\n\r\n    [br][size=6][b]1. An overview of data protection[/b][/size][br]\r\n\r\n    [br][size=5][b]General information[/b][/size][br]\r\n    The following information will provide you with an easy to navigate overview of what will happen with your personal data when you visit our website. The term “personal data” comprises all data that can be used to personally identify you. For detailed information about the subject matter of data protection, please consult our Data Protection Declaration, which we have included beneath this copy.\r\n\r\n    [br][size=5][b]Data recording on our website[/b][/size][br]\r\n\r\n    [br][b]Who is the responsible party for the recording of data on this website (i.e. the “controller”)?[/b][br]\r\n\r\n    [br]The data on this website is processed by the operator of the website, whose contact information is available under section “Information about the responsible party” on this website.\r\n\r\n    [br][b]How do we record your data?[/b][br]\r\n\r\n    [br]We collect your data as a result of your sharing of your data with us. This may, for instance be information you enter into our contact form.\r\n\r\n    [br]Our IT systems automatically record other data when you visit our website. This data comprises primarily technical information (e.g. web browser, operating system or time the site was accessed). This information is recorded automatically when you access our website.\r\n\r\n    [br][b]What are the purposes we use your data for?[/b][br]\r\n\r\n    [br]A portion of the information is generated to guarantee the error free provision of the website. Other data may be used to analyze your user patterns.\r\n\r\n    [br][b]What rights do you have as far as your information is concerned?[/b][br]\r\n\r\n    [br]You have the right to receive information about the source, recipients and purposes of your archived personal data at any time without having to pay a fee for such disclosures. You also have the right to demand that your data are rectified, blocked or eradicated. Please do not hesitate to contact us at any time under the address disclosed in section “Information about the responsible party” on this website if you have questions about this or any other data protection related issues. You also have the right to log a complaint with the competent supervising agency.\r\n\r\n    [br][br]\r\n\r\n    [br]Moreover, under certain circumstances, you have the right to demand the restriction of the processing of your personal data. For details, please consult the Data Protection Declaration under section “Right to demand processing restrictions.”\r\n\r\n    [br][size=6][b]2. General information and mandatory information[/b][/size][br]\r\n    [br][size=5][b]Data protection[/b][/size][br]\r\n    [br]The operators of this website and its pages take the protection of your personal data very seriously. Hence, we handle your personal data as confidential information and in compliance with the statutory data protection regulations and this Data Protection Declaration.\r\n\r\n    [br]Whenever you use this website, a variety of personal information will be collected. Personal data comprises data that can be used to personally identify you. This Data Protection Declaration explains which data we collect as well as the purposes we use this data for. It also explains how, and for which purpose the information is collected.\r\n\r\n    [br]We herewith advise you that the transmission of data via the Internet (i.e. through e-mail communications) may be prone to security gaps. It is not possible to completely protect data against third party access.\r\n\r\n    [br][size=5][b]Information about the responsible party (referred to as the “controller” in the GDPR)[/b][/size][br]\r\n    [br]The data processing controller on this website is:\r\n\r\n    [br][br]\r\n    {0}\r\n    [br][br]\r\n\r\n    [br]The controller is the natural person or legal entity that single-handedly or jointly with others makes decisions as to the purposes of and resources for the processing of personal data (e.g. names, e-mail addresses, etc.).\r\n\r\n    [br][size=5][b]Revocation of your consent to the processing of data[/b][/size][br]\r\n    [br]A wide range of data processing transactions are possible only subject to your express consent. You can also revoke at any time any consent you have already given us. To do so, all you are required to do is sent us an informal notification via e-mail. This shall be without prejudice to the lawfulness of any data collection that occurred prior to your revocation.\r\n\r\n    [br][size=5][b]Right to object to the collection of data in special cases; right to object to direct advertising (Art. 21 GDPR)[/b][/size][br]\r\n\r\n    [br][b]In the event that data are processed on the basis of Art. 6 Sect. 1 lit. e or f GDPR, you have the right to at any time object to the processing of your personal data based on grounds arising from your unique situation. This also applies to any profiling based on these provisions. To determine the legal basis, on which any processing of data is based, please consult this Data Protection Declaration. If you log an objection, we will no longer process your affected personal data, unless we are in a position to present compelling protection worthy grounds for the processing of your data, that outweigh your interests, rights and freedoms or if the purpose of the processing is the claiming, exercising or defence of legal entitlements (objection pursuant to Art. 21 Sect. 1 GDPR).[/b]\r\n    [/b]\r\n\r\n\r\n    [br][b]If your personal data is being processed in order to engage in direct advertising, you have the right to at any time object to the processing of your affected personal data for the purposes of such advertising. This also applies to profiling to the extent that it is affiliated with such direct advertising. If you object, your personal data will subsequently no longer be used for direct advertising purposes (objection pursuant to Art. 21 Sect. 2 GDPR).[/b]\r\n\r\n    [br][size=5][b]Right to log a complaint with the competent supervisory agency[/b][/size][br]\r\n    [br]In the event of violations of the GDPR, data subjects are entitled to log a complaint with a supervisory agency, in particular in the member state where they usually maintain their domicile, place of work or at the place where the alleged violation occurred. The right to log a complaint is in effect regardless of any other administrative or court proceedings available as legal recourses.\r\n\r\n    [br][size=5][b]Right to data portability[/b][/size][br]\r\n    [br]You have the right to demand that we hand over any data we automatically process on the basis of your consent or in order to fulfil a contract be handed over to you or a third party in a commonly used, machine readable format. If you should demand the direct transfer of the data to another controller, this will be done only if it is technically feasible.\r\n\r\n    [br][size=5][b]Information about, blockage, rectification and eradication of data[/b][/size][br]\r\n    [br]Within the scope of the applicable statutory provisions, you have the right to at any time demand information about your archived personal data, their source and recipients as well as the purpose of the processing of your data. You may also have a right to have your data rectified, blocked or eradicated. If you have questions about this subject matter or any other questions about personal data, please do not hesitate to contact us at any time at the address provided in section “Information about the responsible party”.\r\n\r\n    [br][size=5][b]Right to demand processing restrictions[/b][/size][br]\r\n    [br]You have the right to demand the imposition of restrictions as far as the processing of your personal data is concerned. To do so, you may contact us at any time at the address provided in section “Information about the responsible party”. The right to demand restriction of processing applies in the following cases:\r\n\r\n    [list]\r\n    [*]In the event that you should dispute the correctness of your data archived by us, we will usually need some time to verify this claim. During the time that this investigation is ongoing, you have the right to demand that we restrict the processing of your personal data.\r\n    [*]If the processing of your personal data was/is conducted in an unlawful manner, you have the option to demand the restriction of the processing of your data in lieu of demanding the eradication of this data.\r\n    [*]If we do not need your personal data any longer and you need it to exercise, defend or claim legal entitlements, you have the right to demand the restriction of the processing of your personal data instead of its eradication.\r\n    [*]If you have raised an objection pursuant to Art. 21 Sect. 1 GDPR, your rights and our rights will have to be weighed against each other. As long as it has not been determined whose interests prevail, you have the right to demand a restriction of the processing of your personal data.\r\n    [/list]\r\n\r\n    [br]If you have restricted the processing of your personal data, these data – with the exception of their archiving – may be processed only subject to your consent or to claim, exercise or defend legal entitlements or to protect the rights of other natural persons or legal entities or for important public interest reasons cited by the European Union or a member state of the EU.\r\n\r\n    [br][size=6][b]3. Recording of data on our website[/b][/size][br]\r\n\r\n    [br][size=5][b]Cookies[/b][/size][br]\r\n    [br]In some instances, our website and its pages use so-called cookies. Cookies do not cause any damage to your computer and do not contain viruses. The purpose of cookies is to make our website more user friendly, effective and more secure. Cookies are small text files that are placed on your computer and stored by your browser.\r\n    [br]\r\n\r\n    [br]Most of the cookies we use are so-called “session cookies.” They are automatically deleted after your leave our site. Other cookies will remain archived on your device until you delete them. These cookies enable us to recognise your browser the next time you visit our website.\r\n    [br]\r\n\r\n    [br]You can adjust the settings of your browser to make sure that you are notified every time cookies are placed and to enable you to accept cookies only in specific cases or to exclude the acceptance of cookies for specific situations or in general and to activate the automatic deletion of cookies when you close your browser. If you deactivate cookies, the functions of this website may be limited.\r\n\r\n    [br]\r\n    [br]Cookies that are required for the performance of the electronic communications transaction or to provide certain functions you want to use (e.g. the shopping cart function), are stored on the basis of Art. 6 Sect. 1 lit. f GDPR. The website operator has a legitimate interest in storing cookies to ensure the technically error free and optimised provision of the operator’s services. If other cookies (e.g. cookies for the analysis of your browsing patterns) should be stored, they are addressed separately in this Data Protection Declaration.\r\n\r\n    [br][size=5][b]Server log files[/b][/size][br]\r\n    [br]The provider of this website and its pages automatically collects and stores information in so-called server log files, which your browser communicates to us automatically. The information comprises:\r\n\r\n    [list]\r\n    [*]The type and version of browser used\r\n    [*]The used operating system\r\n    [*]Referrer URL\r\n    [*]The hostname of the accessing computer\r\n    [*]The time of the server inquiry\r\n    [*]The IP address\r\n    [/list]\r\n\r\n    [br]This data is not merged with other data sources.\r\n    [br]\r\n\r\n    [br]This data is recorded on the basis of Art. 6 Sect. 1 lit. f GDPR. The operator of the website has a legitimate interest in the technically error free depiction and the optimization of the operator’s website. In order to achieve this, server log files must be recorded.\r\n\r\n    [br][size=5][b]Registration on this board[/b][/size][br]\r\n    [br]You have the option to register on our website to be able to use additional website functions. We shall use the data you enter only for the purpose of using the respective offer or service you have registered for. The required information we request at the time of registration must be entered in full. Otherwise we shall reject the registration.\r\n    [br]\r\n\r\n    [br]To notify you of any important changes to the scope of our portfolio or in the event of technical modifications, we shall use the e-mail address provided during the registration process.\r\n\r\n    [br]The basis for the processing of data is Art. 6 Sect. 1 lit. b GDPR, which permits the processing of data for the fulfilment of a contract or for pre-contractual actions.\r\n\r\n    [br]The data recorded during the registration process shall be stored by us as long as you are registered on our website. Subsequently, such data shall be deleted. This shall be without prejudice to mandatory statutory retention obligations.\r\n\r\n    [br][size=6][b]4. Plug-ins and Tools[/b][/size][br]\r\n[br][size=5][b]BlogSpam.net[/b][/size][br]\r\n    [br]This Service if enabled sends the user name and message to the service to determine if the message is spam.\r\n\r\n    [br][size=5][b]StopForumSpam[/b][/size][br]\r\n    [br]This Service, if enabled passes the user name, email address and IP address of the registering member to the service to determine the likelihood a registering account is a spam source.\r\n    [br][url=https://www.stopforumspam.com/gdpr]Privacy Policy[/url].\r\n\r\n    [br][size=5][b]BotScout[/b][/size][br]\r\n    [br]This Service, if enabled passes the user name, email address and IP address of the registering member to the service to determine the likelihood a registering account is a spam source.\r\n    [br][url=http://botscout.com/w3c/]Privacy Policy[/url].\r\n  "
           },
           {
             "@tag": "TITLE",
@@ -14398,14 +14206,6 @@
           {
             "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_TEXT",
             "#text": "\r\n      Hello!\r\n\r\n      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):\r\n\r\n      User Name: {user}\r\n      User Email: {email}\r\n\r\n      Administration Link: {adminlink}\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_FACEBOOK_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Facebook Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Facebook)\r\n\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_GOOGLE_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Google Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Google)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_TEXT",

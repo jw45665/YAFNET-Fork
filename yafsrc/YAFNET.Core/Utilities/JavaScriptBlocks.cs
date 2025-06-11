@@ -569,23 +569,34 @@ public static class JavaScriptBlocks
     /// <param name="urlImageDescription">The URL image description.</param>
     /// <param name="description">The description.</param>
     /// <param name="mediaTitle">The media title.</param>
+    /// <param name="insertNote">The insert note.</param>
+    /// <param name="typeTitle">The type title.</param>
     /// <returns>System.String.</returns>
     public static string CreateEditorJs(
-        string editorId,
-        string urlTitle,
-        string urlDescription,
-        string urlImageTitle,
-        string urlImageDescription,
-        string description,
-        string mediaTitle)
+            string editorId,
+            string urlTitle,
+            string urlDescription,
+            string urlImageTitle,
+            string urlImageDescription,
+            string description,
+            string mediaTitle,
+            string insertNote,
+            string typeTitle)
     {
         return $$$"""
-                  var {{{editorId}}}=new yafEditor("{{{editorId}}}", "{{{urlTitle}}}", "{{{urlDescription}}}", "{{{urlImageTitle}}}", "{{{urlImageDescription}}}", "{{{description}}}", "{{{mediaTitle}}}");
+                  var {{{editorId}}}=new yafEditor("{{{editorId}}}", "{{{urlTitle}}}", "{{{urlDescription}}}", "{{{urlImageTitle}}}", "{{{urlImageDescription}}}", "{{{description}}}", 
+                                                   "{{{mediaTitle}}}", "{{{insertNote}}}", "{{{typeTitle}}}");
                                     function setStyle(style,option) {
                                              {{{editorId}}}.FormatText(style,option);
                                     }
                                     function insertAttachment(id,url) {
-                                             {{{editorId}}}.FormatText("attach", id);
+                                        {{{editorId}}}.FormatText("attach", id);
+                                        
+                                        var modal = bootstrap.Modal.getInstance(document.getElementById('UploadDialog'));
+                  
+                                        if (modal && modal._isShown) {
+                                            modal.hide();
+                                        }
                                     }
                                     
                   mentions({id: '{{{editorId}}}',
@@ -626,7 +637,7 @@ public static class JavaScriptBlocks
                          locale: '{{{locale}}}',
                          toolbar: '{{{toolbar}}}',
                          root: '',
-                         plugins: 'plaintext,dragdrop',
+                         plugins: 'plaintext,dragdrop,undo',
                          styles: [{{{styles}}}],
                          extensionsUrl: '{{{extensionsUrl}}}',
                          albumsPreviewUrl: '/api/Albums/GetImagePreview?imageId=',
@@ -639,6 +650,12 @@ public static class JavaScriptBlocks
                      }
                      function insertAttachment(id, url) {
                          sceditor.instance(textarea).insert(`[attach]${id}[/attach]`);
+                         
+                         var modal = bootstrap.Modal.getInstance(document.getElementById('UploadDialog'));
+                         
+                         if (modal && modal._isShown) {
+                             modal.hide();
+                         }
                      }
                      
                      function toggleMode() {
@@ -1100,9 +1117,7 @@ public static class JavaScriptBlocks
                          if (listBox.scrollTop >= scrollableHeight) {
                              const resultsPerPage = 15 * 2,
                                  choices = forumsSelect._store.choices,
-                 
                                  lastItem = choices[choices.length - 1],
-                 
                                  currentPage = lastItem.customProperties.page,
                  
                                  total = lastItem.customProperties.page == 0

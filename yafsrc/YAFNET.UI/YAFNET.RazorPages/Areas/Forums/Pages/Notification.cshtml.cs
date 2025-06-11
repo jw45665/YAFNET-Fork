@@ -35,7 +35,6 @@ using Core.Model;
 using Types.Models;
 
 using YAF.Core.Extensions;
-using YAF.Core.Services;
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 
@@ -109,28 +108,24 @@ public class NotificationModel : ForumPageRegistered
     {
         this.PageBoardContext.PageLinks.AddLink(
             this.PageBoardContext.PageUser.DisplayOrUserName(),
-            this.Get<LinkBuilder>().GetLink(ForumPages.Notification));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.Notification));
     }
 
     /// <summary>
     /// The on get.
     /// </summary>
-    public IActionResult OnGet()
+    public void OnGet()
     {
         this.BindData();
-
-        return this.Page();
     }
 
     /// <summary>
     /// Called when [post update].
     /// </summary>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPostUpdate()
+    public void OnPost()
     {
         this.BindData();
-
-        return this.Page();
     }
 
     /// <summary>

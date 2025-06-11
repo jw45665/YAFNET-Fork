@@ -1,6 +1,5 @@
 ﻿@using YAF.Core.Context
 @using YAF.Core.Helpers
-@using YAF.Core.Services
 @using YAF.Core.Utilities
 @using YAF.Types.Constants
 @using YAF.Types.Interfaces
@@ -10,5 +9,5 @@
         BoardContext.Current.Get<ILocalization>().GetText("TOOLBAR", "LOGOUT_QUESTION"),
         BoardContext.Current.Get<ILocalization>().GetText("TOOLBAR", "LOGOUT"),
         BoardContext.Current.Get<ILocalization>().GetText("COMMON", "CANCEL"),
-                        BoardContext.Current.Get<LinkBuilder>().GetLink(ForumPages.Account_Logout))))
+                        BoardContext.Current.Get<ILinkBuilder>().GetLink(ForumPages.Account_Logout))))
 </script>

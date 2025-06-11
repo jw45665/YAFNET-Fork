@@ -34,7 +34,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using YAF.Core.Context;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.Constants;
 using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
@@ -93,7 +92,7 @@ public class UsersSettingsModel : AdminPage
     {
         if (!BoardContext.Current.IsAdmin)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         this.Input = new UsersSettingsInputModel {
@@ -111,7 +110,7 @@ public class UsersSettingsModel : AdminPage
         if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] is not
             Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,
                 new {
                     u = this.Input.UserId
@@ -125,7 +124,7 @@ public class UsersSettingsModel : AdminPage
             if (!ValidationHelper.IsValidEmail(newEmail))
             {
                 this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
-                return this.Get<LinkBuilder>().Redirect(
+                return this.Get<ILinkBuilder>().Redirect(
                     ForumPages.Admin_EditUser,
                     new { u = this.Input.UserId, tab = "View10" });
             }
@@ -135,7 +134,7 @@ public class UsersSettingsModel : AdminPage
             if (userFromEmail != null)
             {
                 this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
-                return this.Get<LinkBuilder>().Redirect(
+                return this.Get<ILinkBuilder>().Redirect(
                     ForumPages.Admin_EditUser,
                     new { u = this.Input.UserId, tab = "View10" });
             }
@@ -149,7 +148,7 @@ public class UsersSettingsModel : AdminPage
                 this.PageBoardContext.SessionNotify(
                     this.GetText("PROFILE", "DUPLICATED_EMAIL"),
                     MessageTypes.warning);
-                return this.Get<LinkBuilder>().Redirect(
+                return this.Get<ILinkBuilder>().Redirect(
                     ForumPages.Admin_EditUser,
                     new { u = this.Input.UserId, tab = "View10" });
             }
@@ -200,7 +199,7 @@ public class UsersSettingsModel : AdminPage
 
         this.Get<IDataCache>().Clear();
 
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Admin_EditUser,
             new { u = this.Input.UserId, tab = "View10" });
     }
@@ -212,7 +211,7 @@ public class UsersSettingsModel : AdminPage
     {
         if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,
                 new {
                     u = this.Input.UserId

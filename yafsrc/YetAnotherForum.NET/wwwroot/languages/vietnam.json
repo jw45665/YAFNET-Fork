@@ -16,7 +16,7 @@
           },
           {
             "@tag": "BECOME_FRIENDS",
-            "#text": "Become Friends"
+            "#text": "Trở thành bạn bè"
           },
           {
             "@tag": "CHANGE_PASSWORD",
@@ -222,15 +222,15 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Views banned user agents list"
+            "#text": "Lượt xem danh sách đại lý người dùng bị cấm"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_EDIT",
-            "#text": "Edits banned user agents"
+            "#text": "Chỉnh sửa các tác nhân người dùng bị cấm"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_IMPORT",
-            "#text": "Imports banned user agents"
+            "#text": "Nhập khẩu đại lý người dùng bị cấm"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -557,16 +557,8 @@
             "#text": "Sử dụng MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Sử dụng Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Sử dụng XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Sử dụng YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -993,6 +985,10 @@
         "@name": "ADMIN_ATTACHMENTS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Xóa (các) tệp đính kèm?"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Tệp đính kèm của người dùng"
           }
@@ -1003,35 +999,35 @@
         "Resource": [
           {
             "@tag": "ADD_UA",
-            "#text": "Add New UserAgent"
+            "#text": "Thêm người dùng mới"
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No UserAgents"
+            "#text": "Không có người dùng"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned UserAgent. Add a new banned UserAgent by clicking the [b]Add New UserAgent[/b] Button Bellow."
+            "#text": "Hiện tại không có người dùng bị cấm. "
           },
           {
             "@tag": "IMPORT_UA",
-            "#text": "Import UserAgent(s)"
+            "#text": "Nhập (các) người dùng"
           },
           {
             "@tag": "MASK",
-            "#text": "Mask"
+            "#text": "Mặt nạ"
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned UserAgent Already exists!"
+            "#text": "Người dùng bị cấm đã tồn tại!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The UserAgent was successfully deleted"
+            "#text": "Người dùng đã bị xóa thành công"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned UserAgent"
+            "#text": "Người dùng bị cấm"
           }
         ]
       },
@@ -1040,23 +1036,23 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "UserAgent:"
+            "#text": "Useragent:"
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The User Agent to ban. You can use Regular Expressions."
+            "#text": "Đại lý người dùng để cấm. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define a User Agent."
+            "#text": "Bạn phải xác định một tác nhân người dùng."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add Banned UserAgent"
+            "#text": "Thêm người dùng bị cấm"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned UserAgent"
+            "#text": "Chỉnh sửa người dùng bị cấm"
           }
         ]
       },
@@ -1065,35 +1061,35 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import UserAgent List"
+            "#text": "Nhập danh sách người dùng"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "Danh sách nhập khẩu"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "Không nhập khẩu! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "Chọn Nhập tệp:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing one useragent on each line"
+            "#text": "Phải là *.txt tệp chứa một người dùng trên mỗi dòng"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new useragent was found in the upload."
+            "#text": "Không có gì nhập: Không có người dùng mới nào được tìm thấy trong tải lên."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new useragent(s) imported successfully."
+            "#text": "{0} Người dùng mới được nhập thành công."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import UserAgent(s)"
+            "#text": "Nhập (các) người dùng"
           }
         ]
       },
@@ -1106,11 +1102,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
+            "#text": "Không có địa chỉ email bị cấm"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+            "#text": "Hiện tại không có địa chỉ email bị cấm. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1208,7 +1204,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Bạn có thể tìm thấy danh sách các Địa chỉ Email Spam Bot trên StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https // www.stopforumspam.com / Download /</a> , có thể được nhập tại đây."
+            "#text": "Bạn có thể tìm thấy danh sách các Địa chỉ Email Spam Bot trên StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https // www.stopforumspam.com / Download /</a> , có thể được nhập tại đây."
           },
           {
             "@tag": "TITLE",
@@ -1229,15 +1225,23 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
+            "#text": "Không có địa chỉ IP bị cấm"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+            "#text": "Hiện tại không có địa chỉ IP bị cấm. "
           },
           {
             "@tag": "EXPORT",
             "#text": "Xuất sang tệp văn bản"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Nhập danh sách đen từ abuseipdb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Danh sách nhập với các địa chỉ IP gần đây nhất1 từ abuseipdb.com"
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1355,7 +1359,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Bạn có thể tìm thấy danh sách các Bot Spam trên StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https // www.stopforumspam.com / Download /</a> , có thể được nhập tại đây."
+            "#text": "Bạn có thể tìm thấy danh sách các Bot Spam trên StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https // www.stopforumspam.com / Download /</a> , có thể được nhập tại đây."
           },
           {
             "@tag": "TITLE",
@@ -1372,11 +1376,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
+            "#text": "Không có tên bị cấm"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] Button Bellow."
+            "#text": "Hiện tại không có tên người dùng bị cấm. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1474,7 +1478,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Bạn có thể tìm thấy danh sách tên người dùng Spam Bot trên StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https // www.stopforumspam.com / Download /</a> , có thể được nhập tại đây."
+            "#text": "Bạn có thể tìm thấy danh sách tên người dùng Spam Bot trên StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https // www.stopforumspam.com / Download /</a> , có thể được nhập tại đây."
           },
           {
             "@tag": "TITLE",
@@ -1608,7 +1612,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "OnClick JS:"
+            "#text": "Onclick JS:"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -1766,6 +1770,14 @@
             "#text": "Khi tài khoản người dùng mới được tạo, cài đặt thông báo đó sẽ được đặt mặc định là gì?"
           },
           {
+            "@tag": "BOARD_DEFAULT_PAGESIZE",
+            "#text": "Kích thước trang mặc định"
+          },
+          {
+            "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
+            "#text": "Kích thước trang mặc định cho danh sách cho người dùng mới."
+          },
+          {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
             "#text": "Trạng thái bảng điều khiển có thể thu gọn mặc định"
           },
@@ -1908,14 +1920,6 @@
           {
             "@tag": "TITLE",
             "#text": "Cài đặt bảng"
-          },
-          {
-            "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
-          },
-          {
-            "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
           }
         ]
       },
@@ -1957,7 +1961,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?"
+            "#text": "Xóa vĩnh viễn diễn đàn này bao gồm tất cả các chủ đề, cuộc thăm dò, đính kèm và thông điệp liên quan đến nó?"
           },
           {
             "@tag": "DELETE_FORUM",
@@ -3327,22 +3331,6 @@
             "#text": "Mật khẩu xác nhận không khớp"
           },
           {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Người dùng facebook:"
-          },
-          {
-            "@tag": "FACEBOOK_USER_HELP",
-            "#text": "Cho biết người dùng đã đăng nhập qua Facebook hay chưa."
-          },
-          {
-            "@tag": "GOOGLE_USER",
-            "#text": "Người dùng Google:"
-          },
-          {
-            "@tag": "GOOGLE_USER_HELP",
-            "#text": "Cho biết liệu Người dùng có đăng nhập qua Google hay không."
-          },
-          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Giết người dùng và cấm"
           },
@@ -3573,7 +3561,7 @@
           },
           {
             "@tag": "COPY_TO_CLIPBOARD",
-            "#text": "Copy to clipboard"
+            "#text": "Sao chép vào bảng tạm"
           },
           {
             "@tag": "DELETE_ALL",
@@ -3787,6 +3775,14 @@
             "#text": "Tự động bỏ qua các phiên đối với những người dùng được đánh dấu là &quot;Không theo dõi&quot;, chẳng hạn như Công cụ tìm kiếm và Bots. Bật nếu bạn gặp bất kỳ sự cố nào về phiên."
           },
           {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "Khóa API lạm dụng:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "Khóa API để truy xuất danh sách đen địa chỉ IP."
+          },
+          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Thời gian Người dùng Hoạt động:"
           },
@@ -3968,7 +3964,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Bật / tắt Menu chia sẻ, nơi người dùng có thể Gửi email, Tweet, Buzz, Thích trên Facebook, Digg, Reddit hoặc Tumblr một chủ đề."
+            "#text": "Bật / tắt Menu chia sẻ, nơi người dùng có thể Gửi email, Tweet, Buzz, Thích trên Facebook, Reddit hoặc Tumblr một chủ đề."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -4092,7 +4088,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "StopForumSpam.com"
+            "#text": "Stopforumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4283,14 +4279,6 @@
             "#text": "Bật / tắt Nút Retweet, nơi Người dùng có thể đăng lại một thông điệp chủ đề."
           },
           {
-            "@tag": "ENABLE_SSO",
-            "#text": "Bật Đăng nhập Một lần:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "Nếu được chọn, người dùng sẽ có thể Đăng nhập vào tài khoản hiện có thông qua Facebook và / hoặc Twitter. Để kích hoạt nó cho Facebook, bạn cần thiết lập YAF.FacebookAPIKey và YAF.FacebookSecretKey Values, và cho Twitter YAF.TwitterConsumerKey và YAF.TwitterConsumerSecret Values trong app.config (AppSettings)."
-          },
-          {
             "@tag": "ENABLE_USERREPUTATION",
             "#text": "Sử dụng Hệ thống Danh tiếng:"
           },
@@ -4300,11 +4288,27 @@
           },
           {
             "@tag": "ENABLE_WYSIWYG",
-            "#text": "Enable WYSIWYG Editor"
+            "#text": "Bật trình soạn thảo Wysiwyg"
           },
           {
             "@tag": "ENABLE_WYSIWYG_HELP",
-            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+            "#text": "Cài đặt để bật/tắt trình soạn thảo WYSIWYG BBCode"
+          },
+          {
+            "@tag": "ENTER_MODE",
+            "#text": "Biên tập viên vào chế độ"
+          },
+          {
+            "@tag": "ENTER_MODE_0",
+            "#text": "Mới"
+          },
+          {
+            "@tag": "ENTER_MODE_1",
+            "#text": "Các dòng bị phá vỡ với"
+          },
+          {
+            "@tag": "ENTER_MODE_HELP",
+            "#text": "Đặt hành vi của khóa nhập, như liệu"
           },
           {
             "@tag": "EVENTLOG_MAX_DAYS",
@@ -4365,14 +4369,6 @@
           {
             "@tag": "FORCE_SEARCHINDED",
             "#text": "Nhiệm vụ lập chỉ mục tìm kiếm đã bắt đầu."
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Mặt nạ URL cơ sở của diễn đàn:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "Toàn bộ url hướng về phía trước cho diễn đàn này."
           },
           {
             "@tag": "FORUM_EMAIL",
@@ -4692,7 +4688,7 @@
           },
           {
             "@tag": "LOG_VIEWSTATEERROR",
-            "#text": "Log ViewState Exceptions:"
+            "#text": "Nhật ký ViewState Exception:"
           },
           {
             "@tag": "LOG_VIEWSTATEERROR_HELP",
@@ -5068,11 +5064,11 @@
           },
           {
             "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
+            "#text": "Cuộn đến chưa đọc/Bài đầu tiên"
           },
           {
             "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+            "#text": "Nếu được bật, nó sẽ cuộn vào bài đăng chưa đọc đầu tiên/hoặc bài đăng mới đầu tiên khi mở một chủ đề"
           },
           {
             "@tag": "SEARCH_MAXLENGTH",
@@ -5472,7 +5468,7 @@
           },
           {
             "@tag": "STOPFORUMSPAM_KEY_HELP",
-            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https//www.stopforumspam.com/signup\">Sign Up here<a>."
+            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https://www.stopforumspam.com/signup\">Sign Up here<a>."
           },
           {
             "@tag": "STYLED_NICKS",
@@ -5751,11 +5747,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
+            "#text": "Không có huy chương"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+            "#text": "Hiện tại không có huy chương. "
           },
           {
             "@tag": "MOVE_DOWN",
@@ -5879,11 +5875,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Custom Profile Definitions"
+            "#text": "Không có định nghĩa hồ sơ tùy chỉnh"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+            "#text": "Hiện tại không có định nghĩa hồ sơ tùy chỉnh. "
           },
           {
             "@tag": "NEW_DEF",
@@ -6149,11 +6145,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
+            "#text": "Không thay thế từ"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+            "#text": "Hiện tại không có từ thay thế. "
           },
           {
             "@tag": "EXPORT",
@@ -6360,11 +6356,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
+            "#text": "Không có thư rác kiểm tra từ"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+            "#text": "Hiện tại không có từ kiểm tra thư rác. "
           },
           {
             "@tag": "EXPORT",
@@ -6500,7 +6496,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "Task Manger"
+            "#text": "Nhiệm vụ máng cỏ"
           }
         ]
       },
@@ -6538,10 +6534,6 @@
           {
             "@tag": "EXPORT_XML",
             "#text": "Xuất Tất cả (các) Người dùng dưới dạng Xml"
-          },
-          {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Người dùng facebook"
           },
           {
             "@tag": "FILTER",
@@ -6720,7 +6712,7 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Banned UserAgents"
+            "#text": "Người dùng bị cấm"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -7184,10 +7176,6 @@
             "#text": "Nhấp vào đây để hiển thị hoặc ẩn văn bản ẩn (còn được gọi là trình giả mạo)"
           },
           {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Nhập ID trạng thái của Tweet bạn muốn nhúng"
-          },
-          {
             "@tag": "UERLINKMOD_DESCRIPTION",
             "#text": "Đặt Tên người dùng ở đây"
           },
@@ -7283,7 +7271,7 @@
           },
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
-            "#text": "Friend request removed."
+            "#text": "Yêu cầu kết bạn."
           },
           {
             "@tag": "PENDINGBUDDIES",
@@ -7675,7 +7663,7 @@
           },
           {
             "@tag": "CHARACTERS_LEFT",
-            "#text": "Characters remaining:"
+            "#text": "Các ký tự còn lại:"
           },
           {
             "@tag": "COMMON_WORDS",
@@ -7771,7 +7759,7 @@
           },
           {
             "@tag": "FONT_NAME",
-            "#text": "Font Name"
+            "#text": "Tên phông chữ"
           },
           {
             "@tag": "FONT_SIZE",
@@ -7879,7 +7867,7 @@
           },
           {
             "@tag": "MEDIA",
-            "#text": "Insert Media"
+            "#text": "Chèn phương tiện"
           },
           {
             "@tag": "MENU",
@@ -8027,7 +8015,7 @@
           },
           {
             "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
+            "#text": "Lựa chọn kích thước trang"
           },
           {
             "@tag": "SHOWHIDE",
@@ -8067,7 +8055,7 @@
           },
           {
             "@tag": "TT_COPY",
-            "#text": "Copy the selected text (Ctrl+C)"
+            "#text": "Sao chép văn bản đã chọn (Ctrl C)"
           },
           {
             "@tag": "TT_CREATELINK",
@@ -8079,11 +8067,11 @@
           },
           {
             "@tag": "TT_CUT",
-            "#text": "Cut the selected text (Ctrl+X)"
+            "#text": "Cắt văn bản đã chọn (Ctrl x)"
           },
           {
             "@tag": "TT_DESCRIPTION",
-            "#text": "Description"
+            "#text": "Sự miêu tả"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8095,11 +8083,11 @@
           },
           {
             "@tag": "TT_IMAGE_DESC",
-            "#text": "Enter Image Description:"
+            "#text": "Nhập mô tả hình ảnh:"
           },
           {
             "@tag": "TT_IMAGE_TITLE",
-            "#text": "Enter Image Url:"
+            "#text": "Nhập URL hình ảnh:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8119,11 +8107,19 @@
           },
           {
             "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+            "#text": "Dán URL phương tiện vào đầu vào (ví dụ: video YouTube, danh sách phát Spotify hoặc hình ảnh Instagram)."
+          },
+          {
+            "@tag": "TT_NOTE",
+            "#text": "Chèn ghi chú"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Loại ghi chú"
           },
           {
             "@tag": "TT_PASTE",
-            "#text": "Paste (Ctrl+V)"
+            "#text": "Dán (Ctrl V)"
           },
           {
             "@tag": "TT_QUOTE",
@@ -8131,15 +8127,15 @@
           },
           {
             "@tag": "TT_REDO",
-            "#text": "Redo (Ctrl+Y)"
+            "#text": "Màu đỏ (ctrl y)"
           },
           {
             "@tag": "TT_REMOVE",
-            "#text": "Remove Format"
+            "#text": "Loại bỏ định dạng"
           },
           {
             "@tag": "TT_SELECT_ALL",
-            "#text": "Select all"
+            "#text": "Chọn tất cả"
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
@@ -8151,15 +8147,15 @@
           },
           {
             "@tag": "TT_UNDO",
-            "#text": "Undo (Ctrl+Z)"
+            "#text": "Hoàn tác (Ctrl Z)"
           },
           {
             "@tag": "TT_URL_DESC",
-            "#text": "Enter URL Description:"
+            "#text": "Nhập mô tả URL:"
           },
           {
             "@tag": "TT_URL_TITLE",
-            "#text": "Enter URL:"
+            "#text": "Nhập URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8269,7 +8265,7 @@
           },
           {
             "@tag": "AF",
-            "#text": "Afganistan"
+            "#text": "Afghanistan"
           },
           {
             "@tag": "AG",
@@ -8305,7 +8301,7 @@
           },
           {
             "@tag": "AS",
-            "#text": "American Samoa"
+            "#text": "Samoa Mỹ"
           },
           {
             "@tag": "AT",
@@ -8357,7 +8353,7 @@
           },
           {
             "@tag": "BJ",
-            "#text": "Benin"
+            "#text": "Bén"
           },
           {
             "@tag": "BM",
@@ -8457,7 +8453,7 @@
           },
           {
             "@tag": "CV",
-            "#text": "Cape Verde"
+            "#text": "Mũi xanh"
           },
           {
             "@tag": "CX",
@@ -8597,7 +8593,7 @@
           },
           {
             "@tag": "GQ",
-            "#text": "Equatorial Guinea"
+            "#text": "Guinea xích đạo"
           },
           {
             "@tag": "GR",
@@ -8613,7 +8609,7 @@
           },
           {
             "@tag": "GU",
-            "#text": "Guam"
+            "#text": "Đảo Guam"
           },
           {
             "@tag": "GW",
@@ -8745,7 +8741,7 @@
           },
           {
             "@tag": "LC",
-            "#text": "Saint Lucia"
+            "#text": "Thánh Lucia"
           },
           {
             "@tag": "LI",
@@ -8765,7 +8761,7 @@
           },
           {
             "@tag": "LT",
-            "#text": "Lithuania"
+            "#text": "Litva"
           },
           {
             "@tag": "LU",
@@ -8777,7 +8773,7 @@
           },
           {
             "@tag": "LY",
-            "#text": "Libyan Arab Jamahiriya"
+            "#text": "Libya Arab Jamahiriya"
           },
           {
             "@tag": "MA",
@@ -8853,7 +8849,7 @@
           },
           {
             "@tag": "MW",
-            "#text": "Malawi"
+            "#text": "Ma -rốc"
           },
           {
             "@tag": "MX",
@@ -8873,11 +8869,11 @@
           },
           {
             "@tag": "NC",
-            "#text": "New Caledonia"
+            "#text": "Caledonia mới"
           },
           {
             "@tag": "NE",
-            "#text": "Niger"
+            "#text": "Nigeria"
           },
           {
             "@tag": "NF",
@@ -8917,7 +8913,7 @@
           },
           {
             "@tag": "OM",
-            "#text": "Oman"
+            "#text": "Ô -man"
           },
           {
             "@tag": "PA",
@@ -9017,7 +9013,7 @@
           },
           {
             "@tag": "SH",
-            "#text": "St. Helena"
+            "#text": "Thánh Helena"
           },
           {
             "@tag": "SI",
@@ -9322,11 +9318,11 @@
           },
           {
             "@tag": "MARK_ALL_ASREAD",
-            "#text": "Mark All As Read"
+            "#text": "Đánh dấu tất cả như đọc"
           },
           {
             "@tag": "MARK_ASREAD",
-            "#text": "Mark As Read"
+            "#text": "Đánh dấu như đọc"
           },
           {
             "@tag": "MARKALL",
@@ -9751,10 +9747,6 @@
             "#text": "Bạn đã nhập sai URL làm Hồ sơ Facebook."
           },
           {
-            "@tag": "BAD_GOOGLE",
-            "#text": "Bạn đã nhập một giá trị bất hợp pháp làm URL Tiểu sử trên Google."
-          },
-          {
             "@tag": "BAD_HOME",
             "#text": "Bạn đã nhập địa chỉ không hợp lệ cho trang chủ của bạn."
           },
@@ -9880,11 +9872,7 @@
           },
           {
             "@tag": "SELECT_THEME_MODE",
-            "#text": "Select the theme mode:"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "ID SKYPE của bạn:"
+            "#text": "Chọn chế độ chủ đề:"
           },
           {
             "@tag": "TIMEZONE",
@@ -9917,15 +9905,15 @@
         "Resource": [
           {
             "@tag": "DISABLE_2FA",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Tắt xác thực hai yếu tố"
           },
           {
             "@tag": "DISABLE_TWO_FACTOR_HEADER",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Tắt xác thực hai yếu tố"
           },
           {
             "@tag": "ENABLE_2FA",
-            "#text": "Turn on Two Factor Authentication"
+            "#text": "Bật xác thực hai yếu tố"
           },
           {
             "@tag": "INFO",
@@ -9933,11 +9921,11 @@
           },
           {
             "@tag": "INPUT_CODE",
-            "#text": "Input security code"
+            "#text": "Mã bảo mật đầu vào"
           },
           {
             "@tag": "SETUP_CODE",
-            "#text": "Setup code"
+            "#text": "Mã thiết lập"
           },
           {
             "@tag": "TITLE",
@@ -9945,11 +9933,11 @@
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
-            "#text": "Enable Two Factor Authentication"
+            "#text": "Cho phép xác thực hai yếu tố"
           },
           {
             "@tag": "WRONG_CODE",
-            "#text": "You have entered the wrong 2FA Code!"
+            "#text": "Bạn đã nhập mã 2FA sai!"
           }
         ]
       },
@@ -10161,96 +10149,12 @@
         "@name": "GENDER",
         "Resource": [
           {
-            "@tag": "AGENDER",
-            "#text": "Người định tuổi"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Androgyne"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Giới tính"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Người chuyển giới"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "Từ nữ đến nam"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Giới tính linh hoạt"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Giới tính không phù hợp"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Genderqueer"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Đặt câu hỏi về giới tính"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersex"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Nam sang nữ"
-          },
-          {
             "@tag": "MAN",
             "#text": "Người đàn ông"
           },
           {
-            "@tag": "NONBINARY",
-            "#text": "Phi nhị phân"
-          },
-          {
             "@tag": "OTHER",
             "#text": "Khác"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangender"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Trrans"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfeminine"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Chuyển giới"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Người chuyển giới"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculine"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Chuyển đổi giới tính"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Người phụ nữ chuyển giới"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Hai tinh thần"
           },
           {
             "@tag": "WOMAN",
@@ -10303,7 +10207,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Bạn có thể thay đổi thông tin tài khoản của mình bằng cách sử dụng Hồ sơ cá nhân -&gt; tùy chọn &#39;Chỉnh sửa hồ sơ&#39; từ trong <strong>Bảng điều khiển người dùng</strong> . Nếu bạn muốn thay đổi Mật khẩu của mình, có một Trang bổ sung (Thay đổi Mật khẩu) cho Trang đó trong <strong>Bảng Điều khiển Người dùng</strong> , nơi bạn có thể đặt Mật khẩu mới.</p><p> <strong>Chỉnh sửa trang hồ sơ</strong></p><p> Trang này cho phép bạn đặt một số chi tiết bắt buộc và tùy chọn, một số chi tiết trong số đó sẽ được hiển thị trên hồ sơ công khai của bạn. Ngoại trừ địa chỉ e-mail của bạn, không nhập thông tin mà bạn không muốn hiển thị công khai.</p><p> <strong>Về bạn</strong></p><p> Đây là những thông tin cơ bản về bạn</p><p> <strong>Địa điểm</strong></p><p> Tại đây, bạn có thể tùy ý nhập Nơi ở của mình</p><p> <strong>Trang chủ</strong></p><p> Tại đây, bạn có thể tùy chọn nhập Trang chủ và / hoặc Blog.</p><p> <strong>Dịch vụ nhắn tin tức thì</strong></p><p> Tại đây, bạn có thể tùy chọn nhập Id messenger của các dịch vụ như MSN, XMPP, SKYPE, Facebook và Twitter.</p><p> <strong>Múi giờ</strong></p><p> Tại đây bạn có thể chỉ định Múi giờ để điều chỉnh bảng Giờ và Ngày thành giờ địa phương của bạn. Và đặt Giờ tiết kiệm ánh sáng ban ngày nếu nó được tự động điều chỉnh.</p><p> <strong>Cài đặt Diễn đàn</strong></p><p> Tại đây bạn thay đổi Địa chỉ Email của mình.</p><p> Và nếu Quản trị viên đã bật nó, bạn có thể thay đổi <strong>Ngôn ngữ</strong> Diễn đàn, <strong>Chủ đề</strong> của Trang web và <strong>Trình soạn thảo Văn bản</strong> (Được sử dụng để đăng tin).</p><p> Ngoài ra còn có Cài đặt &quot;Đăng nhập một lần&quot; (Nếu nó được kích hoạt). Nếu bạn bật nó lên, bạn có thể đăng nhập thông qua Facebook, bạn cũng nhập ID Facebook của mình ở trên.</p>"
+            "#text": "<p>Bạn có thể thay đổi thông tin tài khoản của mình bằng cách sử dụng Hồ sơ cá nhân -&gt; tùy chọn &#39;Chỉnh sửa hồ sơ&#39; từ trong <strong>Bảng điều khiển người dùng</strong> . Nếu bạn muốn thay đổi Mật khẩu của mình, có một Trang bổ sung (Thay đổi Mật khẩu) cho Trang đó trong <strong>Bảng Điều khiển Người dùng</strong> , nơi bạn có thể đặt Mật khẩu mới.</p><p> <strong>Chỉnh sửa trang hồ sơ</strong></p><p> Trang này cho phép bạn đặt một số chi tiết bắt buộc và tùy chọn, một số chi tiết trong số đó sẽ được hiển thị trên hồ sơ công khai của bạn. Ngoại trừ địa chỉ e-mail của bạn, không nhập thông tin mà bạn không muốn hiển thị công khai.</p><p> <strong>Về bạn</strong></p><p> Đây là những thông tin cơ bản về bạn</p><p> <strong>Địa điểm</strong></p><p> Tại đây, bạn có thể tùy ý nhập Nơi ở của mình</p><p> <strong>Trang chủ</strong></p><p> Tại đây, bạn có thể tùy chọn nhập Trang chủ và / hoặc Blog.</p><p> <strong>Dịch vụ nhắn tin tức thì</strong></p><p> Tại đây, bạn có thể tùy chọn nhập Id messenger của các dịch vụ như  XMPP, Facebook và Twitter.</p><p> <strong>Múi giờ</strong></p><p> Tại đây bạn có thể chỉ định Múi giờ để điều chỉnh bảng Giờ và Ngày thành giờ địa phương của bạn. Và đặt Giờ tiết kiệm ánh sáng ban ngày nếu nó được tự động điều chỉnh.</p><p> <strong>Cài đặt Diễn đàn</strong></p><p> Tại đây bạn thay đổi Địa chỉ Email của mình.</p><p> Và nếu Quản trị viên đã bật nó, bạn có thể thay đổi <strong>Ngôn ngữ</strong> Diễn đàn, <strong>Chủ đề</strong> của Trang web và <strong>Trình soạn thảo Văn bản</strong> (Được sử dụng để đăng tin).</p><p> Ngoài ra còn có Cài đặt &quot;Đăng nhập một lần&quot; (Nếu nó được kích hoạt). Nếu bạn bật nó lên, bạn có thể đăng nhập thông qua Facebook, bạn cũng nhập ID Facebook của mình ở trên.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -10613,7 +10517,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "AOL Instant Messenger"
+            "#text": "AOL Messenger tức thời"
           }
         ]
       },
@@ -10685,14 +10589,6 @@
           {
             "@tag": "DISABLED",
             "#text": "Quản trị viên của diễn đàn đã vô hiệu hoá chức năng này."
-          },
-          {
-            "@tag": "ECMAREQUIRED",
-            "#text": "Để sử dụng diễn đàn, bạn nên bật JavaScript trong trình duyệt của mình."
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "The JavaScript version is unsupported. Please use a more new browser version/"
           },
           {
             "@tag": "EXCEPTION",
@@ -11186,30 +11082,6 @@
             "#text": "Đăng nhập hoặc Đăng ký với {0}"
           },
           {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Kết nối tài khoản Diễn đàn Hiện có với tài khoản {0} của bạn Trước tiên, bạn cần đăng nhập qua các diễn đàn. {1}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>Địa chỉ email Facebook phải khớp với địa chỉ email của người dùng diễn đàn để kết nối người dùng.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>Địa chỉ email Google phải khớp với địa chỉ email người dùng diễn đàn để kết nối người dùng.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Đăng nhập hoặc Đăng ký với {0} hoặc kết nối Tài khoản Người dùng hiện có với {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Đăng nhập bằng Tài khoản người dùng được kết nối với {0}. Hoặc nếu không có tài khoản nào được tìm thấy, một tài khoản mới sẽ được tự động tạo trong diễn đàn."
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Không thể nhận được access_token!"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Ghi nhớ"
           },
@@ -11220,10 +11092,6 @@
           {
             "@tag": "CAPS_LOCK",
             "#text": "Caps Lock đang bật"
-          },
-          {
-            "@tag": "CONNECT_VIA",
-            "#text": "Hoặc kết nối qua"
           },
           {
             "@tag": "EMAIL",
@@ -11274,64 +11142,20 @@
             "#text": "gửi mật khẩu"
           },
           {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "Đăng nhập một lần hiện đã bị vô hiệu hóa bởi Quản trị viên!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "Đăng nhập một lần đã bị hủy kích hoạt đối với Người dùng đó, bạn cần kích hoạt tính năng này trong Cài đặt hồ sơ của mình để sử dụng tính năng đó."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "Đăng nhập Facebook không thành công, Người dùng không tồn tại hoặc tài khoản không được kết nối."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "Đăng nhập Facebook không thành công, một tài khoản người dùng có cùng địa chỉ email với tài khoản facebook đã tồn tại, hãy thử kết nối bạn với tài khoản diễn đàn của bạn."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "Đăng nhập Facebook không thành công do người dùng không cung cấp địa chỉ email cho tài khoản."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Đăng ký mới bị vô hiệu hóa."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "Đăng nhập Google không thành công, Người dùng không tồn tại hoặc tài khoản không được kết nối."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "Đăng nhập Google không thành công, một tài khoản người dùng có cùng địa chỉ email với tài khoản Google đã tồn tại, hãy thử kết nối bạn với tài khoản diễn đàn của bạn."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "The User Account is not connected or not found"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Đăng nhập"
           },
           {
             "@tag": "TWO_FA_INFO",
-            "#text": "Please enter a validation code from your Authenticator app."
+            "#text": "Vui lòng nhập mã xác thực từ ứng dụng Authenticator của bạn."
           },
           {
             "@tag": "TWO_FA_PLACEHOLDER",
-            "#text": "Validation code: ### ###"
+            "#text": "Mã xác nhận:"
           },
           {
             "@tag": "TWO_FA_VALIDATION",
-            "#text": "Two-Factor Validation"
+            "#text": "Xác thực hai yếu tố"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12002,7 +11826,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Your activity notifications"
+            "#text": "Thông báo hoạt động của bạn"
           }
         ]
       },
@@ -12011,7 +11835,7 @@
         "Resource": [
           {
             "@tag": "CONVERSATION_TITLE",
-            "#text": "Your Conversations"
+            "#text": "Cuộc trò chuyện của bạn"
           },
           {
             "@tag": "TITLE",
@@ -12076,7 +11900,7 @@
           },
           {
             "@tag": "PMLIMIT_ALL",
-            "#text": "You have {0} private messages: {1} in Inbox and {2} in Outbox. From a total of {3} allowed. Your mail box is filled to {4}%"
+            "#text": "Bạn có {0} Tin nhắn riêng: {1} trong hộp thư đến và {2} trong hộp thư đi. "
           },
           {
             "@tag": "PREVIEWTITLE",
@@ -12221,11 +12045,11 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
+            "#text": "Bỏ qua bỏ phiếu"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
+            "#text": "Giảng viên đại học"
           },
           {
             "@tag": "POLLHEADER",
@@ -12265,7 +12089,7 @@
           },
           {
             "@tag": "REMOVEPOLL_MSG",
-            "#text": "Poll was removed!"
+            "#text": "Thăm dò ý kiến ​​đã được gỡ bỏ!"
           }
         ]
       },
@@ -12467,7 +12291,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "BLOG"
+            "#text": "Blog"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -12563,7 +12387,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "WWW"
+            "#text": "Www"
           },
           {
             "@tag": "HOME_TITLE",
@@ -12791,19 +12615,11 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Share this Topic via Email, Twitter, Google+, Facebook, Digg, Reddit or Tumblr."
+            "#text": "Share this Topic via Email, Facebook, Reddit or Tumblr."
           },
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "Chủ đề tương tự"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "ỨNG DỤNG TRÒ CHUYỆN"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Liên hệ với {0} qua Skype"
           },
           {
             "@tag": "STATISTICS",
@@ -13077,10 +12893,6 @@
             "#text": "Giới tính:"
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "Hồ sơ trên Google+:"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "Nhóm:"
           },
@@ -13179,10 +12991,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Xem tất cả các bài của thành viên này"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "ID Skype (tm):"
           },
           {
             "@tag": "SOCIAL_MEDIA",
@@ -13300,11 +13108,11 @@
           },
           {
             "@tag": "RGN_CH_AI",
-            "#text": "Appenzell Inner-Rhodes"
+            "#text": "Appenzell bên trong-Rhodes"
           },
           {
             "@tag": "RGN_CH_AR",
-            "#text": "Appenzell Outer-Rhodes"
+            "#text": "Appenzell bên ngoài-RHODES"
           },
           {
             "@tag": "RGN_CH_BE",
@@ -13320,7 +13128,7 @@
           },
           {
             "@tag": "RGN_CH_FR",
-            "#text": "Fribourg"
+            "#text": "Friborg"
           },
           {
             "@tag": "RGN_CH_GE",
@@ -13332,7 +13140,7 @@
           },
           {
             "@tag": "RGN_CH_GR",
-            "#text": "Grisons"
+            "#text": "Xám"
           },
           {
             "@tag": "RGN_CH_JU",
@@ -13344,7 +13152,7 @@
           },
           {
             "@tag": "RGN_CH_NE",
-            "#text": "Neuchâtel"
+            "#text": "Mới"
           },
           {
             "@tag": "RGN_CH_NW",
@@ -13356,7 +13164,7 @@
           },
           {
             "@tag": "RGN_CH_SG",
-            "#text": "St. Gallen"
+            "#text": "Thánh Gallen"
           },
           {
             "@tag": "RGN_CH_SH",
@@ -13421,11 +13229,11 @@
           },
           {
             "@tag": "RGN_DE_BW",
-            "#text": "Baden-Württemberg"
+            "#text": "BADEN-W"
           },
           {
             "@tag": "RGN_DE_HE",
-            "#text": "Hessen"
+            "#text": "Hesse"
           },
           {
             "@tag": "RGN_DE_HH",
@@ -13437,7 +13245,7 @@
           },
           {
             "@tag": "RGN_DE_NI",
-            "#text": "Lower Saxony"
+            "#text": "Sachsen thấp hơn"
           },
           {
             "@tag": "RGN_DE_NRW",
@@ -13474,7 +13282,7 @@
         "Resource": [
           {
             "@tag": "RGN_US_AK",
-            "#text": "Alaska"
+            "#text": "Xuống"
           },
           {
             "@tag": "RGN_US_AL",
@@ -13482,11 +13290,11 @@
           },
           {
             "@tag": "RGN_US_AR",
-            "#text": "Arkansas"
+            "#text": "Arkansa"
           },
           {
             "@tag": "RGN_US_AS",
-            "#text": "American Samoa"
+            "#text": "Samoa Mỹ"
           },
           {
             "@tag": "RGN_US_AZ",
@@ -13510,7 +13318,7 @@
           },
           {
             "@tag": "RGN_US_DE",
-            "#text": "Delaware"
+            "#text": "Del biết"
           },
           {
             "@tag": "RGN_US_FL",
@@ -13522,7 +13330,7 @@
           },
           {
             "@tag": "RGN_US_GU",
-            "#text": "Guam"
+            "#text": "Đảo Guam"
           },
           {
             "@tag": "RGN_US_HI",
@@ -13630,7 +13438,7 @@
           },
           {
             "@tag": "RGN_US_OK",
-            "#text": "Oklahoma"
+            "#text": "Oklahola"
           },
           {
             "@tag": "RGN_US_OR",
@@ -13694,7 +13502,7 @@
           },
           {
             "@tag": "RGN_US_WY",
-            "#text": "Wyoming"
+            "#text": "Kazakhstan"
           }
         ]
       },
@@ -14399,14 +14207,6 @@
             "#text": "\r\n      Hello!\r\n\r\n      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):\r\n\r\n      User Name: {user}\r\n      User Email: {email}\r\n\r\n      Administration Link: {adminlink}\r\n    "
           },
           {
-            "@tag": "NOTIFICATION_ON_FACEBOOK_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Facebook Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Facebook)\r\n\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_GOOGLE_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Google Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Google)\r\n\r\n    "
-          },
-          {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_TEXT",
             "#text": "\r\n    Hello {user}.\r\n\r\n    Congratulations you have been awarded with the {medalname} on the {forumname} forum.\r\n  "
           },
@@ -14477,15 +14277,15 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "Auto"
+            "#text": "Tự động"
           },
           {
             "@tag": "DARK",
-            "#text": "Dark"
+            "#text": "Tối tăm"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Light"
+            "#text": "Ánh sáng"
           }
         ]
       },

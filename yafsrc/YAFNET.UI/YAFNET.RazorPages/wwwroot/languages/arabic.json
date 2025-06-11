@@ -16,7 +16,7 @@
           },
           {
             "@tag": "BECOME_FRIENDS",
-            "#text": "Become Friends"
+            "#text": "كن أصدقاء"
           },
           {
             "@tag": "CHANGE_PASSWORD",
@@ -68,7 +68,7 @@
           },
           {
             "@tag": "GIVEN_THANKS_MSG",
-            "#text": "Given Thanks to {0} in the Topic {1}"
+            "#text": "مع تقديم الشكر إلى {0} في الموضوع {1}"
           },
           {
             "@tag": "GROUPS",
@@ -108,7 +108,7 @@
           },
           {
             "@tag": "RECEIVED_THANKS_MSG",
-            "#text": "Has Received a Thanks from {0} in the Topic {1}"
+            "#text": "تلقى شكر من {0} في الموضوع {1}"
           },
           {
             "@tag": "SIGNATURE",
@@ -132,7 +132,7 @@
           },
           {
             "@tag": "WAS_MENTIONED_MSG",
-            "#text": "Was Mentioned by {0} in the Topic {1}"
+            "#text": "تم ذكره بواسطة {0} في الموضوع {1}"
           },
           {
             "@tag": "WAS_QUOTED",
@@ -140,11 +140,11 @@
           },
           {
             "@tag": "WAS_QUOTED_MSG",
-            "#text": "Was Quoted by {0} in the Topic {1}"
+            "#text": "نقلت بواسطة {0} في الموضوع {1}"
           },
           {
             "@tag": "WATCH_FORUM_MSG",
-            "#text": "{0} Created the new topic {1}"
+            "#text": "{0} أنشأ الموضوع الجديد {1}"
           },
           {
             "@tag": "WATCH_FORUM_REPLY",
@@ -152,7 +152,7 @@
           },
           {
             "@tag": "WATCH_TOPIC_MSG",
-            "#text": "{0} replied to the topic {1}"
+            "#text": "{0} رد على الموضوع {1}"
           },
           {
             "@tag": "WATCH_TOPIC_REPLY",
@@ -222,15 +222,15 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Views banned user agents list"
+            "#text": "طرق عرض قائمة وكلاء المستخدمين المحظورة"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_EDIT",
-            "#text": "Edits banned user agents"
+            "#text": "تعديلات وكلاء المستخدم المحظورة"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_IMPORT",
-            "#text": "Imports banned user agents"
+            "#text": "الواردات محظورة وكلاء المستخدمين"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -557,16 +557,8 @@
             "#text": " MSN استخدام"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": " Skype استخدام"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": " XMPP استخدام"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": " YIM استخدام"
           },
           {
             "@tag": "IMGPRV",
@@ -993,6 +985,10 @@
         "@name": "ADMIN_ATTACHMENTS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "حذف المرفقات (ق)؟"
+          },
+          {
             "@tag": "TITLE",
             "#text": "مرفقات المستخدم"
           }
@@ -1003,35 +999,35 @@
         "Resource": [
           {
             "@tag": "ADD_UA",
-            "#text": "Add New UserAgent"
+            "#text": "أضف useragent جديد"
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No UserAgents"
+            "#text": "لا مستخدمين"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned UserAgent. Add a new banned UserAgent by clicking the [b]Add New UserAgent[/b] Button Bellow."
+            "#text": "حاليا لا يوجد المستخدم المحظور. "
           },
           {
             "@tag": "IMPORT_UA",
-            "#text": "Import UserAgent(s)"
+            "#text": "استيراد useragent (s)"
           },
           {
             "@tag": "MASK",
-            "#text": "Mask"
+            "#text": "قناع"
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned UserAgent Already exists!"
+            "#text": "المستخدم المحظور موجود بالفعل!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The UserAgent was successfully deleted"
+            "#text": "تم حذف المستخدم بنجاح"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned UserAgent"
+            "#text": "USERAGENT المحظور"
           }
         ]
       },
@@ -1040,23 +1036,23 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "UserAgent:"
+            "#text": "useragent:"
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The User Agent to ban. You can use Regular Expressions."
+            "#text": "وكيل المستخدم لحظر. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define a User Agent."
+            "#text": "يجب عليك تحديد وكيل المستخدم."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add Banned UserAgent"
+            "#text": "إضافة المستخدم المحظور"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned UserAgent"
+            "#text": "تحرير useragent حظر"
           }
         ]
       },
@@ -1065,35 +1061,35 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import UserAgent List"
+            "#text": "استيراد قائمة useragent"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "قائمة الاستيراد"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "فشل في الاستيراد! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "حدد ملف الاستيراد:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing one useragent on each line"
+            "#text": "يجب أن يكون ملف *.txt يحتوي على مستخدم واحد على كل سطر"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new useragent was found in the upload."
+            "#text": "لا شيء مستورد: لم يتم العثور على مستخدم جديد في التحميل."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new useragent(s) imported successfully."
+            "#text": "{0} تم استيراد useragent (s) الجديد بنجاح."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import UserAgent(s)"
+            "#text": "استيراد useragent (s)"
           }
         ]
       },
@@ -1106,11 +1102,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
+            "#text": "لا عناوين البريد الإلكتروني المحظورة"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+            "#text": "حاليا لا توجد عناوين البريد الإلكتروني المحظورة. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1229,15 +1225,23 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
+            "#text": "لا عناوين IP محظورة"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+            "#text": "حاليا لا توجد عناوين IP محظورة. "
           },
           {
             "@tag": "EXPORT",
             "#text": "تصدير إلى ملف نصي"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "استيراد القائمة السوداء من assucipdb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "قائمة الاستيراد مع أحدث عناوين IP 1 من assuctipdb.com"
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1372,11 +1376,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
+            "#text": "لا أسماء محظورة"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] Button Bellow."
+            "#text": "حاليا لا توجد أسماء المستخدمين المحظورة. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1608,7 +1612,7 @@
           },
           {
             "@tag": "ONCLICK_JS",
-            "#text": "OnClick JS:"
+            "#text": "Onclick JS:"
           },
           {
             "@tag": "ONCLICK_JS_HELP",
@@ -1669,7 +1673,7 @@
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import: {0}"
+            "#text": "فشل الاستيراد: {0}"
           },
           {
             "@tag": "IMPORT_NOTHING",
@@ -1764,6 +1768,14 @@
           {
             "@tag": "BOARD_DEFAULT_NOTIFICATION_HELP",
             "#text": "عند إنشاء حساب مستخدم جديد ، ما هو إعداد الإشعارات الافتراضي؟"
+          },
+          {
+            "@tag": "BOARD_DEFAULT_PAGESIZE",
+            "#text": "حجم الصفحة الافتراضي"
+          },
+          {
+            "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
+            "#text": "حجم الصفحة الافتراضي لقوائم المستخدمين الجدد."
           },
           {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
@@ -1908,14 +1920,6 @@
           {
             "@tag": "TITLE",
             "#text": "إعدادات اللوحة"
-          },
-          {
-            "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
-          },
-          {
-            "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
           }
         ]
       },
@@ -1957,7 +1961,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?"
+            "#text": "حذف هذا المنتدى بشكل دائم بما في ذلك جميع الموضوعات والاستطلاعات والمرفقات والرسائل المرتبطة به؟"
           },
           {
             "@tag": "DELETE_FORUM",
@@ -2070,7 +2074,7 @@
           },
           {
             "@tag": "MSG_SEND_ERR",
-            "#text": "Exception Getting Digest: {0}"
+            "#text": "استثناء الحصول على Digest: {0}"
           },
           {
             "@tag": "MSG_SEND_SUC",
@@ -3319,22 +3323,6 @@
             "#text": "تأكيد كلمة المرور لا يتطابق"
           },
           {
-            "@tag": "FACEBOOK_USER",
-            "#text": "مستخدم فيسبوك:"
-          },
-          {
-            "@tag": "FACEBOOK_USER_HELP",
-            "#text": "يشير إلى ما إذا كان المستخدم قد قام بتسجيل الدخول عبر Facebook."
-          },
-          {
-            "@tag": "GOOGLE_USER",
-            "#text": "مستخدم جوجل:"
-          },
-          {
-            "@tag": "GOOGLE_USER_HELP",
-            "#text": "يشير إلى ما إذا كان المستخدم قد قام بتسجيل الدخول عبر Google."
-          },
-          {
             "@tag": "HEAD_KILL_USER",
             "#text": "قتل المستخدم والحظر"
           },
@@ -3565,7 +3553,7 @@
           },
           {
             "@tag": "COPY_TO_CLIPBOARD",
-            "#text": "Copy to clipboard"
+            "#text": "نسخ إلى الحافظة"
           },
           {
             "@tag": "DELETE_ALL",
@@ -3777,6 +3765,14 @@
           {
             "@tag": "ABANDON_TRACKUSR_HELP",
             "#text": "التخلي تلقائيًا عن الجلسات للمستخدمين الذين تم وضع علامة \"عدم التتبع\" عليها مثل محركات البحث والروبوتات. "
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "مفتاح API AustiPDB:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "مفتاح API لاسترداد عنوان IP الأسود."
           },
           {
             "@tag": "ACTIVE_USERTIME",
@@ -4275,14 +4271,6 @@
             "#text": "لتمكين / تعطيل زر إعادة التغريد ، حيث يمكن للمستخدم إعادة تغريد رسالة موضوع."
           },
           {
-            "@tag": "ENABLE_SSO",
-            "#text": "تمكين تسجيل الدخول الأحادي:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "إذا تم تحديده ، فسيتمكن المستخدمون من تسجيل الدخول إلى حساب موجود عبر Facebook و / أو Twitter. "
-          },
-          {
             "@tag": "ENABLE_USERREPUTATION",
             "#text": "استخدام نظام السمعة:"
           },
@@ -4292,11 +4280,27 @@
           },
           {
             "@tag": "ENABLE_WYSIWYG",
-            "#text": "Enable WYSIWYG Editor"
+            "#text": "تمكين محرر wysiwyg"
           },
           {
             "@tag": "ENABLE_WYSIWYG_HELP",
-            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+            "#text": "الإعداد لتمكين/تعطيل محرر WysiWyg BBCode"
+          },
+          {
+            "@tag": "ENTER_MODE",
+            "#text": "وضع إدخال المحرر"
+          },
+          {
+            "@tag": "ENTER_MODE_0",
+            "#text": "جديد"
+          },
+          {
+            "@tag": "ENTER_MODE_1",
+            "#text": "الخطوط مكسورة مع"
+          },
+          {
+            "@tag": "ENTER_MODE_HELP",
+            "#text": "يعين سلوك مفتاح Enter ، مثل ما إذا كان"
           },
           {
             "@tag": "EVENTLOG_MAX_DAYS",
@@ -4357,14 +4361,6 @@
           {
             "@tag": "FORCE_SEARCHINDED",
             "#text": "بدأت مهمة فهرس البحث."
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "قناع URL الأساسي للمنتدى:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "عنوان url الأمامي الكامل لهذا المنتدى."
           },
           {
             "@tag": "FORUM_EMAIL",
@@ -5060,11 +5056,11 @@
           },
           {
             "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
+            "#text": "انتقل إلى غير مقروء/أول منشور"
           },
           {
             "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+            "#text": "إذا تم تمكينه ، يتم تمريره إلى أول منشور غير مقروء/أو أول منشور جديد عند فتح موضوع"
           },
           {
             "@tag": "SEARCH_MAXLENGTH",
@@ -5420,7 +5416,7 @@
           },
           {
             "@tag": "SPAM_SERVICE_TYP_1",
-            "#text": "BlogSpam.NET API"
+            "#text": "blogspam.net API"
           },
           {
             "@tag": "SPAM_SERVICE_TYP_3",
@@ -5743,11 +5739,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
+            "#text": "لا ميداليات"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+            "#text": "حاليا لا توجد ميداليات. "
           },
           {
             "@tag": "MOVE_DOWN",
@@ -5871,11 +5867,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Custom Profile Definitions"
+            "#text": "لا تعريفات ملف تعريف مخصص"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+            "#text": "حاليا لا توجد تعريفات ملف تعريف مخصص. "
           },
           {
             "@tag": "NEW_DEF",
@@ -6023,7 +6019,7 @@
           },
           {
             "@tag": "MSG_ERROR_CREATE",
-            "#text": "Membership Error Creating User: {0}"
+            "#text": "خطأ العضوية إنشاء المستخدم: {0}"
           },
           {
             "@tag": "MSG_INVALID_MAIL",
@@ -6068,7 +6064,7 @@
           },
           {
             "@tag": "INDEX_STATS",
-            "#text": "Database recovery mode was successfully set to {0}"
+            "#text": "تم تعيين وضع استرداد قاعدة البيانات بنجاح على {0}"
           },
           {
             "@tag": "INDEX_STATS_FAIL",
@@ -6141,11 +6137,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
+            "#text": "لا استبدال الكلمات"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+            "#text": "حاليا لا توجد كلمات استبدال. "
           },
           {
             "@tag": "EXPORT",
@@ -6219,7 +6215,7 @@
           },
           {
             "@tag": "MSG_IMPORTED_FAILEDX",
-            "#text": "Failed to import: {0}"
+            "#text": "فشل الاستيراد: {0}"
           },
           {
             "@tag": "MSG_NOTHING",
@@ -6352,11 +6348,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
+            "#text": "لا توجد كلمات ملفات غير مرغوب فيها"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+            "#text": "حاليا لا توجد كلمات التحقق من البريد العشوائي. "
           },
           {
             "@tag": "EXPORT",
@@ -6434,7 +6430,7 @@
           },
           {
             "@tag": "MSG_IMPORTED_FAILEDX",
-            "#text": "Failed to import: {0}"
+            "#text": "فشل الاستيراد: {0}"
           },
           {
             "@tag": "MSG_NOTHING",
@@ -6530,10 +6526,6 @@
           {
             "@tag": "EXPORT_XML",
             "#text": "تصدير كافة المستخدمين بتنسيق Xml"
-          },
-          {
-            "@tag": "FACEBOOK_USER",
-            "#text": "مستخدم فيسبوك"
           },
           {
             "@tag": "FILTER",
@@ -6646,7 +6638,7 @@
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import: {0}"
+            "#text": "فشل الاستيراد: {0}"
           },
           {
             "@tag": "IMPORT_FAILED_FORMAT",
@@ -6712,7 +6704,7 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Banned UserAgents"
+            "#text": "المستخدمون المحظورون"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -6925,7 +6917,7 @@
           },
           {
             "@tag": "ALBUMS_TITLE",
-            "#text": "{0} Album: {1}"
+            "#text": "{0} الألبوم: {1}"
           },
           {
             "@tag": "BACK_ALBUMS",
@@ -7176,10 +7168,6 @@
             "#text": "اضغظ هنا لإضهار او إخفاء السبويلر"
           },
           {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "أدخل معرف الحالة للتغريدة التي تريد تضمينها"
-          },
-          {
             "@tag": "UERLINKMOD_DESCRIPTION",
             "#text": "ضع اسم المستخدم هنا"
           },
@@ -7271,7 +7259,7 @@
           },
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
-            "#text": "Friend request removed."
+            "#text": "تمت إزالة طلب الصداقة."
           },
           {
             "@tag": "PENDINGBUDDIES",
@@ -7602,7 +7590,7 @@
           },
           {
             "@tag": "MAXNUMBEROF",
-            "#text": "Maximum number of characters in each post is: {0}"
+            "#text": "الحد الأقصى لعدد الأحرف في كل منشور هو: {0}"
           }
         ]
       },
@@ -7639,7 +7627,7 @@
           },
           {
             "@tag": "BBCODE_QUOTEPOSTED",
-            "#text": "Originally Posted by: {0}"
+            "#text": "تم النشر في الأصل بواسطة: {0}"
           },
           {
             "@tag": "BBCODE_QUOTEPOSTED_TT",
@@ -7663,7 +7651,7 @@
           },
           {
             "@tag": "CHARACTERS_LEFT",
-            "#text": "Characters remaining:"
+            "#text": "الأحرف المتبقية:"
           },
           {
             "@tag": "COMMON_WORDS",
@@ -7759,7 +7747,7 @@
           },
           {
             "@tag": "FONT_NAME",
-            "#text": "Font Name"
+            "#text": "اسم الخط"
           },
           {
             "@tag": "FONT_SIZE",
@@ -7771,23 +7759,23 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "D"
+            "#text": "د"
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "d"
+            "#text": "د"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
-            "#text": "F"
+            "#text": "و"
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "G"
+            "#text": "ز"
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "T"
+            "#text": "ر"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -7847,7 +7835,7 @@
           },
           {
             "@tag": "IN_FORUM",
-            "#text": "in Forum: {0}"
+            "#text": "في المنتدى: {0}"
           },
           {
             "@tag": "LOAD_MORE",
@@ -7867,7 +7855,7 @@
           },
           {
             "@tag": "MEDIA",
-            "#text": "Insert Media"
+            "#text": "أدخل الوسائط"
           },
           {
             "@tag": "MENU",
@@ -7911,43 +7899,43 @@
           },
           {
             "@tag": "NOTIFICATION_ON_BOT_USER_REGISTER_EMAIL_SUBJECT",
-            "#text": "New SPAM BOT User Registered on {0} Forum"
+            "#text": "تم تسجيل مستخدم SPAM BOT الجديد في منتدى {0}"
           },
           {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_SUBJECT",
-            "#text": "you have been awarded on the {0} Forum"
+            "#text": "لقد تم منحك في منتدى {0}"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
-            "#text": "New Message on {0} Forum needs to be approved"
+            "#text": "يجب الموافقة على رسالة جديدة في المنتدى {0}"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE",
-            "#text": "A Message on {0} Forum was reported"
+            "#text": "تم الإبلاغ عن رسالة في منتدى {0}"
           },
           {
             "@tag": "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL",
-            "#text": "New SPAM Message on {0} Forum needs to be checked"
+            "#text": "يجب التحقق من رسالة البريد العشوائي في المنتدى {0}"
           },
           {
             "@tag": "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT",
-            "#text": "Registration on {0} Forum successfully"
+            "#text": "التسجيل في المنتدى {0} بنجاح"
           },
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT",
-            "#text": "Suspension of your {0} Forum Account"
+            "#text": "تعليق حساب المنتدى {0}"
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_EMAIL_SUBJECT",
-            "#text": "New User Registered on {0} Forum"
+            "#text": "مستخدم جديد مسجل في منتدى {0}"
           },
           {
             "@tag": "NOTIFICATION_ON_WELCOME_USER_SUBJECT",
-            "#text": "Welcome to the {0} Forum"
+            "#text": "مرحبًا بك في منتدى {0}"
           },
           {
             "@tag": "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
-            "#text": "{0} Forum Account Update"
+            "#text": "{0} تحديث حساب المنتدى"
           },
           {
             "@tag": "OK",
@@ -8015,7 +8003,7 @@
           },
           {
             "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
+            "#text": "اختيار حجم الصفحة"
           },
           {
             "@tag": "SHOWHIDE",
@@ -8055,7 +8043,7 @@
           },
           {
             "@tag": "TT_COPY",
-            "#text": "Copy the selected text (Ctrl+C)"
+            "#text": "انسخ النص المحدد (Ctrl C)"
           },
           {
             "@tag": "TT_CREATELINK",
@@ -8067,11 +8055,11 @@
           },
           {
             "@tag": "TT_CUT",
-            "#text": "Cut the selected text (Ctrl+X)"
+            "#text": "قطع النص المحدد (Ctrl x)"
           },
           {
             "@tag": "TT_DESCRIPTION",
-            "#text": "Description"
+            "#text": "وصف"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8083,11 +8071,11 @@
           },
           {
             "@tag": "TT_IMAGE_DESC",
-            "#text": "Enter Image Description:"
+            "#text": "أدخل وصف الصورة:"
           },
           {
             "@tag": "TT_IMAGE_TITLE",
-            "#text": "Enter Image Url:"
+            "#text": "أدخل عنوان URL للصورة:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8107,11 +8095,19 @@
           },
           {
             "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+            "#text": "الصق عنوان URL للوسائط في الإدخال (على سبيل المثال مقطع فيديو على YouTube أو قائمة تشغيل Spotify أو صورة Instagram)."
+          },
+          {
+            "@tag": "TT_NOTE",
+            "#text": "أدخل الملاحظة"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "ملاحظة نوع"
           },
           {
             "@tag": "TT_PASTE",
-            "#text": "Paste (Ctrl+V)"
+            "#text": "لصق (Ctrl V)"
           },
           {
             "@tag": "TT_QUOTE",
@@ -8119,19 +8115,19 @@
           },
           {
             "@tag": "TT_REDO",
-            "#text": "Redo (Ctrl+Y)"
+            "#text": "أحمر (ctrl y)"
           },
           {
             "@tag": "TT_REMOVE",
-            "#text": "Remove Format"
+            "#text": "إزالة التنسيق"
           },
           {
             "@tag": "TT_SELECT_ALL",
-            "#text": "Select all"
+            "#text": "حدد كل شيء"
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
-            "#text": "Strikethrough"
+            "#text": "strikethrough"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8139,15 +8135,15 @@
           },
           {
             "@tag": "TT_UNDO",
-            "#text": "Undo (Ctrl+Z)"
+            "#text": "التراجع (Ctrl Z)"
           },
           {
             "@tag": "TT_URL_DESC",
-            "#text": "Enter URL Description:"
+            "#text": "أدخل وصف URL:"
           },
           {
             "@tag": "TT_URL_TITLE",
-            "#text": "Enter URL:"
+            "#text": "أدخل عنوان URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8215,7 +8211,7 @@
           },
           {
             "@tag": "VIEW_TOPIC_STARTED_BY",
-            "#text": "View topic started by {0}"
+            "#text": "عرض الموضوع الذي بدأه {0}"
           },
           {
             "@tag": "VIEW_USRPROFILE",
@@ -9282,7 +9278,7 @@
           },
           {
             "@tag": "IN",
-            "#text": "in {0}"
+            "#text": "في {0}"
           },
           {
             "@tag": "INFORMATION",
@@ -9310,11 +9306,11 @@
           },
           {
             "@tag": "MARK_ALL_ASREAD",
-            "#text": "Mark All As Read"
+            "#text": "ضع علامة على كل ما يقرأ"
           },
           {
             "@tag": "MARK_ASREAD",
-            "#text": "Mark As Read"
+            "#text": "مارك كما هو القراءة"
           },
           {
             "@tag": "MARKALL",
@@ -9561,7 +9557,7 @@
           },
           {
             "@tag": "STARTEDBY",
-            "#text": "Started by {0}"
+            "#text": "بدأت بواسطة {0}"
           },
           {
             "@tag": "SUBJECT",
@@ -9739,10 +9735,6 @@
             "#text": "لقد أدخلت عنوان URL غير صحيح كملف تعريف Facebook."
           },
           {
-            "@tag": "BAD_GOOGLE",
-            "#text": "لقد أدخلت قيمة غير قانونية كعنوان URL لملف تعريف Google."
-          },
-          {
             "@tag": "BAD_HOME",
             "#text": "لقد قمت بإدخال عنوان غير صالح لصفحتك الرئيسية"
           },
@@ -9868,11 +9860,7 @@
           },
           {
             "@tag": "SELECT_THEME_MODE",
-            "#text": "Select the theme mode:"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "معرّف سكايب الخاص بك:"
+            "#text": "حدد وضع السمة:"
           },
           {
             "@tag": "TIMEZONE",
@@ -9905,15 +9893,15 @@
         "Resource": [
           {
             "@tag": "DISABLE_2FA",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "تعطيل مصادقة عاملين"
           },
           {
             "@tag": "DISABLE_TWO_FACTOR_HEADER",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "تعطيل مصادقة عاملين"
           },
           {
             "@tag": "ENABLE_2FA",
-            "#text": "Turn on Two Factor Authentication"
+            "#text": "قم بتشغيل اثنين من مصادقة عامل"
           },
           {
             "@tag": "INFO",
@@ -9921,11 +9909,11 @@
           },
           {
             "@tag": "INPUT_CODE",
-            "#text": "Input security code"
+            "#text": "رمز أمان الإدخال"
           },
           {
             "@tag": "SETUP_CODE",
-            "#text": "Setup code"
+            "#text": "رمز الإعداد"
           },
           {
             "@tag": "TITLE",
@@ -9933,11 +9921,11 @@
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
-            "#text": "Enable Two Factor Authentication"
+            "#text": "تمكين مصادقة عاملين"
           },
           {
             "@tag": "WRONG_CODE",
-            "#text": "You have entered the wrong 2FA Code!"
+            "#text": "لقد أدخلت رمز 2FA الخاطئ!"
           }
         ]
       },
@@ -10149,96 +10137,12 @@
         "@name": "GENDER",
         "Resource": [
           {
-            "@tag": "AGENDER",
-            "#text": "Agender"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "أندروجين"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "أكبر"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "سيسجندر"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "أنثى إلى ذكر"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "سائل الجنس"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "الجنس غير المطابق"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "الجنس"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "استجواب الجنس"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "الخنثى"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "ذكر إلى أنثى"
-          },
-          {
             "@tag": "MAN",
             "#text": "رجل"
           },
           {
-            "@tag": "NONBINARY",
-            "#text": "غير ثنائي"
-          },
-          {
             "@tag": "OTHER",
             "#text": "آخر"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "بانجندر"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "ترانس"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "ترانسفيمينين"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "المتحولين جنسيا"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "رجل المتحولين جنسيا"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "ترانسسكولين"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "المتحولين جنسيا"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "امرأة متحولة جنسيا"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "اثنان الروح"
           },
           {
             "@tag": "WOMAN",
@@ -10622,7 +10526,7 @@
           },
           {
             "@tag": "TITLE2",
-            "#text": "Send E-mail to {0}"
+            "#text": "إرسال بريد إلكتروني إلى {0}"
           }
         ]
       },
@@ -10665,14 +10569,6 @@
           {
             "@tag": "DISABLED",
             "#text": "لقد تم إلاغاء هذه الخاصية من قبل المدير"
-          },
-          {
-            "@tag": "ECMAREQUIRED",
-            "#text": "لستخدام هذى المنتدي يجب ان يدعم المتصفح  الجافا (JavaScript) "
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "متصفك لايدعم  الجافا(JavaScript). يرجى عمل تحديث للمتصفح /"
           },
           {
             "@tag": "EXCEPTION",
@@ -11163,31 +11059,7 @@
           },
           {
             "@tag": "AUTH_CONNECT",
-            "#text": "Login or Register with {0}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "ربط حساب منتديات موجود بحساب {0} الخاص بك. تحتاج إلى تسجيل الدخول من خلال المنتديات أولاً. "
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong> يجب أن يتطابق عنوان البريد الإلكتروني في Facebook مع عنوان البريد الإلكتروني لمستخدم المنتدى لتوصيل المستخدم. </ strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong> يجب أن يتطابق عنوان البريد الإلكتروني في Google مع عنوان البريد الإلكتروني لمستخدم المنتدى لتوصيل المستخدم. </ strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "تسجيل الدخول أو التسجيل باستخدام {0} أو ربط حساب مستخدم موجود بـ {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "تسجيل الدخول بحساب مستخدم متصل بـ {0}. "
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "تعذر الحصول على access_token!"
+            "#text": "تسجيل الدخول أو التسجيل مع {0}"
           },
           {
             "@tag": "AUTO",
@@ -11200,10 +11072,6 @@
           {
             "@tag": "CAPS_LOCK",
             "#text": "الحروف الكبيرة مفعلة"
-          },
-          {
-            "@tag": "CONNECT_VIA",
-            "#text": "أو تواصل عبر"
           },
           {
             "@tag": "EMAIL",
@@ -11254,64 +11122,20 @@
             "#text": "إرسال كلمة المرور"
           },
           {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "تم إلغاء تنشيط الدخول الموحد حاليًا بواسطة المسؤول!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "تم إلغاء تنشيط الدخول الموحد لهذا المستخدم ، تحتاج إلى تنشيطه في إعدادات ملف التعريف الخاص بك لاستخدام هذه الميزة."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "فشل تسجيل الدخول إلى Facebook أو المستخدم غير موجود أو الحساب غير متصل."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "فشل تسجيل الدخول إلى Facebook ، حساب مستخدم بنفس عنوان البريد الإلكتروني مثل حساب facebook موجود بالفعل ، يرجى محاولة توصيل حساب المنتدى الخاص بك بدلاً من ذلك."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "فشل تسجيل الدخول إلى Facebook ، لأن المستخدم لا يقدم عنوان بريد إلكتروني للحساب."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "التسجيلات الجديدة معطلة."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "فشل تسجيل الدخول إلى Google أو المستخدم غير موجود أو الحساب غير متصل."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "فشل تسجيل الدخول إلى Google ، حساب المستخدم بنفس عنوان البريد الإلكتروني مثل حساب Google موجود بالفعل ، يرجى محاولة توصيل حساب المنتدى الخاص بك بدلاً من ذلك."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "The User Account is not connected or not found"
-          },
-          {
             "@tag": "TITLE",
             "#text": "تسجيل الدخول"
           },
           {
             "@tag": "TWO_FA_INFO",
-            "#text": "Please enter a validation code from your Authenticator app."
+            "#text": "الرجاء إدخال رمز التحقق من صحة من تطبيق Authenticator الخاص بك."
           },
           {
             "@tag": "TWO_FA_PLACEHOLDER",
-            "#text": "Validation code: ### ###"
+            "#text": "رمز التحقق:"
           },
           {
             "@tag": "TWO_FA_VALIDATION",
-            "#text": "Two-Factor Validation"
+            "#text": "التحقق من صحة عاملين"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -11913,7 +11737,7 @@
           },
           {
             "@tag": "LAST_VISIT",
-            "#text": "last visit at {0}"
+            "#text": "آخر زيارة في {0}"
           },
           {
             "@tag": "LAST_WEEK",
@@ -11982,7 +11806,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Your activity notifications"
+            "#text": "إشعارات نشاطك"
           }
         ]
       },
@@ -11991,7 +11815,7 @@
         "Resource": [
           {
             "@tag": "CONVERSATION_TITLE",
-            "#text": "Your Conversations"
+            "#text": "محادثاتك"
           },
           {
             "@tag": "TITLE",
@@ -12056,7 +11880,7 @@
           },
           {
             "@tag": "PMLIMIT_ALL",
-            "#text": "You have {0} private messages: {1} in Inbox and {2} in Outbox. From a total of {3} allowed. Your mail box is filled to {4}%"
+            "#text": "لديك {0} رسائل خاصة: {1} في صندوق الوارد و {2} في صندوق Outbox. "
           },
           {
             "@tag": "PREVIEWTITLE",
@@ -12072,7 +11896,7 @@
           },
           {
             "@tag": "REPORT_SUBJECT",
-            "#text": "Report a Private Message from User: {0}"
+            "#text": "أبلغ عن رسالة خاصة من المستخدم: {0}"
           },
           {
             "@tag": "REPORTED_SUBJECT",
@@ -12201,11 +12025,11 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
+            "#text": "التصويت ملزمة"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
+            "#text": "اِتَّشَح"
           },
           {
             "@tag": "POLLHEADER",
@@ -12245,7 +12069,7 @@
           },
           {
             "@tag": "REMOVEPOLL_MSG",
-            "#text": "Poll was removed!"
+            "#text": "تمت إزالة الاستطلاع!"
           }
         ]
       },
@@ -12451,7 +12275,7 @@
           },
           {
             "@tag": "BLOG_TITLE",
-            "#text": "Visit {0}'s Blog"
+            "#text": "تفضل بزيارة {0}"
           },
           {
             "@tag": "CANT_DOWNLOAD",
@@ -12543,11 +12367,11 @@
           },
           {
             "@tag": "HOME",
-            "#text": "WWW"
+            "#text": "www"
           },
           {
             "@tag": "HOME_TITLE",
-            "#text": "Visit {0}'s Homepage"
+            "#text": "تفضل بزيارة {0}"
           },
           {
             "@tag": "IMAGE_ATTACHMENT_TEXT",
@@ -12778,14 +12602,6 @@
             "#text": "مواضيع مماثلة"
           },
           {
-            "@tag": "SKYPE",
-            "#text": "(SKYPE)سكاي بي"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "اتصل بـ {0} عبر Skype"
-          },
-          {
             "@tag": "STATISTICS",
             "#text": "إحصاءات"
           },
@@ -12903,7 +12719,7 @@
           },
           {
             "@tag": "USERSUSPENDED",
-            "#text": "User is suspended until {0}"
+            "#text": "يتم تعليق المستخدم حتى {0}"
           },
           {
             "@tag": "VIEW",
@@ -13057,10 +12873,6 @@
             "#text": "الجنس:"
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "الملف الشخصي في Google+:"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "مجموعات :"
           },
@@ -13159,10 +12971,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "اضهار كل  مشاركات المستخدم "
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "سكاي بي(SKYPE):"
           },
           {
             "@tag": "SOCIAL_MEDIA",
@@ -13835,11 +13643,11 @@
           },
           {
             "@tag": "REGISTER_AUTH",
-            "#text": "Register with {0}"
+            "#text": "سجل مع {0}"
           },
           {
             "@tag": "RESET_PASS_EMAIL_SUBJECT",
-            "#text": "Reset Password for {0} Forum"
+            "#text": "إعادة تعيين كلمة المرور لمنتدى {0}"
           },
           {
             "@tag": "RETYPE_PASSWORD",
@@ -13896,7 +13704,7 @@
           },
           {
             "@tag": "FUTURE",
-            "#text": "in {0}"
+            "#text": "في {0}"
           },
           {
             "@tag": "H",
@@ -13928,7 +13736,7 @@
           },
           {
             "@tag": "PAST",
-            "#text": "{0} ago"
+            "#text": "{0} منذ"
           },
           {
             "@tag": "S",
@@ -14266,7 +14074,7 @@
           },
           {
             "@tag": "LASTPOSTLINK",
-            "#text": "{0} by {1}"
+            "#text": "{0} بواسطة {1}"
           },
           {
             "@tag": "NONOTIFICATION",
@@ -14379,14 +14187,6 @@
             "#text": "\r\n      Hello!\r\n\r\n      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):\r\n\r\n      User Name: {user}\r\n      User Email: {email}\r\n\r\n      Administration Link: {adminlink}\r\n    "
           },
           {
-            "@tag": "NOTIFICATION_ON_FACEBOOK_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Facebook Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Facebook)\r\n\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_GOOGLE_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Google Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Google)\r\n\r\n    "
-          },
-          {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_TEXT",
             "#text": "\r\n    Hello {user}.\r\n\r\n    Congratulations you have been awarded with the {medalname} on the {forumname} forum.\r\n  "
           },
@@ -14457,15 +14257,15 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "Auto"
+            "#text": "آلي"
           },
           {
             "@tag": "DARK",
-            "#text": "Dark"
+            "#text": "مظلم"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Light"
+            "#text": "ضوء"
           }
         ]
       },
@@ -14534,7 +14334,7 @@
           },
           {
             "@tag": "LOGGED_IN_AS",
-            "#text": "Logged in as: {0}"
+            "#text": "تم تسجيل الدخول على AS: {0}"
           },
           {
             "@tag": "LOGIN",
@@ -14691,7 +14491,7 @@
           },
           {
             "@tag": "BY",
-            "#text": "by {0}"
+            "#text": "بواسطة {0}"
           },
           {
             "@tag": "CREATED",
@@ -14795,7 +14595,7 @@
           },
           {
             "@tag": "TODAYAT",
-            "#text": "[b]Today[/b] at {0:T}"
+            "#text": "[ب] اليوم [/b] في {0: t}"
           },
           {
             "@tag": "TOPIC_STARTER",
@@ -14831,7 +14631,7 @@
           },
           {
             "@tag": "YESTERDAYAT",
-            "#text": "[b]Yesterday[/b] at {0:T}"
+            "#text": "[ب] أمس [/b] في {0: t}"
           }
         ]
       }

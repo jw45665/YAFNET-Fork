@@ -28,7 +28,6 @@ using System.Globalization;
 
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
-using YAF.Core.Services;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
@@ -103,7 +102,7 @@ public class EditUserModel : AdminPage
 
         this.PageBoardContext.PageLinks.AddLink(
             this.GetText("ADMIN_USERS", "TITLE"),
-            this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Users));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Users));
     }
 
     /// <summary>
@@ -125,14 +124,14 @@ public class EditUserModel : AdminPage
 
         if (editUser is null)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         // do admin permission check...
         if (!this.PageBoardContext.PageUser.UserFlags.IsHostAdmin && editUser.Item1.UserFlags.IsHostAdmin)
         {
             // user is not host admin and is attempted to edit host admin account...
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         this.EditUser = editUser;

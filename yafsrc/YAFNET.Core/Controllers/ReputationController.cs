@@ -31,7 +31,6 @@ using System.Collections.Generic;
 
 using YAF.Core.BasePages;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
@@ -55,7 +54,7 @@ public class ReputationController : ForumBaseController
         {
             if (this.PageBoardContext.IsGuest)
             {
-                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
             var messages = this.Get<ISessionService>().GetPageData<List<PagedMessage>>();
@@ -64,12 +63,12 @@ public class ReputationController : ForumBaseController
 
             if (source == null)
             {
-                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
             if (!this.Get<IReputation>().CheckIfAllowReputationVoting(source.ReputationVoteDate))
             {
-                return this.Get<LinkBuilder>().Redirect(ForumPages.Post, new { m, name = source.Topic });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = source.Topic });
             }
 
             this.GetRepository<User>().AddPoints(source.UserID, this.PageBoardContext.PageUserID, 1);
@@ -81,11 +80,11 @@ public class ReputationController : ForumBaseController
                         this.PageBoardContext.BoardSettings.EnableDisplayName ? source.DisplayName : source.UserName)),
                 MessageTypes.success);
 
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Post, new {m, name = source.Topic });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new {m, name = source.Topic });
         }
         catch (Exception)
         {
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
         }
     }
 
@@ -100,7 +99,7 @@ public class ReputationController : ForumBaseController
         {
             if (this.PageBoardContext.IsGuest)
             {
-                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
             var messages = this.Get<ISessionService>().GetPageData<List<PagedMessage>>();
@@ -109,12 +108,12 @@ public class ReputationController : ForumBaseController
 
             if (source == null)
             {
-                return this.RedirectToPage(ForumPages.Post.GetPageName(), new { m, name = "Topic" });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
             }
 
             if (!this.Get<IReputation>().CheckIfAllowReputationVoting(source.ReputationVoteDate))
             {
-                return this.Get<LinkBuilder>().Redirect(ForumPages.Post, new { m, name = source.Topic });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = source.Topic });
             }
 
             this.GetRepository<User>().RemovePoints(source.UserID, BoardContext.Current.PageUserID, 1);
@@ -126,11 +125,11 @@ public class ReputationController : ForumBaseController
                         this.PageBoardContext.BoardSettings.EnableDisplayName ? source.DisplayName : source.UserName)),
                 MessageTypes.success);
 
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Post, new { m, name = source.Topic });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = source.Topic });
         }
         catch (Exception)
         {
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Post, new { m, name = "Topic" });
         }
     }
 }

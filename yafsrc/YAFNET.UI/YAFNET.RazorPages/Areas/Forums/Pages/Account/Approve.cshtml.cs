@@ -33,7 +33,6 @@ using Microsoft.AspNetCore.Authorization;
 
 using YAF.Core.Extensions;
 using YAF.Core.Model;
-using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 
@@ -143,7 +142,7 @@ public class ApproveModel : AccountPage
 
             this.PageBoardContext.SessionNotify(this.GetText("EMAIL_VERIFIED"), MessageTypes.info);
 
-            return this.RedirectToPage(ForumPages.Index.GetPageName());
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
         }
 
         this.ErrorMessage = result.Errors.FirstOrDefault()?.Description;

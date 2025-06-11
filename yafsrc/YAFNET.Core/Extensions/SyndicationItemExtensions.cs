@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.ServiceModel.Syndication;
 
 using YAF.Core.Context;
-using YAF.Core.Services;
 using YAF.Core.Services.Syndication;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces;
@@ -138,6 +137,6 @@ public static class SyndicationItemExtensions
         return new SyndicationPerson(
             userEmail,
             userNameToShow,
-            BoardContext.Current.Get<LinkBuilder>().GetUserProfileLink(userId, userNameToShow));
+            BoardContext.Current.Get<ILinkBuilder>().GetUserProfileLink(userId, userNameToShow));
     }
 }

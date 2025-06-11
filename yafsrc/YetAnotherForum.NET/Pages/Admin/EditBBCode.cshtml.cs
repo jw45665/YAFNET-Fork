@@ -27,7 +27,6 @@ namespace YAF.Pages.Admin;
 
 using YAF.Core.Extensions;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.Models;
 
 /// <summary>
@@ -57,7 +56,7 @@ public class EditBBCodeModel : AdminPage
         this.PageBoardContext.PageLinks.AddAdminIndex();
         this.PageBoardContext.PageLinks.AddLink(
             this.GetText("ADMIN_BBCODE", "TITLE"),
-            this.Get<LinkBuilder>().GetLink(ForumPages.Admin_BBCodes));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_BBCodes));
     }
 
     /// <summary>
@@ -81,7 +80,7 @@ public class EditBBCodeModel : AdminPage
             this.Input.ModuleClass,
             this.Input.ExecOrder);
 
-       return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BBCodes);
+       return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_BBCodes);
     }
 
     /// <summary>

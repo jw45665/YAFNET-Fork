@@ -3,7 +3,6 @@
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
 @using YAF.Core.Model
-@using YAF.Core.Services
 @using YAF.Core.Utilities
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Constants
@@ -62,7 +61,7 @@
                icon="tasks"
                text-localized-tag="BUTTON_MODERATE"
                title-localized-tag="BUTTON_MODERATE_TT"
-               href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Moderate_Forums, new { f = Model.PageBoardContext.PageForumID }))"></a>
+               href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Moderate_Forums, new { f = Model.PageBoardContext.PageForumID }))"></a>
         }
 
         @if (Model.PageBoardContext.ForumPostAccess
@@ -72,7 +71,7 @@
                icon="plus"
                text-localized-tag="BUTTON_NEWTOPIC"
                title-localized-tag="BUTTON_NEWTOPIC_TT"
-               href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.PostTopic, new { f = Model.PageBoardContext.PageForumID }))"></a>
+               href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.PostTopic, new { f = Model.PageBoardContext.PageForumID }))"></a>
         }
     </div>
 </div>
@@ -252,7 +251,7 @@
                icon="tasks"
                text-localized-tag="BUTTON_MODERATE"
                title-localized-tag="BUTTON_MODERATE_TT"
-               href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Moderate_Forums, new { f = Model.PageBoardContext.PageForumID }))"></a>
+               href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Moderate_Forums, new { f = Model.PageBoardContext.PageForumID }))"></a>
         }
 
         @if (Model.PageBoardContext.ForumPostAccess
@@ -262,7 +261,7 @@
                icon="plus"
                text-localized-tag="BUTTON_NEWTOPIC"
                title-localized-tag="BUTTON_NEWTOPIC_TT"
-               href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.PostTopic, new { f = Model.PageBoardContext.PageForumID }))"></a>
+               href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.PostTopic, new { f = Model.PageBoardContext.PageForumID }))"></a>
         }
     </div>
 </div>

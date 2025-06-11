@@ -263,8 +263,6 @@ public class UsersModel : AdminPage
 
         this.Ranks = new SelectList(ranks, nameof(Rank.ID), nameof(Rank.Name));
 
-        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
-
         this.BindData();
     }
 
@@ -279,9 +277,9 @@ public class UsersModel : AdminPage
     /// <summary>
     /// The lock accounts click.
     /// </summary>
-    public void OnPostLockAccounts()
+    public async Task OnPostLockAccountsAsync()
     {
-        this.Get<IAspNetUsersHelper>().LockInactiveAccounts(DateTime.UtcNow.AddYears(-this.Input.YearsOld));
+        await this.Get<IAspNetUsersHelper>().LockInactiveAccountsAsync(DateTime.UtcNow.AddYears(-this.Input.YearsOld));
 
         this.BindData();
     }

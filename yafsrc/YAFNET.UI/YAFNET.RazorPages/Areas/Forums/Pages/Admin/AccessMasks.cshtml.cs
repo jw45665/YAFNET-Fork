@@ -30,7 +30,6 @@ namespace YAF.Pages.Admin;
 using System.Collections.Generic;
 
 using YAF.Core.Extensions;
-using YAF.Core.Services;
 using YAF.Types.Models;
 
 /// <summary>
@@ -73,7 +72,7 @@ public class AccessMasksModel : AdminPage
     public IActionResult OnPostEdit(int maskId)
     {
         // redirect to editing page
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Admin_EditAccessMask,
             new {
                     i = maskId

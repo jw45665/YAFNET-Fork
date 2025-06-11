@@ -112,12 +112,6 @@ public class UserProfileModel : ForumPage
     [BindProperty] public string FacebookUrl { get; set; }
 
     /// <summary>
-    /// Gets or sets the skype URL.
-    /// </summary>
-    /// <value>The skype URL.</value>
-    [BindProperty] public string SkypeUrl { get; set; }
-
-    /// <summary>
     /// Gets or sets the blog URL.
     /// </summary>
     /// <value>The blog URL.</value>
@@ -199,7 +193,7 @@ public class UserProfileModel : ForumPage
         this.PageBoardContext.PageLinks.AddLink(
             this.GetText("MEMBERS"),
             this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.MembersListViewPermissions)
-                ? this.Get<LinkBuilder>().GetLink(ForumPages.Members)
+                ? this.Get<ILinkBuilder>().GetLink(ForumPages.Members)
                 : null);
         this.PageBoardContext.PageLinks.AddLink(userDisplayName, string.Empty);
     }
@@ -212,7 +206,7 @@ public class UserProfileModel : ForumPage
         return u == 0
             ?
             // No such user exists
-            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid)
+            this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid)
             : this.BindData(u);
     }
 
@@ -337,7 +331,7 @@ public class UserProfileModel : ForumPage
         if (this.CombinedUser is null || this.CombinedUser.Item1.ID == 0)
         {
             // No such user exists or this is a nntp user ("0")
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         // populate user information controls...
@@ -481,17 +475,12 @@ public class UserProfileModel : ForumPage
 
         if (this.CombinedUser.Item2.Profile_XMPP.IsSet())
         {
-            this.XmppUrl = this.Get<LinkBuilder>().GetLink(
+            this.XmppUrl = this.Get<ILinkBuilder>().GetLink(
                 ForumPages.Jabber,
                 new { u = this.CombinedUser.Item1.ID });
         }
 
-        if (this.CombinedUser.Item2.Profile_Skype.IsSet())
-        {
-            this.SkypeUrl = $"skype:{this.CombinedUser.Item2.Profile_Skype}?call";
-        }
-
-        if (!this.SkypeUrl.IsSet() && !this.BlogUrl.IsSet() && !this.XmppUrl.IsSet() && !this.FacebookUrl.IsSet())
+        if (!this.BlogUrl.IsSet() && !this.XmppUrl.IsSet() && !this.FacebookUrl.IsSet())
         {
             this.ShowSocialMediaCard = false;
         }

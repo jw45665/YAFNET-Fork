@@ -3,7 +3,6 @@
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
 @using YAF.Core.Model
-@using YAF.Core.Services
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
@@ -101,13 +100,13 @@
 
                                         @if (report.ResolvedDate.HasValue && report.ResolvedDate.Value > DateTime.MinValue)
                                         {
-                                            var resolvedBy = Model.GetRepository<User>().GetById(report.ResolvedBy.Value);
+                                            var resolvedBy = await Model.GetRepository<User>().GetByIdAsync(report.ResolvedBy.Value);
 
                                             var resolvedByName = resolvedBy.DisplayOrUserName();
 
                                             <span class="fw-bold me-2">
                                                 @Html.LocalizedText("RESOLVEDBY")
-                                                <a href="@Html.Raw(Model.Get<LinkBuilder>().GetUserProfileLink((int)report.ResolvedBy, resolvedByName))">
+                                                <a href="@Html.Raw(Model.Get<ILinkBuilder>().GetUserProfileLink((int)report.ResolvedBy, resolvedByName))">
                                                     @resolvedByName
                                                 </a>:
                                                 @Html.Raw(Model.Get<IDateTimeService>().FormatDateTimeTopic(report.ResolvedDate))
@@ -119,14 +118,14 @@
                                         </span>
 
                                         <a class="me-2"
-                                   href="@Html.Raw(Model.Get<LinkBuilder>().GetUserProfileLink(reporter.Item2.ID, reporterName))">
+                                   href="@Html.Raw(Model.Get<ILinkBuilder>().GetUserProfileLink(reporter.Item2.ID, reporterName))">
                                             @reporterName
                                         </a>
 
                                         <em>@howMany</em>
 
                                         <a class="btn btn-secondary btn-sm ms-2"
-                                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(
+                                   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(
                                                      ForumPages.MyMessages,
                                                      new { u = reporter.Item2.ID, r = report.MessageID }))">
                                             <i class="fa fa-envelope fa-fw me-1"></i>

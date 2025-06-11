@@ -79,30 +79,7 @@ public class BoardConfiguration
     public string DatabaseOwner { get; set; }
 
     /// <summary>
-    /// Gets or sets the google client ID.
-    /// </summary>
-    /// <value>
-    /// The google client ID.
-    /// </value>
-    public string GoogleClientID { get; set; }
-
-    /// <summary>
-    /// Gets or sets the google client secret.
-    /// </summary>
-    public string GoogleClientSecret { get; set; }
-
-    /// <summary>
-    ///     Gets or sets Facebook API Key.
-    /// </summary>
-    public string FacebookAPIKey { get; set; }
-
-    /// <summary>
-    ///     Gets or sets Facebook Secret Key.
-    /// </summary>
-    public string FacebookSecretKey { get; set; }
-
-    /// <summary>
-    ///     Gets or sets a value indicating whether Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within Root Example : true /false
+    ///     Gets or sets a value indicating whether Boolean to force uploads, and images, themes etc. from a specific BoardID folder within Root Example : true /false
     /// </summary>
     public bool MultiBoardFolders { get; set; }
 
@@ -149,4 +126,28 @@ public class BoardConfiguration
     /// Must be set to a value > 0.
     /// </summary>
     public int RateLimiterPermitLimit { get; set; } = 30;
+
+    /// <summary>
+    /// X-Frame-Options tells the browser whether you want to allow your site to be framed or not.By preventing a browser from framing your site you can defend against attacks like clickjacking. Recommended value "SAMEORIGIN".
+    /// </summary>
+    /// <value>The x frame options.</value>
+    public string XFrameOptions { get; set; } = "SAMEORIGIN";
+
+    /// <summary>
+    /// X-Content-Type-Options stops a browser from trying to MIME-sniff the content type and forces it to stick with the declared content-type.The only valid value for this header is "X-Content-Type-Options: nosniff".
+    /// </summary>
+    /// <value>The x content type options.</value>
+    public string XContentTypeOptions { get; set; } = "nosniff";
+
+    /// <summary>
+    /// Referrer Policy is a new header that allows a site to control how much information the browser includes with navigations away from a document and should be set by all sites.
+    /// </summary>
+    /// <value>The referrer policy.</value>
+    public string ReferrerPolicy { get; set; } = "no-referrer";
+
+    /// <summary>
+    /// Content Security Policy is an effective measure to protect your site from XSS attacks. By whitelisting sources of approved content, you can prevent the browser from loading malicious assets.
+    /// </summary>
+    /// <value>The permissions policy.</value>
+    public string ContentSecurityPolicy { get; set; } = "";
 }

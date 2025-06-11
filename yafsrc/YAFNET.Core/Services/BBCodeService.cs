@@ -427,6 +427,17 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                              RuleRank = 98
                          });
 
+        // note
+        ruleEngine.AddRule(
+            new VariableRegexReplaceRule(
+                    """<div class="alert alert-(?<type>(.*?))" role="alert">(?<inner>(.*?))</div>""",
+                    "[note=${size}]${inner}[/note]",
+                    Options,
+                    [
+                        "type"
+                    ])
+                { RuleRank = 101 });
+
         ruleEngine.AddRule(new SimpleRegexReplaceRule("<br />", "\r\n", Options));
         ruleEngine.AddRule(new SimpleRegexReplaceRule("<br>", "\r\n", Options));
 
@@ -528,7 +539,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
-                        @"\[url\=(?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^javascript:])([^""\r\n\]\[]*?))\](?<inner>(.+?))\[/url\]",
+                        @"\[url\=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^javascript:])([^""\r\n\]\[]*?))\](?<inner>(.+?))\[/url\]",
                         Options | RegexOptions.Compiled,
                         TimeSpan.FromMilliseconds(100)),
                     "<a {0} {1} href=\"${http}${url}\" title=\"${http}${url}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
@@ -543,7 +554,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
-                        @"\[url\](?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://)|(mailto:))?(?<inner>([^javascript:])(.+?))\[/url\]",
+                        @"\[url\](?<http>(http://)|(https://)|(ftp://)|(ftps://)|(mailto:))?(?<inner>([^javascript:])(.+?))\[/url\]",
                         Options | RegexOptions.Compiled,
                         TimeSpan.FromMilliseconds(100)),
                     "<a {0} {1} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
@@ -791,7 +802,14 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             // Ensure the newline rule is processed after the HR rule, otherwise the newline characters in the HR regex will never match
             ruleEngine.AddRule(horizontalLineRule);
 
-            ruleEngine.AddRule(isEditMode ? breakRule : new SingleRegexReplaceRule(@"\r\n", "<p>", Options));
+            if (this.Get<BoardSettings>().EditorEnterMode is EnterMode.Br)
+            {
+                ruleEngine.AddRule(breakRule);
+            }
+            else
+            {
+                ruleEngine.AddRule(isEditMode ? breakRule : new SingleRegexReplaceRule(@"\r\n", "<p>", Options));
+            }
 
             if (!isEditMode)
             {
@@ -816,6 +834,14 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 """<div class="code">${inner}</div>""") {
                                                             RuleRank = 2
                                                         });
+
+        // note
+        ruleEngine.AddRule(
+            new VariableRegexReplaceRule(
+                @"\[note=(?<type>([-a-z, ]*))\](?<inner>(.*?))\[/note\]",
+                "<div class=\"alert alert-${type}\" role=\"alert\">${inner}</div>",
+                Options,
+                ["type"]));
 
         // handle custom BBCode
         this.AddCustomBBCodeRules(ruleEngine);

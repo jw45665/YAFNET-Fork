@@ -164,8 +164,8 @@ public class TestDataModel : AdminPage
     public IActionResult OnGet()
     {
 #if RELEASE
-        return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
-#endif
+        return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+#else
         this.Input = new TestDataInputModel {
                                         UsersBoardsList = this.PageBoardContext.PageBoardID,
                                         CategoriesBoardsList = this.PageBoardContext.PageBoardID,
@@ -179,6 +179,7 @@ public class TestDataModel : AdminPage
         this.BindData();
 
         return this.Page();
+#endif
     }
 
     public void OnPost()

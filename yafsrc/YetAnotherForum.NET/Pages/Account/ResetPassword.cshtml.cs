@@ -32,7 +32,6 @@ using System.Web;
 using Microsoft.AspNetCore.Authorization;
 
 using YAF.Core.Extensions;
-using YAF.Core.Services;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Identity;
 
@@ -80,7 +79,7 @@ public class ResetPasswordModel : AccountPage
     /// </param>
     public IActionResult OnGet(string code)
     {
-        return code.IsSet() ? this.Page() : this.Get<LinkBuilder>().AccessDenied();
+        return code.IsSet() ? this.Page() : this.Get<ILinkBuilder>().AccessDenied();
     }
 
     /// <summary>
@@ -119,6 +118,6 @@ public class ResetPasswordModel : AccountPage
 
         await this.Get<IAspNetUsersHelper>().SignInAsync(user);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
     }
 }

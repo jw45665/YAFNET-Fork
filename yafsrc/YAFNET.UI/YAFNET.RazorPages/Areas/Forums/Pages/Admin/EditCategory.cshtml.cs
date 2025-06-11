@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -50,6 +52,11 @@ public class EditCategoryModel : AdminPage
     [BindProperty]
     public EditCategoryInputModel Input { get; set; }
 
+    /// <summary>
+    /// Gets or sets the category images.
+    /// </summary>
+    /// <value>The category images.</value>
+    [BindProperty]
     public List<SelectListItem> CategoryImages { get; set; }
 
     /// <summary>
@@ -67,7 +74,7 @@ public class EditCategoryModel : AdminPage
     {
         this.PageBoardContext.PageLinks.AddAdminIndex();
 
-        this.PageBoardContext.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Forums));
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Forums));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_EDITCATEGORY", "TITLE"), string.Empty);
     }
 
@@ -141,20 +148,25 @@ public class EditCategoryModel : AdminPage
             categoryFlags);
 
         // redirect
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Forums);
     }
 
     /// <summary>
-    /// The bind data.
+    /// Binds the existing category data.
     /// </summary>
     private IActionResult BindData(int? c)
     {
         return c is > 0 ? this.BindExisting() : this.BindNew();
     }
 
-    private IActionResult BindNew()
+
+    /// <summary>
+    /// Binds the data as new category.
+    /// </summary>
+    /// <returns>IActionResult.</returns>
+    private PageResult BindNew()
     {
-        // Currently creating a New Category, and auto fill the Category Sort Order + 1
+        // Currently creating a New Category, and autofill the Category Sort Order + 1
         var sortOrder = 1;
 
         try
@@ -167,6 +179,7 @@ public class EditCategoryModel : AdminPage
         }
 
         this.Input.SortOrder = sortOrder;
+        this.Input.Active = true;
 
         return this.Page();
     }
@@ -177,7 +190,7 @@ public class EditCategoryModel : AdminPage
 
         if (category is null)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         this.Input.Name = category.Name;

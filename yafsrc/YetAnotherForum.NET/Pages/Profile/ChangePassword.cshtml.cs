@@ -28,7 +28,6 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using YAF.Core.Extensions;
-using YAF.Core.Services;
 using YAF.Types.Interfaces.Identity;
 
 /// <summary>
@@ -57,7 +56,7 @@ public class ChangePasswordModel : ProfilePage
     {
         this.PageBoardContext.PageLinks.AddLink(
             this.PageBoardContext.PageUser.DisplayOrUserName(),
-            this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.MyAccount));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("TITLE"));
     }
 

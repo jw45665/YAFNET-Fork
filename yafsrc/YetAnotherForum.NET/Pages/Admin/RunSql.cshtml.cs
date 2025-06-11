@@ -26,7 +26,6 @@ namespace YAF.Pages.Admin;
 
 using YAF.Core.Data;
 using YAF.Core.Extensions;
-using YAF.Core.Services;
 using YAF.Types.Extensions;
 using YAF.Types.Extensions.Data;
 using YAF.Types.Interfaces.Data;
@@ -57,7 +56,7 @@ public class RunSqlModel : AdminPage
     {
         this.PageBoardContext.PageLinks.AddLink(
             this.GetText("ADMIN_ADMIN", "Administration"),
-            this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Admin));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Admin));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_RUNSQL", "TITLE"), string.Empty);
     }
 

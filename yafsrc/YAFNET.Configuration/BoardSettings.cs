@@ -1203,11 +1203,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether Allow Single Sign On.
-    /// </summary>
-    public bool AllowSingleSignOn { get; set; } = false;
-
-    /// <summary>
     /// Gets or sets a value indicating whether AllowModeratorsViewIPs.
     /// </summary>
     public bool AllowModeratorsViewIPs
@@ -1719,6 +1714,16 @@ public class BoardSettings
     }
 
     /// <summary>
+    /// Gets or sets the abuse ip database API key.
+    /// </summary>
+    /// <value>The abuse ip database API key.</value>
+    public string AbuseIpDbApiKey {
+        get => this.Registry.GetValue("AbuseIpDbApiKey", string.Empty);
+
+        set => this.Registry.SetValue("AbuseIpDbApiKey", value);
+    }
+
+    /// <summary>
     /// Gets or sets Forum Logo.
     /// </summary>
     public string ForumLogo
@@ -1799,16 +1804,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets AcceptedHTML.
-    /// </summary>
-    public string AcceptedHTML
-    {
-        get => this.Registry.GetValue("AcceptedHTML", "br,hr,b,i,u,a,div,ol,ul,li,blockquote,img,span,p,em,strong,font,pre,h1,h2,h3,h4,h5,h6,address");
-
-        set => this.Registry.SetValue("AcceptedHTML", value.ToLower());
-    }
-
-    /// <summary>
     /// Gets or sets the allowed file extensions.
     /// </summary>
     public string AllowedFileExtensions
@@ -1829,16 +1824,6 @@ public class BoardSettings
         get => this.Registry.GetValue<string>("AdPost", null);
 
         set => this.Registry.SetValue("AdPost", value);
-    }
-
-    /// <summary>
-    /// Gets or sets BaseUrlMask.
-    /// </summary>
-    public string BaseUrlMask
-    {
-        get => this.Registry.GetValue<string>("BaseUrlMask", null);
-
-        set => this.Registry.SetValue("BaseUrlMask", value);
     }
 
     /// <summary>
@@ -2033,6 +2018,16 @@ public class BoardSettings
         get => this.RegistryBoard.GetValue("DefaultCollapsiblePanelState", CollapsiblePanelState.Expanded);
 
         set => this.RegistryBoard.SetValue("DefaultCollapsiblePanelState", value);
+    }
+
+    /// <summary>
+    /// Gets or sets the editor enter mode.
+    /// </summary>
+    /// <value>The editor enter mode.</value>
+    public EnterMode EditorEnterMode {
+        get => this.RegistryBoard.GetValue("EditorEnterMode", EnterMode.Br);
+
+        set => this.RegistryBoard.SetValue("EditorEnterMode", value);
     }
 
     /// <summary>

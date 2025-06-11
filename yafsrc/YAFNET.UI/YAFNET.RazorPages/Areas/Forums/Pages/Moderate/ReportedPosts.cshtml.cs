@@ -29,8 +29,6 @@ using System.Threading.Tasks;
 
 using YAF.Core.Extensions;
 using YAF.Core.Model;
-using YAF.Core.Services;
-using YAF.Types.Extensions;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 
@@ -60,7 +58,7 @@ public class ReportedPostsModel : ModerateForumPage
         // moderation index
         this.PageBoardContext.PageLinks.AddLink(
             this.GetText("MODERATE_DEFAULT", "TITLE"),
-            this.Get<LinkBuilder>().GetLink(ForumPages.Moderate_Moderate));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.Moderate_Moderate));
 
         // current page
         this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageForum.Name);
@@ -150,13 +148,13 @@ public class ReportedPostsModel : ModerateForumPage
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public Task<RedirectToPageResult> OnPostViewAsync(int messageId)
+    public IActionResult OnPostView(int messageId)
     {
         var topic = this.GetRepository<Topic>().GetTopicFromMessage(messageId);
 
-        return Task.FromResult(this.RedirectToPage(
-           ForumPages.Post.GetPageName(),
-            new { m = messageId, name = topic.TopicName }));
+        return this.Get<ILinkBuilder>().Redirect(
+           ForumPages.Post,
+            new { m = messageId, name = topic.TopicName });
     }
 
     /// <summary>
@@ -168,11 +166,11 @@ public class ReportedPostsModel : ModerateForumPage
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public Task<RedirectToPageResult> OnPostViewHistoryAsync(int messageId)
+    public IActionResult OnPostViewHistory(int messageId)
     {
-        return Task.FromResult(this.RedirectToPage(
-            ForumPages.MessageHistory.GetPageName(),
-            new { f = this.PageBoardContext.PageForumID, m = messageId }));
+        return this.Get<ILinkBuilder>().Redirect(
+            ForumPages.MessageHistory,
+            new { f = this.PageBoardContext.PageForumID, m = messageId });
     }
 
     /// <summary>
@@ -189,7 +187,7 @@ public class ReportedPostsModel : ModerateForumPage
         if (reported.Count == 0)
         {
             // nope -- redirect back to the moderate main...
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_Moderate);
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Moderate_Moderate);
         }
 
         this.Reported = reported;

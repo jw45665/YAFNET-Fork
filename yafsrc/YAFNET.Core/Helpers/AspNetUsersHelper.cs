@@ -247,11 +247,11 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// De-active all PageUser accounts which are not active for x years
     /// </summary>
     /// <param name="createdCutoff">
-    /// The created cutoff.
+    ///     The created cutoff.
     /// </param>
-    public void LockInactiveAccounts(DateTime createdCutoff)
+    public async Task LockInactiveAccountsAsync(DateTime createdCutoff)
     {
-        var allUsers = this.GetRepository<User>().GetByBoardId();
+        var allUsers = await this.GetRepository<User>().GetByBoardIdAsync();
 
         // iterate through each one...
         allUsers.Where(user => (user.Flags & 4) != 4 && (user.Flags & 2) == 2 && (user.Flags & 32) != 32 && user.LastVisit < createdCutoff)
@@ -669,7 +669,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
         this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(BoardContext.Current.PageUserID));
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
     }
 
     /// <summary>
@@ -687,7 +687,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
         if (info == null)
         {
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Account_Login);
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Account_Login);
         }
 
         await this.Get<SignInManager<AspNetUsers>>().SignOutAsync();
@@ -702,7 +702,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
         this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(BoardContext.Current.PageUserID));
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
     }
 
     /// <summary>
@@ -1129,8 +1129,6 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                                                  u.LastVisit,
                                                  u.NumPosts,
                                                  IsGuest = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
-                                                 a.Profile_GoogleId,
-                                                 a.Profile_FacebookId,
                                                  RankName = r.Name,
                                                  TotalRows = Sql.Custom($"({countTotalSql})")
                                              });
@@ -1315,8 +1313,6 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                                                  u.LastVisit,
                                                  u.NumPosts,
                                                  IsGuest = Sql.Custom<bool>($"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
-                                                 a.Profile_GoogleId,
-                                                 a.Profile_FacebookId,
                                                  RankName = r.Name,
                                                  TotalRows = Sql.Custom($"({countTotalSql})")
                                              });

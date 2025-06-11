@@ -35,7 +35,6 @@ using MimeKit;
 
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
-using YAF.Core.Identity.Owin;
 using YAF.Core.Services;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Identity;
@@ -113,30 +112,6 @@ public class LoginModel : AccountPage
         this.Input = new LoginInputModel();
 
         return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Handle External Login
-    /// </summary>
-    /// <param name="auth">
-    /// The provider name.
-    /// </param>
-    /// <param name="handler">
-    /// The handler.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Task"/>.
-    /// </returns>
-    public async Task<IActionResult> OnGetCallbackAsync(string auth = null, string handler = null)
-    {
-        if (auth.IsSet() && handler.IsSet() && this.PageBoardContext.BoardSettings.AllowSingleSignOn)
-        {
-            return await this.HandleExternalLoginAsync(auth);
-        }
-
-        return this.Get<ISessionService>().InfoMessage.IsSet()
-                   ? this.PageBoardContext.Notify(this.Get<ISessionService>().InfoMessage, MessageTypes.danger)
-                   : this.Page();
     }
 
     /// <summary>
@@ -231,7 +206,7 @@ public class LoginModel : AccountPage
 
         this.Get<ISessionService>().SetPageData(user);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Account_Authorize);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Account_Authorize);
     }
 
     /// <summary>
@@ -239,7 +214,7 @@ public class LoginModel : AccountPage
     /// </summary>
     public IActionResult OnPostRegister()
     {
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             this.PageBoardContext.BoardSettings.ShowRulesForRegistration
                 ? ForumPages.Privacy
                 : ForumPages.Account_Register);
@@ -256,7 +231,7 @@ public class LoginModel : AccountPage
     /// </returns>
     public Task<ActionResult> OnPostAuthAsync(string auth)
     {
-        var redirectUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Account_Login, new { auth, handler = "Callback" });
+        var redirectUrl = this.Get<ILinkBuilder>().GetLink(ForumPages.Account_Login, new { auth, handler = "Callback" });
 
         var properties = this.Get<SignInManager<AspNetUsers>>()
             .ConfigureExternalAuthenticationProperties(auth, redirectUrl);
@@ -293,56 +268,15 @@ public class LoginModel : AccountPage
             "VERIFICATION_EMAIL_SUBJECT",
             this.PageBoardContext.BoardSettings.Name);
 
-        verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
+        verifyEmail.TemplateParams["{link}"] = this.Get<ILinkBuilder>().GetAbsoluteLink(
             ForumPages.Account_Approve,
             new { code = checkMail.Hash });
         verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
         verifyEmail.TemplateParams["{forumname}"] = this.PageBoardContext.BoardSettings.Name;
-        verifyEmail.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
+        verifyEmail.TemplateParams["{forumlink}"] = this.Get<ILinkBuilder>().ForumUrl;
 
         await verifyEmail.SendEmailAsync(new MailboxAddress(this.Input.UserName, checkMail.Email), subject);
 
         return this.PageBoardContext.Notify(this.GetText("LOGIN", "MSG_MESSAGE_SEND"), MessageTypes.success);
-    }
-
-    /// <summary>
-    /// handle external login if provider exist in Query String
-    /// </summary>
-    /// <param name="auth">
-    /// The Provider Name.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Task"/>.
-    /// </returns>
-    private async Task<IActionResult> HandleExternalLoginAsync(string auth)
-    {
-        var loginAuth = auth.ToEnum<AuthService>();
-
-        (string Message, AspNetUsers User) user = (string.Empty, null);
-
-        switch (loginAuth)
-        {
-            case AuthService.facebook:
-            {
-                var facebookAuth = new Facebook();
-                user = await facebookAuth.LoginOrCreateUserAsync();
-            }
-
-                break;
-            case AuthService.google:
-            {
-                var googleAuth = new Google();
-                user = await googleAuth.LoginOrCreateUserAsync();
-            }
-
-                break;
-        }
-
-        if (user.Message.IsSet() && user.User != null)
-        {
-            return this.PageBoardContext.Notify(user.Message, MessageTypes.warning);
-        }
-
-        return await this.Get<IAspNetUsersHelper>().SignInExternalAsync(user.User);
     }
 }

@@ -30,7 +30,6 @@ using System.Linq;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.Extensions;
 using YAF.Types.Models;
 
@@ -99,7 +98,7 @@ public class PollEditModel : ForumPage
         // Check if the user has the page access and variables are correct.
         if (this.PageBoardContext.PageForumID == 0 || !this.PageBoardContext.ForumPollAccess)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
         }
 
         // handle poll
@@ -131,7 +130,7 @@ public class PollEditModel : ForumPage
             if (poll.UserID != this.PageBoardContext.PageUserID && !this.PageBoardContext.IsAdmin
                                                                 && !this.PageBoardContext.ForumModeratorAccess)
             {
-                return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+                return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             }
 
             this.Input.IsClosedBoundCheckBox = poll.PollFlags.IsClosedBound;
@@ -151,7 +150,7 @@ public class PollEditModel : ForumPage
                 this.Input.PollExpire = string.Empty;
             }
 
-            choices = pollAndChoices.Select(c => c.Item2).ToList();
+            choices = [.. pollAndChoices.Select(c => c.Item2)];
 
             var count = this.PageBoardContext.BoardSettings.AllowedPollChoiceNumber - 1 - choices.Count;
 
@@ -170,7 +169,7 @@ public class PollEditModel : ForumPage
             // A new poll is created
             if (!this.CanCreatePoll())
             {
-                return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+                return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
             }
 
             // clear the fields...
@@ -318,8 +317,8 @@ public class PollEditModel : ForumPage
         return this.topicUnapproved
                    ?
                    // Tell user that his message will have to be approved by a moderator
-                   this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Moderated)
-                   : this.Get<LinkBuilder>().Redirect(
+                   this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Moderated)
+                   : this.Get<ILinkBuilder>().Redirect(
                        ForumPages.Posts,
                        new {t = this.PageBoardContext.PageTopic.ID, name = this.PageBoardContext.PageTopic.TopicName});
     }

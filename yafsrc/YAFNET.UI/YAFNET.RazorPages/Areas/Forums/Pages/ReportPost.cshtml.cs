@@ -28,7 +28,6 @@ using System.Threading.Tasks;
 
 using YAF.Core.Extensions;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.Extensions;
 using YAF.Types.Models;
 
@@ -88,7 +87,7 @@ public class ReportPostModel : ForumPage
         this.PageBoardContext.SessionNotify(this.GetText("MSG_REPORTED"), MessageTypes.success);
 
         // Redirect to reported post
-        return this.Get<LinkBuilder>().Redirect(
+        return this.Get<ILinkBuilder>().Redirect(
             ForumPages.Post,
             new {m = this.PageBoardContext.PageMessage.ID, name = this.PageBoardContext.PageTopic.TopicName});
     }
@@ -100,26 +99,26 @@ public class ReportPostModel : ForumPage
     {
         if (!m.HasValue)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         try
         {
             if (this.PageBoardContext.PageMessage.IsNullOrEmptyField())
             {
-                return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+                return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             }
 
             this.MessageAuthor = this.GetRepository<User>().GetById(this.PageBoardContext.PageMessage.UserID);
         }
         catch (Exception)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Moderated);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Moderated);
         }
 
         // We check here if the user have access to the option
         return !this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ReportPostPermissions)
-                   ? this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Moderated)
+                   ? this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Moderated)
                    : this.Page();
     }
 }

@@ -76,7 +76,7 @@ public static class IPHelper
         // don't resolve ip regex
         if (inputIpAddress.IsSet() && inputIpAddress.ToLower().Contains('*'))
         {
-            return ipAddressAsString;
+            return inputIpAddress;
         }
 
         try
@@ -280,18 +280,22 @@ public static class IPHelper
         switch (ipAddress.AddressFamily)
         {
             case AddressFamily.InterNetwork:
-                {
-                    var mask = ~(uint.MaxValue >> bits);
-                    maskBytes = BitConverter.GetBytes(mask).Reverse().ToArray();
-                }
+            {
+                var mask = ~(uint.MaxValue >> bits);
+                maskBytes = [.. BitConverter.GetBytes(mask)];
+
+                Array.Reverse(maskBytes);
+            }
 
                 break;
             case AddressFamily.InterNetworkV6:
-                {
-                    var bitArray = new BitArray(128, false);
-                    ShiftRight(bitArray, bits, true);
-                    maskBytes = ConvertToByteArray(bitArray).Reverse().ToArray();
-                }
+            {
+                var bitArray = new BitArray(128, false);
+                ShiftRight(bitArray, bits, true);
+                maskBytes = [.. ConvertToByteArray(bitArray)];
+
+                Array.Reverse(maskBytes);
+            }
 
                 break;
         }

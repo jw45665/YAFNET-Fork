@@ -16,7 +16,7 @@
           },
           {
             "@tag": "BECOME_FRIENDS",
-            "#text": "Become Friends"
+            "#text": "Стать друзьями"
           },
           {
             "@tag": "CHANGE_PASSWORD",
@@ -222,15 +222,15 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Views banned user agents list"
+            "#text": "Просмотры запрещенные пользовательские агенты список"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_EDIT",
-            "#text": "Edits banned user agents"
+            "#text": "Редакты запрещенных пользовательских агентов"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_IMPORT",
-            "#text": "Imports banned user agents"
+            "#text": "Импорт запрещенных пользовательских агентов"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -557,16 +557,8 @@
             "#text": "Использует MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Использует Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Использует XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Использует YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -993,6 +985,10 @@
         "@name": "ADMIN_ATTACHMENTS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Удалить вложения (ы)?"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Вложения пользователя"
           }
@@ -1003,35 +999,35 @@
         "Resource": [
           {
             "@tag": "ADD_UA",
-            "#text": "Add New UserAgent"
+            "#text": "Добавьте новый пользовательский агистр"
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No UserAgents"
+            "#text": "Нет пользователей"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned UserAgent. Add a new banned UserAgent by clicking the [b]Add New UserAgent[/b] Button Bellow."
+            "#text": "В настоящее время нет запрещенного пользователя. "
           },
           {
             "@tag": "IMPORT_UA",
-            "#text": "Import UserAgent(s)"
+            "#text": "Импорт пользователя (ы)"
           },
           {
             "@tag": "MASK",
-            "#text": "Mask"
+            "#text": "Маска"
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned UserAgent Already exists!"
+            "#text": "Запрещенный пользовательский агент уже существует!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The UserAgent was successfully deleted"
+            "#text": "Пользовательский агент был успешно удален"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned UserAgent"
+            "#text": "Запрещенный пользователем"
           }
         ]
       },
@@ -1040,23 +1036,23 @@
         "Resource": [
           {
             "@tag": "MASK",
-            "#text": "UserAgent:"
+            "#text": "Пользовательский агент:"
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The User Agent to ban. You can use Regular Expressions."
+            "#text": "Пользовательский агент запрещает. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define a User Agent."
+            "#text": "Вы должны определить пользовательский агент."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add Banned UserAgent"
+            "#text": "Добавить запрещенный пользовательский агент"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned UserAgent"
+            "#text": "Редактировать запрещенное пользовательское агентство"
           }
         ]
       },
@@ -1065,35 +1061,35 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import UserAgent List"
+            "#text": "Импортируйте список пользователей"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "Список импорта"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "Не удалось импортировать! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "Выберите Импорт Файл:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing one useragent on each line"
+            "#text": "Должен быть *.txt -файл, содержащий один пользовательский агент по каждой строке"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new useragent was found in the upload."
+            "#text": "Ничего импортируется: в загрузке не было найдено нового пользователя."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new useragent(s) imported successfully."
+            "#text": "{0} Новые пользовательские (ы) успешно импортируются."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import UserAgent(s)"
+            "#text": "Импорт пользователя (ы)"
           }
         ]
       },
@@ -1106,11 +1102,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
+            "#text": "Нет запрещенных адресов электронной почты"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+            "#text": "В настоящее время нет запрещенных адресов электронной почты. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1208,7 +1204,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Вы можете найти список адресов электронной почты спам-ботов на сайте StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, который можно импортировать здесь."
+            "#text": "Вы можете найти список адресов электронной почты спам-ботов на сайте StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, который можно импортировать здесь."
           },
           {
             "@tag": "TITLE",
@@ -1229,15 +1225,23 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
+            "#text": "Нет запрещенных IP -адресов"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+            "#text": "В настоящее время нет запрещенных IP -адресов. "
           },
           {
             "@tag": "EXPORT",
             "#text": "Экспорт в текстовый файл"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Импорт черный список из ObseiPdb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Список импорта с самыми последними IP -адресами1 от obuseipdb.com"
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1355,7 +1359,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "На сайте StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a> вы можете найти список Ips спам-ботов, который можно импортировать здесь."
+            "#text": "На сайте StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a> вы можете найти список Ips спам-ботов, который можно импортировать здесь."
           },
           {
             "@tag": "TITLE",
@@ -1372,11 +1376,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
+            "#text": "Нет запрещенных имен"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] Button Bellow."
+            "#text": "В настоящее время нет запрещенных имен пользователей. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1474,7 +1478,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Список имен пользователей спам-ботов можно найти на сайте StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, который можно импортировать здесь."
+            "#text": "Список имен пользователей спам-ботов можно найти на сайте StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, который можно импортировать здесь."
           },
           {
             "@tag": "TITLE",
@@ -1766,6 +1770,14 @@
             "#text": "Когда новый пользователь регистрируется на сайте, это определяет какой тип уведомления при этом используется"
           },
           {
+            "@tag": "BOARD_DEFAULT_PAGESIZE",
+            "#text": "Размер страницы по умолчанию"
+          },
+          {
+            "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
+            "#text": "Размер страницы по умолчанию для списков для новых пользователей."
+          },
+          {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
             "#text": "Состояние складной панели по умолчанию"
           },
@@ -1908,14 +1920,6 @@
           {
             "@tag": "TITLE",
             "#text": "Настройки конференции"
-          },
-          {
-            "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
-          },
-          {
-            "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
           }
         ]
       },
@@ -1957,7 +1961,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?"
+            "#text": "Постоянно удалить этот форум, включая все темы, опросы, вложения и связанные с ним сообщения?"
           },
           {
             "@tag": "DELETE_FORUM",
@@ -3319,22 +3323,6 @@
             "#text": "Подтверждение и пароль не совпадают"
           },
           {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Пользователь Facebook:"
-          },
-          {
-            "@tag": "FACEBOOK_USER_HELP",
-            "#text": "Показывает, что пользователь зашёл через Facebook."
-          },
-          {
-            "@tag": "GOOGLE_USER",
-            "#text": "Пользователь Google:"
-          },
-          {
-            "@tag": "GOOGLE_USER_HELP",
-            "#text": "Указывает, вошел ли пользователь в систему через Google."
-          },
-          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Убить пользователя и запретить"
           },
@@ -3565,7 +3553,7 @@
           },
           {
             "@tag": "COPY_TO_CLIPBOARD",
-            "#text": "Copy to clipboard"
+            "#text": "Копировать в буфер обмена"
           },
           {
             "@tag": "DELETE_ALL",
@@ -3779,6 +3767,14 @@
             "#text": "Автоматически сбрасывать сессии для пользователей, которые не отслеживаются, например ботов и  т.д. Используется только если возникают проблемы с сессиями."
           },
           {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "API API ObseiPDB:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "Ключ API для извлечения IP -адреса черного списка."
+          },
+          {
             "@tag": "ACTIVE_USERTIME",
             "#text": "Время списка активных пользователей:"
           },
@@ -3960,7 +3956,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Включить меню при помощи которого пользователь сможет отправить по почте, использовать Твиттер, Google+, Like on Facebook, Digg или Reddit для темы."
+            "#text": "Включить меню при помощи которого пользователь сможет отправить по почте, использовать Твиттер, Like on Facebook, Digg или Reddit для темы."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -4084,7 +4080,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "StopForumSpam.com"
+            "#text": "Stopforumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4275,14 +4271,6 @@
             "#text": "Делает доступной кнопку ретвита и пользователь может проретвитить сообщение."
           },
           {
-            "@tag": "ENABLE_SSO",
-            "#text": "Включить единую регистрацию в Facebook:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "Если включено, то пользователи смогут входить в свой аккаунт через аккаунт Facebook и/или Twitter.Чтобы включить это для Facebook необходимо установить значения YAF.FacebookAPIKey и YAF.FacebookSecretKey, а для Twitter YAF.TwitterConsumerKey и YAF.TwitterConsumerSecret Values в app.config (AppSettings)."
-          },
-          {
             "@tag": "ENABLE_USERREPUTATION",
             "#text": "Использовать систему репутации:"
           },
@@ -4292,11 +4280,27 @@
           },
           {
             "@tag": "ENABLE_WYSIWYG",
-            "#text": "Enable WYSIWYG Editor"
+            "#text": "Включить редактор Wysiwyg"
           },
           {
             "@tag": "ENABLE_WYSIWYG_HELP",
-            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+            "#text": "Настройка для включения/отключения редактора Wysiwyg BBCode"
+          },
+          {
+            "@tag": "ENTER_MODE",
+            "#text": "Редактор ввода режима"
+          },
+          {
+            "@tag": "ENTER_MODE_0",
+            "#text": "Новый"
+          },
+          {
+            "@tag": "ENTER_MODE_1",
+            "#text": "Линии сломаны с"
+          },
+          {
+            "@tag": "ENTER_MODE_HELP",
+            "#text": "Устанавливает поведение ключа Enter, например,"
           },
           {
             "@tag": "EVENTLOG_MAX_DAYS",
@@ -4357,14 +4361,6 @@
           {
             "@tag": "FORCE_SEARCHINDED",
             "#text": "Задача \"Поисковый индекс\" запущена."
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Маска URL базы форума:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "Полный прямой url этого форума."
           },
           {
             "@tag": "FORUM_EMAIL",
@@ -5060,11 +5056,11 @@
           },
           {
             "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
+            "#text": "Прокрутите до непрочитанного/первого поста"
           },
           {
             "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+            "#text": "Если включено, он прокручивается в первом непрочитанном сообщении/или первом новом сообщении при открытии темы"
           },
           {
             "@tag": "SEARCH_MAXLENGTH",
@@ -5464,7 +5460,7 @@
           },
           {
             "@tag": "STOPFORUMSPAM_KEY_HELP",
-            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https//www.stopforumspam.com/signup\">Sign Up here<a>."
+            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https://www.stopforumspam.com/signup\">Sign Up here<a>."
           },
           {
             "@tag": "STYLED_NICKS",
@@ -5743,11 +5739,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
+            "#text": "Нет медалей"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+            "#text": "В настоящее время нет медалей. "
           },
           {
             "@tag": "MOVE_DOWN",
@@ -5871,11 +5867,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Custom Profile Definitions"
+            "#text": "Нет пользовательских определений профиля"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+            "#text": "В настоящее время нет пользовательских определений профиля. "
           },
           {
             "@tag": "NEW_DEF",
@@ -6141,11 +6137,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
+            "#text": "Нет заменить слова"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+            "#text": "В настоящее время нет никаких заменных слов. "
           },
           {
             "@tag": "EXPORT",
@@ -6352,11 +6348,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
+            "#text": "Нет справочных слов"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+            "#text": "В настоящее время нет никаких слов проверки спама. "
           },
           {
             "@tag": "EXPORT",
@@ -6530,10 +6526,6 @@
           {
             "@tag": "EXPORT_XML",
             "#text": "Экспортировать пользователя(лей) в формате CSV Xml"
-          },
-          {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Пользователь Facebook"
           },
           {
             "@tag": "FILTER",
@@ -6712,7 +6704,7 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Banned UserAgents"
+            "#text": "Запретные пользователи"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -7176,10 +7168,6 @@
             "#text": "Нажмите здесь, чтобы просмотреть/скрыть текст (применить спойлер)"
           },
           {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Введите идентификатор состояния твита, который вы хотите вставить."
-          },
-          {
             "@tag": "UERLINKMOD_DESCRIPTION",
             "#text": "Введите имя пользователя"
           },
@@ -7275,7 +7263,7 @@
           },
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
-            "#text": "Friend request removed."
+            "#text": "Запрос на дружбу удалил."
           },
           {
             "@tag": "PENDINGBUDDIES",
@@ -7667,7 +7655,7 @@
           },
           {
             "@tag": "CHARACTERS_LEFT",
-            "#text": "Characters remaining:"
+            "#text": "Оставшиеся персонажи:"
           },
           {
             "@tag": "COMMON_WORDS",
@@ -7763,7 +7751,7 @@
           },
           {
             "@tag": "FONT_NAME",
-            "#text": "Font Name"
+            "#text": "Имя шрифта"
           },
           {
             "@tag": "FONT_SIZE",
@@ -7775,23 +7763,23 @@
           },
           {
             "@tag": "FORMAT_DATE_LONG",
-            "#text": "D"
+            "#text": "Дюймовый"
           },
           {
             "@tag": "FORMAT_DATE_SHORT",
-            "#text": "d"
+            "#text": "дюймовый"
           },
           {
             "@tag": "FORMAT_DATE_TIME_LONG",
-            "#text": "F"
+            "#text": "Фон"
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "G"
+            "#text": "Глин"
           },
           {
             "@tag": "FORMAT_TIME",
-            "#text": "T"
+            "#text": "Т"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -7871,7 +7859,7 @@
           },
           {
             "@tag": "MEDIA",
-            "#text": "Insert Media"
+            "#text": "Вставьте СМИ"
           },
           {
             "@tag": "MENU",
@@ -8019,7 +8007,7 @@
           },
           {
             "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
+            "#text": "Выбор размера страницы"
           },
           {
             "@tag": "SHOWHIDE",
@@ -8059,7 +8047,7 @@
           },
           {
             "@tag": "TT_COPY",
-            "#text": "Copy the selected text (Ctrl+C)"
+            "#text": "Скопируйте выбранный текст (CTRL C)"
           },
           {
             "@tag": "TT_CREATELINK",
@@ -8071,11 +8059,11 @@
           },
           {
             "@tag": "TT_CUT",
-            "#text": "Cut the selected text (Ctrl+X)"
+            "#text": "Вырежьте выбранный текст (Ctrl x)"
           },
           {
             "@tag": "TT_DESCRIPTION",
-            "#text": "Description"
+            "#text": "Описание"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8087,11 +8075,11 @@
           },
           {
             "@tag": "TT_IMAGE_DESC",
-            "#text": "Enter Image Description:"
+            "#text": "Введите описание изображения:"
           },
           {
             "@tag": "TT_IMAGE_TITLE",
-            "#text": "Enter Image Url:"
+            "#text": "Введите URL -адрес изображения:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8111,11 +8099,19 @@
           },
           {
             "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+            "#text": "Вставьте URL -адрес мультимедиа во вход (например, видео на YouTube, Spotify Playlist или Image Instagram)."
+          },
+          {
+            "@tag": "TT_NOTE",
+            "#text": "Вставьте примечание"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Примечание типа"
           },
           {
             "@tag": "TT_PASTE",
-            "#text": "Paste (Ctrl+V)"
+            "#text": "Вставка (Ctrl v)"
           },
           {
             "@tag": "TT_QUOTE",
@@ -8123,19 +8119,19 @@
           },
           {
             "@tag": "TT_REDO",
-            "#text": "Redo (Ctrl+Y)"
+            "#text": "Красный (ctrl y)"
           },
           {
             "@tag": "TT_REMOVE",
-            "#text": "Remove Format"
+            "#text": "Удалить формат"
           },
           {
             "@tag": "TT_SELECT_ALL",
-            "#text": "Select all"
+            "#text": "Выберите все"
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
-            "#text": "Strikethrough"
+            "#text": "Удар"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8143,15 +8139,15 @@
           },
           {
             "@tag": "TT_UNDO",
-            "#text": "Undo (Ctrl+Z)"
+            "#text": "Отменить (ctrl z)"
           },
           {
             "@tag": "TT_URL_DESC",
-            "#text": "Enter URL Description:"
+            "#text": "Введите описание URL:"
           },
           {
             "@tag": "TT_URL_TITLE",
-            "#text": "Enter URL:"
+            "#text": "Введите URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -9314,11 +9310,11 @@
           },
           {
             "@tag": "MARK_ALL_ASREAD",
-            "#text": "Mark All As Read"
+            "#text": "Отметьте все как чтение"
           },
           {
             "@tag": "MARK_ASREAD",
-            "#text": "Mark As Read"
+            "#text": "Марк как прочитал"
           },
           {
             "@tag": "MARKALL",
@@ -9743,10 +9739,6 @@
             "#text": "Вы вели недопустимый идентификатор профиля Facebook."
           },
           {
-            "@tag": "BAD_GOOGLE",
-            "#text": "Вы ввели недопустимое значение в качестве URL профиля Google."
-          },
-          {
             "@tag": "BAD_HOME",
             "#text": "Вы ввели неработающий адрес своей домашней страницы."
           },
@@ -9872,11 +9864,7 @@
           },
           {
             "@tag": "SELECT_THEME_MODE",
-            "#text": "Select the theme mode:"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Ваш SKYPE ID:"
+            "#text": "Выберите режим темы:"
           },
           {
             "@tag": "TIMEZONE",
@@ -9909,15 +9897,15 @@
         "Resource": [
           {
             "@tag": "DISABLE_2FA",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Отключить двух факторную аутентификацию"
           },
           {
             "@tag": "DISABLE_TWO_FACTOR_HEADER",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Отключить двух факторную аутентификацию"
           },
           {
             "@tag": "ENABLE_2FA",
-            "#text": "Turn on Two Factor Authentication"
+            "#text": "Включите двух факторную аутентификацию"
           },
           {
             "@tag": "INFO",
@@ -9925,11 +9913,11 @@
           },
           {
             "@tag": "INPUT_CODE",
-            "#text": "Input security code"
+            "#text": "Введите код безопасности"
           },
           {
             "@tag": "SETUP_CODE",
-            "#text": "Setup code"
+            "#text": "Код настройки"
           },
           {
             "@tag": "TITLE",
@@ -9937,11 +9925,11 @@
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
-            "#text": "Enable Two Factor Authentication"
+            "#text": "Включить двух факторную аутентификацию"
           },
           {
             "@tag": "WRONG_CODE",
-            "#text": "You have entered the wrong 2FA Code!"
+            "#text": "Вы ввели не тот код 2FA!"
           }
         ]
       },
@@ -10153,96 +10141,12 @@
         "@name": "GENDER",
         "Resource": [
           {
-            "@tag": "AGENDER",
-            "#text": "Агендер"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Андрогин"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Бигендер"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "цисгендер"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "От женского к мужскому"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Гендерная текучесть"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Гендерная неконформность"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "Гендерквир"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Гендерный вопрос"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Интерсекс"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "От мужчины к женщине"
-          },
-          {
             "@tag": "MAN",
             "#text": "Человек"
           },
           {
-            "@tag": "NONBINARY",
-            "#text": "Небинарные"
-          },
-          {
             "@tag": "OTHER",
             "#text": "Другое"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Пангендер"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "Транс"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Трансфемин"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Трансгендер"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Трансгендерный человек"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Трансмаскулинный"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Транссексуал"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Женщина-трансгендер"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Двухдуховный"
           },
           {
             "@tag": "WOMAN",
@@ -10295,7 +10199,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Вы можете изменить информацию о своем аккаунте, используя опцию Personal Profile -&gt; 'Edit Profile' из <strong>Панели управления пользователя</strong>. Если вы хотите изменить свой пароль, в <strong>Панели управления пользователя</strong> есть дополнительная страница (Изменить пароль), где вы можете установить новый пароль.</p>\r\n<p><strong>Страница редактирования профиля</strong></p>\r\n<p>На этой странице вы можете задать ряд обязательных и необязательных данных, некоторые из которых будут отображаться в вашем публичном профиле. За исключением адреса электронной почты, не вводите информацию, которую вы не хотите видеть публично.</p> <p>\r\n<p><strong>О вас</strong></p>\r\n<p>Основная информация о вас</p>\r\n<p><strong>Расположение</strong></p>\r\n<p>Здесь вы можете по желанию ввести Место, где вы живете</p>\r\n<p><strong>Домашняя страница</strong></p> <p>\r\n<p>Здесь вы можете по желанию ввести Домашнюю страницу и/или Блог.</p>\r\n<p><strong>Службы мгновенных сообщений</strong></p> <p>\r\n<p>Здесь вы можете по желанию ввести идентификаторы ваших мессенджеров таких сервисов, как MSN, XMPP, SKYPE, Facebook и Twitter.</p>\r\n<p><strong>Временная зона</strong></p> <p>.\r\n<p>Здесь вы можете указать часовой пояс, чтобы настроить время и дату форума в соответствии с вашим местным временем. А также установить переход на летнее время, если оно будет автоматически корректироваться.</p> <p>\r\n<p><strong>Настройки форума</strong></p> <p>\r\n<p>Здесь вы можете изменить свой адрес электронной почты.</p>\r\n<p>Если Администратор разрешил это, вы можете изменить <strong>язык форума</strong>, <strong>тему</strong> сайта и <strong>текстовый редактор</strong> (который используется для публикации сообщений).</p> <p>Также вы можете изменить язык форума.\r\n<p>Также есть настройка &quot;Единый вход&quot; (если она &rsquo;активирована&rsquo ;). Если вы включите ее, то сможете войти в систему через Facebook, для чего введите свой Facebook ID.</p> <p>\r\n\r\n"
+            "#text": "<p>Вы можете изменить информацию о своем аккаунте, используя опцию Personal Profile -&gt; 'Edit Profile' из <strong>Панели управления пользователя</strong>. Если вы хотите изменить свой пароль, в <strong>Панели управления пользователя</strong> есть дополнительная страница (Изменить пароль), где вы можете установить новый пароль.</p>\r\n<p><strong>Страница редактирования профиля</strong></p>\r\n<p>На этой странице вы можете задать ряд обязательных и необязательных данных, некоторые из которых будут отображаться в вашем публичном профиле. За исключением адреса электронной почты, не вводите информацию, которую вы не хотите видеть публично.</p> <p>\r\n<p><strong>О вас</strong></p>\r\n<p>Основная информация о вас</p>\r\n<p><strong>Расположение</strong></p>\r\n<p>Здесь вы можете по желанию ввести Место, где вы живете</p>\r\n<p><strong>Домашняя страница</strong></p> <p>\r\n<p>Здесь вы можете по желанию ввести Домашнюю страницу и/или Блог.</p>\r\n<p><strong>Службы мгновенных сообщений</strong></p> <p>\r\n<p>Здесь вы можете по желанию ввести идентификаторы ваших мессенджеров таких сервисов, как  XMPP, Facebook и Twitter.</p>\r\n<p><strong>Временная зона</strong></p> <p>.\r\n<p>Здесь вы можете указать часовой пояс, чтобы настроить время и дату форума в соответствии с вашим местным временем. А также установить переход на летнее время, если оно будет автоматически корректироваться.</p> <p>\r\n<p><strong>Настройки форума</strong></p> <p>\r\n<p>Здесь вы можете изменить свой адрес электронной почты.</p>\r\n<p>Если Администратор разрешил это, вы можете изменить <strong>язык форума</strong>, <strong>тему</strong> сайта и <strong>текстовый редактор</strong> (который используется для публикации сообщений).</p> <p>Также вы можете изменить язык форума.\r\n<p>Также есть настройка &quot;Единый вход&quot; (если она &rsquo;активирована&rsquo ;). Если вы включите ее, то сможете войти в систему через Facebook, для чего введите свой Facebook ID.</p> <p>\r\n\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -10671,14 +10575,6 @@
             "#text": "Администратор форума отключил эту возможность."
           },
           {
-            "@tag": "ECMAREQUIRED",
-            "#text": "Для посещения форума Вы должны включить JavaScript в Вашем браузере."
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "Эта версия JavaScript не поддерживается. Пожалуйста, установите более новую версию браузера./"
-          },
-          {
             "@tag": "EXCEPTION",
             "#text": "Вы вошли как"
           },
@@ -10781,7 +10677,7 @@
           },
           {
             "@tag": "CONFIGPASSWORD",
-            "#text": "Config Password"
+            "#text": "Конфигурация пароля"
           },
           {
             "@tag": "CONNECTIONDETAILS",
@@ -11170,30 +11066,6 @@
             "#text": "Войдите или зарегистрируйтесь с помощью {0}"
           },
           {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Подключение существующего аккаунта на форумах к вашему аккаунту {0} Сначала вам нужно войти в систему через форумы. {1}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>Адрес электронной почты Facebook должен совпадать с адресом электронной почты пользователя форума для подключения пользователя.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>Адрес электронной почты Google должен совпадать с адресом электронной почты пользователя форума для подключения пользователя.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Войдите или зарегистрируйтесь с помощью {0} или подключите существующую учетную запись пользователя с помощью {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Войдите с учетной записью пользователя, связанного с {0}. Или, если учетная запись не найдена, будет автоматически создана новая учетная запись на форумах."
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "Не удалось получить access_token!"
-          },
-          {
             "@tag": "AUTO",
             "#text": "Запомните меня"
           },
@@ -11204,10 +11076,6 @@
           {
             "@tag": "CAPS_LOCK",
             "#text": "Caps Lock включен"
-          },
-          {
-            "@tag": "CONNECT_VIA",
-            "#text": "Или подключиться через"
           },
           {
             "@tag": "EMAIL",
@@ -11258,64 +11126,20 @@
             "#text": "Отправить пароль"
           },
           {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "Единая регистрация выключена администратором форума!"
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "Единая регистрация отключена, Вам необходимо включить её в своём профиле."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "Facebook Login failed, User does not exist, or the account is not connected."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "Facebook Login failed, an user account with the same email address as the facebook account already exists, please try to connect you your forum account instead."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "Вход в Facebook не удался, поскольку пользователь не указал адрес электронной почты для учетной записи."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "The Facebook email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Новые регистрации отключены."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "Вход в Google не удался, пользователь не существует, или аккаунт не подключен."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "Вход в Google не удался, аккаунт пользователя с таким же адресом электронной почты, как и аккаунт Google, уже существует, пожалуйста, попробуйте подключить вместо него свой аккаунт на форуме."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "The Google email address must match the Forum email adress!"
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "Неверный ID пользователя Facebook !"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Вход"
           },
           {
             "@tag": "TWO_FA_INFO",
-            "#text": "Please enter a validation code from your Authenticator app."
+            "#text": "Пожалуйста, введите код проверки из вашего приложения Authenticator."
           },
           {
             "@tag": "TWO_FA_PLACEHOLDER",
-            "#text": "Validation code: ### ###"
+            "#text": "Код проверки:"
           },
           {
             "@tag": "TWO_FA_VALIDATION",
-            "#text": "Two-Factor Validation"
+            "#text": "Двухфакторная проверка"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -11986,7 +11810,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Your activity notifications"
+            "#text": "Ваши уведомления о деятельности"
           }
         ]
       },
@@ -11995,7 +11819,7 @@
         "Resource": [
           {
             "@tag": "CONVERSATION_TITLE",
-            "#text": "Your Conversations"
+            "#text": "Ваши разговоры"
           },
           {
             "@tag": "TITLE",
@@ -12060,7 +11884,7 @@
           },
           {
             "@tag": "PMLIMIT_ALL",
-            "#text": "You have {0} private messages: {1} in Inbox and {2} in Outbox. From a total of {3} allowed. Your mail box is filled to {4}%"
+            "#text": "У вас есть {0} частные сообщения: {1} в входном ящике и {2} в Opbox. "
           },
           {
             "@tag": "PREVIEWTITLE",
@@ -12205,11 +12029,11 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
+            "#text": "Связанное голосование"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
+            "#text": "Дон"
           },
           {
             "@tag": "POLLHEADER",
@@ -12249,7 +12073,7 @@
           },
           {
             "@tag": "REMOVEPOLL_MSG",
-            "#text": "Poll was removed!"
+            "#text": "Опрос был удален!"
           }
         ]
       },
@@ -12547,7 +12371,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "WWW"
+            "#text": "Www"
           },
           {
             "@tag": "HOME_TITLE",
@@ -12780,14 +12604,6 @@
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "Похожие темы"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "СКАЙП"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Соединиться с {0} через Skype"
           },
           {
             "@tag": "STATISTICS",
@@ -13061,10 +12877,6 @@
             "#text": "Пол:"
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "Профиль Google+:"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "Группы:"
           },
@@ -13163,10 +12975,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Просмотр всех сообщений пользователя"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Идентификатор Skype(tm):"
           },
           {
             "@tag": "SOCIAL_MEDIA",
@@ -14383,14 +14191,6 @@
             "#text": "\r\n      Hello!\r\n\r\n      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):\r\n\r\n      User Name: {user}\r\n      User Email: {email}\r\n\r\n      Administration Link: {adminlink}\r\n    "
           },
           {
-            "@tag": "NOTIFICATION_ON_FACEBOOK_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Facebook Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Facebook)\r\n\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_GOOGLE_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Google Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Google)\r\n\r\n    "
-          },
-          {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_TEXT",
             "#text": "\r\n    Hello {user}.\r\n\r\n    Congratulations you have been awarded with the {medalname} on the {forumname} forum.\r\n  "
           },
@@ -14461,15 +14261,15 @@
         "Resource": [
           {
             "@tag": "AUTO",
-            "#text": "Auto"
+            "#text": "Авто"
           },
           {
             "@tag": "DARK",
-            "#text": "Dark"
+            "#text": "Темный"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Light"
+            "#text": "Свет"
           }
         ]
       },

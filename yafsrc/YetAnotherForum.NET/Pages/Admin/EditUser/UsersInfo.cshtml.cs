@@ -33,7 +33,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using YAF.Core.Context;
 using YAF.Core.Extensions;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Events;
@@ -82,7 +81,7 @@ public class UsersInfoModel : AdminPage
     {
         if (!BoardContext.Current.IsAdmin)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         this.Input = new UsersInfoInputModel();
@@ -98,7 +97,7 @@ public class UsersInfoModel : AdminPage
         if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not
             Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,
                 new {
                     u = userId
@@ -122,7 +121,7 @@ public class UsersInfoModel : AdminPage
 
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = userId, tab = "View1" });
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = userId, tab = "View1" });
     }
 
     /// <summary>
@@ -132,7 +131,7 @@ public class UsersInfoModel : AdminPage
     {
         await this.Get<IAspNetUsersHelper>().ApproveUserAsync(id);
 
-        this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
+        this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Users);
     }
 
     /// <summary>
@@ -142,7 +141,7 @@ public class UsersInfoModel : AdminPage
     {
         if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,
                 new {
                     u = userId
@@ -162,8 +161,6 @@ public class UsersInfoModel : AdminPage
         this.Input.IsExcludedFromActiveUsers = this.EditUser.Item1.UserFlags.IsActiveExcluded;
         this.Input.Moderated = this.EditUser.Item1.UserFlags.Moderated;
         this.Input.Joined = this.EditUser.Item1.Joined.ToString(CultureInfo.InvariantCulture);
-        this.Input.IsFacebookUser = this.EditUser.Item2.Profile_FacebookId.IsSet();
-        this.Input.IsGoogleUser = this.EditUser.Item2.Profile_GoogleId.IsSet();
         this.Input.LastVisit = this.EditUser.Item1.LastVisit.ToString(CultureInfo.InvariantCulture);
         this.Input.RankID = this.EditUser.Item1.RankID;
 

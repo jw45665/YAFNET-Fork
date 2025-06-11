@@ -38,7 +38,6 @@ using Types.Models;
 
 using YAF.Types.Objects;
 
-using System.Linq;
 using System.Threading.Tasks;
 
 using SixLabors.ImageSharp;
@@ -62,6 +61,17 @@ public class FileUpload : ForumBaseController
     public async Task<ActionResult<List<FilesUploadStatus>>> Upload([FromForm] IFormFile file)
     {
         var statuses = new List<FilesUploadStatus>();
+
+        if (file == null)
+        {
+            statuses.Add(
+                new FilesUploadStatus
+                {
+                    error = "No File"
+                });
+
+            return await Task.FromResult<ActionResult<List<FilesUploadStatus>>>(statuses);
+        }
 
         var yafUserId = this.PageBoardContext.PageUserID;
         var uploadFolder = Path.Combine(
@@ -88,18 +98,7 @@ public class FileUpload : ForumBaseController
 
             var extension = Path.GetExtension(fileName).Replace(".", string.Empty).ToLower();
 
-            if (!allowedExtensions.Contains(extension))
-            {
-                statuses.Add(
-                    new FilesUploadStatus
-                    {
-                        error = "Invalid File"
-                    });
-
-                return await Task.FromResult<ActionResult<List<FilesUploadStatus>>>(statuses);
-            }
-
-            if (!MimeTypes.FileMatchContentType(file))
+            if (!allowedExtensions.Contains(extension) || !MimeTypes.FileMatchContentType(file))
             {
                 statuses.Add(
                     new FilesUploadStatus

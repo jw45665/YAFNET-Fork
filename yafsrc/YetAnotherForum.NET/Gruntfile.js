@@ -220,9 +220,14 @@ module.exports = function(grunt) {
 			syncLanguages: {
 				command: [
 					'@echo off',
-					'cd ..\\Tools\\LanguageManager\\',
 					'echo update languages',
-					'SyncLangtoEnglish'
+					'..\\Tools\\LanguageManager\\YAFNET.LanguageManager %CD%\\wwwroot\\languages\\ -sync'
+				].join('&&')
+			},
+			translateLanguages: {
+				command: [
+					'@echo off',
+					'..\\Tools\\LanguageManager\\YAFNET.LanguageManager %CD%\\wwwroot\\languages\\ -translateGoogle'
 				].join('&&')
 			},
 			compileLanguages: {
@@ -292,7 +297,7 @@ module.exports = function(grunt) {
 			deletePublish: {
 				command: [
 					'@echo off',
-					'if exist bin\\Release\\net9.0\\publish\\ (rmdir bin\\Release\\net8.0\\publish\\ /s /q)'
+					'if exist bin\\Release\\net9.0\\publish\\ (rmdir bin\\Release\\net9.0\\publish\\ /s /q)'
 				].join('&&')
 			},
 			deleteAppSettings: {
@@ -308,25 +313,25 @@ module.exports = function(grunt) {
 			deploySqlServer: {
 				command: [
 					'@echo off',
-					'dotnet publish /p:Configuration=Release ../YAF.NET-SqlServer.sln'
+					'dotnet publish /p:Configuration=Release ../YAF.NET-SqlServer.slnx'
 				].join('&&')
 			},
 			deployMySql: {
 				command: [
 					'@echo off',
-					'dotnet publish /p:Configuration=Release ../YAF.NET-MySql.sln'
+					'dotnet publish /p:Configuration=Release ../YAF.NET-MySql.slnx'
 				].join('&&')
 			},
 			deployPostgreSQL: {
 				command: [
 					'@echo off',
-					'dotnet publish /p:Configuration=Release ../YAF.NET-PostgreSQL.sln'
+					'dotnet publish /p:Configuration=Release ../YAF.NET-PostgreSQL.slnx'
 				].join('&&')
 			},
 			deploySqlite: {
 				command: [
 					'@echo off',
-					'dotnet publish /p:Configuration=Release ../YAF.NET-Sqlite.sln'
+					'dotnet publish /p:Configuration=Release ../YAF.NET-Sqlite.slnx'
 				].join('&&')
 			},
 			emailTemplates: {
@@ -665,7 +670,9 @@ module.exports = function(grunt) {
 		sass: {
 			options: {
 				implementation: sass,
-				sourceMap: false
+				sourceMap: false,
+				api: 'modern',
+				silenceDeprecations: ['color-functions', 'mixed-decls', 'global-builtin', 'import','legacy-js-api']   
 			},
 			installWizard: {
 				files: {
@@ -871,6 +878,11 @@ module.exports = function(grunt) {
 	grunt.registerTask('syncLanguages',
 		[
 			'shell:syncLanguages'
+		]);
+
+	grunt.registerTask('translateLanguages',
+		[
+			'shell:translateLanguages'
 		]);
 
 	grunt.registerTask('updateBootstrap',

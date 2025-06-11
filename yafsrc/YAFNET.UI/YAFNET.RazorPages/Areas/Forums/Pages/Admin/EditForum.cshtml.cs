@@ -64,12 +64,28 @@ public class EditForumModel : AdminPage
     /// </summary>
     public SelectList AccessMaskList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the forum images.
+    /// </summary>
+    /// <value>The forum images.</value>
     public List<SelectListItem> ForumImages { get; set; }
 
+    /// <summary>
+    /// Gets or sets the categories.
+    /// </summary>
+    /// <value>The categories.</value>
     public SelectList Categories { get; set; }
 
+    /// <summary>
+    /// Gets or sets the parent forums.
+    /// </summary>
+    /// <value>The parent forums.</value>
     public List<SelectListItem> ParentForums { get; set; }
 
+    /// <summary>
+    /// Gets or sets the themes.
+    /// </summary>
+    /// <value>The themes.</value>
     public IReadOnlyCollection<SelectListItem> Themes { get; set; }
 
     /// <summary>
@@ -89,7 +105,7 @@ public class EditForumModel : AdminPage
 
         this.PageBoardContext.PageLinks.AddLink(
             this.GetText("ADMINMENU", "ADMIN_FORUMS"),
-            this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Forums));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.Admin_Forums));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_EDITFORUM", "TITLE"), string.Empty);
     }
 
@@ -153,14 +169,14 @@ public class EditForumModel : AdminPage
 
         if (forumId.HasValue)
         {
-            this.AccessList = this.GetRepository<ForumAccess>().GetForumAccessList(forumId.Value).Select(
+            this.AccessList = [.. this.GetRepository<ForumAccess>().GetForumAccessList(forumId.Value).Select(
                 i => new GroupAccessMask
-                     {GroupID = i.Item2.ID, GroupName = i.Item2.Name, AccessMaskID = i.Item1.AccessMaskID}).ToList();
+                     {GroupID = i.Item2.ID, GroupName = i.Item2.Name, AccessMaskID = i.Item1.AccessMaskID})];
         }
         else
         {
-            this.AccessList = this.PageBoardContext.GetRepository<Group>().GetByBoardId().Select(
-                i => new GroupAccessMask {GroupID = i.ID, GroupName = i.Name, AccessMaskID = this.PageBoardContext.BoardSettings.ForumDefaultAccessMask }).ToList();
+            this.AccessList = [.. this.PageBoardContext.GetRepository<Group>().GetByBoardId().Select(
+                i => new GroupAccessMask {GroupID = i.ID, GroupName = i.Name, AccessMaskID = this.PageBoardContext.BoardSettings.ForumDefaultAccessMask })];
         }
 
         // Load forum's themes
@@ -176,7 +192,7 @@ public class EditForumModel : AdminPage
 
             try
             {
-                // Currently creating a New Forum, and auto fill the Forum Sort Order + 1
+                // Currently creating a New Forum, and autofill the Forum Sort Order + 1
                 var forumCheck = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID)
                     .MaxBy(a => a.Item2.SortOrder);
 
@@ -196,7 +212,7 @@ public class EditForumModel : AdminPage
 
         if (forum is null)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
         this.Input.Id = forum.ID;
@@ -383,6 +399,6 @@ public class EditForumModel : AdminPage
                 });
         }
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_Forums);
     }
 }

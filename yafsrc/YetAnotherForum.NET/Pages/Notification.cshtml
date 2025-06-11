@@ -2,7 +2,6 @@
 @using YAF.Core.Context
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
-@using YAF.Core.Services
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
@@ -103,7 +102,6 @@
                                                         </div>
                                                     </div>
                                                     <button type="submit"
-                                                            asp-page-handler="Update"
                                                             text-localized-tag="UPDATE"
                                                             class="me-2"
                                                             button-style="Primary"
@@ -153,7 +151,7 @@
                                             return;
                                         }
 
-                                        var link = BoardContext.Current.Get<LinkBuilder>().GetMessageLink(activity.Item3, activity.Item1.MessageID.Value);
+                                        var link = BoardContext.Current.Get<ILinkBuilder>().GetMessageLink(activity.Item3, activity.Item1.MessageID.Value);
 
                                         var topicLink = $"<a href=\"{link}\" role=\"button\"><i class=\"far fa-comment fa-fw  me-1\"></i><span class=\"ms-1\">{activity.Item3.TopicName}</span></a>";
 

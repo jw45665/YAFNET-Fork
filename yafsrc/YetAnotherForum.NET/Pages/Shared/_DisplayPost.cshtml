@@ -4,7 +4,6 @@
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
 @using YAF.Core.Model
-@using YAF.Core.Services
 @using YAF.Core.Utilities
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Constants
@@ -69,8 +68,8 @@
 
     if (multiQuoteVisible)
     {
-        Current.InlineElements.InsertJsBlock("MultiQuoteButtonJs", JavaScriptBlocks.MultiQuoteButtonJs);
-        Current.InlineElements.InsertJsBlock("MultiQuoteCallbackSuccessJS", JavaScriptBlocks.MultiQuoteCallbackSuccessJs);
+        Current.InlineElements.InsertJsBlock(nameof(JavaScriptBlocks.MultiQuoteButtonJs), JavaScriptBlocks.MultiQuoteButtonJs);
+        Current.InlineElements.InsertJsBlock(nameof(JavaScriptBlocks.MultiQuoteCallbackSuccessJs), JavaScriptBlocks.MultiQuoteCallbackSuccessJs);
     }
 
     if (Current.BoardSettings.EnableUserReputation)
@@ -310,7 +309,7 @@
                                                    text-localized-tag="BUTTON_EDIT"
                                                    title-localized-tag="BUTTON_EDIT_TT"
                                                    class="dropdown-item"
-                                                   href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.EditMessage, new {m = postData.MessageId}))"></a>
+                                                   href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.EditMessage, new {m = postData.MessageId}))"></a>
                                             }
 
                                             @if (moveVisible)
@@ -321,7 +320,7 @@
                                                    text-localized-tag="BUTTON_MOVE"
                                                    title-localized-tag="BUTTON_MOVE_TT"
                                                    class="dropdown-item"
-                                                   href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.MoveMessage, new {m = postData.MessageId}))"></a>
+                                                   href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.MoveMessage, new {m = postData.MessageId}))"></a>
                                             }
 
                                             @if (deleteVisible)
@@ -332,7 +331,7 @@
                                                    text-localized-tag="BUTTON_DELETE"
                                                    title-localized-tag="BUTTON_DELETE_TT"
                                                    class="dropdown-item"
-                                                   href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.DeleteMessage, new {m = postData.MessageId}))"></a>
+                                                   href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.DeleteMessage, new {m = postData.MessageId}))"></a>
                                             }
 
                                             @if (unDeleteVisible)
@@ -343,7 +342,7 @@
                                                    text-localized-tag="BUTTON_UNDELETE"
                                                    title-localized-tag="BUTTON_UNDELETE_TT"
                                                    class="dropdown-item"
-                                                   href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.DeleteMessage,
+                                                   href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.DeleteMessage,
                                                              new {m = postData.MessageId}))"></a>
                                             }
 
@@ -355,7 +354,7 @@
                                             <a button-style="None" icon="th-list"
                                                text-localized-page="POSTS" text-localized-tag="SEARCHUSER"
                                                class="dropdown-item"
-                                               href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.Search,
+                                               href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.Search,
                                                          new {postedby = Current.BoardSettings.EnableDisplayName ? Model.DisplayName : Model.UserName}))"></a>
 
                                             @if (Current.IsAdmin)
@@ -363,7 +362,7 @@
                                                 <a button-style="None" icon="cogs"
                                                    text-localized-page="POSTS" text-localized-tag="EDITUSER"
                                                    class="dropdown-item"
-                                                   href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser,
+                                                   href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.Admin_EditUser,
                                                              new {u = postData.UserId}))"></a>
                                             }
 
@@ -438,7 +437,7 @@
                                                title-localized-tag="REPORTPOST_TITLE"
                                                bs-toggle="tooltip"
                                                class="dropdown-item"
-                                               href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.ReportPost, new {m = postData.MessageId}))"></a>
+                                               href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.ReportPost, new {m = postData.MessageId}))"></a>
                                         }
 
                                     </div>
@@ -455,7 +454,7 @@
                             </div>
                             <div>
                                 <a id="@($"post{Model.MessageID}")"
-                                   href="@Html.Raw(Current.Get<LinkBuilder>().GetMessageLink(Current.PageTopic, Model.MessageID))">
+                                   href="@Html.Raw(Current.Get<ILinkBuilder>().GetMessageLink(Current.PageTopic, Model.MessageID))">
                                     #@Html.Raw(Current.PageIndex * Current.BoardSettings.PostsPerPage + ViewData["index"].ToType<int>() + 1)
                                 </a>
                             </div>
@@ -476,7 +475,7 @@
                                      data-search="@(Current.Get<ILocalization>().GetText("COMMON", "SELECTED_SEARCH"))"
                                      data-copy="@(Current.Get<ILocalization>().GetText("COMMON", "SELECTED_COPY"))"
                                      @(!postData.PostDeleted && postData.CanReply && !postData.IsLocked) ?
-                                     data-url="@(Current.Get<LinkBuilder>().GetLink(ForumPages.PostMessage, new {t = Current.PageTopicID, f = Current.PageForumID}))"
+                                     data-url="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.PostMessage, new {t = Current.PageTopicID, f = Current.PageForumID}))"
                                      data-quote="@(Current.Get<ILocalization>().GetText("COMMON", "SELECTED_QUOTE"))" : @(string.Empty)>
 
                                     @if (quoteVisible)
@@ -488,7 +487,7 @@
                                            bs-toggle="tooltip"
                                            title-localized-tag="BUTTON_QUOTE_TT"
                                            class="dropdown-item"
-                                           href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.PostMessage, new {t = Current.PageTopicID, f = Current.PageForumID, q = postData.MessageId}))"></a>
+                                           href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.PostMessage, new {t = Current.PageTopicID, f = Current.PageForumID, q = postData.MessageId}))"></a>
                                     }
 
                                     @if (replyVisible)
@@ -511,7 +510,7 @@
                                            text-localized-tag="REPLY" title-localized-tag="BUTTON_POSTREPLY_TT"
                                            icon="reply"
                                            class="dropdown-item"
-                                           href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.PostMessage, new {t = Current.PageTopicID, f = Current.PageForumID}))"></a>
+                                           href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.PostMessage, new {t = Current.PageTopicID, f = Current.PageForumID}))"></a>
 
                                         <div class="dropdown-divider"></div>
                                     }
@@ -524,7 +523,7 @@
                                            text-localized-tag="BUTTON_EDIT"
                                            title-localized-tag="BUTTON_EDIT_TT"
                                            class="dropdown-item"
-                                           href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.EditMessage, new {m = postData.MessageId}))"></a>
+                                           href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.EditMessage, new {m = postData.MessageId}))"></a>
                                     }
 
                                     @if (moveVisible)
@@ -535,7 +534,7 @@
                                            text-localized-tag="BUTTON_MOVE"
                                            title-localized-tag="BUTTON_MOVE_TT"
                                            class="dropdown-item"
-                                           href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.MoveMessage, new {m = postData.MessageId}))"></a>
+                                           href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.MoveMessage, new {m = postData.MessageId}))"></a>
                                     }
 
                                     @if (deleteVisible)
@@ -546,7 +545,7 @@
                                            text-localized-tag="BUTTON_DELETE"
                                            title-localized-tag="BUTTON_DELETE_TT"
                                            class="dropdown-item"
-                                           href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.DeleteMessage,
+                                           href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.DeleteMessage,
                                                      new {m = postData.MessageId}))"></a>
                                     }
 
@@ -558,7 +557,7 @@
                                            text-localized-tag="BUTTON_UNDELETE"
                                            title-localized-tag="BUTTON_UNDELETE_TT"
                                            class="dropdown-item"
-                                           href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.DeleteMessage,
+                                           href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.DeleteMessage,
                                                      new {m = postData.MessageId}))"></a>
                                     }
 
@@ -572,7 +571,7 @@
                                         <a button-style="None" icon="th-list"
                                            text-localized-page="POSTS" text-localized-tag="SEARCHUSER"
                                            class="dropdown-item"
-                                           href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.Search,
+                                           href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.Search,
                                                      new {postedby = Current.BoardSettings.EnableDisplayName ? Model.DisplayName : Model.UserName}))"></a>
 
                                         @if (Current.IsAdmin)
@@ -580,7 +579,7 @@
                                             <a button-style="None" icon="cogs"
                                                text-localized-page="POSTS" text-localized-tag="EDITUSER"
                                                class="dropdown-item"
-                                               href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, new {u = postData.UserId}))"></a>
+                                               href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.Admin_EditUser, new {u = postData.UserId}))"></a>
                                         }
 
                                         <div class="dropdown-divider"></div>
@@ -595,7 +594,7 @@
                                            title-localized-tag="REPORTPOST_TITLE"
                                            bs-toggle="tooltip"
                                            class="dropdown-item"
-                                           href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.ReportPost, new {m = postData.MessageId}))"></a>
+                                           href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.ReportPost, new {m = postData.MessageId}))"></a>
                                     }
 
                                 </div>
@@ -701,7 +700,7 @@
                                                    icon-color="text-primary"
                                                    text="@(Current.Get<ILocalization>().GetText("REPLY"))"
                                                    bs-toggle="tooltip"
-                                                   href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.PostMessage, new {t = Current.PageTopicID, f = Current.PageForumID}))"></a>
+                                                   href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.PostMessage, new {t = Current.PageTopicID, f = Current.PageForumID}))"></a>
                                             }
 
                                             @if (quoteVisible)
@@ -714,7 +713,7 @@
                                                    bs-toggle="tooltip"
                                                    text="@(Current.Get<ILocalization>().GetText("BUTTON_QUOTE_TT"))"
                                                    title-localized-tag="BUTTON_QUOTE_TT"
-                                                   href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.PostMessage, new {t = Current.PageTopicID, f = Current.PageForumID, q = postData.MessageId}))"></a>
+                                                   href="@(Current.Get<ILinkBuilder>().GetLink(ForumPages.PostMessage, new {t = Current.PageTopicID, f = Current.PageForumID, q = postData.MessageId}))"></a>
                                             }
 
                                             @if (multiQuoteVisible)

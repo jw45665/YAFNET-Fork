@@ -34,7 +34,6 @@ using Microsoft.Extensions.Logging;
 using YAF.Core.Context;
 using YAF.Core.Extensions;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Events;
@@ -51,7 +50,6 @@ public class UsersSuspendModel : AdminPage
     /// <summary>
     /// Gets or sets the User Data.
     /// </summary>
-    [BindProperty]
     public Tuple<User, AspNetUsers, Rank, VAccess> EditUser { get; set; }
 
     /// <summary>
@@ -84,7 +82,7 @@ public class UsersSuspendModel : AdminPage
     {
         if (!BoardContext.Current.IsAdmin)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         this.Input = new UsersSuspendInputModel {
@@ -102,7 +100,7 @@ public class UsersSuspendModel : AdminPage
         if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] is not
             Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,
                 new {
                     u = this.Input.UserId
@@ -133,7 +131,7 @@ public class UsersSuspendModel : AdminPage
             $"User {this.EditUser.Item1.DisplayOrUserName()} was un-suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()}.",
             MessageTypes.success);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View8" });
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View8" });
     }
 
     /// <summary>
@@ -144,7 +142,7 @@ public class UsersSuspendModel : AdminPage
         if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] is not
             Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,
                 new {
                     u = this.Input.UserId
@@ -159,7 +157,7 @@ public class UsersSuspendModel : AdminPage
             // tell user he can't suspend admin
             this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "ERROR_ADMINISTRATORS"), MessageTypes.danger);
 
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View8" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View8" });
         }
 
         // is user to be suspended forum moderator, while user suspending him is not admin?
@@ -168,7 +166,7 @@ public class UsersSuspendModel : AdminPage
             // tell user he can't suspend forum moderator when he's not admin
             this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "ERROR_FORUMMODERATORS"), MessageTypes.danger);
 
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View8" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View8" });
         }
 
         // verify the user isn't guest...
@@ -176,7 +174,7 @@ public class UsersSuspendModel : AdminPage
         {
             this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "ERROR_GUESTACCOUNT"), MessageTypes.danger);
 
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View8" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View8" });
         }
 
         // time until when user is suspended
@@ -233,7 +231,7 @@ public class UsersSuspendModel : AdminPage
             $"User {this.EditUser.Item1.DisplayOrUserName()} was suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()} until: {suspend} (UTC)",
             MessageTypes.success);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View8" });
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View8" });
     }
 
     /// <summary>
@@ -243,7 +241,7 @@ public class UsersSuspendModel : AdminPage
     {
         if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,
                 new {
                     u = userId

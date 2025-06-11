@@ -27,7 +27,6 @@ using Microsoft.AspNetCore.Hosting;
 namespace YAF.Core.Services;
 
 using System;
-using System.Runtime.Caching;
 
 using YAF.Types.Objects;
 
@@ -53,12 +52,12 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     /// <summary>
     /// Gets the Current YAF Database Version
     /// </summary>
-    public int AppVersion { get; set; } = 93;
+    public int AppVersion { get; set; } = 1000;
 
     /// <summary>
     /// Gets the Current YAF Build Date
     /// </summary>
-    public DateTime AppVersionDate { get; set; } = new (2025, 01, 02, 07, 52, 00, DateTimeKind.Utc);
+    public DateTime AppVersionDate { get; set; } = new (2025, 05, 15, 08, 17, 00, DateTimeKind.Utc);
 
     /// <summary>
     /// Creates a string that is the YAF Application Version from a long value
@@ -72,9 +71,9 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
         {
             Major = 4,
             Minor = 0,
-            Build = 0,
-            ReleaseType = ReleaseType.RC,
-            ReleaseNumber = 4
+            Build = 1,
+            ReleaseType = ReleaseType.BETA,
+            ReleaseNumber = 0
         };
 
         var versionString = new StringBuilder();
@@ -141,23 +140,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     {
         get
         {
-            string baseUrlMask;
-
-            try
-            {
-                if (MemoryCache.Default["BoardSettings$1"] is not BoardSettings boardSettings)
-                {
-                    return this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
-                }
-
-                baseUrlMask = boardSettings.BaseUrlMask.IsSet()
-                                  ? boardSettings.BaseUrlMask
-                                  : this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
-            }
-            catch (Exception)
-            {
-                baseUrlMask = this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
-            }
+            var baseUrlMask = this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
 
             return TreatBaseUrl(baseUrlMask);
         }
@@ -181,7 +164,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
         if (baseUrl.EndsWith('/'))
         {
             // remove ending slash...
-            baseUrl = baseUrl.Remove(baseUrl.Length - 1, 1);
+            baseUrl = baseUrl[..^1];
         }
 
         return baseUrl;

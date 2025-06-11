@@ -32,7 +32,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 using Core.Helpers;
 using Core.Model;
-using Core.Services;
 
 using Types.EventProxies;
 using Types.Extensions;
@@ -137,7 +136,7 @@ public class EditSettingsModel : ProfilePage
     {
         this.PageBoardContext.PageLinks.AddLink(
             this.PageBoardContext.PageUser.DisplayOrUserName(),
-            this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.MyAccount));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("EDIT_SETTINGS", "TITLE"), string.Empty);
     }
 
@@ -226,7 +225,7 @@ public class EditSettingsModel : ProfilePage
 
         this.Get<IDataCache>().Clear();
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.MyAccount);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyAccount);
     }
 
     /// <summary>
@@ -246,7 +245,7 @@ public class EditSettingsModel : ProfilePage
             this.PageBoardContext.MembershipUser,
             this.TwoFactorKey);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Profile_EditSettings);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Profile_EditSettings);
     }
 
     /// <summary>
@@ -266,7 +265,7 @@ public class EditSettingsModel : ProfilePage
             this.PageBoardContext.MembershipUser,
             this.TwoFactorKey);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Profile_EditSettings);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Profile_EditSettings);
     }
 
     /// <summary>

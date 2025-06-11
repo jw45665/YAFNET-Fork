@@ -30,7 +30,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 
 using YAF.Core.Extensions;
-using YAF.Core.Services;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models.Identity;
 
@@ -76,7 +75,7 @@ public class AuthorizeModel : AccountPage
     {
         var user = this.Get<ISessionService>().GetPageData<AspNetUsers>();
 
-        return user == null ? this.Get<LinkBuilder>().Redirect(ForumPages.Account_Login) : this.Page();
+        return user == null ? this.Get<ILinkBuilder>().Redirect(ForumPages.Account_Login) : this.Page();
     }
 
     /// <summary>

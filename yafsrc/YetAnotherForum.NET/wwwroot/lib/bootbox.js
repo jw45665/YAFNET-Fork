@@ -1,6 +1,6 @@
-﻿/*! @preserve
+/*! @preserve
  * bootbox.js
- * version: 6.0.0
+ * version: 6.0.4
  * author: Nick Payne <nick@kurai.co.uk>
  * license: MIT
  * http://bootboxjs.com/
@@ -23,7 +23,7 @@
 
         const exports = {};
 
-        const VERSION = '6.0.0';
+        const VERSION = '6.0.4';
         exports.VERSION = VERSION;
 
         const locales = {
@@ -102,7 +102,7 @@
             relatedTarget: null,
             // The size of the modal to generate
             size: null,
-            // A unique indentifier for this modal
+            // A unique identifier for this modal
             id: null
         };
 
@@ -127,7 +127,7 @@
          * @returns The updated bootbox object
          */
         exports.addLocale = function(name, values) {
-            ['OK', 'CANCEL', 'CONFIRM'].forEach((v) => {
+            ['OK', 'CANCEL', 'CONFIRM'].forEach((v, _) => {
                 if (!values[v]) {
                     throw new Error(`Please supply a translation for "${v}"`);
                 }
@@ -633,19 +633,26 @@
 
             // Prompt submitted - extract the prompt value. This requires a bit of work, given the different input types available.
             options.buttons.confirm.callback = function() {
-                let value;
+	            let value;
 
-                if (options.inputType === 'checkbox') {
-                    value = Array.from(input.querySelectorAll('input[type="checkbox"]:checked')).map(function(e) {
-                        return e.value;
-                    });
-                } else if (options.inputType === 'radio') {
-                    value = input.querySelector('input[type="radio"]:checked').value;
-                } else {
-                    value = input.value;
-                }
+	            if (options.inputType === 'checkbox') {
+		            const checkedInputs = Array.from(input.querySelectorAll('input[type="checkbox"]:checked'));
 
-                return options.callback.call(this, value);
+		            value = Array.from(checkedInputs).map(function(e) {
+			            return e.value;
+		            });
+
+		            if (options.required === true && checkedInputs.length === 0) {
+			            // prevents button callback from being called if no checkboxes have been checked
+			            return false;
+		            }
+	            } else if (options.inputType === 'radio') {
+		            value = input.querySelector('input[type="radio"]:checked').value;
+	            } else {
+		            value = input.value;
+	            }
+
+	            return options.callback.call(this, value);
             };
 
             // prompt-specific validation
@@ -720,18 +727,14 @@
                     input.required = true;
                 }
 
-                // These input types have extra attributes which affect their input validation.
-                // Warning: For most browsers, date inputs are buggy in their implementation of 'step', so this attribute will have no effect. Therefore, we don't set the attribute for date inputs.
-                // @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date#Setting_maximum_and_minimum_dates
-                if (options.inputType !== 'date') {
-                    if (options.step) {
-                        if (options.step === 'any' || (!isNaN(options.step) && parseFloat(options.step) > 0)) {
-                            input.setAttribute('step', options.step);
-                        } else {
-                            throw new Error(
-                                '"step" must be a valid positive number or the value "any". See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-step for more information.');
-                        }
-                    }
+                
+                if (options.step) {
+	                if (options.step === 'any' || (!isNaN(options.step) && parseFloat(options.step) > 0)) {
+		                input.setAttribute('step', options.step);
+	                } else {
+		                throw new Error(
+			                '"step" must be a valid positive number or the value "any". See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-step for more information.');
+	                }
                 }
 
                 if (minAndMaxAreValid(options.inputType, options.min, options.max)) {
@@ -919,7 +922,7 @@
             // ...and replace it with one focusing our input, if possible
             promptDialog.addEventListener('shown.bs.modal',
                 function() {
-                    // Need the closure here since input isn'tcan object otherwise
+                    // Need the closure here since input isn't can object otherwise
                     input.focus();
                 });
 
@@ -1171,8 +1174,8 @@
             return Object.keys(obj).length;
         }
 
-        function focusPrimaryButton() {
-            trigger(de.data.dialog.querySelector('.bootbox-accept').first(), 'focus');
+        function focusPrimaryButton(e) {
+            trigger(e.data.dialog.querySelector('.bootbox-accept').first(), 'focus');
         }
 
 
@@ -1228,9 +1231,8 @@
             }
 
             if (minValid && maxValid) {
-                if (max <= min) {
-                    throw new Error(
-                        '"max" must be greater than "min". See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-max for more information.');
+                if (max < min) {
+                    throw new Error('"max" must be greater than or equal to "min". See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-max for more information.');
                 } else {
                     result = true;
                 }
@@ -1265,9 +1267,7 @@
         function addEventListener(el, eventName, eventHandler, selector) {
             if (selector) {
                 const wrappedHandler = (e) => {
-                    if (!e.target) {
-                        return;
-                    }
+                    if (!e.target) return;
                     const el = e.target.closest(selector);
                     if (el) {
                         eventHandler.call(el, e);

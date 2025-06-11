@@ -3,7 +3,6 @@
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
 @using YAF.Core.Model
-@using YAF.Core.Services
 @using YAF.Core.Utilities
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Constants
@@ -27,7 +26,7 @@
                        icon="plus"
                        text-localized-page="BUTTON"
                        text-localized-tag="BUTTON_EDITALBUMIMAGES"
-                       href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(
+                       href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(
                                  ForumPages.EditAlbumImages,
                                  new {a = Model.Album.ID}))"></a>
                 }
@@ -36,7 +35,7 @@
                    icon="arrow-circle-left"
                    text-localized-page="BUTTON"
                    text-localized-tag="BACK_ALBUMS"
-                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(
+                   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(
                              ForumPages.Albums,
                              new {u = this.Request.RouteValues["u"].ToString()}))"></a>
             </p>
@@ -76,6 +75,7 @@
 								<p class="card-text mb-3">
 									@Html.Icon("pen", "text-secondary")
 									<a class="album-image-caption border-bottom border-danger border-3" data-type="text"
+									   id="@Html.Raw(image.ID)"
 									   data-id="@Html.Raw(image.ID)"
 									   data-url="/api/Album/ChangeImageCaption"
 									   data-title="@Html.LocalizedText(image.Caption.IsNotSet() ? "ALBUM_IMAGE_CHANGE_CAPTION" : "ALBUM_IMAGE_CHANGE_CAPTION2")">@caption</a>

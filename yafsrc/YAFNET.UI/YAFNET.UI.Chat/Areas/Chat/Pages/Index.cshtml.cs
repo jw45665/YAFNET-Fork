@@ -32,7 +32,6 @@ using ServiceStack.OrmLite;
 
 using YAF.Core.Context;
 using YAF.Types.Constants;
-using YAF.Types.Extensions;
 using YAF.Types.Interfaces;
 using YAF.Types.Interfaces.Data;
 using YAF.Types.Interfaces.Services;
@@ -76,7 +75,7 @@ public class ChatModel : PageModel, IHaveServiceLocator
     {
         if (BoardContext.Current.IsGuest)
         {
-            return this.RedirectToPage(ForumPages.Account_Login.GetPageName(), new { area = "Forums" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Account_Login, new { area = "Forums" });
         }
 
         this.AvatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(BoardContext.Current.PageUser);

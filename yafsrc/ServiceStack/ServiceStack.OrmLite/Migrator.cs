@@ -299,7 +299,7 @@ public class Migrator
 
             // Remove completed migrations
             completedMigrations = migrationTypes.Any(x => x.Name == lastRun.Name)
-                ? migrationTypes.TakeWhile(x => x.Name != lastRun.Name).ToList()
+                ? [.. migrationTypes.TakeWhile(x => x.Name != lastRun.Name)]
                 : [];
 
             // Make sure we don't rerun any migrations that have already been run
@@ -396,12 +396,16 @@ public class Migrator
                 var namedDesc = namedConnection == null ? "" : $" ({namedConnection})";
                 this.Log.Info($"Running {nextRun.Name}{descFmt}{namedDesc}...");
 
+                var connectionString = this.DbFactory is OrmLiteConnectionFactory factory
+                    ? factory.ConnectionString
+                    : db.ConnectionString;
+
                 var migration = new Migration {
                     Name = nextRun.Name,
                     Description = AppTasks.GetDesc(nextRun),
                     CreatedDate = DateTime.UtcNow,
                     ConnectionString =
-                        OrmLiteUtils.MaskPassword(((OrmLiteConnectionFactory)this.DbFactory).ConnectionString),
+                        OrmLiteUtils.MaskPassword(connectionString),
                     NamedConnection = namedConnection
                 };
                 var id = db.Insert(migration, selectIdentity: true);

@@ -29,7 +29,7 @@ namespace YAF.Pages.Admin;
 using System.Collections.Generic;
 using System.Globalization;
 
-using FarsiLibrary.Utils;
+using FarsiLibrary.Core.Utils;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -54,9 +54,17 @@ public class EventLogModel : AdminPage
     [BindProperty]
     public EventLogInputModel Input { get; set; }
 
+    /// <summary>
+    /// Gets or sets the list.
+    /// </summary>
+    /// <value>The list.</value>
     [BindProperty]
     public List<PagedEventLog> List { get; set; }
 
+    /// <summary>
+    /// Gets or sets the types.
+    /// </summary>
+    /// <value>The types.</value>
     public List<SelectListItem> Types { get; set; }
 
     private readonly StackTraceBeautify beautify;

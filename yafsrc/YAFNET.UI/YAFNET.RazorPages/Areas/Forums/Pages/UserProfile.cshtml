@@ -4,7 +4,6 @@
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
 @using YAF.Core.Model
-@using YAF.Core.Services
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
@@ -63,7 +62,7 @@
                    title-localized-page="POSTS"
                    title-localized-tag="PM_TITLE"
                    bs-toggle="tooltip"
-                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.MyMessages, new { u = Model.CombinedUser.Item1.ID }))"></a>
+                   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.MyMessages, new { u = Model.CombinedUser.Item1.ID }))"></a>
             }
 
             @if (Model.ShowEmailLink)
@@ -78,7 +77,7 @@
                    title-localized-page="POSTS"
                    title-localized-tag="EMAIL_TITLE"
                    bs-toggle="tooltip"
-                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Email, new { u = Model.CombinedUser.Item1.ID }))"></a>
+                   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Email, new { u = Model.CombinedUser.Item1.ID }))"></a>
             }
 
             @if (Model.PageBoardContext.IsAdmin)
@@ -89,7 +88,7 @@
                    icon="user-cog"
                    text-localized-page="PROFILE"
                    text-localized-tag="ADMIN_USER"
-                   href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = Model.CombinedUser.Item1.ID }))"></a>
+                   href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = Model.CombinedUser.Item1.ID }))"></a>
             }
 
         </form>
@@ -370,19 +369,6 @@
                        href="@Model.XmppUrl"></a>
                 }
 
-                @if (Model.SkypeUrl.IsSet())
-                {
-                    <a role="button"
-                       button-style="None"
-                       icon="skype"
-                       icon-css-class="fab"
-                       title-localized-page="POSTS"
-                       title-localized-tag="SKYPE_TITLE"
-                       title-param0="@Html.Raw(Model.CombinedUser.Item1.DisplayOrUserName())"
-                       bs-toggle="tooltip"
-                       href="@Model.SkypeUrl"></a>
-                }
-
                 @if (Model.FacebookUrl.IsSet())
                 {
                     <a role="button"
@@ -426,7 +412,7 @@
                        text-localized-tag="SEARCHUSER"
                        icon="search"
                        class=" mb-3"
-                       href="@Html.Raw(Model.Get<LinkBuilder>().GetLink(ForumPages.Search, new { postedby = Model.CombinedUser.Item1.DisplayOrUserName() }))"></a>
+                       href="@Html.Raw(Model.Get<ILinkBuilder>().GetLink(ForumPages.Search, new { postedby = Model.CombinedUser.Item1.DisplayOrUserName() }))"></a>
 
 
                     @foreach (var message in Model.LastPosts)
@@ -441,7 +427,7 @@
                                    title-localized-page="COMMON"
                                    title-localized-tag="VIEW_TOPIC"
                                    bs-toggle="tooltip"
-                                   href="@Html.Raw(Model.Get<LinkBuilder>().GetTopicLink(message.Item2))"
+                                   href="@Html.Raw(Model.Get<ILinkBuilder>().GetTopicLink(message.Item2))"
                                    text="@Html.HtmlEncode(Model.Get<IBadWordReplace>().Replace(message.Item2.TopicName))">
                                 </a>
                             </div>
@@ -471,7 +457,7 @@
                 <div class="card-body">
                     @if (Model.CombinedUser.Item1.Suspended.HasValue)
                     {
-                        var suspendedByUser = Model.GetRepository<User>().GetById(Model.CombinedUser.Item1.SuspendedBy);
+                        var suspendedByUser = await Model.GetRepository<User>().GetByIdAsync(Model.CombinedUser.Item1.SuspendedBy);
 
                         <div class="alert alert-warning" role="alert">
                             <h4 class="alert-heading">

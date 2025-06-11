@@ -28,13 +28,13 @@ public class ProfiledProviderFactory : DbProviderFactory
     /// Gets the profiler.
     /// </summary>
     /// <value>The profiler.</value>
-    protected IDbProfiler Profiler { get; private set; }
+    protected IDbProfiler Profiler { get; }
 
     /// <summary>
     /// Gets the wrapped factory.
     /// </summary>
     /// <value>The wrapped factory.</value>
-    protected DbProviderFactory WrappedFactory { get; private set; }
+    protected DbProviderFactory WrappedFactory { get; }
 
     /// <summary>
     /// proxy
@@ -47,7 +47,7 @@ public class ProfiledProviderFactory : DbProviderFactory
         this.WrappedFactory = wrappedFactory;
     }
 
-#if !NET7_0_OR_GREATER
+#if !NET9_0_OR_GREATER
     /// <summary>
     /// proxy
     /// </summary>
@@ -98,7 +98,7 @@ public class ProfiledProviderFactory : DbProviderFactory
         return this.WrappedFactory.CreateConnectionStringBuilder();
     }
 
-#if !NET7_0_OR_GREATER
+#if !NET9_0_OR_GREATER
     /// <summary>
     /// proxy
     /// </summary>

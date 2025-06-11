@@ -34,7 +34,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 using Core.Extensions;
 using Core.Helpers;
-using Core.Services;
 
 using Types.Extensions;
 using Types.Models;
@@ -86,7 +85,7 @@ public class AttachmentsModel : ProfilePage
     {
         if (!this.PageBoardContext.UploadAccess)
         {
-            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+            return this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
         }
 
         var items = this.Attachments.Where(x => x.Selected).Select(x => x.ID).ToList();

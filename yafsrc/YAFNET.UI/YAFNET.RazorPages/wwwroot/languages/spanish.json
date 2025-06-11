@@ -16,7 +16,7 @@
           },
           {
             "@tag": "BECOME_FRIENDS",
-            "#text": "Become Friends"
+            "#text": "Convertirse en amigos"
           },
           {
             "@tag": "CHANGE_PASSWORD",
@@ -222,15 +222,15 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Views banned user agents list"
+            "#text": "Vistas Lista de agentes de usuario prohibidos"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_EDIT",
-            "#text": "Edits banned user agents"
+            "#text": "Ediciones de agentes de usuario prohibidos"
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS_IMPORT",
-            "#text": "Imports banned user agents"
+            "#text": "Importa agentes de usuario prohibidos"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -557,16 +557,8 @@
             "#text": "Usa MSN"
           },
           {
-            "@tag": "IM_SKYPE",
-            "#text": "Usa Skype"
-          },
-          {
             "@tag": "IM_XMPP",
             "#text": "Usa XMPP"
-          },
-          {
-            "@tag": "IM_YIM",
-            "#text": "Usa YIM"
           },
           {
             "@tag": "IMGPRV",
@@ -993,6 +985,10 @@
         "@name": "ADMIN_ATTACHMENTS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "¿Eliminar el accesorio (s)?"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Archivos adjuntos de los usuarios"
           }
@@ -1003,35 +999,35 @@
         "Resource": [
           {
             "@tag": "ADD_UA",
-            "#text": "Add New UserAgent"
+            "#text": "Agregar nuevo UserAgent"
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No UserAgents"
+            "#text": "No hay usuarios"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned UserAgent. Add a new banned UserAgent by clicking the [b]Add New UserAgent[/b] Button Bellow."
+            "#text": "Actualmente no hay usuario prohibido. "
           },
           {
             "@tag": "IMPORT_UA",
-            "#text": "Import UserAgent(s)"
+            "#text": "Importar usuario (s)"
           },
           {
             "@tag": "MASK",
-            "#text": "Mask"
+            "#text": "Mascarilla"
           },
           {
             "@tag": "MSG_EXIST",
-            "#text": "The Banned UserAgent Already exists!"
+            "#text": "¡El usuario prohibido ya existe!"
           },
           {
             "@tag": "MSG_REMOVEBAN_NAME",
-            "#text": "The UserAgent was successfully deleted"
+            "#text": "El usuariogente se eliminó correctamente"
           },
           {
             "@tag": "TITLE",
-            "#text": "Banned UserAgent"
+            "#text": "UserAgent de usuario prohibido"
           }
         ]
       },
@@ -1044,19 +1040,19 @@
           },
           {
             "@tag": "MASK_HELP",
-            "#text": "The User Agent to ban. You can use Regular Expressions."
+            "#text": "El agente de usuario para prohibir. "
           },
           {
             "@tag": "NEED_MASK",
-            "#text": "You must define a User Agent."
+            "#text": "Debe definir un agente de usuario."
           },
           {
             "@tag": "TITLE",
-            "#text": "Add Banned UserAgent"
+            "#text": "Agregar usuario prohibido"
           },
           {
             "@tag": "TITLE_EDIT",
-            "#text": "Edit Banned UserAgent"
+            "#text": "Editar usuario prohibido"
           }
         ]
       },
@@ -1065,35 +1061,35 @@
         "Resource": [
           {
             "@tag": "HEADER",
-            "#text": "Import UserAgent List"
+            "#text": "Importar lista de usuarios"
           },
           {
             "@tag": "IMPORT",
-            "#text": "Import List"
+            "#text": "Lista de importaciones"
           },
           {
             "@tag": "IMPORT_FAILED",
-            "#text": "Failed to import! Invalid upload format specified: {0} "
+            "#text": "No pudo importar! "
           },
           {
             "@tag": "IMPORT_FILE",
-            "#text": "Select Import File:"
+            "#text": "Seleccione el archivo de importación:"
           },
           {
             "@tag": "IMPORT_FILE_HELP",
-            "#text": "Must be *.txt file containing one useragent on each line"
+            "#text": "Debe ser *.txt archivo que contiene un usuariogent en cada línea"
           },
           {
             "@tag": "IMPORT_NOTHING",
-            "#text": "Nothing imported: no new useragent was found in the upload."
+            "#text": "Nada importado: no se encontró ningún nuevo usuario en la carga."
           },
           {
             "@tag": "IMPORT_SUCESS",
-            "#text": "{0} new useragent(s) imported successfully."
+            "#text": "{0} Nuevos usuarios importados con éxito."
           },
           {
             "@tag": "TITLE",
-            "#text": "Import UserAgent(s)"
+            "#text": "Importar usuario (s)"
           }
         ]
       },
@@ -1106,11 +1102,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Email Addresses"
+            "#text": "No hay direcciones de correo electrónico prohibidas"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned email addresses. Add a new banned email by clicking the [b]Add New Email[/b] Button Bellow."
+            "#text": "Actualmente no hay direcciones de correo electrónico prohibidas. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1208,7 +1204,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Puede encontrar una lista de direcciones de correo electrónico de bots de spam en StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, que se puede importar aquí."
+            "#text": "Puede encontrar una lista de direcciones de correo electrónico de bots de spam en StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, que se puede importar aquí."
           },
           {
             "@tag": "TITLE",
@@ -1229,15 +1225,23 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned IP Addresses"
+            "#text": "No hay direcciones IP prohibidas"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+            "#text": "Actualmente no hay direcciones IP prohibidas. "
           },
           {
             "@tag": "EXPORT",
             "#text": "Exportar a archivo de texto"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST",
+            "#text": "Importar la lista negra de abuseipdb"
+          },
+          {
+            "@tag": "IMPORT_BLACKLIST_HELP",
+            "#text": "Lista de importación con las direcciones IP más recientes1 de abuseipdb.com"
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1355,7 +1359,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "En StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a> se puede encontrar una lista de Ips de bots de spam que se pueden importar aquí."
+            "#text": "En StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a> se puede encontrar una lista de Ips de bots de spam que se pueden importar aquí."
           },
           {
             "@tag": "TITLE",
@@ -1372,11 +1376,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Banned Names"
+            "#text": "Sin nombres prohibidos"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] Button Bellow."
+            "#text": "Actualmente no hay nombres de usuario prohibidos. "
           },
           {
             "@tag": "IMPORT_IPS",
@@ -1474,7 +1478,7 @@
           },
           {
             "@tag": "NOTE",
-            "#text": "Puede encontrar una lista de nombres de usuario de Spam Bot en StopForumSpam.com <a href=\"https//www.stopforumspam.com/downloads/\">https//www.stopforumspam.com/downloads/</a>, que se puede importar aquí."
+            "#text": "Puede encontrar una lista de nombres de usuario de Spam Bot en StopForumSpam.com <a href=\"https://www.stopforumspam.com/downloads/\">https://www.stopforumspam.com/downloads/</a>, que se puede importar aquí."
           },
           {
             "@tag": "TITLE",
@@ -1766,6 +1770,14 @@
             "#text": "Cuando una nueva cuenta de usuario es creada, ¿qué notificaciones por defecto tendrá?"
           },
           {
+            "@tag": "BOARD_DEFAULT_PAGESIZE",
+            "#text": "Tamaño de página predeterminado"
+          },
+          {
+            "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
+            "#text": "El tamaño de página predeterminado para listas para nuevos usuarios."
+          },
+          {
             "@tag": "BOARD_DEFAULT_PANEL_STATE",
             "#text": "Estado del panel plegable por defecto"
           },
@@ -1908,14 +1920,6 @@
           {
             "@tag": "TITLE",
             "#text": "Configuración del tablero"
-          },
-          {
-            "@tag": "BOARD_DEFAULT_PAGESIZE",
-            "#text": "Default Page Size"
-          },
-          {
-            "@tag": "BOARD_DEFAULT_PAGESIZE_HELP",
-            "#text": "The default page size for lists for new users."
           }
         ]
       },
@@ -1957,7 +1961,7 @@
         "Resource": [
           {
             "@tag": "CONFIRM_DELETE",
-            "#text": "Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?"
+            "#text": "¿Eliminar permanentemente este foro, incluidos todos los temas, encuestas, archivos adjuntos y mensajes asociados con él?"
           },
           {
             "@tag": "DELETE_FORUM",
@@ -3319,22 +3323,6 @@
             "#text": "La confirmación de contraseña no coincide"
           },
           {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Usuario de Facebook:"
-          },
-          {
-            "@tag": "FACEBOOK_USER_HELP",
-            "#text": "Indica si el usuario está conectado vía Facebook."
-          },
-          {
-            "@tag": "GOOGLE_USER",
-            "#text": "Usuario de Google:"
-          },
-          {
-            "@tag": "GOOGLE_USER_HELP",
-            "#text": "Indica si el usuario está conectado vía Google."
-          },
-          {
             "@tag": "HEAD_KILL_USER",
             "#text": "Matar al usuario y prohibirlo"
           },
@@ -3565,7 +3553,7 @@
           },
           {
             "@tag": "COPY_TO_CLIPBOARD",
-            "#text": "Copy to clipboard"
+            "#text": "Copiar al portapapeles"
           },
           {
             "@tag": "DELETE_ALL",
@@ -3755,7 +3743,7 @@
           },
           {
             "@tag": "TITLE",
-            "#text": "roles"
+            "#text": "Roles"
           },
           {
             "@tag": "UNLINKABLE",
@@ -3777,6 +3765,14 @@
           {
             "@tag": "ABANDON_TRACKUSR_HELP",
             "#text": "Autmáticamente abandona las sesiones para los usuarios que están marcados como \"no rastrear\" como motores de búsqueda y bots. Actívalo si estas teniendo algún problema de sesión."
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY",
+            "#text": "Clave de la API de abuso de IPDB:"
+          },
+          {
+            "@tag": "ABUSEIPDB_APIKEY_HELP",
+            "#text": "La clave API para recuperar la lista negra de la dirección IP."
           },
           {
             "@tag": "ACTIVE_USERTIME",
@@ -3960,7 +3956,7 @@
           },
           {
             "@tag": "ALLOW_SHARE_TOPIC_HELP",
-            "#text": "Activa/desactiva el manú de compartir, donde un usuario puede enviar por email, Tweetear, enviar a Buzz, darle a me gusa en Facebook, enviar a Digg, Reedit o Tumblr un tema."
+            "#text": "Activa/desactiva el manú de compartir, donde un usuario puede enviar por email, Tweetear, enviar a Buzz, darle a me gusa en Facebook, enviar a Reedit o Tumblr un tema."
           },
           {
             "@tag": "ALLOW_SIGNATURE",
@@ -4084,7 +4080,7 @@
           },
           {
             "@tag": "BOT_CHECK_1",
-            "#text": "StopForumSpam.com"
+            "#text": "Stopforumspam.com"
           },
           {
             "@tag": "BOT_CHECK_2",
@@ -4275,14 +4271,6 @@
             "#text": "Activa/desactiva el botón de Retweetear con el que el usurio puede retweetear el mensaje de un tema."
           },
           {
-            "@tag": "ENABLE_SSO",
-            "#text": "Activar el servicio de sesión único:"
-          },
-          {
-            "@tag": "ENABLE_SSO_HELP",
-            "#text": "Si está activado, los usuarios podrán iniciar sesión con una cuenta existente en Facebook y/o Twitter. Para activarlo para Facebook necesitas configurar los valores de YAF.FacebookAPIKey y YAF.FacebookSecretKey, y para Twitter YAF.TwitterConsumerKey y YAF.TwitterConsumerSecret en el app.config (AppSettings)."
-          },
-          {
             "@tag": "ENABLE_USERREPUTATION",
             "#text": "Usar sistema de reputación:"
           },
@@ -4292,11 +4280,27 @@
           },
           {
             "@tag": "ENABLE_WYSIWYG",
-            "#text": "Enable WYSIWYG Editor"
+            "#text": "Habilitar editor Wysiwyg"
           },
           {
             "@tag": "ENABLE_WYSIWYG_HELP",
-            "#text": "Setting to Enable/Disable the WYSIWYG BBCode Editor"
+            "#text": "Configuración para habilitar/deshabilitar el editor Wysiwyg BBCode"
+          },
+          {
+            "@tag": "ENTER_MODE",
+            "#text": "Modo de ingresar al editor"
+          },
+          {
+            "@tag": "ENTER_MODE_0",
+            "#text": "Nuevo"
+          },
+          {
+            "@tag": "ENTER_MODE_1",
+            "#text": "Las líneas están rotas con"
+          },
+          {
+            "@tag": "ENTER_MODE_HELP",
+            "#text": "Establece el comportamiento de la tecla ENTER, como si el"
           },
           {
             "@tag": "EVENTLOG_MAX_DAYS",
@@ -4357,14 +4361,6 @@
           {
             "@tag": "FORCE_SEARCHINDED",
             "#text": "Tarea de índice de búsqueda iniciada."
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK",
-            "#text": "Máscara de URL de la base del foro:"
-          },
-          {
-            "@tag": "FORUM_BASEURLMASK_HELP",
-            "#text": "La url completa de este foro."
           },
           {
             "@tag": "FORUM_EMAIL",
@@ -5060,11 +5056,11 @@
           },
           {
             "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
+            "#text": "Desplácese hasta la primera publicación."
           },
           {
             "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+            "#text": "Si habilita se desplaza a la primera publicación no leída/o primera publicación nueva al abrir un tema"
           },
           {
             "@tag": "SEARCH_MAXLENGTH",
@@ -5464,7 +5460,7 @@
           },
           {
             "@tag": "STOPFORUMSPAM_KEY_HELP",
-            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https//www.stopforumspam.com/signup\">Sign Up here<a>."
+            "#text": "In order to Report a User as Bot you need an StopForumSpam.com API Key <a href=\"https://www.stopforumspam.com/signup\">Sign Up here<a>."
           },
           {
             "@tag": "STYLED_NICKS",
@@ -5743,11 +5739,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Medals"
+            "#text": "Sin medallas"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no medals. Add a new Medal by clicking the [b]Add New Medal[/b] Button Bellow."
+            "#text": "Actualmente no hay medallas. "
           },
           {
             "@tag": "MOVE_DOWN",
@@ -5871,11 +5867,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Custom Profile Definitions"
+            "#text": "No hay definiciones de perfil personalizadas"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no custom profile definitions. Add a new profile definition by clicking the [b]Add New Definition[/b] Button Bellow."
+            "#text": "Actualmente no hay definiciones de perfil personalizadas. "
           },
           {
             "@tag": "NEW_DEF",
@@ -6141,11 +6137,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Replace Words"
+            "#text": "No hay palabras reemplazar"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no replace words. Add a new replace word by clicking the [b]Add New Word Replace[/b] Button Bellow."
+            "#text": "Actualmente no hay palabras de reemplazo. "
           },
           {
             "@tag": "EXPORT",
@@ -6352,11 +6348,11 @@
           },
           {
             "@tag": "EMPTY_HEADER",
-            "#text": "No Spam Check Words"
+            "#text": "Sin palabras de verificación de spam"
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no spam check words. Add a new spam check word by clicking the [b]Add New Word [/b] Button Bellow."
+            "#text": "Actualmente no hay palabras de verificación de spam. "
           },
           {
             "@tag": "EXPORT",
@@ -6530,10 +6526,6 @@
           {
             "@tag": "EXPORT_XML",
             "#text": "Exportar todos los usuarios como XML"
-          },
-          {
-            "@tag": "FACEBOOK_USER",
-            "#text": "Usuario de Facebook"
           },
           {
             "@tag": "FILTER",
@@ -6712,7 +6704,7 @@
           },
           {
             "@tag": "ADMIN_BANNED_USERAGENTS",
-            "#text": "Banned UserAgents"
+            "#text": "Usuarios prohibidos"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",
@@ -6760,7 +6752,7 @@
           },
           {
             "@tag": "ADMIN_GROUPS",
-            "#text": "roles"
+            "#text": "Roles"
           },
           {
             "@tag": "ADMIN_HOSTSETTINGS",
@@ -7176,10 +7168,6 @@
             "#text": "Presiona aquí para mostrar o ocultar el texto oculto (también conocido como Spoiler)"
           },
           {
-            "@tag": "TWITTER_DESCRIPTION",
-            "#text": "Introduzca el ID de estado del Tweet que desea incrustar"
-          },
-          {
             "@tag": "UERLINKMOD_DESCRIPTION",
             "#text": "Pon el nombre de usuario aquí"
           },
@@ -7275,7 +7263,7 @@
           },
           {
             "@tag": "NOTIFICATION_REQUESTREMOVED",
-            "#text": "Friend request removed."
+            "#text": "Solicitud de amistad eliminada."
           },
           {
             "@tag": "PENDINGBUDDIES",
@@ -7667,7 +7655,7 @@
           },
           {
             "@tag": "CHARACTERS_LEFT",
-            "#text": "Characters remaining:"
+            "#text": "PARA CARACTERES:"
           },
           {
             "@tag": "COMMON_WORDS",
@@ -7763,7 +7751,7 @@
           },
           {
             "@tag": "FONT_NAME",
-            "#text": "Font Name"
+            "#text": "Nombre de fuente"
           },
           {
             "@tag": "FONT_SIZE",
@@ -7787,7 +7775,7 @@
           },
           {
             "@tag": "FORMAT_DATE_TIME_SHORT",
-            "#text": "G"
+            "#text": "GRAMO"
           },
           {
             "@tag": "FORMAT_TIME",
@@ -7871,7 +7859,7 @@
           },
           {
             "@tag": "MEDIA",
-            "#text": "Insert Media"
+            "#text": "Insertar medios"
           },
           {
             "@tag": "MENU",
@@ -7955,7 +7943,7 @@
           },
           {
             "@tag": "OK",
-            "#text": "OK"
+            "#text": "DE ACUERDO"
           },
           {
             "@tag": "OR",
@@ -8019,7 +8007,7 @@
           },
           {
             "@tag": "SHOW_TITLE",
-            "#text": "Page Size Selection"
+            "#text": "Selección de tamaño de página"
           },
           {
             "@tag": "SHOWHIDE",
@@ -8059,7 +8047,7 @@
           },
           {
             "@tag": "TT_COPY",
-            "#text": "Copy the selected text (Ctrl+C)"
+            "#text": "Copie el texto seleccionado (CTRL C)"
           },
           {
             "@tag": "TT_CREATELINK",
@@ -8071,11 +8059,11 @@
           },
           {
             "@tag": "TT_CUT",
-            "#text": "Cut the selected text (Ctrl+X)"
+            "#text": "Corta el texto seleccionado (CTRL X)"
           },
           {
             "@tag": "TT_DESCRIPTION",
-            "#text": "Description"
+            "#text": "Descripción"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8087,11 +8075,11 @@
           },
           {
             "@tag": "TT_IMAGE_DESC",
-            "#text": "Enter Image Description:"
+            "#text": "Ingrese la descripción de la imagen:"
           },
           {
             "@tag": "TT_IMAGE_TITLE",
-            "#text": "Enter Image Url:"
+            "#text": "Ingrese la URL de la imagen:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8111,11 +8099,19 @@
           },
           {
             "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+            "#text": "Pegue la URL de los medios en la entrada (por ejemplo, un video de YouTube, una lista de reproducción de Spotify o una imagen de Instagram)."
+          },
+          {
+            "@tag": "TT_NOTE",
+            "#text": "Nota de insertar"
+          },
+          {
+            "@tag": "TT_NOTE_TYPE",
+            "#text": "Tipo de nota"
           },
           {
             "@tag": "TT_PASTE",
-            "#text": "Paste (Ctrl+V)"
+            "#text": "Paste (CTRL V)"
           },
           {
             "@tag": "TT_QUOTE",
@@ -8123,19 +8119,19 @@
           },
           {
             "@tag": "TT_REDO",
-            "#text": "Redo (Ctrl+Y)"
+            "#text": "Redo (Ctrl Y)"
           },
           {
             "@tag": "TT_REMOVE",
-            "#text": "Remove Format"
+            "#text": "Eliminar formato"
           },
           {
             "@tag": "TT_SELECT_ALL",
-            "#text": "Select all"
+            "#text": "Seleccionar todo"
           },
           {
             "@tag": "TT_STRIKE_THROUGH",
-            "#text": "Strikethrough"
+            "#text": "Fusible"
           },
           {
             "@tag": "TT_UNDERLINE",
@@ -8143,15 +8139,15 @@
           },
           {
             "@tag": "TT_UNDO",
-            "#text": "Undo (Ctrl+Z)"
+            "#text": "Deshacer (CTRL Z)"
           },
           {
             "@tag": "TT_URL_DESC",
-            "#text": "Enter URL Description:"
+            "#text": "Ingrese la descripción de la URL:"
           },
           {
             "@tag": "TT_URL_TITLE",
-            "#text": "Enter URL:"
+            "#text": "Ingrese URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8285,7 +8281,7 @@
           },
           {
             "@tag": "AO",
-            "#text": "angola"
+            "#text": "Angola"
           },
           {
             "@tag": "AQ",
@@ -8321,11 +8317,11 @@
           },
           {
             "@tag": "BB",
-            "#text": "barbados"
+            "#text": "Barbados"
           },
           {
             "@tag": "BD",
-            "#text": "bangladesh"
+            "#text": "Bangladesh"
           },
           {
             "@tag": "BE",
@@ -8369,7 +8365,7 @@
           },
           {
             "@tag": "BS",
-            "#text": "bahamas"
+            "#text": "Bahamas"
           },
           {
             "@tag": "BT",
@@ -8477,7 +8473,7 @@
           },
           {
             "@tag": "DM",
-            "#text": "Dominica"
+            "#text": "Dominio"
           },
           {
             "@tag": "DO",
@@ -8785,7 +8781,7 @@
           },
           {
             "@tag": "ME",
-            "#text": "montenegro"
+            "#text": "Montenegro"
           },
           {
             "@tag": "MG",
@@ -8945,7 +8941,7 @@
           },
           {
             "@tag": "PN",
-            "#text": "pitcairn"
+            "#text": "Pitcairn"
           },
           {
             "@tag": "PR",
@@ -9101,7 +9097,7 @@
           },
           {
             "@tag": "TO",
-            "#text": "tonga"
+            "#text": "Tonga"
           },
           {
             "@tag": "TP",
@@ -9185,7 +9181,7 @@
           },
           {
             "@tag": "WS",
-            "#text": "samoa"
+            "#text": "Samoa"
           },
           {
             "@tag": "YE",
@@ -9314,11 +9310,11 @@
           },
           {
             "@tag": "MARK_ALL_ASREAD",
-            "#text": "Mark All As Read"
+            "#text": "Marque todo como leído"
           },
           {
             "@tag": "MARK_ASREAD",
-            "#text": "Mark As Read"
+            "#text": "Mark como leído"
           },
           {
             "@tag": "MARKALL",
@@ -9743,10 +9739,6 @@
             "#text": "Has introducido una URL inválida como perfil de Facebook."
           },
           {
-            "@tag": "BAD_GOOGLE",
-            "#text": "Has introducido una URL inválida como perfil de Google."
-          },
-          {
             "@tag": "BAD_HOME",
             "#text": "Has introducido una dirección no válida para tu página web."
           },
@@ -9872,11 +9864,7 @@
           },
           {
             "@tag": "SELECT_THEME_MODE",
-            "#text": "Select the theme mode:"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "Tu ID de SKYPE:"
+            "#text": "Seleccione el modo de tema:"
           },
           {
             "@tag": "TIMEZONE",
@@ -9909,15 +9897,15 @@
         "Resource": [
           {
             "@tag": "DISABLE_2FA",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Deshabilitar la autenticación de dos factores"
           },
           {
             "@tag": "DISABLE_TWO_FACTOR_HEADER",
-            "#text": "Disable Two Factor Authentication"
+            "#text": "Deshabilitar la autenticación de dos factores"
           },
           {
             "@tag": "ENABLE_2FA",
-            "#text": "Turn on Two Factor Authentication"
+            "#text": "Activar la autenticación de dos factores"
           },
           {
             "@tag": "INFO",
@@ -9925,11 +9913,11 @@
           },
           {
             "@tag": "INPUT_CODE",
-            "#text": "Input security code"
+            "#text": "Código de seguridad de entrada"
           },
           {
             "@tag": "SETUP_CODE",
-            "#text": "Setup code"
+            "#text": "Código de configuración"
           },
           {
             "@tag": "TITLE",
@@ -9937,11 +9925,11 @@
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
-            "#text": "Enable Two Factor Authentication"
+            "#text": "Habilitar la autenticación de dos factores"
           },
           {
             "@tag": "WRONG_CODE",
-            "#text": "You have entered the wrong 2FA Code!"
+            "#text": "¡Has ingresado el código 2FA incorrecto!"
           }
         ]
       },
@@ -10153,96 +10141,12 @@
         "@name": "GENDER",
         "Resource": [
           {
-            "@tag": "AGENDER",
-            "#text": "Agénero"
-          },
-          {
-            "@tag": "ANDROGYNE",
-            "#text": "Andrógino"
-          },
-          {
-            "@tag": "BIGENDER",
-            "#text": "Bigénero"
-          },
-          {
-            "@tag": "CISGENDER",
-            "#text": "Cisgénero"
-          },
-          {
-            "@tag": "FEMALETOMALE",
-            "#text": "De mujer a hombre"
-          },
-          {
-            "@tag": "GENDERFLUID",
-            "#text": "Género fluido"
-          },
-          {
-            "@tag": "GENDERNONCONFORMING",
-            "#text": "Género no conforme"
-          },
-          {
-            "@tag": "GENDERQUEER",
-            "#text": "género queer"
-          },
-          {
-            "@tag": "GENDERQUESTIONING",
-            "#text": "Cuestionamiento de género"
-          },
-          {
-            "@tag": "INTERSEX",
-            "#text": "Intersexualidad"
-          },
-          {
-            "@tag": "MALETOFEMALE",
-            "#text": "Hombre a mujer"
-          },
-          {
             "@tag": "MAN",
             "#text": "Hombre"
           },
           {
-            "@tag": "NONBINARY",
-            "#text": "No binario"
-          },
-          {
             "@tag": "OTHER",
             "#text": "Otros"
-          },
-          {
-            "@tag": "PANGENDER",
-            "#text": "Pangénero"
-          },
-          {
-            "@tag": "TRANS",
-            "#text": "trans"
-          },
-          {
-            "@tag": "TRANSFEMININE",
-            "#text": "Transfemenino"
-          },
-          {
-            "@tag": "TRANSGENDER",
-            "#text": "Transgénero"
-          },
-          {
-            "@tag": "TRANSMAN",
-            "#text": "Hombre transgénero"
-          },
-          {
-            "@tag": "TRANSMASCULINE",
-            "#text": "Transmasculino"
-          },
-          {
-            "@tag": "TRANSSEXUAL",
-            "#text": "Transexual"
-          },
-          {
-            "@tag": "TRANSWOMAN",
-            "#text": "Mujer transgénero"
-          },
-          {
-            "@tag": "TWOSPIRIT",
-            "#text": "Dos espíritus"
           },
           {
             "@tag": "WOMAN",
@@ -10295,7 +10199,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>Puedes cambiar la información de tu cuenta usando la opción &quot;Perfil personal &gt;\r\n    Editar Perfil&quot; desde el panel de control de usuario. Si quieres cambiar tu\r\n    contraseña hay una página adicional (Cambiar contraseña) en el panel de control\r\n    de usuario en la que puedes establecer una nueva contraseña.</p>\r\n<p><strong>Editar la página de perfil</strong></p>\r\n<p>Esta página te permite especificar detalles requeridos y opciones, algunos de los\r\n    cuales serán mostrados en tu perfil público. Con excepción de tu dirección de\r\n    email, no introduzcas información que no quieras que sea visible.</p>\r\n<p><strong>Sobre ti</strong></p>\r\n<p>Esta es la información básica sobre ti.</p>\r\n<p><strong>Localización</strong></p>\r\n<p>Si quieres, puedes poner el lugar donde resides.</p>\r\n<p><strong>Página web</strong></p>\r\n<p>Aquí puedes introducir una dirección web de una págian o blog personal.</p>\r\n<p><strong>Servicios de mensajería instantánea</strong></p>\r\n<p>Aquí puedes introducir tus IDs de servicios como MSN, XMPP, Skype, Facebook o Twitter.</p>\r\n<p><strong>Zona horaria</strong></p>\r\n<p>Aquí puedes especificar la zona horaria en la que te encuentras para ajustar las\r\n    horas del foro a tu hora local. También si quieres que el horario de verano se\r\n    ajuste automáticamente.</p>\r\n<p><strong>Preferencias del foro</strong></p>\r\n<p>Aquí puedes cambiar tu dirección de email.</p>\r\n<p>Y, si los administradores lo han activado, puedes cambiar el idioma del foro, el\r\n    tema y el editor de textos (que es usado para publicar mensajes).</p>\r\n<p>Existe una opción &quot;Inicio de sesión único&quot; (si está activada). Si la tienes\r\n    activada puedes iniciar sesión a través de Facebook, introduciendo tu ID de\r\n    Facebook más arriba.</p>\r\n"
+            "#text": "<p>Puedes cambiar la información de tu cuenta usando la opción &quot;Perfil personal &gt;\r\n    Editar Perfil&quot; desde el panel de control de usuario. Si quieres cambiar tu\r\n    contraseña hay una página adicional (Cambiar contraseña) en el panel de control\r\n    de usuario en la que puedes establecer una nueva contraseña.</p>\r\n<p><strong>Editar la página de perfil</strong></p>\r\n<p>Esta página te permite especificar detalles requeridos y opciones, algunos de los\r\n    cuales serán mostrados en tu perfil público. Con excepción de tu dirección de\r\n    email, no introduzcas información que no quieras que sea visible.</p>\r\n<p><strong>Sobre ti</strong></p>\r\n<p>Esta es la información básica sobre ti.</p>\r\n<p><strong>Localización</strong></p>\r\n<p>Si quieres, puedes poner el lugar donde resides.</p>\r\n<p><strong>Página web</strong></p>\r\n<p>Aquí puedes introducir una dirección web de una págian o blog personal.</p>\r\n<p><strong>Servicios de mensajería instantánea</strong></p>\r\n<p>Aquí puedes introducir tus IDs de servicios como  XMPP, Facebook o Twitter.</p>\r\n<p><strong>Zona horaria</strong></p>\r\n<p>Aquí puedes especificar la zona horaria en la que te encuentras para ajustar las\r\n    horas del foro a tu hora local. También si quieres que el horario de verano se\r\n    ajuste automáticamente.</p>\r\n<p><strong>Preferencias del foro</strong></p>\r\n<p>Aquí puedes cambiar tu dirección de email.</p>\r\n<p>Y, si los administradores lo han activado, puedes cambiar el idioma del foro, el\r\n    tema y el editor de textos (que es usado para publicar mensajes).</p>\r\n<p>Existe una opción &quot;Inicio de sesión único&quot; (si está activada). Si la tienes\r\n    activada puedes iniciar sesión a través de Facebook, introduciendo tu ID de\r\n    Facebook más arriba.</p>\r\n"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -10669,14 +10573,6 @@
           {
             "@tag": "DISABLED",
             "#text": "El administrador del foro ha deshabilitado esta caracteristica."
-          },
-          {
-            "@tag": "ECMAREQUIRED",
-            "#text": "Para usar el foro debes activar JavaScript en tu navegador."
-          },
-          {
-            "@tag": "ECMAVERSION",
-            "#text": "La versión de JavaScript no está soporada. Por favor, usa una versión más nueva del navegador."
           },
           {
             "@tag": "EXCEPTION",
@@ -11170,30 +11066,6 @@
             "#text": "Ingresa o regístrate con {0}"
           },
           {
-            "@tag": "AUTH_CONNECT_ACCOUNT",
-            "#text": "Conecta una cuenta existente en el foro con tu cuenta de {0} Antes necesitas ingresar en el foro. {1}"
-          },
-          {
-            "@tag": "AUTH_CONNECT_FACEBOOK",
-            "#text": "<strong>El email de Facebook debe coincidir con el email del foro para conectar el usuario.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_GOOGLE",
-            "#text": "<strong>El email de Google debe coincidir con el email del foro para conectar el usuario.</strong>"
-          },
-          {
-            "@tag": "AUTH_CONNECT_HELP",
-            "#text": "Ingresa o regístrate con {0} o conecta una cuenta de usuario existente con {0}."
-          },
-          {
-            "@tag": "AUTH_LOGIN_EXISTING",
-            "#text": "Ingresar con una cuenta de usuario que está conectado con {0}. O si no se encuentra una cuenta, una nueva será creada automáticamente en los foros."
-          },
-          {
-            "@tag": "AUTH_NO_ACCESS_TOKEN",
-            "#text": "No se ha podido autorizar la contraseña."
-          },
-          {
             "@tag": "AUTO",
             "#text": "Iniciar sesión automaticamente:"
           },
@@ -11204,10 +11076,6 @@
           {
             "@tag": "CAPS_LOCK",
             "#text": "El bloqueo de mayúsculas está activado"
-          },
-          {
-            "@tag": "CONNECT_VIA",
-            "#text": "O conéctese a través de"
           },
           {
             "@tag": "EMAIL",
@@ -11258,64 +11126,20 @@
             "#text": "Enviar contraseña"
           },
           {
-            "@tag": "SSO_DEACTIVATED",
-            "#text": "El inicio de sesión único no está disponible en estos momentos."
-          },
-          {
-            "@tag": "SSO_DEACTIVATED_BYUSER",
-            "#text": "El inicio de sesión único no está disponible para este usuario, necesitas activarlo en tu configuración de cuenta para usarlo en el futuro."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED",
-            "#text": "El ingreso en Facebook ha fallado, el usuario no existe o la cuenta no está activada."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED2",
-            "#text": "El inicio de sesión en Facebook ha fallado, ya existe una cuenta de usuario con la misma dirección de correo electrónico que la cuenta de Facebook, por favor, intenta conectar tu cuenta del foro en su lugar."
-          },
-          {
-            "@tag": "SSO_FACEBOOK_FAILED3",
-            "#text": "El inicio de sesión de Facebook falló, porque el usuario no proporciona una dirección de correo electrónico para la cuenta."
-          },
-          {
-            "@tag": "SSO_FACEBOOKNAME_NOTMATCH",
-            "#text": "La cuenta de email de Facebook debe coincidir con la cuenta de email del foro."
-          },
-          {
-            "@tag": "SSO_FAILED",
-            "#text": "Nuevos registros están desactivados."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED",
-            "#text": "El ingreso en Google ha fallado, el usuario no existe o la cuenta no está activada."
-          },
-          {
-            "@tag": "SSO_GOOGLE_FAILED2",
-            "#text": "El inicio de sesión de Google ha fallado, ya existe una cuenta de usuario con la misma dirección de correo electrónico que la cuenta de Google, por favor, intente conectar su cuenta del foro en su lugar."
-          },
-          {
-            "@tag": "SSO_GOOGLENAME_NOTMATCH",
-            "#text": "La dirección de email de Google debe coincidir con la dirección de email del foro."
-          },
-          {
-            "@tag": "SSO_ID_NOTMATCH",
-            "#text": "La cuenta de usuario no está activa o no ha sido encontrada."
-          },
-          {
             "@tag": "TITLE",
             "#text": "Iniciar sesión"
           },
           {
             "@tag": "TWO_FA_INFO",
-            "#text": "Please enter a validation code from your Authenticator app."
+            "#text": "Ingrese un código de validación de su aplicación Authenticator."
           },
           {
             "@tag": "TWO_FA_PLACEHOLDER",
-            "#text": "Validation code: ### ###"
+            "#text": "Código de validación:"
           },
           {
             "@tag": "TWO_FA_VALIDATION",
-            "#text": "Two-Factor Validation"
+            "#text": "Validación de dos factores"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -11986,7 +11810,7 @@
         "Resource": [
           {
             "@tag": "TITLE",
-            "#text": "Your activity notifications"
+            "#text": "Tus notificaciones de actividad"
           }
         ]
       },
@@ -11995,7 +11819,7 @@
         "Resource": [
           {
             "@tag": "CONVERSATION_TITLE",
-            "#text": "Your Conversations"
+            "#text": "Tus conversaciones"
           },
           {
             "@tag": "TITLE",
@@ -12060,7 +11884,7 @@
           },
           {
             "@tag": "PMLIMIT_ALL",
-            "#text": "You have {0} private messages: {1} in Inbox and {2} in Outbox. From a total of {3} allowed. Your mail box is filled to {4}%"
+            "#text": "Tienes {0} Mensajes privados: {1} en Innumory y {2} en Outbox. "
           },
           {
             "@tag": "PREVIEWTITLE",
@@ -12205,11 +12029,11 @@
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
+            "#text": "Votación vinculada"
           },
           {
             "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
+            "#text": "Don"
           },
           {
             "@tag": "POLLHEADER",
@@ -12249,7 +12073,7 @@
           },
           {
             "@tag": "REMOVEPOLL_MSG",
-            "#text": "Poll was removed!"
+            "#text": "¡La encuesta fue eliminada!"
           }
         ]
       },
@@ -12451,7 +12275,7 @@
           },
           {
             "@tag": "BLOG",
-            "#text": "BLOG"
+            "#text": "Blog"
           },
           {
             "@tag": "BLOG_TITLE",
@@ -12547,7 +12371,7 @@
           },
           {
             "@tag": "HOME",
-            "#text": "WWW"
+            "#text": "Www"
           },
           {
             "@tag": "HOME_TITLE",
@@ -12775,19 +12599,11 @@
           },
           {
             "@tag": "SHARE_TOOLTIP",
-            "#text": "Comparte este tema a través de email, Twitter, Google+, Facebook, Digg, Reddit o Tumblr."
+            "#text": "Comparte este tema a través de email, Facebook, Reddit o Tumblr."
           },
           {
             "@tag": "SIMILAR_TOPICS",
             "#text": "Temas similares"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "SKYPE"
-          },
-          {
-            "@tag": "SKYPE_TITLE",
-            "#text": "Contactar con {0} a través de Skype"
           },
           {
             "@tag": "STATISTICS",
@@ -13061,10 +12877,6 @@
             "#text": "Género:"
           },
           {
-            "@tag": "GOOGLE",
-            "#text": "Perfil de Google+:"
-          },
-          {
             "@tag": "GROUPS",
             "#text": "Grupos:"
           },
@@ -13163,10 +12975,6 @@
           {
             "@tag": "SEARCHUSER",
             "#text": "Ver todos los mensajes por usuario"
-          },
-          {
-            "@tag": "SKYPE",
-            "#text": "ID de Skype(tm):"
           },
           {
             "@tag": "SOCIAL_MEDIA",
@@ -13328,7 +13136,7 @@
           },
           {
             "@tag": "RGN_CH_NE",
-            "#text": "Neuchâtel"
+            "#text": "Nuevo"
           },
           {
             "@tag": "RGN_CH_NW",
@@ -13364,7 +13172,7 @@
           },
           {
             "@tag": "RGN_CH_UR",
-            "#text": "uri"
+            "#text": "Uri"
           },
           {
             "@tag": "RGN_CH_VD",
@@ -13376,7 +13184,7 @@
           },
           {
             "@tag": "RGN_CH_ZG",
-            "#text": "Zug"
+            "#text": "Zugar"
           },
           {
             "@tag": "RGN_CH_ZH",
@@ -13458,7 +13266,7 @@
         "Resource": [
           {
             "@tag": "RGN_US_AK",
-            "#text": "Alaska"
+            "#text": "Abajo"
           },
           {
             "@tag": "RGN_US_AL",
@@ -13466,7 +13274,7 @@
           },
           {
             "@tag": "RGN_US_AR",
-            "#text": "Arkansas"
+            "#text": "Arkansa"
           },
           {
             "@tag": "RGN_US_AS",
@@ -13614,7 +13422,7 @@
           },
           {
             "@tag": "RGN_US_OK",
-            "#text": "Oklahoma"
+            "#text": "Oklahola"
           },
           {
             "@tag": "RGN_US_OR",
@@ -14383,14 +14191,6 @@
             "#text": "\r\n      Hello!\r\n\r\n      A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):\r\n\r\n      User Name: {user}\r\n      User Email: {email}\r\n\r\n      Administration Link: {adminlink}\r\n    "
           },
           {
-            "@tag": "NOTIFICATION_ON_FACEBOOK_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Facebook Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Facebook)\r\n\r\n    "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_GOOGLE_REGISTER_TEXT",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Google Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please don't change your email, or you are unable to login with Google)\r\n\r\n    "
-          },
-          {
             "@tag": "NOTIFICATION_ON_MEDAL_AWARDED_TEXT",
             "#text": "\r\nHola {user}.\r\n\r\nFelicidades, has sido galardonado con {medalname} en el foro {forumname}.\r\n  "
           },
@@ -14465,11 +14265,11 @@
           },
           {
             "@tag": "DARK",
-            "#text": "Dark"
+            "#text": "Oscuro"
           },
           {
             "@tag": "LIGHT",
-            "#text": "Light"
+            "#text": "Luz"
           }
         ]
       },

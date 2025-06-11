@@ -31,7 +31,6 @@ using System.Web;
 using Microsoft.AspNetCore.Authorization;
 
 using YAF.Core.Extensions;
-using YAF.Core.Services;
 using YAF.Types.Interfaces.Identity;
 
 /// <summary>
@@ -110,6 +109,6 @@ public class ForgotPasswordModel : AccountPage
 
         this.PageBoardContext.SessionNotify(this.GetText("SUCCESS"), MessageTypes.success);
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
     }
 }

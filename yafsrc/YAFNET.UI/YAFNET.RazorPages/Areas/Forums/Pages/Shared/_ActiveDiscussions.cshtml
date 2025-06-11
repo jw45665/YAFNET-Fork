@@ -2,7 +2,6 @@
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
 @using YAF.Core.Model
-@using YAF.Core.Services
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
@@ -110,7 +109,7 @@
                        bs-toggle="tooltip"
                        text="@Html.Raw(topicSubject)"
                        title-non-localized="@Html.Raw($"{startedByText} {inForumText}")"
-                       href="@Html.Raw(Current.Get<LinkBuilder>().GetTopicLink(topic.TopicID, topic.Topic))">
+                       href="@Html.Raw(Current.Get<ILinkBuilder>().GetTopicLink(topic.TopicID, topic.Topic))">
                     </a>
 
                     @if (topic.LastPosted > lastRead)
@@ -122,7 +121,7 @@
                        role="button"
                        button-style="@ButtonStyle.Link"
                        text="@Html.Raw($"({topic.Forum})")"
-                       href="@Html.Raw(Current.Get<LinkBuilder>().GetForumLink(topic.ForumID, topic.Forum))"></a>
+                       href="@Html.Raw(Current.Get<ILinkBuilder>().GetForumLink(topic.ForumID, topic.Forum))"></a>
 
                     <a button-style="@ButtonStyle.Link"
                        icon="info-circle"

@@ -32,7 +32,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-using FarsiLibrary.Utils;
+using FarsiLibrary.Core.Utils;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
@@ -40,7 +40,6 @@ using Microsoft.Extensions.Logging;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Events;
@@ -132,7 +131,7 @@ public class EditProfileModel : ProfilePage
     /// </summary>
     public override void CreatePageLinks()
     {
-        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<ILinkBuilder>().GetLink(ForumPages.MyAccount));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("EDIT_PROFILE", "TITLE"), string.Empty);
     }
 
@@ -298,7 +297,7 @@ public class EditProfileModel : ProfilePage
 
         this.Get<IDataCache>().Clear();
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.MyAccount);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyAccount);
     }
 
     /// <summary>
@@ -341,7 +340,6 @@ public class EditProfileModel : ProfilePage
                                   : this.CurrentUser.Item2.Profile_Facebook;
 
         this.Input.Xmpp = this.CurrentUser.Item2.Profile_XMPP;
-        this.Input.Skype = this.CurrentUser.Item2.Profile_Skype;
 
         this.LoadCountriesAndRegions(this.CurrentUser.Item2.Profile_Country);
 
@@ -476,7 +474,6 @@ public class EditProfileModel : ProfilePage
                                               Facebook =
                                                   this.Input.Facebook.IsSet() ? this.Input.Facebook.Trim() : null,
                                               XMPP = this.Input.Xmpp.IsSet() ? this.Input.Xmpp.Trim() : null,
-                                              Skype = this.Input.Skype.IsSet() ? this.Input.Skype.Trim() : null,
                                               RealName =
                                                   this.Input.RealName.IsSet() ? this.Input.RealName.Trim() : null,
                                               Occupation =
@@ -524,10 +521,8 @@ public class EditProfileModel : ProfilePage
         user.Profile_Birthday = userProfile.Birthday;
         user.Profile_Blog = userProfile.Blog;
         user.Profile_Gender = userProfile.Gender;
-        user.Profile_GoogleId = userProfile.GoogleId;
         user.Profile_Homepage = userProfile.Homepage;
         user.Profile_Facebook = userProfile.Facebook;
-        user.Profile_FacebookId = userProfile.FacebookId;
         user.Profile_Interests = userProfile.Interests;
         user.Profile_Location = userProfile.Location;
         user.Profile_Country = userProfile.Country;
@@ -535,7 +530,6 @@ public class EditProfileModel : ProfilePage
         user.Profile_City = userProfile.City;
         user.Profile_Occupation = userProfile.Occupation;
         user.Profile_RealName = userProfile.RealName;
-        user.Profile_Skype = userProfile.Skype;
         user.Profile_XMPP = userProfile.XMPP;
 
         return this.Get<IAspNetUsersHelper>().UpdateUserAsync(user);

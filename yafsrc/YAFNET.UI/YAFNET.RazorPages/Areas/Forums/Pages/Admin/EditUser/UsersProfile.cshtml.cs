@@ -32,7 +32,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-using FarsiLibrary.Utils;
+using FarsiLibrary.Core.Utils;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -42,7 +42,6 @@ using YAF.Core.Context;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Pages.Profile;
 using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
@@ -134,7 +133,7 @@ public class UsersProfileModel : AdminPage
     {
         if (!BoardContext.Current.IsAdmin)
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         this.Input = new UsersProfileInputModel
@@ -156,7 +155,7 @@ public class UsersProfileModel : AdminPage
         if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, this.Input.UserId)] is not
             Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,
                 new {
                     u = this.Input.UserId
@@ -181,7 +180,7 @@ public class UsersProfileModel : AdminPage
             if (!ValidationHelper.IsValidUrl(this.Input.HomePage))
             {
                 this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_HOME"), MessageTypes.warning);
-                return this.Get<LinkBuilder>().Redirect(
+                return this.Get<ILinkBuilder>().Redirect(
                     ForumPages.Admin_EditUser,
                     new { u = this.Input.UserId, tab = "View3" });
             }
@@ -217,19 +216,19 @@ public class UsersProfileModel : AdminPage
         if (this.Input.Blog.IsSet() && !ValidationHelper.IsValidUrl(this.Input.Blog.Trim()))
         {
             this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_WEBLOG"), MessageTypes.warning);
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
         }
 
         if (this.Input.Xmpp.IsSet() && !ValidationHelper.IsValidXmpp(this.Input.Xmpp))
         {
             this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_XMPP"), MessageTypes.warning);
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
         }
 
         if (this.Input.Facebook.IsSet() && !ValidationHelper.IsValidUrl(this.Input.Facebook))
         {
             this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_FACEBOOK"), MessageTypes.warning);
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
         }
 
         string displayName = null;
@@ -242,7 +241,7 @@ public class UsersProfileModel : AdminPage
                 this.PageBoardContext.SessionNotify(
                     this.GetTextFormatted("USERNAME_TOOLONG", this.PageBoardContext.BoardSettings.DisplayNameMinLength),
                     MessageTypes.warning);
-                return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
             }
 
             // Check if name matches the required minimum length
@@ -251,7 +250,7 @@ public class UsersProfileModel : AdminPage
                 this.PageBoardContext.SessionNotify(
                     this.GetTextFormatted("USERNAME_TOOLONG", this.PageBoardContext.BoardSettings.UserNameMaxLength),
                     MessageTypes.warning);
-                return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
+                return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
             }
 
             if (this.Input.DisplayName.Trim() != this.EditUser.Item1.DisplayName)
@@ -261,7 +260,7 @@ public class UsersProfileModel : AdminPage
                     this.PageBoardContext.SessionNotify(
                         this.GetText("REGISTER", "ALREADY_REGISTERED_DISPLAYNAME"),
                         MessageTypes.warning);
-                    return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
+                    return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
                 }
 
                 displayName = this.Input.DisplayName.Trim();
@@ -273,7 +272,7 @@ public class UsersProfileModel : AdminPage
             this.PageBoardContext.SessionNotify(
                 this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "INTERESTS"), 4000),
                 MessageTypes.warning);
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
         }
 
         if (this.Input.Occupation.IsSet() && this.Input.Occupation.Trim().Length > 400)
@@ -281,7 +280,7 @@ public class UsersProfileModel : AdminPage
             this.PageBoardContext.SessionNotify(
                 this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "OCCUPATION"), 400),
                 MessageTypes.warning);
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
+            return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
         }
 
         await this.UpdateUserProfileAsync();
@@ -296,7 +295,7 @@ public class UsersProfileModel : AdminPage
 
         this.Get<IDataCache>().Clear();
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
     }
 
     /// <summary>
@@ -306,7 +305,7 @@ public class UsersProfileModel : AdminPage
     {
         if (this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] is not Tuple<User, AspNetUsers, Rank, VAccess> user)
         {
-            return this.Get<LinkBuilder>().Redirect(
+            return this.Get<ILinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,
                 new {
                     u = userId
@@ -336,7 +335,6 @@ public class UsersProfileModel : AdminPage
                                   : this.EditUser.Item2.Profile_Facebook;
 
         this.Input.Xmpp = this.EditUser.Item2.Profile_XMPP;
-        this.Input.Skype = this.EditUser.Item2.Profile_Skype;
 
         this.LoadCountriesAndRegions(this.EditUser.Item2.Profile_Country);
 
@@ -472,7 +470,6 @@ public class UsersProfileModel : AdminPage
                                               Facebook =
                                                   this.Input.Facebook.IsSet() ? this.Input.Facebook.Trim() : null,
                                               XMPP = this.Input.Xmpp.IsSet() ? this.Input.Xmpp.Trim() : null,
-                                              Skype = this.Input.Skype.IsSet() ? this.Input.Skype.Trim() : null,
                                               RealName =
                                                   this.Input.RealName.IsSet() ? this.Input.RealName.Trim() : null,
                                               Occupation =
@@ -518,10 +515,8 @@ public class UsersProfileModel : AdminPage
         this.EditUser.Item2.Profile_Birthday = userProfile.Birthday;
         this.EditUser.Item2.Profile_Blog = userProfile.Blog;
         this.EditUser.Item2.Profile_Gender = userProfile.Gender;
-        this.EditUser.Item2.Profile_GoogleId = userProfile.GoogleId;
         this.EditUser.Item2.Profile_Homepage = userProfile.Homepage;
         this.EditUser.Item2.Profile_Facebook = userProfile.Facebook;
-        this.EditUser.Item2.Profile_FacebookId = userProfile.FacebookId;
         this.EditUser.Item2.Profile_Interests = userProfile.Interests;
         this.EditUser.Item2.Profile_Location = userProfile.Location;
         this.EditUser.Item2.Profile_Country = userProfile.Country;
@@ -529,7 +524,6 @@ public class UsersProfileModel : AdminPage
         this.EditUser.Item2.Profile_City = userProfile.City;
         this.EditUser.Item2.Profile_Occupation = userProfile.Occupation;
         this.EditUser.Item2.Profile_RealName = userProfile.RealName;
-        this.EditUser.Item2.Profile_Skype = userProfile.Skype;
         this.EditUser.Item2.Profile_XMPP = userProfile.XMPP;
 
         return this.Get<IAspNetUsersHelper>().UpdateUserAsync(this.EditUser.Item2);

@@ -31,7 +31,6 @@ using System.Threading.Tasks;
 
 using YAF.Core.Extensions;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.Extensions;
 using YAF.Types.Flags;
 using YAF.Types.Interfaces.Identity;
@@ -42,9 +41,17 @@ using YAF.Types.Models;
 /// </summary>
 public class GroupsModel : AdminPage
 {
+    /// <summary>
+    /// Gets or sets the role list yaf.
+    /// </summary>
+    /// <value>The role list yaf.</value>
     [BindProperty]
     public IList<Group> RoleListYaf { get; set; }
 
+    /// <summary>
+    /// Gets or sets the role list net.
+    /// </summary>
+    /// <value>The role list net.</value>
     [BindProperty]
     public StringCollection RoleListNet { get; set; }
 
@@ -136,7 +143,7 @@ public class GroupsModel : AdminPage
             0);
 
         // redirect to newly created role
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditGroup, new { i = groupId });
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditGroup, new { i = groupId });
     }
 
     public void OnPostDeleteNet(string role)
@@ -178,7 +185,7 @@ public class GroupsModel : AdminPage
 
         // get all provider roles
         (from role in this.Get<IAspNetRolesHelper>().GetAllRoles()
-         let rows = groups.Select(g => g.Name == role)
+         let _ = groups.Select(g => g.Name == role)
          where groups.Count == 0
          select role).ForEach(role1 => this.availableRoles.Add(role1));
 

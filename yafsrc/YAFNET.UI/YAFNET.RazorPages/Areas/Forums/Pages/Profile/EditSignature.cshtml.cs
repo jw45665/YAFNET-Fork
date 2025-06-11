@@ -29,7 +29,6 @@ using Microsoft.Extensions.Logging;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Events;
@@ -74,7 +73,7 @@ public class EditSignatureModel : ProfilePage
     {
         this.PageBoardContext.PageLinks.AddLink(
             this.PageBoardContext.PageUser.DisplayOrUserName(),
-            this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+            this.Get<ILinkBuilder>().GetLink(ForumPages.MyAccount));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("EDIT_SIGNATURE","TITLE"), string.Empty);
     }
 
@@ -86,7 +85,7 @@ public class EditSignatureModel : ProfilePage
         if (!this.PageBoardContext.BoardSettings.AllowSignatures &&
             !(this.PageBoardContext.IsAdmin || this.PageBoardContext.IsForumModerator))
         {
-            return this.Get<LinkBuilder>().AccessDenied();
+            return this.Get<ILinkBuilder>().AccessDenied();
         }
 
         this.BindData(true);
@@ -173,7 +172,7 @@ public class EditSignatureModel : ProfilePage
         // clear the cache for this user...
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
 
-        return this.Get<LinkBuilder>().Redirect(ForumPages.MyAccount);
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.MyAccount);
     }
 
     /// <summary>

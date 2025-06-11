@@ -53,11 +53,6 @@ public class ProfileInfo
     public int Gender { get; set; }
 
     /// <summary>
-    /// Gets or sets Google Id
-    /// </summary>
-    public string GoogleId { get; set; }
-
-    /// <summary>
     /// Gets or sets Homepage.
     /// </summary>
     public string Homepage { get; set; }
@@ -66,11 +61,6 @@ public class ProfileInfo
     /// Gets or sets Facebook.
     /// </summary>
    public string Facebook { get; set; }
-
-    /// <summary>
-    /// Gets or sets Facebook.
-    /// </summary>
-    public string FacebookId { get; set; }
 
     /// <summary>
     /// Gets or sets Interests.
@@ -106,11 +96,6 @@ public class ProfileInfo
     /// Gets or sets RealName.
     /// </summary>
     public string RealName { get; set; }
-
-    /// <summary>
-    /// Gets or sets Skype.
-    /// </summary>
-    public string Skype { get; set; }
 
     /// <summary>
     /// Gets or sets XMPP.

@@ -24,6 +24,8 @@
 
 using System.Collections.Generic;
 
+using YAF.Types.Objects;
+
 namespace YAF.Core.Services.Import;
 
 using System;
@@ -111,13 +113,15 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
 
                         if (bbCodeExtension != null)
                         {
-                            if (!BBCode.Equals(updateEntry, bbCodeExtension))
+                            if (BBCode.Equals(updateEntry, bbCodeExtension))
                             {
-                                updateEntry.ID = bbCodeExtension.ID;
-
-                                // update this bbcode...
-                                repository.Update(updateEntry);
+                                return;
                             }
+
+                            updateEntry.ID = bbCodeExtension.ID;
+
+                            // update this bbcode...
+                            repository.Update(updateEntry);
                         }
                         else
                         {
@@ -237,7 +241,42 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     }
 
     /// <summary>
-    /// Import List of Banned User Names
+    /// Import the most recent Ip Addresses from AbuseIpDb.com
+    /// </summary>
+    /// <param name="boardId">The board id.</param>
+    /// <param name="userId">The user id.</param>
+    /// <param name="blackListData">The black list data.</param>
+    /// <returns>Returns how many address where imported.</returns>
+    public int BannedIpAddressesImport(int boardId, int userId, List<BlackListEntry> blackListData)
+    {
+        var importedCount = 0;
+
+        var repository = this.GetRepository<BannedIP>();
+        var existingBannedIpList = repository.Get(x => x.BoardID == boardId);
+
+        foreach (var data in blackListData)
+        {
+            if (!IPAddress.TryParse(data.IpAddress, out var importAddress))
+            {
+                continue;
+            }
+
+            if (existingBannedIpList.Exists(b => b.Mask == importAddress.ToString()))
+            {
+                continue;
+            }
+
+            if (repository.Save(null, importAddress.ToString(), $"Imported IP Address from AbuseIpDb.com with {data.AbuseConfidenceScore} confidence", userId, boardId))
+            {
+                importedCount++;
+            }
+        }
+
+        return importedCount;
+    }
+
+    /// <summary>
+    /// Import List of Banned Usernames
     /// </summary>
     /// <param name="boardId">The board id.</param>
     /// <param name="inputStream">The input stream.</param>
@@ -484,11 +523,6 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             }
         }
 
-        if (row.Table.Columns.Contains("GoogleId") && ((string)row["GoogleId"]).IsSet())
-        {
-            userProfile.GoogleId = (string)row["GoogleId"];
-        }
-
         if (row.Table.Columns.Contains("Location") && ((string)row["Location"]).IsSet())
         {
             userProfile.Location = (string)row["Location"];
@@ -519,11 +553,6 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             userProfile.Homepage = (string)row["Homepage"];
         }
 
-        if (row.Table.Columns.Contains("Skype") && ((string)row["Skype"]).IsSet())
-        {
-            userProfile.Skype = (string)row["Skype"];
-        }
-
         if (row.Table.Columns.Contains("XMPP") && ((string)row["XMPP"]).IsSet())
         {
             userProfile.XMPP = (string)row["XMPP"];
@@ -539,11 +568,6 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             userProfile.Facebook = (string)row["Facebook"];
         }
 
-        if (row.Table.Columns.Contains("FacebookId") && ((string)row["FacebookId"]).IsSet())
-        {
-            userProfile.FacebookId = (string)row["FacebookId"];
-        }
-
         var user = new AspNetUsers
         {
             Id = Guid.NewGuid().ToString(),
@@ -556,10 +580,8 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             Profile_Birthday = userProfile.Birthday,
             Profile_Blog = userProfile.Blog,
             Profile_Gender = userProfile.Gender,
-            Profile_GoogleId = userProfile.GoogleId,
             Profile_Homepage = userProfile.Homepage,
             Profile_Facebook = userProfile.Facebook,
-            Profile_FacebookId = userProfile.FacebookId,
             Profile_Interests = userProfile.Interests,
             Profile_Location = userProfile.Location,
             Profile_Country = userProfile.Country,
@@ -567,7 +589,6 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             Profile_City = userProfile.City,
             Profile_Occupation = userProfile.Occupation,
             Profile_RealName = userProfile.RealName,
-            Profile_Skype = userProfile.Skype,
             Profile_XMPP = userProfile.XMPP
         };
 
