@@ -54,15 +54,31 @@ public class EditSettingsModel : ProfilePage
     {
     }
 
+    /// <summary>
+    /// Gets or sets the two factor key.
+    /// </summary>
+    /// <value>The two factor key.</value>
     [BindProperty]
     public string TwoFactorKey { get; set; }
 
+    /// <summary>
+    /// Gets or sets the barcode image URL.
+    /// </summary>
+    /// <value>The barcode image URL.</value>
     [BindProperty]
     public string BarcodeImageUrl { get; set; }
 
+    /// <summary>
+    /// Gets or sets the setup code.
+    /// </summary>
+    /// <value>The setup code.</value>
     [BindProperty]
     public string SetupCode { get; set; }
 
+    /// <summary>
+    /// Gets or sets the input code.
+    /// </summary>
+    /// <value>The input code.</value>
     [BindProperty]
     public string InputCode { get; set; }
 
@@ -155,7 +171,7 @@ public class EditSettingsModel : ProfilePage
     /// </summary>
     public async Task<IActionResult> OnPostAsync()
     {
-        if (this.Email != this.PageBoardContext.PageUser.Email)
+        if (this.Email != null && this.Email != this.PageBoardContext.PageUser.Email)
         {
             var newEmail = this.Email.Trim();
 
@@ -205,8 +221,9 @@ public class EditSettingsModel : ProfilePage
         }
 
         // save remaining settings to the DB
-        this.GetRepository<User>().Save(
+        await this.GetRepository<User>().SaveAsync(
             this.PageBoardContext.PageUserID,
+            this.PageBoardContext.PageUser.UserFlags,
             this.TimeZone,
             language,
             culture,
@@ -308,16 +325,9 @@ public class EditSettingsModel : ProfilePage
                 themeFile = this.PageBoardContext.PageUser.ThemeFile;
             }
 
-            if (this.Themes.Any(x => x.Value == themeFile))
+            if (this.Themes.Any(x => x.Value == themeFile) || this.Themes.Any(x => x.Value == "yaf"))
             {
                 this.Theme = themeFile;
-            }
-            else
-            {
-                if (this.Themes.Any(x => x.Value == "yaf"))
-                {
-                    this.Theme = themeFile;
-                }
             }
         }
 

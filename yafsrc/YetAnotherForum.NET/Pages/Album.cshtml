@@ -1,9 +1,7 @@
 ﻿@page "{u:int}/{a:int}/{p:int=1}/{handler?}"
 
 @using YAF.Core.Extensions
-@using YAF.Core.Helpers
 @using YAF.Core.Model
-@using YAF.Core.Utilities
 @using YAF.Web.HtmlHelpers
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
@@ -136,8 +134,6 @@
 @section Scripts {
     @if (Model.AlbumUser.ID == Model.PageBoardContext.PageUserID)
     {
-        <script>
-            @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.AlbumImageEditCaptionJs))
-        </script>
+	    <script src="~/js/albums.min.js" asp-append-version="true" defer></script>
     }
 }

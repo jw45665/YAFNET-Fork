@@ -5,17 +5,18 @@
  * Try: http://24ways.org/2013/grunt-is-not-weird-and-hard/
  */
 
-const lightBoxWebpackConfig = require('./wwwroot/lib/bs5-lightbox/webpack.cdn.js');
+const webpackConfig = require('./webpack.config.js');
 const sass = require('sass');
 
 module.exports = function(grunt) {
+	require('@lodder/time-grunt')(grunt);
 	// CONFIGURATION
 	grunt.initConfig({
 		secret: grunt.file.readJSON('../secret.json'),
 		pkg: grunt.file.readJSON('package.json'),
 
 		webpack: {
-			lightBox: lightBoxWebpackConfig
+			main: webpackConfig
 		},
 
 		copy: {
@@ -26,18 +27,6 @@ module.exports = function(grunt) {
 						src: '**/*.scss',
 						cwd: 'node_modules/bootstrap/scss',
 						dest: 'wwwroot/lib/bootstrap/'
-					},
-					{
-						expand: true,
-						src: '**/bootstrap.bundle.js',
-						cwd: 'node_modules/bootstrap/dist/js/',
-						dest: 'wwwroot/lib/'
-					},
-					{
-						expand: true,
-						src: '**/bootstrap.bundle.min.js',
-						cwd: 'node_modules/bootstrap/dist/js/',
-						dest: 'wwwroot/lib/'
 					}
 				]
 			},
@@ -64,29 +53,6 @@ module.exports = function(grunt) {
 					{ expand: true, src: '**/*.scss', cwd: 'node_modules/bootswatch/dist', dest: 'wwwroot/lib/themes/' }
 				]
 			},
-			mdsDateTimePicker: {
-				files: [
-					// includes files within path
-					{
-						expand: true,
-						src: 'mds.bs.datetimepicker.style.css',
-						cwd: 'node_modules/md.bootstrappersiandatetimepicker/dist',
-						dest: 'wwwroot/css/',
-						rename: function(path) {
-							return path + 'mds.datetimepicker.min.css';
-						}
-					},
-					{
-						expand: true,
-						src: 'mds.bs.datetimepicker.js',
-						cwd: 'node_modules/md.bootstrappersiandatetimepicker/dist',
-						dest: 'wwwroot/js/',
-						rename: function(path) {
-							return path + 'mds.datetimepicker.min.js';
-						}
-					}
-				]
-			},
 			flagIcons: {
 				files: [
 					{
@@ -108,13 +74,13 @@ module.exports = function(grunt) {
 					{
 						expand: true,
 						src: '**/*.css',
-						cwd: 'node_modules/@yafnet/sceditor/minified/themes',
+						cwd: 'node_modules/@yafnet/sceditor/dist',
 						dest: 'wwwroot/css/'
 					}, {
 						expand: true,
 						src: '**/*.js',
-						cwd: 'node_modules/@yafnet/sceditor/languages',
-						dest: 'wwwroot/js/sceditor/languages/'
+						cwd: 'node_modules/@yafnet/sceditor/dist',
+						dest: 'wwwroot/js/sceditor/'
 					}
 				]
 			},
@@ -173,28 +139,6 @@ module.exports = function(grunt) {
 		},
 
 		replace: {
-			bootswatch: {
-				options: {
-					usePrefix: false,
-					patterns: [
-						{
-							match:
-								'box-shadow: 0 0 2px rgba($color, .9), 0 0 4px rgba($color, .4), 0 0 1rem rgba($color, .3), 0 0 4rem rgba($color, .1);',
-							replacement:
-								'box-shadow: 0 0 2px RGBA($color, .9), 0 0 4px RGBA($color, .4), 0 0 1rem RGBA($color, .3), 0 0 4rem RGBA($color, .1);'
-						}
-					]
-				},
-				files: [
-					{
-						expand: true,
-						flatten: true,
-						src: ['wwwroot/lib/themes/vapor/_bootswatch.scss'],
-						dest: 'wwwroot/lib/themes/vapor/'
-					}
-				]
-			},
-
 			flagIcons: {
 				options: {
 					usePrefix: false,
@@ -211,6 +155,231 @@ module.exports = function(grunt) {
 						flatten: true,
 						src: ['wwwroot/lib/flag-icons/_variables.scss'],
 						dest: 'wwwroot/lib/flag-icons/'
+					}
+				]
+			},
+
+			version: {
+				options: {
+					patterns: [
+						{
+							match: /Version>([\d.]+)<\//,
+							replacement: 'Version><%= pkg.version%></'
+						},
+						{
+							match: /AssemblyVersion>([\d.]+)<\//,
+							replacement: 'AssemblyVersion><%= pkg.version%></'
+						},
+						{
+							match: /FileVersion>([\d.]+)<\//,
+							replacement: 'FileVersion><%= pkg.version%></'
+						}
+					]
+				},
+				files: [
+					{
+						expand: true,
+						flatten: true,
+						src: ['../Directory.Build.props'],
+						dest: '../'
+					}, {
+						expand: true,
+						flatten: true,
+						src: ['../ServiceStack/Directory.Build.props'],
+						dest: '../ServiceStack/'
+					}, {
+						expand: true,
+						flatten: true,
+						src: ['../Tests/Directory.Build.props'],
+						dest: '../Tests/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.UI/YAFNET.RazorPages/YAFNET.RazorPages.csproj'],
+						dest: '../YAFNET.UI/YAFNET.RazorPages/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.UI/YAFNET.UI.Chat/YAFNET.UI.Chat.csproj'],
+						dest: '../YAFNET.UI/YAFNET.UI.Chat/'
+					}
+				]
+			},
+			versionNuget: {
+				options: {
+					patterns: [
+						{
+							match: /version>([\d.]+)<\//,
+							replacement: 'version><%= pkg.version%></'
+						}
+					]
+				},
+				files: [
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Configuration/YAFNET.Configuration.nuspec'],
+						dest: '../YAFNET.Configuration/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Core/YAFNET.Core.nuspec'],
+						dest: '../YAFNET.Core/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.MySql/YAFNET.Data.MySql.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.MySql/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.PostgreSQL/YAFNET.Data.PostgreSQL.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.PostgreSQL/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.Sqlite/YAFNET.Data.Sqlite.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.Sqlite/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.SqlServer/YAFNET.Data.SqlServer.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.SqlServer/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Types/YAFNET.Types.nuspec'],
+						dest: '../YAFNET.Types/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Web/YAFNET.Web.nuspec'],
+						dest: '../YAFNET.Web/'
+					}
+				]
+			},
+			versionNugetPackages: {
+				options: {
+					patterns: [
+						{
+							match: /version=\"([\d.]+)\"/,
+							replacement: 'version="<%= pkg.version%>"'
+						}
+					]
+				},
+				files: [
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Configuration/YAFNET.Configuration.nuspec'],
+						dest: '../YAFNET.Configuration/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Core/YAFNET.Core.nuspec'],
+						dest: '../YAFNET.Core/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.MySql/YAFNET.Data.MySql.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.MySql/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.PostgreSQL/YAFNET.Data.PostgreSQL.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.PostgreSQL/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.Sqlite/YAFNET.Data.Sqlite.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.Sqlite/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.SqlServer/YAFNET.Data.SqlServer.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.SqlServer/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Types/YAFNET.Types.nuspec'],
+						dest: '../YAFNET.Types/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Web/YAFNET.Web.nuspec'],
+						dest: '../YAFNET.Web/'
+					}
+				]
+			},
+			versionNugetDependencies: {
+				options: {
+					patterns: [
+						{
+							match: /id=\"YAFNET.Configuration\" version=\"([\d.]+)\"/,
+							replacement: 'id="YAFNET.Configuration" version="<%= pkg.version%>"'
+						},
+						{
+							match: /id=\"YAFNET.Core\" version=\"([\d.]+)\"/,
+							replacement: 'id="YAFNET.Core" version="<%= pkg.version%>"'
+						},
+						{
+							match: /id=\"YAFNET.Types\" version=\"([\d.]+)\"/,
+							replacement: 'id="YAFNET.Types" version="<%= pkg.version%>"'
+						}
+					]
+				},
+				files: [
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Configuration/YAFNET.Configuration.nuspec'],
+						dest: '../YAFNET.Configuration/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Core/YAFNET.Core.nuspec'],
+						dest: '../YAFNET.Core/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.MySql/YAFNET.Data.MySql.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.MySql/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.PostgreSQL/YAFNET.Data.PostgreSQL.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.PostgreSQL/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.Sqlite/YAFNET.Data.Sqlite.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.Sqlite/'
+					},
+					{
+						expand: true,
+						flatten: true,
+						src: ['../YAFNET.Data/YAFNET.Data.SqlServer/YAFNET.Data.SqlServer.nuspec'],
+						dest: '../YAFNET.Data/YAFNET.Data.SqlServer/'
 					}
 				]
 			}
@@ -300,13 +469,16 @@ module.exports = function(grunt) {
 					'if exist bin\\Release\\net9.0\\publish\\ (rmdir bin\\Release\\net9.0\\publish\\ /s /q)'
 				].join('&&')
 			},
-			deleteAppSettings: {
+			deleteBeforeDeploy: {
 				command: [
 					'@echo off',
 					'del bin\\Release\\net9.0\\publish\\appsettings-MySql.json ',
 					'del bin\\Release\\net9.0\\publish\\appsettings-PostgreSQL.json ',
 					'del bin\\Release\\net9.0\\publish\\appsettings-Sqlite.json ',
 					'del bin\\Release\\net9.0\\publish\\appsettings-SqlServer.json ',
+					'del bin\\Release\\net9.0\\publish\\package.json ',
+					'del bin\\Release\\net9.0\\publish\\tsconfig.json ',
+					'del bin\\Release\\net9.0\\publish\\wwwroot\\GeoIP.dat ',
 					'rmdir bin\\Release\\net9.0\\publish\\wwwroot\\uploads\\ /s /q '
 				].join('&&')
 			},
@@ -494,199 +666,31 @@ module.exports = function(grunt) {
 			}
 		},
 
-		// Minimize JS
-		uglify: {
-			themeSelector: {
-				options: {
-					sourceMap: false,
-					output: { beautify: true },
-					mangle: false,
-					compress: false
-				},
-				src: [
-					'wwwroot/lib/bootstrap/color-modes.js'
-				],
-				dest: 'wwwroot/js/themeSelector.min.js'
-			},
-			installWizard: {
-				options: {
-					sourceMap: false,
-					output: { beautify: true },
-					mangle: false,
-					compress: false
-				},
-				src: [
-					'wwwroot/lib/bootstrap.bundle.js',
-					'wwwroot/lib/forum/installWizard.js'
-				],
-				dest: 'wwwroot/js/InstallWizard.comb.js'
-			},
-
-			codeMirror: {
-				options: {
-					sourceMap: false,
-					output: { beautify: true },
-					mangle: false,
-					compress: false
-				},
-				src: [
-					'node_modules/codemirror/lib/codemirror.js',
-					'node_modules/codemirror/mode/sql/sql.js',
-					'node_modules/codemirror/addon/edit/matchbrackets.js',
-					'node_modules/codemirror/addon/hint/show-hint.js',
-					'node_modules/codemirror/addon/hint/sql-hint.js'
-				],
-				dest: 'wwwroot/js/codemirror.min.js'
-			},
-			yafEditor: {
-				options: {
-					sourceMap: false,
-					output: { beautify: true },
-					mangle: false,
-					compress: false
-				},
-				src: [
-					'wwwroot/lib/editor/editor.js',
-					'wwwroot/lib/editor/undoManager.js',
-					'wwwroot/lib/editor/autoCloseTags.js',
-					'wwwroot/lib/editor/mentions.js'
-				],
-				dest: 'wwwroot/js/editor.comb.js'
-			},
-			SCEditor: {
-				options: {
-					sourceMap: false,
-					output: { beautify: true },
-					mangle: false,
-					compress: false
-				},
-				src: [
-					'node_modules/@yafnet/sceditor/minified/sceditor.min.js',
-					'node_modules/@yafnet/sceditor/minified/formats/bbcode.js',
-					'node_modules/@yafnet/sceditor/minified/icons/fontawesome.js',
-					'node_modules/@yafnet/sceditor/minified/plugins/dragdrop.js',
-					'node_modules/@yafnet/sceditor/minified/plugins/undo.js',
-					'node_modules/@yafnet/sceditor/minified/plugins/plaintext.js',
-					'wwwroot/lib/sceditor/mentions.js'
-				],
-				dest: 'wwwroot/js/sceditor/sceditor.min.js'
-			},
-			SCEditorLanguages: {
-				options: {
-					warnings: true,
-					compress: true,
-					mangle: true
-				},
-				files: [
-					{
-						expand: true,
-						filter: 'isFile',
-						cwd: 'wwwroot/js/sceditor/',
-						src: 'languages/**.js',
-						dest: 'wwwroot/js/sceditor'
-					}
-				]
-			},
-			forumExtensions: {
-				options: {
-					sourceMap: false,
-					output: { beautify: true },
-					mangle: false,
-					compress: false
-				},
-				src: [
-					'wwwroot/lib/bootstrap.bundle.js',
-					'wwwroot/lib/bootbox.js',
-					'wwwroot/lib/dark-editable.js',
-					'wwwroot/lib/bootstrap-notify.js',
-					'wwwroot/lib/forum/bootstrap-touchspin.js',
-					'wwwroot/lib/choices/assets/scripts/choices.js',
-					'wwwroot/lib/bs5-lightbox/dist/index.bundle.min.js',
-					'wwwroot/lib/forum/hoverCard.js',
-					'wwwroot/lib/prism.js',
-					'node_modules/long-press-event/src/long-press-event.js',
-					'node_modules/@microsoft/signalr/dist/browser/signalr.js',
-					'wwwroot/lib/forum/utilities.js',
-					'wwwroot/lib/forum/albums.js',
-					'wwwroot/lib/forum/attachments.js',
-					'wwwroot/lib/forum/notify.js',
-					'wwwroot/lib/forum/searchResults.js',
-					'wwwroot/lib/forum/similarTitles.js',
-					'wwwroot/lib/forum/paging.js',
-					'wwwroot/lib/forum/main.js',
-					'wwwroot/lib/forum/modals.js',
-					'wwwroot/lib/forum/notificationHub.js',
-					'wwwroot/lib/forum/contextMenu.js',
-					'wwwroot/lib/forum/chatHub.js',
-					'wwwroot/lib/form-serialize/index.js'
-				],
-				dest: 'wwwroot/js/forumExtensions.js'
-			},
-			forumAdminExtensions: {
-				options: {
-					sourceMap: false,
-					output: { beautify: true },
-					mangle: false,
-					compress: false
-				},
-				src: [
-					'wwwroot/lib/bootstrap.bundle.js',
-					'wwwroot/lib/bootbox.js',
-					'wwwroot/lib/dark-editable.js',
-					'wwwroot/lib/bootstrap-notify.js',
-					'wwwroot/lib/forum/bootstrap-touchspin.js',
-					'wwwroot/lib/choices/assets/scripts/choices.js',
-					'wwwroot/lib/bs5-lightbox/dist/index.bundle.min.js',
-					'wwwroot/lib/forum/hoverCard.js',
-					'wwwroot/lib/prism.js',
-					'node_modules/long-press-event/src/long-press-event.js',
-					'node_modules/@microsoft/signalr/dist/browser/signalr.js',
-					'wwwroot/lib/forum/utilities.js',
-					'wwwroot/lib/forum/albums.js',
-					'wwwroot/lib/forum/notify.js',
-					'wwwroot/lib/forum/paging.js',
-					'wwwroot/lib/forum/main.js',
-					'wwwroot/lib/forum/modals.js',
-					'wwwroot/lib/forum/notificationHub.js',
-					'wwwroot/lib/forum/contextMenu.js',
-					'wwwroot/lib/form-serialize/index.js'
-				],
-				dest: 'wwwroot/js/forumAdminExtensions.js'
-			},
-			minify: {
-				files: {
-					"wwwroot/js/themeSelector.min.js": 'wwwroot/js/themeSelector.min.js',
-					"wwwroot/js/editor.min.js": 'wwwroot/js/editor.comb.js',
-					"wwwroot/js/InstallWizard.comb.min.js": 'wwwroot/js/InstallWizard.comb.js',
-					"wwwroot/js/codemirror.min.js": 'wwwroot/js/codemirror.min.js',
-					"wwwroot/js/fileUploader.min.js": 'wwwroot/lib/fileUploader.js',
-					"wwwroot/js/forumExtensions.min.js": 'wwwroot/js/forumExtensions.js',
-					"wwwroot/js/forumAdminExtensions.min.js": 'wwwroot/js/forumAdminExtensions.js'
-
-				}
-			}
-		},
-
 		sass: {
 			options: {
 				implementation: sass,
 				sourceMap: false,
 				api: 'modern',
-				silenceDeprecations: ['color-functions', 'mixed-decls', 'global-builtin', 'import','legacy-js-api']   
+				silenceDeprecations: ['color-functions', 'global-builtin', 'import', 'legacy-js-api']
+			},
+			flagIcons: {
+				files: {
+					"wwwroot/css/flag-icons.min.css": 'wwwroot/lib/flag-icons/flag-icons.scss'
+				}
 			},
 			installWizard: {
 				files: {
-					"wwwroot/css/InstallWizard.css": 'wwwroot/lib/InstallWizard.scss'
+					"wwwroot/css/InstallWizard.min.css": 'wwwroot/lib/InstallWizard.scss'
 				}
 			},
 			forum: {
 				files: {
-					"wwwroot/css/forum.css": 'wwwroot/lib/forum.scss'
+					"wwwroot/css/forum.min.css": 'wwwroot/lib/forum.scss'
 				}
 			},
 			forumAdmin: {
 				files: {
-					"wwwroot/css/forum-admin.css": 'wwwroot/lib/forum-admin.scss'
+					"wwwroot/css/forum-admin.min.css": 'wwwroot/lib/forum-admin.scss'
 				}
 			},
 			bootstrap: {
@@ -696,35 +700,46 @@ module.exports = function(grunt) {
 			},
 			themes: {
 				files: {
-					"wwwroot/css/themes/zephyr/bootstrap-forum.css": 'wwwroot/lib/themes/zephyr/bootstrap-forum.scss',
-					"wwwroot/css/themes/yaf/bootstrap-forum.css": 'wwwroot/lib/themes/yaf/bootstrap-forum.scss',
-					"wwwroot/css/themes/yeti/bootstrap-forum.css": 'wwwroot/lib/themes/yeti/bootstrap-forum.scss',
-					"wwwroot/css/themes/vapor/bootstrap-forum.css": 'wwwroot/lib/themes/vapor/bootstrap-forum.scss',
-					"wwwroot/css/themes/united/bootstrap-forum.css": 'wwwroot/lib/themes/united/bootstrap-forum.scss',
-					"wwwroot/css/themes/superhero/bootstrap-forum.css":
+					"wwwroot/css/themes/zephyr/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/zephyr/bootstrap-forum.scss',
+					"wwwroot/css/themes/yaf/bootstrap-forum.min.css": 'wwwroot/lib/themes/yaf/bootstrap-forum.scss',
+					"wwwroot/css/themes/yeti/bootstrap-forum.min.css": 'wwwroot/lib/themes/yeti/bootstrap-forum.scss',
+					"wwwroot/css/themes/vapor/bootstrap-forum.min.css": 'wwwroot/lib/themes/vapor/bootstrap-forum.scss',
+					"wwwroot/css/themes/united/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/united/bootstrap-forum.scss',
+					"wwwroot/css/themes/superhero/bootstrap-forum.min.css":
 						'wwwroot/lib/themes/superhero/bootstrap-forum.scss',
-					"wwwroot/css/themes/spacelab/bootstrap-forum.css":
+					"wwwroot/css/themes/spacelab/bootstrap-forum.min.css":
 						'wwwroot/lib/themes/spacelab/bootstrap-forum.scss',
-					"wwwroot/css/themes/solar/bootstrap-forum.css": 'wwwroot/lib/themes/solar/bootstrap-forum.scss',
-					"wwwroot/css/themes/slate/bootstrap-forum.css": 'wwwroot/lib/themes/slate/bootstrap-forum.scss',
-					"wwwroot/css/themes/sketchy/bootstrap-forum.css": 'wwwroot/lib/themes/sketchy/bootstrap-forum.scss',
-					"wwwroot/css/themes/simplex/bootstrap-forum.css": 'wwwroot/lib/themes/simplex/bootstrap-forum.scss',
-					"wwwroot/css/themes/sandstone/bootstrap-forum.css":
+					"wwwroot/css/themes/solar/bootstrap-forum.min.css": 'wwwroot/lib/themes/solar/bootstrap-forum.scss',
+					"wwwroot/css/themes/slate/bootstrap-forum.min.css": 'wwwroot/lib/themes/slate/bootstrap-forum.scss',
+					"wwwroot/css/themes/sketchy/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/sketchy/bootstrap-forum.scss',
+					"wwwroot/css/themes/simplex/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/simplex/bootstrap-forum.scss',
+					"wwwroot/css/themes/sandstone/bootstrap-forum.min.css":
 						'wwwroot/lib/themes/sandstone/bootstrap-forum.scss',
-					"wwwroot/css/themes/quartz/bootstrap-forum.css": 'wwwroot/lib/themes/quartz/bootstrap-forum.scss',
-					"wwwroot/css/themes/pulse/bootstrap-forum.css": 'wwwroot/lib/themes/pulse/bootstrap-forum.scss',
-					"wwwroot/css/themes/morph/bootstrap-forum.css": 'wwwroot/lib/themes/morph/bootstrap-forum.scss',
-					"wwwroot/css/themes/minty/bootstrap-forum.css": 'wwwroot/lib/themes/minty/bootstrap-forum.scss',
-					"wwwroot/css/themes/materia/bootstrap-forum.css": 'wwwroot/lib/themes/materia/bootstrap-forum.scss',
-					"wwwroot/css/themes/lux/bootstrap-forum.css": 'wwwroot/lib/themes/lux/bootstrap-forum.scss',
-					"wwwroot/css/themes/lumen/bootstrap-forum.css": 'wwwroot/lib/themes/lumen/bootstrap-forum.scss',
-					"wwwroot/css/themes/litera/bootstrap-forum.css": 'wwwroot/lib/themes/litera/bootstrap-forum.scss',
-					"wwwroot/css/themes/journal/bootstrap-forum.css": 'wwwroot/lib/themes/journal/bootstrap-forum.scss',
-					"wwwroot/css/themes/flatly/bootstrap-forum.css": 'wwwroot/lib/themes/flatly/bootstrap-forum.scss',
-					"wwwroot/css/themes/darkly/bootstrap-forum.css": 'wwwroot/lib/themes/darkly/bootstrap-forum.scss',
-					"wwwroot/css/themes/cyborg/bootstrap-forum.css": 'wwwroot/lib/themes/cyborg/bootstrap-forum.scss',
-					"wwwroot/css/themes/cosmo/bootstrap-forum.css": 'wwwroot/lib/themes/cosmo/bootstrap-forum.scss',
-					"wwwroot/css/themes/cerulean/bootstrap-forum.css":
+					"wwwroot/css/themes/quartz/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/quartz/bootstrap-forum.scss',
+					"wwwroot/css/themes/pulse/bootstrap-forum.min.css": 'wwwroot/lib/themes/pulse/bootstrap-forum.scss',
+					"wwwroot/css/themes/morph/bootstrap-forum.min.css": 'wwwroot/lib/themes/morph/bootstrap-forum.scss',
+					"wwwroot/css/themes/minty/bootstrap-forum.min.css": 'wwwroot/lib/themes/minty/bootstrap-forum.scss',
+					"wwwroot/css/themes/materia/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/materia/bootstrap-forum.scss',
+					"wwwroot/css/themes/lux/bootstrap-forum.min.css": 'wwwroot/lib/themes/lux/bootstrap-forum.scss',
+					"wwwroot/css/themes/lumen/bootstrap-forum.min.css": 'wwwroot/lib/themes/lumen/bootstrap-forum.scss',
+					"wwwroot/css/themes/litera/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/litera/bootstrap-forum.scss',
+					"wwwroot/css/themes/journal/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/journal/bootstrap-forum.scss',
+					"wwwroot/css/themes/flatly/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/flatly/bootstrap-forum.scss',
+					"wwwroot/css/themes/darkly/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/darkly/bootstrap-forum.scss',
+					"wwwroot/css/themes/cyborg/bootstrap-forum.min.css":
+						'wwwroot/lib/themes/cyborg/bootstrap-forum.scss',
+					"wwwroot/css/themes/cosmo/bootstrap-forum.min.css": 'wwwroot/lib/themes/cosmo/bootstrap-forum.scss',
+					"wwwroot/css/themes/cerulean/bootstrap-forum.min.css":
 						'wwwroot/lib/themes/cerulean/bootstrap-forum.scss'
 				}
 			}
@@ -737,14 +752,17 @@ module.exports = function(grunt) {
 					require('autoprefixer')({ overrideBrowserslist: 'last 2 versions' })
 				]
 			},
+			flagIcons: {
+				src: 'wwwroot/css/flag-icons.min.css'
+			},
 			installWizard: {
-				src: 'wwwroot/css/InstallWizard.css'
+				src: 'wwwroot/css/InstallWizard.min.css'
 			},
 			forum: {
-				src: 'wwwroot/css/forum.css'
+				src: 'wwwroot/css/forum.min.css'
 			},
 			forumAdmin: {
-				src: 'wwwroot/css/forum-admin.css'
+				src: 'wwwroot/css/forum-admin.min.css'
 			},
 			themes: {
 				src: 'wwwroot/css/themes/**/*.css'
@@ -753,65 +771,66 @@ module.exports = function(grunt) {
 
 		// CSS Minify
 		cssmin: {
-			codeMirror: {
-				files: {
-					"wwwroot/css/codemirror.min.css": [
-						'node_modules/codemirror/lib/codemirror.css',
-						'node_modules/codemirror/theme/monokai.css',
-						'node_modules/codemirror/addon/hint/show-hint.css'
-					]
-				}
-			},
 			other: {
 				files: {
-					"wwwroot/css/InstallWizard.min.css": 'wwwroot/css/InstallWizard.css',
-					"wwwroot/css/forum.min.css": 'wwwroot/css/forum.css',
-					"wwwroot/css/forum-admin.min.css": 'wwwroot/css/forum-admin.css'
+					"wwwroot/css/InstallWizard.min.css": 'wwwroot/css/InstallWizard.min.css',
+					"wwwroot/css/flag-icons.min.css": 'wwwroot/css/flag-icons.min.css',
+					"wwwroot/css/forum.min.css": 'wwwroot/css/forum.min.css',
+					"wwwroot/css/forum-admin.min.css": 'wwwroot/css/forum-admin.min.css'
 				}
 			},
 			themes: {
 				files: {
 					"wwwroot/css/themes/zephyr/bootstrap-forum.min.css":
-						'wwwroot/css/themes/zephyr/bootstrap-forum.css',
-					"wwwroot/css/themes/yaf/bootstrap-forum.min.css": 'wwwroot/css/themes/yaf/bootstrap-forum.css',
-					"wwwroot/css/themes/yeti/bootstrap-forum.min.css": 'wwwroot/css/themes/yeti/bootstrap-forum.css',
-					"wwwroot/css/themes/vapor/bootstrap-forum.min.css": 'wwwroot/css/themes/vapor/bootstrap-forum.css',
+						'wwwroot/css/themes/zephyr/bootstrap-forum.min.css',
+					"wwwroot/css/themes/yaf/bootstrap-forum.min.css": 'wwwroot/css/themes/yaf/bootstrap-forum.min.css',
+					"wwwroot/css/themes/yeti/bootstrap-forum.min.css":
+						'wwwroot/css/themes/yeti/bootstrap-forum.min.css',
+					"wwwroot/css/themes/vapor/bootstrap-forum.min.css":
+						'wwwroot/css/themes/vapor/bootstrap-forum.min.css',
 					"wwwroot/css/themes/united/bootstrap-forum.min.css":
-						'wwwroot/css/themes/united/bootstrap-forum.css',
+						'wwwroot/css/themes/united/bootstrap-forum.min.css',
 					"wwwroot/css/themes/superhero/bootstrap-forum.min.css":
-						'wwwroot/css/themes/superhero/bootstrap-forum.css',
+						'wwwroot/css/themes/superhero/bootstrap-forum.min.css',
 					"wwwroot/css/themes/spacelab/bootstrap-forum.min.css":
-						'wwwroot/css/themes/spacelab/bootstrap-forum.css',
-					"wwwroot/css/themes/solar/bootstrap-forum.min.css": 'wwwroot/css/themes/solar/bootstrap-forum.css',
-					"wwwroot/css/themes/slate/bootstrap-forum.min.css": 'wwwroot/css/themes/slate/bootstrap-forum.css',
+						'wwwroot/css/themes/spacelab/bootstrap-forum.min.css',
+					"wwwroot/css/themes/solar/bootstrap-forum.min.css":
+						'wwwroot/css/themes/solar/bootstrap-forum.min.css',
+					"wwwroot/css/themes/slate/bootstrap-forum.min.css":
+						'wwwroot/css/themes/slate/bootstrap-forum.min.css',
 					"wwwroot/css/themes/sketchy/bootstrap-forum.min.css":
-						'wwwroot/css/themes/sketchy/bootstrap-forum.css',
+						'wwwroot/css/themes/sketchy/bootstrap-forum.min.css',
 					"wwwroot/css/themes/simplex/bootstrap-forum.min.css":
-						'wwwroot/css/themes/simplex/bootstrap-forum.css',
+						'wwwroot/css/themes/simplex/bootstrap-forum.min.css',
 					"wwwroot/css/themes/sandstone/bootstrap-forum.min.css":
-						'wwwroot/css/themes/sandstone/bootstrap-forum.css',
+						'wwwroot/css/themes/sandstone/bootstrap-forum.min.css',
 					"wwwroot/css/themes/quartz/bootstrap-forum.min.css":
-						'wwwroot/css/themes/quartz/bootstrap-forum.css',
-					"wwwroot/css/themes/pulse/bootstrap-forum.min.css": 'wwwroot/css/themes/pulse/bootstrap-forum.css',
-					"wwwroot/css/themes/morph/bootstrap-forum.min.css": 'wwwroot/css/themes/morph/bootstrap-forum.css',
-					"wwwroot/css/themes/minty/bootstrap-forum.min.css": 'wwwroot/css/themes/minty/bootstrap-forum.css',
+						'wwwroot/css/themes/quartz/bootstrap-forum.min.css',
+					"wwwroot/css/themes/pulse/bootstrap-forum.min.css":
+						'wwwroot/css/themes/pulse/bootstrap-forum.min.css',
+					"wwwroot/css/themes/morph/bootstrap-forum.min.css":
+						'wwwroot/css/themes/morph/bootstrap-forum.min.css',
+					"wwwroot/css/themes/minty/bootstrap-forum.min.css":
+						'wwwroot/css/themes/minty/bootstrap-forum.min.css',
 					"wwwroot/css/themes/materia/bootstrap-forum.min.css":
-						'wwwroot/css/themes/materia/bootstrap-forum.css',
-					"wwwroot/css/themes/lux/bootstrap-forum.min.css": 'wwwroot/css/themes/lux/bootstrap-forum.css',
-					"wwwroot/css/themes/lumen/bootstrap-forum.min.css": 'wwwroot/css/themes/lumen/bootstrap-forum.css',
+						'wwwroot/css/themes/materia/bootstrap-forum.min.css',
+					"wwwroot/css/themes/lux/bootstrap-forum.min.css": 'wwwroot/css/themes/lux/bootstrap-forum.min.css',
+					"wwwroot/css/themes/lumen/bootstrap-forum.min.css":
+						'wwwroot/css/themes/lumen/bootstrap-forum.min.css',
 					"wwwroot/css/themes/litera/bootstrap-forum.min.css":
-						'wwwroot/css/themes/litera/bootstrap-forum.css',
+						'wwwroot/css/themes/litera/bootstrap-forum.min.css',
 					"wwwroot/css/themes/journal/bootstrap-forum.min.css":
-						'wwwroot/css/themes/journal/bootstrap-forum.css',
+						'wwwroot/css/themes/journal/bootstrap-forum.min.css',
 					"wwwroot/css/themes/flatly/bootstrap-forum.min.css":
-						'wwwroot/css/themes/flatly/bootstrap-forum.css',
+						'wwwroot/css/themes/flatly/bootstrap-forum.min.css',
 					"wwwroot/css/themes/darkly/bootstrap-forum.min.css":
-						'wwwroot/css/themes/darkly/bootstrap-forum.css',
+						'wwwroot/css/themes/darkly/bootstrap-forum.min.css',
 					"wwwroot/css/themes/cyborg/bootstrap-forum.min.css":
-						'wwwroot/css/themes/cyborg/bootstrap-forum.css',
-					"wwwroot/css/themes/cosmo/bootstrap-forum.min.css": 'wwwroot/css/themes/cosmo/bootstrap-forum.css',
+						'wwwroot/css/themes/cyborg/bootstrap-forum.min.css',
+					"wwwroot/css/themes/cosmo/bootstrap-forum.min.css":
+						'wwwroot/css/themes/cosmo/bootstrap-forum.min.css',
 					"wwwroot/css/themes/cerulean/bootstrap-forum.min.css":
-						'wwwroot/css/themes/cerulean/bootstrap-forum.css'
+						'wwwroot/css/themes/cerulean/bootstrap-forum.min.css'
 				}
 			}
 		},
@@ -820,7 +839,7 @@ module.exports = function(grunt) {
 				options: {
 					reportUpdated: true,
 					updateType: 'force',
-					semver: true,
+					semver: false,
 					packages: {
 						devDependencies: true, //only check for devDependencies
 						dependencies: true
@@ -855,19 +874,17 @@ module.exports = function(grunt) {
 	// PLUGINS
 	grunt.loadNpmTasks('@lodder/grunt-postcss');
 	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('@w8tcha/grunt-dev-update');
 	grunt.loadNpmTasks('grunt-sass');
 	grunt.loadNpmTasks('grunt-shell');
 	grunt.loadNpmTasks('grunt-replace');
 	grunt.loadNpmTasks('grunt-zip');
-	grunt.loadNpmTasks('grunt-file-append');
 	grunt.loadNpmTasks('grunt-webpack');
 
 	grunt.registerTask('default',
 		[
-			'webpack:lightBox', 'uglify', 'sass', 'postcss', 'cssmin'
+			'webpack', 'sass', 'postcss', 'cssmin'
 		]);
 
 	grunt.registerTask('updatePackages',
@@ -897,7 +914,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('updateBootswatchThemes',
 		[
-			'copy:bootswatchThemes', 'replace:bootswatch'
+			'copy:bootswatchThemes'
 		]);
 
 	grunt.registerTask('updateFlagIcons',
@@ -915,11 +932,6 @@ module.exports = function(grunt) {
 			'shell:emailTemplates', 'shell:emailDigestTemplates'
 		]);
 
-	grunt.registerTask('js',
-		[
-			'uglify'
-		]);
-
 	grunt.registerTask('css',
 		[
 			'sass', 'postcss', 'cssmin'
@@ -928,41 +940,41 @@ module.exports = function(grunt) {
 	grunt.registerTask('deploy-SqlServer',
 		[
 			'shell:deletePublish', 'shell:deploySqlServer', 'shell:compileLanguages', 'copy:appSettingsSqlServer',
-			'shell:deleteAppSettings',
+			'shell:deleteBeforeDeploy',
 			'zip:YAF-SqlServer-Deploy'
 		]);
 
 	grunt.registerTask('deploy-MySql',
 		[
 			'shell:deletePublish', 'shell:deployMySql', 'shell:compileLanguages', 'copy:appSettingsMySql',
-			'shell:deleteAppSettings',
+			'shell:deleteBeforeDeploy',
 			'zip:YAF-MySql-Deploy'
 		]);
 
 	grunt.registerTask('deploy-PostgreSQL',
 		[
 			'shell:deletePublish', 'shell:deployPostgreSQL', 'shell:compileLanguages', 'copy:appSettingsPostgreSQL',
-			'shell:deleteAppSettings',
+			'shell:deleteBeforeDeploy',
 			'zip:YAF-PostgreSQL-Deploy'
 		]);
 
 	grunt.registerTask('deploy-Sqlite',
 		[
 			'shell:deletePublish', 'shell:deploySqlite', 'shell:compileLanguages', 'copy:appSettingsSqlite',
-			'shell:deleteAppSettings',
+			'shell:deleteBeforeDeploy',
 			'zip:YAF-Sqlite-Deploy'
 		]);
 
 	grunt.registerTask('deploy',
 		[
 			'shell:deletePublish', 'shell:deploySqlite', 'shell:compileLanguages', 'copy:appSettingsSqlite',
-			'shell:deleteAppSettings', 'zip:YAF-Sqlite-Deploy',
+			'shell:deleteBeforeDeploy', 'zip:YAF-Sqlite-Deploy',
 			'shell:deletePublish', 'shell:deploySqlServer', 'shell:compileLanguages', 'copy:appSettingsSqlServer',
-			'shell:deleteAppSettings', 'zip:YAF-SqlServer-Deploy',
+			'shell:deleteBeforeDeploy', 'zip:YAF-SqlServer-Deploy',
 			'shell:deletePublish', 'shell:deployMySql', 'shell:compileLanguages', 'copy:appSettingsMySql',
-			'shell:deleteAppSettings', 'zip:YAF-MySql-Deploy',
+			'shell:deleteBeforeDeploy', 'zip:YAF-MySql-Deploy',
 			'shell:deletePublish', 'shell:deployPostgreSQL', 'shell:compileLanguages', 'copy:appSettingsPostgreSQL',
-			'shell:deleteAppSettings', 'zip:YAF-PostgreSQL-Deploy'
+			'shell:deleteBeforeDeploy', 'zip:YAF-PostgreSQL-Deploy'
 		]);
 
 	grunt.registerTask('publishGitHub',
@@ -980,5 +992,11 @@ module.exports = function(grunt) {
 		[
 			'shell:deleteOldNuGetPackages', 'shell:createNuGetUIPackages', 'shell:copyNuGetUIPackages',
 			'shell:publishNuGetUIPackages'
+		]);
+
+	grunt.registerTask('updateVersionNumber',
+		[
+			'replace:version', 'replace:versionNuget', 'replace:versionNugetPackages',
+			'replace:versionNugetDependencies'
 		]);
 };

@@ -7,10 +7,7 @@
 @model YAF.Pages.Profile.EditProfileModel
 
 @section StyleSheets {
-    @if (Model.PageBoardContext.BoardSettings.UseFarsiCalender && Model.IsFarsiCulture)
-    {
-        @await Html.PartialAsync("_DateTimePickerStylesSheetsPartial")
-    }
+    @await Html.PartialAsync("_FlagIconsStylesSheetsPartial")
 }
 
 <div class="row">
@@ -250,6 +247,7 @@
 </div>
 
 @section Scripts {
+    @await Html.PartialAsync("_ChoicesScriptsPartial")
     @await Html.PartialAsync("_ValidationScriptPartial")
     
     @if (Model.PageBoardContext.BoardSettings.UseFarsiCalender && Model.IsFarsiCulture)

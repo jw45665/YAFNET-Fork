@@ -31,7 +31,7 @@ public class ChoicesTagHelper : TagHelper
     private const string ItemsAttributeName = "asp-list";
 
     /// <summary>
-    /// The place holder attribute name
+    /// The placeholder attribute name
     /// </summary>
     private const string PlaceHolderAttributeName = "placeholder";
 
@@ -428,7 +428,7 @@ public class ChoicesTagHelper : TagHelper
             tagBuilder.Attributes["disabled"] = "disabled";
         }
 
-        tagBuilder.Attributes["data-custom-properties"] = $$"""{ "label": "<i class='fas fa-{{iconItem}} fa-fw text-secondary'></i>&nbsp;{{item.Text}}" }""";
+        tagBuilder.Attributes["data-custom-properties"] = $$"""{ "label": "<i class='fas fa-{{iconItem}} text-secondary'></i>&nbsp;{{item.Text}}" }""";
 
         return tagBuilder;
     }

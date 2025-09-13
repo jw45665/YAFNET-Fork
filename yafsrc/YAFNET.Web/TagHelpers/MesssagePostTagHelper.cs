@@ -31,11 +31,6 @@ namespace YAF.Web.TagHelpers;
 public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocalization
 {
     /// <summary>
-    ///   The options.
-    /// </summary>
-    private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled;
-
-    /// <summary>
     ///   The localization.
     /// </summary>
     private ILocalization localization;
@@ -152,25 +147,6 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
     /// <summary>
-    /// Gets CustomBBCode.
-    /// </summary>
-    protected IDictionary<BBCode, Regex> CustomBBCode {
-        get {
-            return this.Get<IObjectStore>().GetOrSet(
-                "CustomBBCodeRegExDictionary",
-                () =>
-                {
-                    var bbcodeTable = this.Get<IBBCodeService>().GetCustomBBCode();
-                    return bbcodeTable
-                        .Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet())
-                        .ToDictionary(
-                            codeRow => codeRow,
-                            codeRow => new Regex(codeRow.SearchRegex, Options, TimeSpan.FromMilliseconds(100)));
-                });
-        }
-    }
-
-    /// <summary>
     /// The process.
     /// </summary>
     /// <param name="context">
@@ -268,19 +244,13 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         cardBody.AddCssClass("card-body py-0");
 
-        // don't allow any HTML on signatures
-        var signatureFlags = new MessageFlags { IsHtml = false };
-
         this.Signature = Core.Helpers.HtmlTagHelper.StripHtml(this.Signature);
 
-        var signatureRendered = this.Get<IFormatMessage>().Format(0, this.Signature, signatureFlags);
+        var formattedMessage = await this.Get<IFormatMessage>().FormatMessageWithAllBBCodesAsync(
+            this.Signature, this.CurrentMessage.ID, this.DisplayUserId);
 
         cardBody.InnerHtml.AppendHtml(
-            await this.RenderModulesInBBCodeAsync(
-                signatureRendered,
-                signatureFlags,
-                this.DisplayUserId,
-                this.CurrentMessage.ID));
+            formattedMessage);
 
         card.InnerHtml.AppendHtml(cardBody);
 
@@ -298,7 +268,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         this.IsModeratorChanged = this.CurrentMessage.IsModeratorChanged ?? false;
 
         var deleteText = HttpUtility.HtmlDecode(this.CurrentMessage.DeleteReason).IsSet()
-                             ? this.Get<IFormatMessage>().RepairHtml(this.CurrentMessage.DeleteReason, true)
+                             ? this.Get<IFormatMessage>().RepairHtml(this.CurrentMessage.DeleteReason)
                              : this.GetText("EDIT_REASON_NA");
 
         // if message was deleted then write that instead of real body
@@ -355,7 +325,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         // reason was specified ?!
         var editReasonText =
-            $"{this.GetText("EDIT_REASON")}: {(HttpUtility.HtmlDecode(editReason).IsSet() ? this.Get<IFormatMessage>().RepairHtml(editReason, true) : this.GetText("EDIT_REASON_NA"))}";
+            $"{this.GetText("EDIT_REASON")}: {(HttpUtility.HtmlDecode(editReason).IsSet() ? this.Get<IFormatMessage>().RepairHtml(editReason) : this.GetText("EDIT_REASON_NA"))}";
 
         // message has been edited
         // show, why the post was edited or deleted?
@@ -371,7 +341,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         var icon = new TagBuilder(HtmlTag.I);
 
-        icon.AddCssClass("fa fa-edit fa-fw text-secondary");
+        icon.AddCssClass("fa fa-edit text-secondary");
 
         alert.InnerHtml.AppendHtml(icon);
 
@@ -409,7 +379,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
             var iconHistory = new TagBuilder(HtmlTag.I);
 
-            iconHistory.AddCssClass("fa fa-history fa-fw me-1");
+            iconHistory.AddCssClass("fa fa-history me-1");
 
             link.InnerHtml.AppendHtml(iconHistory);
 
@@ -449,7 +419,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         var icon = new TagBuilder(HtmlTag.I);
 
-        icon.AddCssClass("fa fa-check fa-fw me-1");
+        icon.AddCssClass("fa fa-check me-1");
 
         link.InnerHtml.AppendHtml(icon);
         link.InnerHtml.Append(this.GetText("GO_TO_ANSWER"));
@@ -483,14 +453,10 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         }
         else
         {
-            var formattedMessage = this.Get<IFormatMessage>().Format(
-                0,
-                this.HighlightMessage(this.Message, true),
-                this.MessageFlags);
+            var formattedMessage = await this.Get<IFormatMessage>().FormatMessageWithAllBBCodesAsync(
+                this.HighlightMessage(this.Message, true), 0, this.DisplayUserId);
 
-            // tha_watcha : Since HTML message and BBCode can be mixed now, message should be always replace BBCode
-            output.Content.AppendHtml(
-                await this.RenderModulesInBBCodeAsync(formattedMessage, this.MessageFlags, this.DisplayUserId, 0));
+            output.Content.AppendHtml(formattedMessage);
         }
     }
 
@@ -524,19 +490,14 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                 editedMessageDateTime = this.Edited;
             }
 
-            var formattedMessage = this.Get<IFormatMessage>().Format(
-                this.CurrentMessage.ID,
+            var formattedMessage = await this.Get<IFormatMessage>().FormatMessageWithAllBBCodesAsync(
                 this.HighlightMessage(this.CurrentMessage.MessageText, true),
-                this.MessageFlags,
+                this.CurrentMessage.ID,
+                this.DisplayUserId,
                 false,
                 editedMessageDateTime);
 
-            output.Content.AppendHtml(
-                await this.RenderModulesInBBCodeAsync(
-                    formattedMessage,
-                    this.MessageFlags,
-                    this.DisplayUserId,
-                    this.CurrentMessage.ID));
+            output.Content.AppendHtml(formattedMessage);
 
             // Render Edit Message
             if (this.ShowEditMessage
@@ -554,18 +515,11 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         }
         else
         {
-            var formattedMessage = this.Get<IFormatMessage>().Format(
-                this.CurrentMessage.ID,
-                this.HighlightMessage(this.CurrentMessage.MessageText, true),
-                this.MessageFlags);
+            var formattedMessage = await this.Get<IFormatMessage>().FormatMessageWithAllBBCodesAsync(
+                this.HighlightMessage(this.CurrentMessage.MessageText, true), this.CurrentMessage.ID,
+                this.DisplayUserId);
 
-            // tha_watcha : Since HTML message and BBCode can be mixed now, message should be always replace BBCode
-            output.Content.AppendHtml(
-                await this.RenderModulesInBBCodeAsync(
-                    formattedMessage,
-                    this.MessageFlags,
-                    this.DisplayUserId,
-                    this.CurrentMessage.ID));
+            output.Content.AppendHtml(formattedMessage);
 
             // Render Go to Answer Message
             if (this.CurrentMessage.AnswerMessageId.HasValue && this.CurrentMessage.Position.Equals(0))
@@ -573,81 +527,5 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                 this.RenderAnswerMessage(output, this.CurrentMessage.AnswerMessageId.Value);
             }
         }
-    }
-
-    /// <summary>
-    /// The render modules in bb code.
-    /// </summary>
-    /// <param name="message">
-    ///     The message
-    /// </param>
-    /// <param name="theseFlags">
-    ///     The these flags.
-    /// </param>
-    /// <param name="displayUserId">
-    ///     The display user id.
-    /// </param>
-    /// <param name="msgId">
-    ///     The Message Id.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    async protected virtual Task<string> RenderModulesInBBCodeAsync(
-        string message,
-        MessageFlags theseFlags,
-        int? displayUserId,
-        int? msgId)
-    {
-        var workingMessage = message;
-
-        // handle custom bbcodes row by row...
-        foreach (var (codeRow, value) in this.CustomBBCode)
-        {
-            Match match;
-
-            do
-            {
-                match = value.Match(workingMessage);
-
-                if (!match.Success)
-                {
-                    continue;
-                }
-
-                var sb = new StringBuilder();
-
-                var paramDic = new Dictionary<string, string> { { "inner", match.Groups["inner"].Value } };
-
-                if (codeRow.Variables.IsSet() && codeRow.Variables.Split(';').Length != 0)
-                {
-                    var vars = codeRow.Variables.Split(';');
-
-                    vars.Where(v => match.Groups[v] is not null).ForEach(v => paramDic.Add(v, match.Groups[v].Value));
-                }
-
-                sb.Append(workingMessage[..match.Groups[0].Index]);
-
-                // create/render the control...
-                var module = Type.GetType(codeRow.ModuleClass, true, false);
-                var customModule = (BBCodeControl)Activator.CreateInstance(module);
-
-                // assign parameters...
-                customModule.CurrentMessageFlags = theseFlags;
-                customModule.DisplayUserID = displayUserId;
-                customModule.MessageID = msgId;
-                customModule.Parameters = paramDic;
-
-                // render this control...
-                await customModule.RenderAsync(sb);
-
-                sb.Append(workingMessage[(match.Groups[0].Index + match.Groups[0].Length)..]);
-
-                workingMessage = sb.ToString();
-            }
-            while (match.Success);
-        }
-
-        return workingMessage;
     }
 }

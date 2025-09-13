@@ -121,9 +121,7 @@ public static class OrmLiteWriteCommandExtensions
         var modelDef = modelType.GetModelDefinition();
 
         var dialectProvider = dbCmd.GetDialectProvider();
-        var tableName = dialectProvider.NamingStrategy.GetTableName(modelDef);
-        var schema = dialectProvider.NamingStrategy.GetSchemaName(modelDef);
-        var tableExists = dialectProvider.DoesTableExist(dbCmd, tableName, schema);
+        var tableExists = dialectProvider.DoesTableExist(dbCmd, new TableRef(modelDef));
         if (overwrite && tableExists)
         {
             DropTable(dbCmd, modelDef);
@@ -242,7 +240,7 @@ public static class OrmLiteWriteCommandExtensions
         {
             var dialectProvider = dbCmd.GetDialectProvider();
 
-            dbCmd.ExecuteSql("DROP TABLE " + dialectProvider.GetQuotedTableName(tableName, string.Empty));
+            dbCmd.ExecuteSql("DROP TABLE " + dialectProvider.GetQuotedName(dialectProvider.NamingStrategy.GetTableAlias(tableName)));
         }
         catch (Exception ex)
         {
@@ -294,10 +292,8 @@ public static class OrmLiteWriteCommandExtensions
         try
         {
             var dialectProvider = dbCmd.GetDialectProvider();
-            var tableName = dialectProvider.NamingStrategy.GetTableName(modelDef);
-            var schema = dialectProvider.NamingStrategy.GetSchemaName(modelDef);
 
-            if (dialectProvider.DoesTableExist(dbCmd, tableName, schema))
+            if (dialectProvider.DoesTableExist(dbCmd, new TableRef(modelDef)))
             {
                 if (modelDef.PreDropTableSql != null)
                 {
@@ -571,10 +567,7 @@ public static class OrmLiteWriteCommandExtensions
     {
         if (!OrmLiteConfig.DeoptimizeReader)
         {
-            if (values == null)
-            {
-                values = new object[reader.FieldCount];
-            }
+            values ??= new object[reader.FieldCount];
 
             try
             {
@@ -700,10 +693,7 @@ public static class OrmLiteWriteCommandExtensions
         var count = 0;
         try
         {
-            if (dbCmd.Transaction == null)
-            {
-                dbCmd.Transaction = dbTrans = dbCmd.Connection.BeginTransaction();
-            }
+            dbCmd.Transaction ??= dbTrans = dbCmd.Connection.BeginTransaction();
 
             var dialectProvider = dbCmd.GetDialectProvider();
 
@@ -865,10 +855,7 @@ public static class OrmLiteWriteCommandExtensions
         var count = 0;
         try
         {
-            if (dbCmd.Transaction == null)
-            {
-                dbCmd.Transaction = dbTrans = dbCmd.Connection.BeginTransaction();
-            }
+            dbCmd.Transaction ??= dbTrans = dbCmd.Connection.BeginTransaction();
 
             var dialectProvider = dbCmd.GetDialectProvider();
 
@@ -927,12 +914,13 @@ public static class OrmLiteWriteCommandExtensions
         var idParamString = dialectProvider.GetParam();
 
         var sql = $"DELETE FROM {dialectProvider.GetQuotedTableName(modelDef)} " +
-                  $"WHERE {dialectProvider.GetQuotedColumnName(modelDef.PrimaryKey.FieldName)} = {idParamString}";
+                  $"WHERE {dialectProvider.GetQuotedColumnName(modelDef.PrimaryKey)} = {idParamString}";
 
         var idParam = dbCmd.CreateParameter();
         idParam.ParameterName = idParamString;
         idParam.Value = id;
         dbCmd.Parameters.Add(idParam);
+        dialectProvider.ConfigureParam(idParam, id, null);
         return sql;
     }
 
@@ -978,6 +966,7 @@ public static class OrmLiteWriteCommandExtensions
         idParam.ParameterName = dialectProvider.GetParam();
         idParam.Value = id;
         dbCmd.Parameters.Add(idParam);
+        dialectProvider.ConfigureParam(idParam, id, null);
 
         var rowVersionField = modelDef.RowVersion;
         if (rowVersionField == null)
@@ -995,7 +984,7 @@ public static class OrmLiteWriteCommandExtensions
         dbCmd.Parameters.Add(rowVersionParam);
 
         var sql = $"DELETE FROM {dialectProvider.GetQuotedTableName(modelDef)} " +
-                  $"WHERE {dialectProvider.GetQuotedColumnName(modelDef.PrimaryKey.FieldName)} = {idParam.ParameterName} " +
+                  $"WHERE {dialectProvider.GetQuotedColumnName(modelDef.PrimaryKey)} = {idParam.ParameterName} " +
                   $"AND {dialectProvider.GetRowVersionColumn(rowVersionField)} = {rowVersionParam.ParameterName}";
 
         return sql;
@@ -1035,7 +1024,7 @@ public static class OrmLiteWriteCommandExtensions
         var modelDef = ModelDefinition<T>.Definition;
 
         var sql = $"DELETE FROM {dialectProvider.GetQuotedTableName(modelDef)} " +
-                  $"WHERE {dialectProvider.GetQuotedColumnName(modelDef.PrimaryKey.FieldName)} IN ({sqlIn})";
+                  $"WHERE {dialectProvider.GetQuotedColumnName(modelDef.PrimaryKey)} IN ({sqlIn})";
         return sql;
     }
 
@@ -1372,10 +1361,7 @@ public static class OrmLiteWriteCommandExtensions
 
         try
         {
-            if (dbCmd.Transaction == null)
-            {
-                dbCmd.Transaction = dbTrans = dbCmd.Connection.BeginTransaction();
-            }
+            dbCmd.Transaction ??= dbTrans = dbCmd.Connection.BeginTransaction();
 
             var dialectProvider = dbCmd.GetDialectProvider();
 
@@ -1420,10 +1406,7 @@ public static class OrmLiteWriteCommandExtensions
 
         try
         {
-            if (dbCmd.Transaction == null)
-            {
-                dbCmd.Transaction = dbTrans = dbCmd.Connection.BeginTransaction();
-            }
+            dbCmd.Transaction ??= dbTrans = dbCmd.Connection.BeginTransaction();
 
             var dialectProvider = dbCmd.GetDialectProvider();
 
@@ -1731,7 +1714,7 @@ public static class OrmLiteWriteCommandExtensions
     {
         var dialectProvider = dbCmd.GetDialectProvider();
         dialectProvider.PrepareStoredProcedureStatement(dbCmd, obj);
-        dbCmd.ExecuteNonQuery();
+        dbCmd.ExecNonQuery();
     }
 
     /// <summary>
@@ -1768,7 +1751,7 @@ public static class OrmLiteWriteCommandExtensions
 
         var sql = $"SELECT {dialectProvider.GetRowVersionSelectColumn(modelDef.RowVersion)} " +
                   $"FROM {dialectProvider.GetQuotedTableName(modelDef)} " +
-                  $"WHERE {dialectProvider.GetQuotedColumnName(modelDef.PrimaryKey.FieldName)} = {idParamString}";
+                  $"WHERE {dialectProvider.GetQuotedColumnName(modelDef.PrimaryKey)} = {idParamString}";
 
         dbCmd.Parameters.Clear();
         var idParam = dbCmd.CreateParameter();

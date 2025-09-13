@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 using YAF.Core.Migrations;
 
 namespace YAF.Core.Services;
@@ -35,7 +37,7 @@ using YAF.Core.Model;
 using YAF.Types.Models;
 
 /// <summary>
-///     The install upgrade service.
+///     The install service.
 /// </summary>
 public class InstallService : IHaveServiceLocator
 {
@@ -100,6 +102,9 @@ public class InstallService : IHaveServiceLocator
     /// <param name="forumName">
     /// The forum name.
     /// </param>
+    /// <param name="forumDescription">
+    /// Description of the board.
+    /// </param>
     /// <param name="culture">
     /// The culture.
     /// </param>
@@ -113,7 +118,7 @@ public class InstallService : IHaveServiceLocator
     /// The forum base URL mask.
     /// </param>
     /// <param name="adminUserName">
-    /// The admin user name.
+    /// The admin username.
     /// </param>
     /// <param name="adminEmail">
     /// The admin email.
@@ -121,9 +126,10 @@ public class InstallService : IHaveServiceLocator
     /// <param name="adminProviderUserKey">
     /// The admin provider user key.
     /// </param>
-    public void InitializeForum(
+    public async Task InitializeForumAsync(
         Guid applicationId,
         string forumName,
+        string forumDescription,
         string culture,
         string forumEmail,
         string forumLogo,
@@ -133,7 +139,7 @@ public class InstallService : IHaveServiceLocator
         string adminProviderUserKey)
     {
         ArgumentNullException.ThrowIfNull(forumName);
-        ArgumentNullException.ThrowIfNull(forumName);
+        ArgumentNullException.ThrowIfNull(forumEmail);
         ArgumentNullException.ThrowIfNull(culture);
         ArgumentNullException.ThrowIfNull(forumLogo);
         ArgumentNullException.ThrowIfNull(forumBaseUrlMask);
@@ -159,8 +165,9 @@ public class InstallService : IHaveServiceLocator
         this.GetRepository<Registry>().Save("forumlogo", forumLogo);
         this.GetRepository<Registry>().Save("baseurlmask", forumBaseUrlMask);
 
-        var boardId = this.GetRepository<Board>().Create(
+        var boardId = await this.GetRepository<Board>().CreateAsync(
             forumName,
+            forumDescription,
             forumEmail,
             culture,
             langFile,
@@ -175,7 +182,7 @@ public class InstallService : IHaveServiceLocator
 
         this.CreateUploadsFolder();
 
-        this.AddOrUpdateExtensions();
+        this.AddExtensions(boardId);
     }
 
     /// <summary>
@@ -212,8 +219,6 @@ public class InstallService : IHaveServiceLocator
         this.GetRepository<Registry>().Save("version", this.Get<BoardInfo>().AppVersion.ToString());
         this.GetRepository<Registry>().Save("versionname", this.Get<BoardInfo>().AppVersionName);
 
-        this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
-
         return true;
     }
 
@@ -232,11 +237,11 @@ public class InstallService : IHaveServiceLocator
         }
     }
 
-
     /// <summary>
-    ///    Add or Update BBCode Extensions and Spam Words
+    ///    Add the BBCode Extensions and Spam Words to the new board.
     /// </summary>
-    private void AddOrUpdateExtensions()
+    /// <param name="boardId">The board id.</param>
+    private void AddExtensions(int boardId)
     {
         var loadWrapper = new Action<string, Action<Stream>>(
             (file, streamAction) =>
@@ -254,20 +259,12 @@ public class InstallService : IHaveServiceLocator
                     stream.Close();
                 });
 
-        // get all boards...
-        var boardIds = this.GetRepository<Board>().GetAll().Select(x => x.ID);
+        this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(boardId));
 
-        // Upgrade all Boards
-        boardIds.ForEach(
-            boardId =>
-                {
-                    this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(boardId));
+        // load default bbcode if available...
+        loadWrapper(BbcodeImport, s => this.Get<IDataImporter>().BBCodeExtensionImportAsync(boardId, s));
 
-                    // load default bbcode if available...
-                    loadWrapper(BbcodeImport, s => this.Get<IDataImporter>().BBCodeExtensionImport(boardId, s));
-
-                    // load default spam word if available...
-                    loadWrapper(SpamWordsImport, s => this.Get<IDataImporter>().SpamWordsImport(boardId, s));
-                });
+        // load default spam word if available...
+        loadWrapper(SpamWordsImport, s => this.Get<IDataImporter>().SpamWordsImport(boardId, s));
     }
 }

@@ -36,6 +36,12 @@ public class SettingsInputModel
     public string Name { get; set; }
 
     /// <summary>
+    /// Gets or sets the description.
+    /// </summary>
+    /// <value>The description.</value>
+    public string Description { get; set; }
+
+    /// <summary>
     /// Gets or sets the forum email.
     /// </summary>
     /// <value>The forum email.</value>
@@ -118,12 +124,6 @@ public class SettingsInputModel
     /// </summary>
     /// <value>The digest send every x hours.</value>
     public int DigestSendEveryXHours { get; set; }
-
-    /// <summary>
-    /// Gets or sets the CDV version.
-    /// </summary>
-    /// <value>The CDV version.</value>
-    public string CdvVersion { get; set; }
 
     /// <summary>
     /// Gets or sets the forum default access mask.

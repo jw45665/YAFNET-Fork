@@ -1,10 +1,8 @@
 ﻿@import "prism";
-@import "bootstrap-notify";
 
 @import "fontawesome/fontawesome-all";
-@import "flag-icons/flag-icons.scss";
 
-// --Forum imports
+// Forum imports
 @import "forum/attachments-upload.scss";
 @import "forum/dropdowns.scss";
 @import "forum/cookie-alert.scss";
@@ -20,16 +18,6 @@
 
 .list-inline {
     margin: 0;
-}
-
-// Pager
-.gotoPageForm {
-    z-index: 99999;
-}
-
-// Spinner Input
-.bootstrap-touchspin {
-    width: 250px;
 }
 
 // Event log
@@ -66,4 +54,19 @@
     .nav-settings {
         flex-direction: column !important
     }
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
+}
+
+.chart-container {
+    margin: 0 auto;
+}
+
+.dropdown-mentions {
+    max-height: 200px;
+    margin-bottom: 10px;
+    overflow: scroll;
 }

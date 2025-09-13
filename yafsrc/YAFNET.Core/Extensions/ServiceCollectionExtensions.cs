@@ -129,7 +129,7 @@ public static class ServiceCollectionExtensionsExtensions
 
         services.AddYafIdentityOptions();
 
-        services.AddYafAuthentication(configuration);
+        services.AddYafAuthentication();
 
         services.AddYafInstallLanguages();
 
@@ -149,15 +149,28 @@ public static class ServiceCollectionExtensionsExtensions
         {
             services.AddRateLimiter(rateOptions =>
             {
-                rateOptions
-                    .AddFixedWindowLimiter(policyName: "fixed", options =>
+                rateOptions.AddPolicy("fixed", context =>
+                {
+                    var isAuthenticated = context.User.Identity?.IsAuthenticated;
+
+                    if (BoardContext.Current.IsAdmin || (isAuthenticated.HasValue && isAuthenticated.Value &&
+                                                         BoardContext.Current.PageUser.NumPosts >=
+                                                         context.RequestServices.GetService<BoardSettings>()
+                                                             .IgnoreSpamWordCheckPostCount))
+                    {
+                        return RateLimitPartition.GetNoLimiter(IPAddress.None);
+                    }
+
+                    return RateLimitPartition.GetFixedWindowLimiter(
+                        partitionKey: context.Connection.RemoteIpAddress,
+                        factory: _ => new FixedWindowRateLimiterOptions
                         {
-                            options.PermitLimit = boardConfig.RateLimiterPermitLimit;
-                            options.Window = TimeSpan.FromSeconds(60);
-                            options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-                            options.QueueLimit = 2;
-                        }
-                    );
+                            PermitLimit = boardConfig.RateLimiterPermitLimit,
+                            Window = TimeSpan.FromSeconds(60),
+                            QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                            QueueLimit = 2
+                        });
+                });
 
                 rateOptions.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
             });
@@ -172,13 +185,9 @@ public static class ServiceCollectionExtensionsExtensions
     /// Adds the yaf Authentication.
     /// </summary>
     /// <param name="services">The services.</param>
-    /// <param name="configuration"></param>
     /// <returns>IServiceCollection.</returns>
-    public static IServiceCollection AddYafAuthentication(this IServiceCollection services,
-        IConfiguration configuration)
+    public static IServiceCollection AddYafAuthentication(this IServiceCollection services)
     {
-       
-
         var authenticationBuilder = services.AddAuthentication();
 
         authenticationBuilder.AddCookie(

@@ -1,6 +1,6 @@
 {
   "name": "yafnet-razorpages",
-  "version": "4.0.0-rc.4",
+  "version": "4.0.1",
   "description": "This Application is a Standard Visual Studio Sample ASP.NET Core Application, including YAF.NET integrated",
   "repository": {
     "type": "git",
@@ -16,6 +16,7 @@
     "preinstall": "npm install -g ruby sass"
   },
   "devDependencies": {
+    "@lodder/time-grunt": "^4.0.0",
     "@w8tcha/grunt-dev-update": "^2.3.4",
     "grunt": "^1.6.1",
     "grunt-contrib-copy": "^1.0.0"

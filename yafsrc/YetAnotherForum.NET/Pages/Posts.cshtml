@@ -207,7 +207,7 @@
 											            Model.GetText("LINKBACK_TOPIC"),
 											            Model.GetText("LINKBACK_TOPIC_PROMT"),
 											            Model.GetText("CANCEL"),
-											            Model.GetText("OK"),
+											            Model.GetText("COPY_TO_CLIPBOARD"),
 											            topicUrl))"></a>
 								</div>
 							}
@@ -223,7 +223,7 @@
                                     
 								@if (!Model.PageBoardContext.IsGuest)
 								{
-									var isWatched = Model.HandleWatchTopic();
+									var isWatched = await Model.HandleWatchTopicAsync();
 
 									if (isWatched)
 									{
@@ -427,10 +427,14 @@
 </div>
 
 @section Scripts {
-
-    <script>
+    @await Html.PartialAsync("_PostScriptsPartial")
+	@if (showQuickReply)
+	{
+		@await Html.PartialAsync("_EditorScriptsPartial")
+	}
+    <script type="module">
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ForumModsPopoverJs(
-            $"<i class=\"fa fa-user-secret fa-fw text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))
+            $"<i class=\"fa fa-user-secret text-secondary\"></i>&nbsp;{Model.Get<ILocalization>().GetText("DEFAULT", "MODERATORS")} ...")))
 
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.TopicLinkPopoverJs(
             $"{Model.Get<ILocalization>().GetText("TOPIC_STARTER")}&nbsp;...",

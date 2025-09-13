@@ -210,7 +210,7 @@ public struct JsonTypeSerializer
     {
         var dateTime = (DateTime)oDateTime;
         var config = JsConfig.GetConfig();
-#if NET8_0_OR_GREATER
+#if NET9_0_OR_GREATER
         if (config.SystemJsonCompatible)
         {
             var json = System.Text.Json.JsonSerializer.Serialize(dateTime, TextConfig.SystemJsonOptions);
@@ -259,7 +259,7 @@ public struct JsonTypeSerializer
     public void WriteDateTimeOffset(TextWriter writer, object oDateTimeOffset)
     {
         var dateTimeOffset = (DateTimeOffset)oDateTimeOffset;
-#if NET8_0_OR_GREATER
+#if NET9_0_OR_GREATER
         if (JsConfig.SystemJsonCompatible)
         {
             var json = System.Text.Json.JsonSerializer.Serialize(dateTimeOffset, TextConfig.SystemJsonOptions);
@@ -859,7 +859,7 @@ public struct JsonTypeSerializer
             return value;
         }
 
-        if (value[0] == JsonUtils.QuoteChar && value[value.Length - 1] == JsonUtils.QuoteChar)
+        if (value[0] == JsonUtils.QuoteChar && value[^1] == JsonUtils.QuoteChar)
         {
             return value.Slice(1, value.Length - 2);
         }
@@ -908,7 +908,7 @@ public struct JsonTypeSerializer
     {
         if (json.IsNullOrEmpty())
         {
-            return new(json, index);
+            return new SpanIndex(json, index);
         }
 
         var jsonLength = json.Length;
@@ -924,14 +924,14 @@ public struct JsonTypeSerializer
             var strEndPos = jsonAtIndex.IndexOfAny(IsSafeJsonChars);
             if (strEndPos == -1)
             {
-                return new(jsonAtIndex.Slice(0, jsonLength), index);
+                return new SpanIndex(jsonAtIndex.Slice(0, jsonLength), index);
             }
 
             if (jsonAtIndex[strEndPos] == quoteChar)
             {
                 var potentialValue = jsonAtIndex.Slice(0, strEndPos);
                 index += strEndPos + 1;
-                return new(potentialValue.Length > 0
+                return new SpanIndex(potentialValue.Length > 0
                               ? potentialValue
                               : TypeConstants.EmptyStringSpan, index);
             }
@@ -953,11 +953,11 @@ public struct JsonTypeSerializer
             }
             if (i == end)
             {
-                return new(buffer.Slice(index, jsonLength - index), index);
+                return new SpanIndex(buffer.Slice(index, jsonLength - index), index);
             }
         }
 
-        return new(Unescape(json, removeQuotes: removeQuotes, quoteChar: quoteChar), index);
+        return new SpanIndex(Unescape(json, removeQuotes: removeQuotes, quoteChar: quoteChar), index);
     }
 
     /// <summary>

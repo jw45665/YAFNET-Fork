@@ -40,19 +40,16 @@ public interface IBBCodeService
     /// <param name="message">
     ///     The message.
     /// </param>
-    /// <param name="flags">
-    ///     The Message flags.
+    /// <param name="messageId">
+    ///     The message id.
     /// </param>
     /// <param name="displayUserId">
     ///     The display user id.
     /// </param>
-    /// <param name="messageId">
-    ///     The message id.
-    /// </param>
     /// <returns>
     /// Returns the formatted Message.
     /// </returns>
-    Task<string> FormatMessageWithCustomBBCodeAsync(string message, MessageFlags flags, int? displayUserId, int? messageId);
+    Task<string> FormatMessageWithCustomBBCodeAsync(string message, int? messageId, int? displayUserId);
 
     /// <summary>
     /// Converts a message containing HTML to BBCode for editing.
@@ -140,8 +137,14 @@ public interface IBBCodeService
         string editorId);
 
     /// <summary>
-    ///     The get custom bb code.
+    ///     Get the list of custom BBCodes.
     /// </summary>
     /// <returns> Returns List with Custom BBCodes </returns>
-    IEnumerable<BBCode> GetCustomBBCode();
+    IEnumerable<BBCode> GetCustomBBCodes();
+
+    /// <summary>
+    ///     Get the list of custom BBCodes.
+    /// </summary>
+    /// <returns> Returns List with Custom BBCodes </returns>
+    Task<IEnumerable<BBCode>> GetCustomBBCodesAsync();
 }

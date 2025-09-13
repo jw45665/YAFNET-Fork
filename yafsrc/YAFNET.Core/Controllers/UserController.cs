@@ -24,19 +24,19 @@
 
 namespace YAF.Core.Controllers;
 
-using System.Threading.Tasks;
 using System;
+using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.Extensions.Logging;
 
+using YAF.Core.BasePages;
+using YAF.Core.Context;
 using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
-using YAF.Core.BasePages;
 using YAF.Types.Objects.Model;
-
-using Microsoft.AspNetCore.OutputCaching;
 
 /// <summary>
 /// The User controller.
@@ -106,25 +106,27 @@ public class UserController : ForumBaseController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetMentionUsers")]
     [OutputCache]
-    public Task<ActionResult> GetMentionUsers(string users)
+    public async Task<ActionResult> GetMentionUsers(string users)
     {
         try
         {
             // Check if user has access
             if (BoardContext.Current == null)
             {
-                return Task.FromResult<ActionResult>(this.NotFound());
+                return this.NotFound();
             }
 
             var searchQuery = users;
 
-            var usersList = this.GetRepository<User>().Get(
+            var usersList = await this.GetRepository<User>().GetAsync(
                 user => this.PageBoardContext.BoardSettings.EnableDisplayName
                     ? user.DisplayName.StartsWith(searchQuery)
                     : user.Name.StartsWith(searchQuery));
 
+            var userIgnoredList = await this.Get<IUserIgnored>().UserIgnoredListAsync(BoardContext.Current.PageUserID);
+
             var userList = usersList.AsEnumerable().Where(u =>
-                !this.Get<IUserIgnored>().IsIgnored(u.ID) && u.BoardID == BoardContext.Current.PageBoardID &&
+                !userIgnoredList.Contains(u.ID) && u.BoardID == BoardContext.Current.PageBoardID &&
                 !u.UserFlags.IsDeleted && u.UserFlags.IsApproved).Select(
                 u => new {
                     id = u.ID,
@@ -132,7 +134,7 @@ public class UserController : ForumBaseController
                     avatar = this.Get<IAvatars>().GetAvatarUrlForUser(u)
                 });
 
-            return Task.FromResult<ActionResult>(this.Ok(userList));
+            return this.Ok(userList);
         }
         catch (Exception x)
         {
@@ -140,7 +142,7 @@ public class UserController : ForumBaseController
                 .Log(BoardContext.Current != null ? this.PageBoardContext.PageUserID : null, this, x,
                     EventLogTypes.Information);
 
-            return Task.FromResult<ActionResult>(this.NotFound());
+            return this.NotFound();
         }
     }
 }

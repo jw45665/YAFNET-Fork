@@ -1,10 +1,7 @@
 @page "{handler?}"
 
 @using YAF.Core.Context
-@using YAF.Core.Extensions
-@using YAF.Core.Helpers
 @using YAF.Core.Model
-@using YAF.Core.Utilities
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
@@ -44,7 +41,7 @@
                             <li id="@(user.ID)" class="@(user.Selected ? "chat-list-user list-group-item list-group-item-action active" : "chat-list-user list-group-item list-group-item-action")">
                                 <img class="img-thumbnail rounded float-start mt-1" src="@(Model.Get<IAvatars>().GetAvatarUrlForUser(user))" alt="User Image">
                                 <div class="float-start ps-2">
-                                    <span class="name">@Model.HtmlEncode(user.DisplayOrUserName())</span>
+                                    <span class="name">@Html.UserLabel(user)</span>
                                     <div>
                                         @if (Model.PageBoardContext.BoardSettings.ShowUserOnlineStatus)
                                         {
@@ -77,14 +74,13 @@
     <div class="col">
         <div class="row">
             <div class="col">
-                <div id="PriChatDiv"></div>
+                <div id="PriChatDiv" data-placeholder="@Model.GetText("PM", "PLACEHOLDER")"></div>
             </div>
         </div>
     </div>
 </div>
 
 @section Scripts {
-    <script>
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.StartChatJs))
-    </script>
+	<script src="~/js/messages.min.js" asp-append-version="true" defer></script>
+   
 }

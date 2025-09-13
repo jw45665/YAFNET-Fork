@@ -188,6 +188,15 @@ public static class OrmLiteConfig
         }
     }
 
+    public static IDbConnection WithName(this IDbConnection db, string name)
+    {
+        if (db is OrmLiteConnection ormLiteConn)
+        {
+            ormLiteConn.Name = name;
+        }
+        return db;
+    }
+
     /// <summary>
     /// The requires orm lite connection
     /// </summary>
@@ -342,12 +351,8 @@ public static class OrmLiteConfig
     /// <value>The execute filter.</value>
     public static IOrmLiteExecFilter ExecFilter
     {
-        get
-        {
-            if (execFilter == null)
-            {
-                execFilter = new OrmLiteExecFilter();
-            }
+        get {
+            execFilter ??= new OrmLiteExecFilter();
 
             return dialectProvider != null
                        ? dialectProvider.ExecFilter ?? execFilter

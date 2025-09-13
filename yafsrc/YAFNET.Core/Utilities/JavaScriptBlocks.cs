@@ -74,28 +74,6 @@ public static class JavaScriptBlocks
           """;
 
     /// <summary>
-    /// Get the album edit caption javascript
-    /// </summary>
-    /// <returns>The album edit caption JS.</returns>
-    public static string AlbumEditCaptionJs =>
-        """
-        document.querySelectorAll(".album-caption").forEach(el => {
-           const popover = new DarkEditable(el);
-        });
-        """;
-
-    /// <summary>
-    /// Get the album image edit caption javascript
-    /// </summary>
-    /// <returns>The album image edit caption JS.</returns>
-    public static string AlbumImageEditCaptionJs =>
-        """
-        document.querySelectorAll(".album-image-caption").forEach(el => {
-           const popover = new DarkEditable(el);
-        });
-        """;
-
-    /// <summary>
     /// Gets Board Tags JavaScript
     /// </summary>
     /// <param name="inputId">
@@ -452,9 +430,9 @@ public static class JavaScriptBlocks
                       
                           button.addEventListener("click", event => {
                               if (button.getAttribute("aria-expanded") === "false") {
-                                  button.innerHTML = '<i class="fa fa-caret-square-down fa-fw"></i>&nbsp;{{showText}}';
+                                  button.innerHTML = '<i class="fa fa-caret-square-down"></i>&nbsp;{{showText}}';
                               } else {
-                                  button.innerHTML = '<i class="fa fa-caret-square-up fa-fw"></i>&nbsp;{{hideText}}';
+                                  button.innerHTML = '<i class="fa fa-caret-square-up"></i>&nbsp;{{hideText}}';
                               }
                           });
                       });
@@ -583,14 +561,17 @@ public static class JavaScriptBlocks
             string insertNote,
             string typeTitle)
     {
-        return $$$"""
-                  var {{{editorId}}}=new yafEditor("{{{editorId}}}", "{{{urlTitle}}}", "{{{urlDescription}}}", "{{{urlImageTitle}}}", "{{{urlImageDescription}}}", "{{{description}}}", 
-                                                   "{{{mediaTitle}}}", "{{{insertNote}}}", "{{{typeTitle}}}");
+        return $$"""
+                  document.addEventListener('DOMContentLoaded', function () {
+                  window.{{editorId}}=new yafEditor("{{editorId}}", "{{urlTitle}}", "{{urlDescription}}", "{{urlImageTitle}}", "{{urlImageDescription}}", "{{description}}", 
+                                                   "{{mediaTitle}}", "{{insertNote}}", "{{typeTitle}}");
+                                                   
+                  });
                                     function setStyle(style,option) {
-                                             {{{editorId}}}.FormatText(style,option);
+                                             {{editorId}}.FormatText(style,option);
                                     }
                                     function insertAttachment(id,url) {
-                                        {{{editorId}}}.FormatText("attach", id);
+                                        {{editorId}}.FormatText("attach", id);
                                         
                                         var modal = bootstrap.Modal.getInstance(document.getElementById('UploadDialog'));
                   
@@ -598,11 +579,7 @@ public static class JavaScriptBlocks
                                             modal.hide();
                                         }
                                     }
-                                    
-                  mentions({id: '{{{editorId}}}',
-                           lookup: 'user',
-                           url:'/api/User/GetMentionUsers?users={q}',
-                           onclick: function (data) {{{{editorId}}}.FormatText("userlink", data.name);}});
+                  
                   """;
     }
 
@@ -637,11 +614,11 @@ public static class JavaScriptBlocks
                          locale: '{{{locale}}}',
                          toolbar: '{{{toolbar}}}',
                          root: '',
-                         plugins: 'plaintext,dragdrop,undo',
+                         plugins: 'plaintext,dragdrop,undo,mentions',
                          styles: [{{{styles}}}],
                          extensionsUrl: '{{{extensionsUrl}}}',
                          albumsPreviewUrl: '/api/Albums/GetImagePreview?imageId=',
-                         onToggleMode: toggleMode
+                         mentionsUrl: '/api/User/GetMentionUsers?users={q}'
                          {{{dragDropJs}}}
                      });
                      
@@ -657,17 +634,6 @@ public static class JavaScriptBlocks
                              modal.hide();
                          }
                      }
-                     
-                     function toggleMode() {
-                         mentions({
-                             element: sceditor.instance(textarea),
-                             lookup: 'user',
-                             url: '/api/User/GetMentionUsers?users={q}',
-                             onclick: function (data) { sceditor.instance(textarea).insert(`[userlink]${data.name}[/userlink]`); }
-                         });
-                     }
-                     
-                     toggleMode();        
                     
                      """;
     }
@@ -724,44 +690,6 @@ public static class JavaScriptBlocks
                  }
                  }
                  """;
-    }
-
-    /// <summary>
-    /// The CodeMirror SQL Load JS.
-    /// </summary>
-    /// <param name="editorId">
-    /// The editor Id.
-    /// </param>
-    /// <param name="mime">
-    /// The mime.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    public static string CodeMirrorSqlLoadJs(
-        string editorId,
-        string mime)
-    {
-        return $$"""
-                  window.onload = function () {
-                      window.editor = CodeMirror.fromTextArea(document.getElementById('{{editorId}}'), {
-                          mode: "{{mime}}",
-                          indentWithTabs: true,
-                          smartIndent: true,
-                          lineNumbers: true,
-                          matchBrackets: true,
-                          theme: "monokai",
-                          autofocus: true,
-                          extraKeys: { "Ctrl-Space": "autocomplete" },
-                          hintOptions: {
-                              tables: {
-                                  users: ["name", "score", "birthDate"],
-                                  countries: ["name", "population", "size"]
-                              }
-                          }
-                      });
-                  };
-                  """;
     }
 
     /// <summary>
@@ -890,7 +818,7 @@ public static class JavaScriptBlocks
     /// The forum drop down identifier.
     /// </param>
     /// <param name="placeHolder">
-    /// The select place holder.
+    /// The select placeholder.
     /// </param>
     /// <returns>
     /// Returns the select topics load JS.
@@ -1004,7 +932,7 @@ public static class JavaScriptBlocks
     /// The forum drop down identifier.
     /// </param>
     /// <param name="placeHolder">
-    /// The place Holder.
+    /// The placeholder.
     /// </param>
     /// <param name="forumLink">
     /// Go to Forum on select
@@ -1070,7 +998,7 @@ public static class JavaScriptBlocks
 
         return $$"""
                  if (document.getElementById("{{forumDropDownId}}") != null) {
-                 var forumsSelect = new Choices("#{{forumDropDownId}}", {
+                 var forumsSelect = new window.Choices("#{{forumDropDownId}}", {
                      allowHTML: true,
                      shouldSort: false,
                      classNames: { containerOuter: ['choices', 'w-100', 'choices-forum'] },
@@ -1089,9 +1017,10 @@ public static class JavaScriptBlocks
                  };
 
                  forumsSelect.setChoices(function () {
-                     return loadForumChoiceOptions(forumQuery, "/api/Forum/GetForums", {{selectHiddenValue}}) });
-
-                 {{selectHiddenJs}}
+                 
+                     {{selectHiddenJs}}
+                     return loadForumChoiceOptions(forumQuery, "/api/Forum/GetForums", {{selectHiddenValue}}) 
+                 });
 
                  forumsSelect.passedElement.element.addEventListener("search", function (event) {
                  
@@ -1220,7 +1149,7 @@ public static class JavaScriptBlocks
                            progressBar.className = "progress-bar bg-warning w-75";
                        } else {
                            passwordHelp.innerText = "{{passwordWeakText}}";
-                           progressBar.classList.add("progress-bar bg-warning w-50");
+                           progressBar.classList.add("progress-bar", "bg-warning", "w-50");
                        }
                    }
                
@@ -1567,15 +1496,7 @@ public static class JavaScriptBlocks
         string ok,
         string value)
     {
-        return $$"""
-                   bootbox.prompt({
-                       title: '{{title}}',
-                       message: '{{message}}',
-                       value: '{{value}}',
-                       buttons: { cancel: { label: '{{cancel}}' }, confirm: { label: '{{ok}}' } },
-                       callback: function () { }
-                   });
-                   """;
+        return $"bootboxShareTopic('{title}','{message}','{cancel}','{ok}','{value}');";
     }
 
     /// <summary>
@@ -1793,37 +1714,26 @@ public static class JavaScriptBlocks
     public static string ToggleDiffSelectionJs(string message)
     {
         return $$"""
-                 function toggleSelection(source) {
-                     if (document.querySelectorAll(".form-check-input:checked").length > 2) {
-                     source.checked = false;
-                     bootbox.alert("{{message}}");
-                     }
-                 }
-                 """;
-    }
-
-    /// <summary>
-    /// Persians the date time picker js.
-    /// </summary>
-    /// <param name="inputId">The input identifier.</param>
-    /// <returns>string.</returns>
-    public static string PersianDateTimePickerJs(string inputId)
-    {
-        return $$"""
-                 var input = document.querySelector('#{{inputId}}');
-                    
-                    if (input !== null)
-                    {
-                    input.setAttribute("type", "text");
-                  
-                     new mds.MdsPersianDateTimePicker(input, {
-                        targetTextSelector: '#{{inputId}}',
-                  
-                        selectedDate: new Date(input.value),
-                        selectedDateToShow: new Date(input.value)
-                      });
-                 	 }
-                 """;
+                  function toggleSelection(source) {
+                      if (document.querySelectorAll(".form-check-input:checked").length > 2) {
+                      source.checked = false;
+                      
+                      new Notify({
+                      title: "{{BoardContext.Current.BoardSettings.Name}}",
+                      message: '{{message}}',
+                      icon: "fa fa-exclamation-triangle"
+                  },
+                  {
+                      type: 'warning',
+                      element: '#diffContent',
+                      position: null,
+                      placement: { from: "top", align: "center" },
+                      delay: {{BoardContext.Current.BoardSettings.MessageNotifcationDuration}} * 1000
+                  });
+                      
+                      }
+                  }
+                  """;
     }
 
     /// <summary>
@@ -1880,12 +1790,6 @@ public static class JavaScriptBlocks
                                          """;
 
     /// <summary>
-    /// Starts the chat js.
-    /// </summary>
-    /// <returns>System.String.</returns>
-    public const string StartChatJs = "startChat();";
-
-    /// <summary>
     /// The cookie consent JS.
     /// </summary>
     /// <returns>
@@ -1921,15 +1825,6 @@ public static class JavaScriptBlocks
                                         });
                                         }
                                         """;
-
-    /// <summary>
-    /// Gets the Do Search javascript.
-    /// </summary>
-    /// <returns>
-    /// Returns the do Search Javascript String
-    /// </returns>
-    public const string DoSearchJs =
-        "document.addEventListener(\"DOMContentLoaded\", function() { getSearchResultsData(0);});";
 
     /// <summary>
     /// Form Validator JS.

@@ -1,12 +1,9 @@
-﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
-@using YAF.Core.Context
+﻿@using YAF.Core.Context
 @using YAF.Core.Extensions
-@using YAF.Core.Services
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
-@using YAF.Web.TagHelpers
 
 @inject BoardContext Current
 
@@ -78,7 +75,7 @@
     </div>
 </footer>
 
-<script src="@(Current.Get<BoardInfo>().GetUrlToScripts("forumExtensions.min.js"))" asp-append-version="true"></script>
+    <script src="~/js/forumExtensions.min.js" asp-append-version="true"></script>
 
 @if (!Current.IsGuest)
 {

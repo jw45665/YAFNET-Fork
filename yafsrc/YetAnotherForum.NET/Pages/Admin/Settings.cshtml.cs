@@ -138,6 +138,7 @@ public class SettingsModel : AdminPage
         this.GetRepository<Board>().Save(
             this.PageBoardContext.PageBoardID,
             this.Input.Name,
+            this.Input.Description,
             languageFile,
             this.Input.Culture);
 
@@ -177,17 +178,6 @@ public class SettingsModel : AdminPage
     }
 
     /// <summary>
-    /// Increases the CDV version on click.
-    /// </summary>
-    public Task OnPostIncreaseVersionAsync()
-    {
-        this.PageBoardContext.BoardSettings.CdvVersion++;
-        this.Get<BoardSettingsService>().SaveRegistry(this.PageBoardContext.BoardSettings);
-
-        return this.BindDataAsync();
-    }
-
-    /// <summary>
     /// Binds the data.
     /// </summary>
     private async Task BindDataAsync()
@@ -199,8 +189,7 @@ public class SettingsModel : AdminPage
         var boardSettings = this.PageBoardContext.BoardSettings;
 
         this.Input.Name = board.Name;
-
-        this.Input.CdvVersion = boardSettings.CdvVersion.ToString();
+        this.Input.Description = board.Description;
 
         this.Themes = StaticDataHelper.Themes();
 

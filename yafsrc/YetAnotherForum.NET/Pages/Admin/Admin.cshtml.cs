@@ -73,17 +73,18 @@ public class AdminModel : AdminPage
     public List<ActiveUser> ActiveUserList { get; set; }
 
     /// <summary>
+    /// Gets or sets the active user list.
+    /// </summary>
+    /// <value>The active user list.</value>
+    [BindProperty]
+    public List<StatsData> ActiveUserIpList { get; set; }
+
+    /// <summary>
     /// Gets or sets the update highlight.
     /// </summary>
     /// <value>The update highlight.</value>
     [TempData]
     public string UpdateHighlight { get; set; }
-
-    /// <summary>
-    /// Gets or sets the boards.
-    /// </summary>
-    /// <value>The boards.</value>
-    public SelectList Boards { get; set; }
 
     /// <summary>
     /// Gets or sets the pageSize List.
@@ -115,7 +116,7 @@ public class AdminModel : AdminPage
     /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
     public async Task<IActionResult> OnPostResendEmailAsync(int id, int p, int p2)
     {
-        var unApprovedUsers = this.GetRepository<User>().GetUnApprovedUsers(this.PageBoardContext.PageBoardID);
+        var unApprovedUsers = await this.GetRepository<User>().GetUnApprovedUsersAsync(this.PageBoardContext.PageBoardID);
 
         var userUnApproved = unApprovedUsers.Find(x => x.ID == id);
 
@@ -139,7 +140,7 @@ public class AdminModel : AdminPage
 
             await verifyEmail.SendEmailAsync(new MailboxAddress(userUnApproved.DisplayOrUserName(), checkMail.Email), subject);
 
-            this.BindData(p, p2);
+            await this.BindDataAsync(p, p2);
 
             return this.PageBoardContext.Notify(this.GetText("ADMIN_ADMIN", "MSG_MESSAGE_SEND"), MessageTypes.success);
         }
@@ -150,7 +151,32 @@ public class AdminModel : AdminPage
 
         await this.Get<ISendNotification>().SendVerificationEmailAsync(user, userUnApproved.Email, userFound.ID);
 
-        this.BindData(p, p2);
+        await this.BindDataAsync(p, p2);
+
+        return this.Page();
+    }
+
+    /// <summary>
+    /// Ban the ip address.
+    /// </summary>
+    /// <param name="mask">The mask.</param>
+    /// <param name="p">The p.</param>
+    /// <param name="p2">The p2.</param>
+    /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
+    public async Task<IActionResult> OnPostBanIpAsync(string mask, int p, int p2)
+    {
+        var bannedIp = new BannedIP
+        {
+            BoardID = this.PageBoardContext.PageBoardID,
+            Mask = mask,
+            Reason = "-",
+            UserID = this.PageBoardContext.PageUserID,
+            Since = DateTime.Now
+        };
+
+        await this.GetRepository<BannedIP>().InsertAsync(bannedIp);
+
+        await this.BindDataAsync(p, p2);
 
         return this.Page();
     }
@@ -166,7 +192,7 @@ public class AdminModel : AdminPage
     {
         await this.Get<IAspNetUsersHelper>().DeleteUserAsync(id);
 
-        this.BindData(p, p2);
+        await this.BindDataAsync(p, p2);
     }
 
     /// <summary>
@@ -180,7 +206,7 @@ public class AdminModel : AdminPage
     {
         await this.Get<IAspNetUsersHelper>().ApproveUserAsync(id);
 
-        this.BindData(p, p2);
+        await this.BindDataAsync(p, p2);
     }
 
     /// <summary>
@@ -195,7 +221,7 @@ public class AdminModel : AdminPage
 
         await this.Get<IAspNetUsersHelper>().DeleteAllUnapprovedAsync(DateTime.UtcNow.AddDays(-daysValueAll.ToType<int>()));
 
-        this.BindData(p, p2);
+        await this.BindDataAsync(p, p2);
     }
 
     /// <summary>
@@ -208,15 +234,15 @@ public class AdminModel : AdminPage
     {
         await this.Get<IAspNetUsersHelper>().ApproveAllAsync();
 
-        this.BindData(p, p2);
+        await this.BindDataAsync(p, p2);
     }
 
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public void OnGet(int p, int p2)
+    public Task OnGetAsync(int p, int p2)
     {
-        this.BindData(p, p2);
+        return this.BindDataAsync(p, p2);
     }
 
     /// <summary>
@@ -224,21 +250,20 @@ public class AdminModel : AdminPage
     /// </summary>
     /// <param name="p">The p.</param>
     /// <param name="p2">The p2.</param>
-    public void OnPost(int p, int p2)
+    public Task OnPostAsync(int p, int p2)
     {
-        this.BindData(p, p2);
+        return this.BindDataAsync(p, p2);
     }
 
     /// <summary>
     /// Shows the upgrade message.
     /// </summary>
-    private void ShowUpgradeMessage()
+    private async Task ShowUpgradeMessageAsync()
     {
         try
         {
-            var version = this.Get<IDataCache>().GetOrSet(
-                "LatestVersion",
-                () => this.Get<ILatestInformationService>().GetLatestVersionAsync().Result,
+            var version = await this.Get<IDataCache>().GetOrSetAsync(
+                Constants.Cache.LatestVersion, () => this.Get<ILatestInformationService>().GetLatestVersionAsync(),
                 TimeSpan.FromDays(1));
 
             var latestVersion = (DateTime)version.VersionDate;
@@ -273,31 +298,18 @@ public class AdminModel : AdminPage
             this.Size);
 
         this.ActiveUserList = activeUsers;
+
+        this.ActiveUserIpList = this.GetRepository<Active>().GetByBoardId().GroupBy(x => x.IP)
+            .Select(a => new StatsData { Label = a.Key, Data = a.Count() }).ToList();
     }
 
-    /// <summary>
-    /// Bind list of boards to drop down
-    /// </summary>
-    private void BindBoardsList()
-    {
-        // only if user is host admin, otherwise boards' list is hidden
-        if (!this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
-        {
-            return;
-        }
-
-        var boards = this.GetRepository<Board>().GetAll();
-
-        this.Boards = new SelectList(boards, nameof(Board.ID), nameof(Board.Name), this.PageBoardContext.PageBoardID);
-    }
 
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private void BindData(int p, int p2)
+    private async Task BindDataAsync(int p, int p2)
     {
         this.Input = new AdminInputModel {
-                                        SelectedBoardId = this.PageBoardContext.PageBoardID,
                                         UnverifiedPageSize = this.PageBoardContext.PageUser.PageSize
                                     };
 
@@ -311,14 +323,13 @@ public class AdminModel : AdminPage
             nameof(SelectListItem.Value),
             nameof(SelectListItem.Text));
 
-        this.BindBoardsList();
+        await this.ShowUpgradeMessageAsync();
 
-        this.ShowUpgradeMessage();
-
-        this.BindUnverifiedUsers(p2);
+        await this.BindUnverifiedUsersAsync(p2);
 
         // get stats for current board, selected board or all boards (see function)
-        var data = this.GetRepository<Board>().Stats(this.Input.SelectedBoardId);
+        var data = await this.Get<IDataCache>().GetOrSetAsync(
+            Constants.Cache.AdminStats, () => this.GetRepository<Board>().StatsAsync(this.PageBoardContext.PageBoardID));
 
         this.Input.NumCategories = data.Categories;
         this.Input.NumForums = data.Forums;
@@ -347,7 +358,7 @@ public class AdminModel : AdminPage
 
         try
         {
-            this.Input.DBSize = $"{this.Get<IDbAccess>().GetDatabaseSize()} MB";
+            this.Input.DBSize = $"{await this.Get<IDbAccess>().GetDatabaseSizeAsync()} MB";
         }
         catch (Exception)
         {
@@ -363,9 +374,9 @@ public class AdminModel : AdminPage
     /// <param name="p2">
     /// The page index.
     /// </param>
-    private void BindUnverifiedUsers(int p2)
+    private async Task BindUnverifiedUsersAsync(int p2)
     {
-        var unverifiedUsers = this.GetRepository<User>().GetUnApprovedUsers(this.PageBoardContext.PageBoardID);
+        var unverifiedUsers = await this.GetRepository<User>().GetUnApprovedUsersAsync(this.PageBoardContext.PageBoardID);
 
         var pager = new Paging {
                                    CurrentPageIndex = p2 - 1,

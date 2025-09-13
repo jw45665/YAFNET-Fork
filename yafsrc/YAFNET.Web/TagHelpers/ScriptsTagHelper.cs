@@ -25,9 +25,9 @@
 namespace YAF.Web.TagHelpers;
 
 /// <summary>
-/// The body direction helper.
+/// Helper to inject the inline scripts in to the body tag
 /// </summary>
-[HtmlTargetElement("scripts")]
+[HtmlTargetElement("body")]
 public class ScriptsTagHelper : TagHelper, IHaveServiceLocator
 {
     /// <summary>
@@ -48,21 +48,34 @@ public class ScriptsTagHelper : TagHelper, IHaveServiceLocator
     {
         var items = BoardContext.Current.InlineElements.Items;
 
-        // Inject Internal Stylesheet
+        var count = items.Count(x => x.Type == InlineType.Script);
+
+        if (count > 0)
+        {
+            output
+                .PostContent
+                .AppendHtml("<script>");
+        }
+
+        // Inject Inline Scripts
         items.ForEach(
             script =>
                 {
-                    if (script.IsInjected || script.Type != InlineType.Script)
+                    if (!script.IsInjected && script.Type == InlineType.Script)
                     {
-                        return;
+                        output
+                            .PostContent
+                            .AppendHtml(script.Code);
                     }
-
-                    output.Content.Clear()
-                        .AppendHtml("<script>")
-                        .AppendHtml(script.Code)
-                        .AppendHtml("</script>");
 
                     script.IsInjected = true;
                 });
+
+        if (count > 0)
+        {
+            output
+                .PostContent
+                .AppendHtml("</script>");
+        }
     }
 }

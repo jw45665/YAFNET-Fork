@@ -20,14 +20,14 @@
                         <li class="list-group-item">
                             @{
                                 // Forum Statistics
-                                var postsStatistics = Current.Get<IDataCache>().GetOrSet(
+                                var postsStatistics = await Current.Get<IDataCache>().GetOrSetAsync(
                                     Constants.Cache.BoardStats,
-                                    () => Current.GetRepository<Board>().PostStats(Current.PageBoardID, true),
+                                    () => Current.GetRepository<Board>().PostStatsAsync(Current.PageBoardID, true),
                                 TimeSpan.FromMinutes(Current.BoardSettings.ForumStatisticsCacheTimeout));
 
-                                var latestUser = Current.Get<IDataCache>().GetOrSet(
+                                var latestUser = await Current.Get<IDataCache>().GetOrSetAsync(
                                     Constants.Cache.BoardUserStats,
-                                    () => Current.GetRepository<User>().Latest(Current.PageBoardID),
+                                () => Current.GetRepository<User>().LatestAsync(Current.PageBoardID),
                                 TimeSpan.FromMinutes(Current.BoardSettings.BoardUserStatsCacheTimeout));
 
                                 var statsPostsTopicCount = Current.Get<ILocalization>().GetTextFormatted(
@@ -37,9 +37,9 @@
                                     postsStatistics.Forums);
 
                                 // Member Count
-                                var membersCount = Current.Get<IDataCache>().GetOrSet(
+                                var membersCount = await Current.Get<IDataCache>().GetOrSetAsync(
                                     Constants.Cache.BoardMembers,
-                                    () => Current.GetRepository<User>().BoardMembers(Current.PageBoardID),
+                                () => Current.GetRepository<User>().BoardMembersAsync(Current.PageBoardID),
                                 TimeSpan.FromMinutes(Current.BoardSettings.BoardUserStatsCacheTimeout));
 
                                 var statsMembersCount = Current.Get<ILocalization>().GetTextFormatted("stats_members", membersCount);

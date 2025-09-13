@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="4.0.1" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>YAFNET.Types</id>
 	<title>YAFNET.Types</title>
 	<copyright>Copyright © YetAnotherForum.NET and Ingo Herbote. All rights reserved</copyright>
-    <version>4.0.0</version>
+    <version>4.0.1</version>
     <authors>Ingo Herbote</authors>
     <owners>Ingo Herbote, YAFNET</owners>
 	<readme>README.md</readme>
@@ -18,11 +18,11 @@
     <dependencies>
 		<group targetFramework="net9.0">
 			<dependency id="GoogleAuthenticator" version="3.2.0" exclude="Build,Analyzers" />
-			<dependency id="MailKit" version="4.12.1" exclude="Build,Analyzers" />
-			<dependency id="Microsoft.AspNetCore.Mvc.NewtonsoftJson" version="9.0.5" exclude="Build,Analyzers" />
+			<dependency id="MailKit" version="4.13.0" exclude="Build,Analyzers" />
+			<dependency id="Microsoft.AspNetCore.Mvc.NewtonsoftJson" version="9.0.9" exclude="Build,Analyzers" />
 			<dependency id="Microsoft.CSharp" version="4.7.0" exclude="Build,Analyzers" />
 			<dependency id="Newtonsoft.Json" version="13.0.3" exclude="Build,Analyzers" />
-			<dependency id="System.Runtime.Caching" version="9.0.5" exclude="Build,Analyzers" />
+			<dependency id="System.Runtime.Caching" version="9.0.9" exclude="Build,Analyzers" />
 		</group>
     </dependencies>
     <references>

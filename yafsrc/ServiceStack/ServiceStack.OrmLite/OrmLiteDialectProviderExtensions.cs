@@ -62,7 +62,7 @@ public static class OrmLiteDialectProviderExtensions
     /// <returns>System.String.</returns>
     public static string ToFieldName(this IOrmLiteDialectProvider dialect, string paramName)
     {
-        return paramName.Substring(dialect.ParamString.Length);
+        return paramName[dialect.ParamString.Length..];
     }
 
     /// <summary>
@@ -87,16 +87,24 @@ public static class OrmLiteDialectProviderExtensions
         return (dialect ?? OrmLiteConfig.DialectProvider).NamingStrategy.GetColumnName(columnName);
     }
 
-    /// <summary>
-    /// Gets the name of the quoted column.
-    /// </summary>
-    /// <param name="dialect">The dialect.</param>
-    /// <param name="fieldDef">The field definition.</param>
-    /// <returns>System.String.</returns>
-    public static string GetQuotedColumnName(this IOrmLiteDialectProvider dialect,
-                                             FieldDefinition fieldDef)
+    public static string GetQuotedTableName(this IOrmLiteDialectProvider dialect, string tableName)
     {
-        return dialect.GetQuotedColumnName(fieldDef.FieldName);
+        return tableName == null ? null : dialect.QuoteTable(new TableRef(tableName));
+    }
+
+    public static string GetTableName(this IOrmLiteDialectProvider dialect, string tableName)
+    {
+        return tableName == null ? null : dialect.UnquotedTable(new TableRef(tableName));
+    }
+
+    public static string GetTableName(this IOrmLiteDialectProvider dialect, Type table)
+    {
+        return table == null ? null : dialect.UnquotedTable(new TableRef(table.GetModelDefinition()));
+    }
+
+    public static string GetTableName(this IOrmLiteDialectProvider dialect, ModelDefinition modelDef)
+    {
+        return modelDef == null ? null : dialect.UnquotedTable(new TableRef(modelDef));
     }
 
     /// <summary>
@@ -111,7 +119,7 @@ public static class OrmLiteDialectProviderExtensions
     {
         return dialect.GetQuotedTableName(tableDef) +
                "." +
-               dialect.GetQuotedColumnName(fieldDef.FieldName);
+               dialect.GetQuotedColumnName(fieldDef);
     }
 
     /// <summary>
@@ -130,9 +138,9 @@ public static class OrmLiteDialectProviderExtensions
             return dialect.GetQuotedColumnName(tableDef, fieldDef);
         }
 
-        return dialect.GetQuotedTableName(tableAlias) //aliases shouldn't have schemas
+        return dialect.QuoteTable(tableAlias) //aliases shouldn't have schemas
                + "." +
-               dialect.GetQuotedColumnName(fieldDef.FieldName);
+               dialect.GetQuotedColumnName(fieldDef);
     }
 
     /// <summary>
@@ -166,7 +174,7 @@ public static class OrmLiteDialectProviderExtensions
             return dialect.GetQuotedColumnName(tableDef, fieldName);
         }
 
-        return dialect.GetQuotedTableName(tableAlias) //aliases shouldn't have schemas
+        return dialect.QuoteTable(tableAlias) //aliases shouldn't have schemas
                + "." +
                dialect.GetQuotedColumnName(fieldName);
     }
@@ -295,7 +303,7 @@ public static class OrmLiteDialectProviderExtensions
     public static string ToAddColumnStatement(this IOrmLiteDialectProvider dialect, Type modelType, FieldDefinition fieldDef)
     {
         return X.Map(modelType.GetModelDefinition(),
-            x => dialect.ToAddColumnStatement(x.Schema, x.ModelName, fieldDef));
+            x => dialect.ToAddColumnStatement(new TableRef(x), fieldDef));
     }
 
     /// <summary>
@@ -308,7 +316,7 @@ public static class OrmLiteDialectProviderExtensions
     public static string ToAlterColumnStatement(this IOrmLiteDialectProvider dialect, Type modelType, FieldDefinition fieldDef)
     {
         return X.Map(modelType.GetModelDefinition(),
-            x => dialect.ToAlterColumnStatement(x.Schema, x.ModelName, fieldDef));
+            x => dialect.ToAlterColumnStatement(new TableRef(x), fieldDef));
     }
 
     /// <summary>
@@ -322,7 +330,7 @@ public static class OrmLiteDialectProviderExtensions
     public static string ToChangeColumnNameStatement(this IOrmLiteDialectProvider dialect, Type modelType, FieldDefinition fieldDef, string oldColumnName)
     {
         return X.Map(modelType.GetModelDefinition(),
-            x => dialect.ToChangeColumnNameStatement(x.Schema, x.ModelName, fieldDef, oldColumnName));
+            x => dialect.ToChangeColumnNameStatement(new TableRef(x), fieldDef, oldColumnName));
     }
 
     /// <summary>
@@ -336,7 +344,7 @@ public static class OrmLiteDialectProviderExtensions
     public static string ToRenameColumnStatement(this IOrmLiteDialectProvider dialect, Type modelType, string oldColumnName, string newColumnName)
     {
         return X.Map(modelType.GetModelDefinition(),
-            x => dialect.ToRenameColumnStatement(x.Schema, x.ModelName, oldColumnName, newColumnName));
+            x => dialect.ToRenameColumnStatement(new TableRef(x), oldColumnName, newColumnName));
     }
 
     /// <summary>
@@ -349,7 +357,7 @@ public static class OrmLiteDialectProviderExtensions
     public static string ToDropColumnStatement(this IOrmLiteDialectProvider dialect, Type modelType, string columnName)
     {
         return X.Map(modelType.GetModelDefinition(),
-            x => dialect.ToDropColumnStatement(x.Schema, x.ModelName, columnName));
+            x => dialect.ToDropColumnStatement(new TableRef(x), columnName));
     }
 
     /// <summary>
@@ -362,6 +370,6 @@ public static class OrmLiteDialectProviderExtensions
     public static string ToDropConstraintStatement(this IOrmLiteDialectProvider dialect, Type modelType, string constraintName)
     {
         return X.Map(modelType.GetModelDefinition(),
-            x => dialect.ToDropConstraintStatement(x.Schema, x.ModelName, constraintName));
+            x => dialect.ToDropConstraintStatement(new TableRef(x), constraintName));
     }
 }

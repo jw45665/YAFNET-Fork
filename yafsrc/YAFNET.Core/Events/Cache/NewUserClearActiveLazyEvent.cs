@@ -57,11 +57,12 @@ public class NewUserClearActiveLazyEvent : IHandleEvent<NewUserRegisteredEvent>
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(NewUserRegisteredEvent @event)
     {
         this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, @event.UserId));
         this.DataCache.Remove(Constants.Cache.ActiveDiscussions);
+        this.DataCache.Remove(Constants.Cache.RegisteredUsersByMonth);
     }
 }

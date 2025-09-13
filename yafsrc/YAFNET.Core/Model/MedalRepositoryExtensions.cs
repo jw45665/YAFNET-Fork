@@ -159,24 +159,20 @@ public static class MedalRepositoryExtensions
                               Flags = flags
                           },
                 medal => medal.ID == medalId.Value);
-
-            repository.FireUpdated(medalId);
         }
         else
         {
-            var newId = repository.Insert(
+            repository.Insert(
                 new Medal
-                    {
-                        BoardID = boardId ?? repository.BoardID,
-                        Name = name,
-                        Description = description,
-                        Message = message,
-                        Category = category,
-                        MedalURL = medalUrl,
-                        Flags = flags
-                    });
-
-            repository.FireNew(newId);
+                {
+                    BoardID = boardId ?? repository.BoardID,
+                    Name = name,
+                    Description = description,
+                    Message = message,
+                    Category = category,
+                    MedalURL = medalUrl,
+                    Flags = flags
+                });
         }
     }
 }

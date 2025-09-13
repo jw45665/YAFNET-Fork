@@ -173,6 +173,36 @@ public static class Constants
         ///   Admin Page Access List.
         /// </summary>
         public const string AdminPageAccess = "AdminPageAccess{0}";
+
+        /// <summary>
+        /// The geo ip data cache key
+        /// </summary>
+        public const string GeoIpData = "GeoIPData";
+
+        /// <summary>
+        /// The geo ip data cache check key
+        /// </summary>
+        public const string GeoIpDataCheck = "GeoIPDataCheck";
+
+        /// <summary>
+        /// The registered users by month data-cache key
+        /// </summary>
+        public const string RegisteredUsersByMonth = "RegisteredUsersByMonth";
+
+        /// <summary>
+        /// The latest version
+        /// </summary>
+        public const string LatestVersion = "LatestVersion";
+
+        /// <summary>
+        /// The admin stats
+        /// </summary>
+        public const string AdminStats = "AdminStats";
+
+        /// <summary>
+        /// The custom bb code regex dictionary
+        /// </summary>
+        public const string CustomBBCodeRegExDictionary = "CustomBBCodeRegExDictionary";
     }
 
     /// <summary>

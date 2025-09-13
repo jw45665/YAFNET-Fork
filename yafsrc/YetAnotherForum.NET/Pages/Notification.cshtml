@@ -134,7 +134,7 @@
 
                                     if (!activity.Item1.FromUserID.HasValue)
                                     {
-                                        return;
+                                        continue;
                                     }
 
                                     var userLink = Html.UserLink(activity.Item1.FromUserID.Value, activity.Item2.DisplayOrUserName(), activity.Item2.Suspended, activity.Item2.UserStyle);
@@ -148,12 +148,12 @@
                                     {
                                         if (!activity.Item1.MessageID.HasValue)
                                         {
-                                            return;
+	                                        continue;
                                         }
 
                                         var link = BoardContext.Current.Get<ILinkBuilder>().GetMessageLink(activity.Item3, activity.Item1.MessageID.Value);
 
-                                        var topicLink = $"<a href=\"{link}\" role=\"button\"><i class=\"far fa-comment fa-fw  me-1\"></i><span class=\"ms-1\">{activity.Item3.TopicName}</span></a>";
+                                        var topicLink = $"<a href=\"{link}\" role=\"button\"><i class=\"far fa-comment  me-1\"></i><span class=\"ms-1\">{activity.Item3.TopicName}</span></a>";
 
                                         if (activity.Item1.ActivityFlags.ReceivedThanks)
                                         {
@@ -214,11 +214,7 @@
                         else
                         {
                             <div class="card-body">
-                                <alert type="info"
-                                   icon="check"
-                                   icon-text-color="text-success"
-                                   localized-page="COMMON"
-                                   localized-tag="NO_ENTRY"></alert>
+	                            @await Html.PartialAsync("_NoEntryInfo")
                             </div>
                         }
 

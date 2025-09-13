@@ -250,7 +250,7 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <returns>System.String.</returns>
         public override string ToCreateSchemaStatement(string schemaName)
         {
-            var sql = $"CREATE SCHEMA [{this.GetSchemaName(schemaName)}]";
+            var sql = $"CREATE SCHEMA [{NamingStrategy.GetSchemaName(schemaName)}]";
             return sql;
         }
 
@@ -288,13 +288,14 @@ namespace ServiceStack.OrmLite.SqlServer
         /// Doeses the table exist.
         /// </summary>
         /// <param name="dbCmd">The database command.</param>
-        /// <param name="tableName">Name of the table.</param>
-        /// <param name="schema">The schema.</param>
+        /// <param name="tableRef">The table reference.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public override bool DoesTableExist(IDbCommand dbCmd, string tableName, string schema = null)
+        public override bool DoesTableExist(IDbCommand dbCmd, TableRef tableRef)
         {
+            var tableName = GetTableNameOnly(tableRef);
             var sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = {0}".SqlFmt(this, tableName);
 
+            var schema = GetSchemaName(tableRef);
             if (schema != null)
             {
                 sql += " AND TABLE_SCHEMA = {0}".SqlFmt(this, schema);
@@ -313,18 +314,18 @@ namespace ServiceStack.OrmLite.SqlServer
         /// Does table exist as an asynchronous operation.
         /// </summary>
         /// <param name="dbCmd">The database command.</param>
-        /// <param name="tableName">Name of the table.</param>
-        /// <param name="schema">The schema.</param>
+        /// <param name="tableRef">The table reference.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         public async override Task<bool> DoesTableExistAsync(
             IDbCommand dbCmd,
-            string tableName,
-            string schema = null,
+            TableRef tableRef,
             CancellationToken token = default)
         {
+            var tableName = GetTableNameOnly(tableRef);
             var sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = {0}".SqlFmt(this, tableName);
 
+            var schema = GetSchemaName(tableRef);
             if (schema != null)
             {
                 sql += " AND TABLE_SCHEMA = {0}".SqlFmt(this, schema);
@@ -344,19 +345,19 @@ namespace ServiceStack.OrmLite.SqlServer
         /// </summary>
         /// <param name="db">The database.</param>
         /// <param name="columnName">Name of the column.</param>
-        /// <param name="tableName">Name of the table.</param>
-        /// <param name="schema">The schema.</param>
+        /// <param name="tableRef">The table reference.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public override bool DoesColumnExist(
             IDbConnection db,
             string columnName,
-            string tableName,
-            string schema = null)
+            TableRef tableRef)
         {
+            var tableName = GetTableNameOnly(tableRef);
             var sql =
                 "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName"
                     .SqlFmt(this, tableName, columnName);
 
+            var schema = GetSchemaName(tableRef);
             if (schema != null)
             {
                 sql += " AND TABLE_SCHEMA = @schema";
@@ -372,21 +373,21 @@ namespace ServiceStack.OrmLite.SqlServer
         /// </summary>
         /// <param name="db">The database.</param>
         /// <param name="columnName">Name of the column.</param>
-        /// <param name="tableName">Name of the table.</param>
-        /// <param name="schema">The schema.</param>
+        /// <param name="tableRef">The table reference.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         public async override Task<bool> DoesColumnExistAsync(
             IDbConnection db,
             string columnName,
-            string tableName,
-            string schema = null,
+            TableRef tableRef,
             CancellationToken token = default)
         {
+            var tableName = GetTableNameOnly(tableRef);
             var sql =
                 "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName"
                     .SqlFmt(this, tableName, columnName);
 
+            var schema = GetSchemaName(tableRef);
             if (schema != null)
             {
                 sql += " AND TABLE_SCHEMA = @schema";
@@ -402,19 +403,19 @@ namespace ServiceStack.OrmLite.SqlServer
         /// </summary>
         /// <param name="db">The database.</param>
         /// <param name="columnName">Name of the column.</param>
-        /// <param name="tableName">Name of the table.</param>
-        /// <param name="schema">The schema.</param>
+        /// <param name="tableRef">The table reference.</param>
         /// <returns>System.String.</returns>
         public override string GetColumnDataType(
             IDbConnection db,
             string columnName,
-            string tableName,
-            string schema = null)
+            TableRef tableRef)
         {
+            var tableName = this.UnquotedTable(tableRef);
             var sql =
                 "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName"
                     .SqlFmt(this, tableName, columnName);
 
+            var schema = GetSchemaName(tableRef);
             if (schema != null)
             {
                 sql += " AND TABLE_SCHEMA = @schema";
@@ -428,19 +429,19 @@ namespace ServiceStack.OrmLite.SqlServer
         /// </summary>
         /// <param name="db">The database.</param>
         /// <param name="columnName">Name of the column.</param>
-        /// <param name="tableName">Name of the table.</param>
-        /// <param name="schema">The schema.</param>
+        /// <param name="tableRef">The table reference.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public override bool ColumnIsNullable(
             IDbConnection db,
             string columnName,
-            string tableName,
-            string schema = null)
+            TableRef tableRef)
         {
+            var tableName = this.UnquotedTable(tableRef);
             var sql =
                 "SELECT is_nullable FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName"
                     .SqlFmt(this, tableName, columnName);
 
+            var schema = this.GetSchemaName(tableRef);
             if (schema != null)
             {
                 sql += " AND TABLE_SCHEMA = @schema";
@@ -454,19 +455,19 @@ namespace ServiceStack.OrmLite.SqlServer
         /// </summary>
         /// <param name="db">The database.</param>
         /// <param name="columnName">Name of the column.</param>
-        /// <param name="tableName">Name of the table.</param>
-        /// <param name="schema">The schema.</param>
+        /// <param name="tableRef">The table reference.</param>
         /// <returns>System.Int64.</returns>
         public override long GetColumnMaxLength(
             IDbConnection db,
             string columnName,
-            string tableName,
-            string schema = null)
+            TableRef tableRef)
         {
+            var tableName = this.UnquotedTable(tableRef);
             var sql =
                 "SELECT character_maximum_length FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName"
                     .SqlFmt(this, tableName, columnName);
 
+            var schema = this.GetSchemaName(tableRef);
             if (schema != null)
             {
                 sql += " AND TABLE_SCHEMA = @schema";
@@ -884,9 +885,9 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="table">The table.</param>
         /// <param name="fieldDef">The field definition.</param>
         /// <returns>System.String.</returns>
-        public override string ToAddColumnStatement(string schema, string table, FieldDefinition fieldDef)
+        public override string ToAddColumnStatement(TableRef tableRef, FieldDefinition fieldDef)
         {
-            return $"ALTER TABLE {this.GetQuotedTableName(table, schema)} ADD {this.GetColumnDefinition(fieldDef)};";
+            return $"ALTER TABLE {this.QuoteTable(tableRef)} ADD {this.GetColumnDefinition(fieldDef)};";
         }
 
         /// <summary>
@@ -896,10 +897,10 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="table">The table.</param>
         /// <param name="fieldDef">The field definition.</param>
         /// <returns>System.String.</returns>
-        public override string ToAlterColumnStatement(string schema, string table, FieldDefinition fieldDef)
+        public override string ToAlterColumnStatement(TableRef tableRef, FieldDefinition fieldDef)
         {
             return
-                $"ALTER TABLE {this.GetQuotedTableName(table, schema)} ALTER COLUMN {this.GetColumnDefinition(fieldDef)};";
+                $"ALTER TABLE {this.QuoteTable(tableRef)} ALTER COLUMN {this.GetColumnDefinition(fieldDef)};";
         }
 
         /// <summary>
@@ -910,9 +911,9 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="fieldDef">The field definition.</param>
         /// <param name="oldColumn">The old column.</param>
         /// <returns>System.String.</returns>
-        public override string ToChangeColumnNameStatement(string schema, string table, FieldDefinition fieldDef, string oldColumn)
+        public override string ToChangeColumnNameStatement(TableRef tableRef, FieldDefinition fieldDef, string oldColumn)
         {
-            var objectName = $"{GetQuotedTableName(table, schema)}.{GetQuotedColumnName(oldColumn)}";
+            var objectName = $"{this.QuoteTable(tableRef)}.{this.GetQuotedColumnName(oldColumn)}";
 
             return
                 $"EXEC sp_rename {this.GetQuotedValue(objectName)}, {this.GetQuotedValue(fieldDef.FieldName)}, {this.GetQuotedValue("COLUMN")};";
@@ -926,10 +927,15 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="oldColumn">The old column.</param>
         /// <param name="newColumn">The new column.</param>
         /// <returns>System.String.</returns>
-        public override string ToRenameColumnStatement(string schema, string table, string oldColumn, string newColumn)
+        public override string ToRenameColumnStatement(TableRef tableRef, string oldColumn, string newColumn)
         {
-            var objectName = $"{GetQuotedTableName(table, schema)}.{GetQuotedColumnName(oldColumn)}";
+            var objectName = $"{this.QuoteTable(tableRef)}.{this.GetQuotedColumnName(oldColumn)}";
             return $"EXEC sp_rename {this.GetQuotedValue(objectName)}, {this.GetQuotedColumnName(newColumn)}, 'COLUMN';";
+        }
+
+        public override string ToDropIndexStatement<T>(string indexName)
+        {
+            return $"DROP INDEX IF EXISTS {this.GetQuotedName(indexName)} ON {this.GetQuotedTableName(typeof(T))};";
         }
 
         /// <summary>
@@ -971,7 +977,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 fieldDef.Scale);
 
             var sql = StringBuilderCache.Allocate();
-            sql.Append($"{this.GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
+            sql.Append($"{this.GetQuotedColumnName(fieldDef)} {fieldDefinition}");
 
             if (fieldDef.FieldType == typeof(string))
             {
@@ -1012,7 +1018,7 @@ namespace ServiceStack.OrmLite.SqlServer
             {
                 if (fieldDef.DefaultValueConstraint != null)
                 {
-                    sql.Append(" CONSTRAINT ").Append(GetQuotedName(fieldDef.DefaultValueConstraint));
+                    sql.Append(" CONSTRAINT ").Append(this.GetQuotedName(fieldDef.DefaultValueConstraint));
                 }
                 sql.AppendFormat(this.DefaultValueFormat, defaultValue);
             }
@@ -1040,7 +1046,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 fieldDef.Scale);
 
             var sql = StringBuilderCache.Allocate();
-            sql.Append($"{this.GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
+            sql.Append($"{this.GetQuotedColumnName(fieldDef)} {fieldDefinition}");
 
             if (fieldDef.FieldType == typeof(string))
             {
@@ -1092,9 +1098,9 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="table">The table.</param>
         /// <param name="constraintName">Name of the constraint.</param>
         /// <returns>string.</returns>
-        public override string ToDropConstraintStatement(string schema, string table, string constraintName)
+        public override string ToDropConstraintStatement(TableRef tableRef, string constraintName)
         {
-            return $"ALTER TABLE {GetQuotedTableName(table, schema)} DROP CONSTRAINT {GetQuotedName(constraintName)};";
+            return $"ALTER TABLE {this.QuoteTable(tableRef)} DROP CONSTRAINT {this.GetQuotedName(constraintName)};";
         }
 
         /// <summary>
@@ -1106,7 +1112,7 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="config">The configuration.</param>
         public override void BulkInsert<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config = null)
         {
-            config ??= new();
+            config ??= new BulkInsertConfig();
             if (config.Mode == BulkInsertMode.Sql)
             {
                 base.BulkInsert(db, objs, config);
@@ -1118,7 +1124,7 @@ namespace ServiceStack.OrmLite.SqlServer
             var modelDef = ModelDefinition<T>.Definition;
 
             bulkCopy.BatchSize = config.BatchSize;
-            bulkCopy.DestinationTableName = this.GetTableName(modelDef);
+            bulkCopy.DestinationTableName = modelDef.ModelName;
 
             var table = new DataTable();
             var fieldDefs = this.GetInsertFieldDefinitions(modelDef, insertFields: config.InsertFields);
@@ -1199,7 +1205,7 @@ namespace ServiceStack.OrmLite.SqlServer
                         sbReturningColumns.Append(',');
                     }
 
-                    sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef.FieldName));
+                    sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef));
                 }
 
                 if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
@@ -1219,7 +1225,7 @@ namespace ServiceStack.OrmLite.SqlServer
 
                 try
                 {
-                    sbColumnNames.Append(this.GetQuotedColumnName(fieldDef.FieldName));
+                    sbColumnNames.Append(this.GetQuotedColumnName(fieldDef));
                     sbColumnValues.Append(this.GetParam(this.SanitizeFieldNameForParamName(fieldDef.FieldName)));
 
                     this.AddParameter(cmd, fieldDef);
@@ -1231,20 +1237,14 @@ namespace ServiceStack.OrmLite.SqlServer
                 }
             }
 
-            foreach (var fieldDef in modelDef.AutoIdFields)
+            foreach (var fieldDef in modelDef.AutoIdFields.Where(fieldDef => !fieldDefs.Contains(fieldDef)))
             {
-                // need to include any AutoId fields that weren't included
-                if (fieldDefs.Contains(fieldDef))
-                {
-                    continue;
-                }
-
                 if (sbReturningColumns.Length > 0)
                 {
                     sbReturningColumns.Append(',');
                 }
 
-                sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef.FieldName));
+                sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef));
             }
 
             var strReturning = StringBuilderCacheAlt.ReturnAndFree(sbReturningColumns);
@@ -1393,7 +1393,7 @@ namespace ServiceStack.OrmLite.SqlServer
                         sbReturningColumns.Append(',');
                     }
 
-                    sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef.FieldName));
+                    sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef));
                 }
 
                 if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId && shouldInclude?.Invoke(fieldDef) != true)
@@ -1413,7 +1413,7 @@ namespace ServiceStack.OrmLite.SqlServer
 
                 try
                 {
-                    sbColumnNames.Append(this.GetQuotedColumnName(fieldDef.FieldName));
+                    sbColumnNames.Append(this.GetQuotedColumnName(fieldDef));
 
                     if (this.SupportsSequences(fieldDef))
                     {
@@ -1451,7 +1451,7 @@ namespace ServiceStack.OrmLite.SqlServer
                     sbReturningColumns.Append(',');
                 }
 
-                sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef.FieldName));
+                sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef));
             }
 
             var strReturning = StringBuilderCacheAlt.ReturnAndFree(sbReturningColumns);
@@ -1488,7 +1488,7 @@ namespace ServiceStack.OrmLite.SqlServer
                         sbReturningColumns.Append(',');
                     }
 
-                    sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef.FieldName));
+                    sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef));
                 }
 
                 if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
@@ -1510,7 +1510,7 @@ namespace ServiceStack.OrmLite.SqlServer
 
                 try
                 {
-                    sbColumnNames.Append(this.GetQuotedColumnName(fieldDef.FieldName));
+                    sbColumnNames.Append(this.GetQuotedColumnName(fieldDef));
                     sbColumnValues.Append(this.GetInsertParam(dbCmd, value, fieldDef));
                 }
                 catch (Exception ex)

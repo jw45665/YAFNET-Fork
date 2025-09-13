@@ -201,6 +201,35 @@ public static class IDbAccessExtensions
                 updateFields,
                 OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where),
                 commandFilter));
+    }/// <summary>
+    /// Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
+    /// Numeric fields generates an increment sql which is useful to increment counters, etc...
+    /// avoiding concurrency conflicts
+    ///
+    ///   db.UpdateAdd(() => new Person { Age = 5 }, where: p => p.LastName == "Hendrix");
+    ///   UPDATE "Person" SET "Age" = "Age" + 5 WHERE ("LastName" = 'Hendrix')
+    ///
+    ///   db.UpdateAdd(() => new Person { Age = 5 });
+    ///   UPDATE "Person" SET "Age" = "Age" + 5
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="dbAccess">The database access.</param>
+    /// <param name="updateFields">The update fields.</param>
+    /// <param name="where">The where.</param>
+    /// <param name="commandFilter">The command filter.</param>
+    /// <returns></returns>
+    public static Task<int> UpdateAddAsync<T>(
+        this IDbAccess dbAccess,
+        Expression<Func<T>> updateFields,
+        Expression<Func<T, bool>> where = null,
+        Action<IDbCommand> commandFilter = null)
+        where T : class, IEntity, IHaveID, new()
+    {
+        return dbAccess.ExecuteAsync(
+            db => db.UpdateAddAsync(
+                updateFields,
+                OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where),
+                commandFilter));
     }
 
     /// <summary>
@@ -254,7 +283,7 @@ public static class IDbAccessExtensions
         return dbAccess.ExecuteAsync(
             db => db.UpdateOnlyFieldsAsync(
                 updateFields,
-                where, //OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where),
+                where,
                 token: token));
     }
 
@@ -267,6 +296,17 @@ public static class IDbAccessExtensions
     {
         return dbAccess.Execute(
             db => db.Connection.TableExists<T>());
+    }
+
+    /// <summary>
+    /// Checks whether a Table Exists. E.g:
+    /// <para>db.TableExists&lt;Person&gt;()</para>
+    /// </summary>
+    public static Task<bool> TableExistsAsync<T>(this IDbAccess dbAccess)
+        where T : class, IEntity, new()
+    {
+        return dbAccess.ExecuteAsync(
+            db => db.TableExistsAsync<T>());
     }
 
     /// <summary>
@@ -300,15 +340,15 @@ public static class IDbAccessExtensions
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public static string GetDatabaseFragmentationInfo(this IDbAccess dbAccess)
+    public async static Task<string> GetDatabaseFragmentationInfoAsync(this IDbAccess dbAccess)
     {
         var result = new StringBuilder();
 
         try
         {
-            var infos = dbAccess.Execute(
-                db => db.Connection.SqlList<dynamic>(
-                    OrmLiteConfig.DialectProvider.DatabaseFragmentationInfo(db.Connection.Database)));
+            var infos = await dbAccess.ExecuteAsync(
+                db => db.SqlListAsync<dynamic>(
+                    OrmLiteConfig.DialectProvider.DatabaseFragmentationInfo(db.Database)));
 
             if (infos is null)
             {
@@ -339,10 +379,10 @@ public static class IDbAccessExtensions
     /// </summary>
     /// <param name="dbAccess">The database access.</param>
     /// <returns>Returns the size of the database</returns>
-    public static int GetDatabaseSize(this IDbAccess dbAccess)
+    public static Task<int> GetDatabaseSizeAsync(this IDbAccess dbAccess)
     {
-        return dbAccess.Execute(
-            db => db.Connection.Scalar<int>(OrmLiteConfig.DialectProvider.DatabaseSize(db.Connection.Database)));
+        return dbAccess.ExecuteAsync(
+            db => db.ScalarAsync<int>(OrmLiteConfig.DialectProvider.DatabaseSize(db.Database)));
     }
 
     /// <summary>
@@ -352,10 +392,10 @@ public static class IDbAccessExtensions
     /// <returns>
     /// Returns the current SQL Engine Edition.
     /// </returns>
-    public static string GetSQLVersion(this IDbAccess dbAccess)
+    public async static Task<string> GetSqlVersionAsync(this IDbAccess dbAccess)
     {
-        var version = dbAccess.Execute(
-            db => db.Connection.Scalar<string>(OrmLiteConfig.DialectProvider.SQLVersion()));
+        var version = await dbAccess.ExecuteAsync(
+            db => db.ScalarAsync<string>(OrmLiteConfig.DialectProvider.SQLVersion()));
 
         var serverName = OrmLiteConfig.DialectProvider.SQLServerName();
 
@@ -366,11 +406,11 @@ public static class IDbAccessExtensions
     /// The shrink database.
     /// </summary>
     /// <param name="dbAccess">The database access.</param>
-    public static string ShrinkDatabase(this IDbAccess dbAccess)
+    public static Task<string> ShrinkDatabaseAsync(this IDbAccess dbAccess)
     {
-        return dbAccess.Execute(
-            db => db.Connection.Scalar<string>(
-                OrmLiteConfig.DialectProvider.ShrinkDatabase(db.Connection.Database)));
+        return dbAccess.ExecuteAsync(
+            db => db.ScalarAsync<string>(
+                OrmLiteConfig.DialectProvider.ShrinkDatabase(db.Database)));
     }
 
     /// <summary>
@@ -385,11 +425,11 @@ public static class IDbAccessExtensions
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public static string ReIndexDatabase(this IDbAccess dbAccess, string objectQualifier)
+    public static Task<string> ReIndexDatabaseAsync(this IDbAccess dbAccess, string objectQualifier)
     {
-        return dbAccess.Execute(
-            db => db.Connection.Scalar<string>(
-                OrmLiteConfig.DialectProvider.ReIndexDatabase(db.Connection.Database, objectQualifier)));
+        return dbAccess.ExecuteAsync(
+            db => db.ScalarAsync<string>(
+                OrmLiteConfig.DialectProvider.ReIndexDatabase(db.Database, objectQualifier)));
     }
 
     /// <summary>
@@ -401,13 +441,13 @@ public static class IDbAccessExtensions
     /// <param name="recoveryMode">
     /// The recovery mode.
     /// </param>
-    public static string ChangeRecoveryMode(this IDbAccess dbAccess, string recoveryMode)
+    public async static Task<string> ChangeRecoveryModeAsync(this IDbAccess dbAccess, string recoveryMode)
     {
         try
         {
-            return dbAccess.Execute(
-                db => db.Connection.Scalar<string>(
-                    OrmLiteConfig.DialectProvider.ReIndexDatabase(db.Connection.Database, recoveryMode)));
+            return await dbAccess.ExecuteAsync(
+                db => db.ScalarAsync<string>(
+                    OrmLiteConfig.DialectProvider.ReIndexDatabase(db.Database, recoveryMode)));
         }
         catch (Exception)
         {
@@ -425,7 +465,7 @@ public static class IDbAccessExtensions
     /// The SQL Statement.
     /// </param>
     /// <param name="timeOut">
-    /// The time Out.
+    /// The time-Out.
     /// </param>
     /// <returns>
     /// The <see cref="string"/>.
@@ -440,7 +480,7 @@ public static class IDbAccessExtensions
                 {
                     using var cmd = db.Connection.CreateCommand();
 
-                    // added so command won't timeout anymore...
+                    // added so command won't time out anymore...
                     cmd.CommandTimeout = timeOut;
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = sql;
@@ -462,7 +502,7 @@ public static class IDbAccessExtensions
     /// The script file.
     /// </param>
     /// <param name="timeOut">
-    /// The time Out.
+    /// The time-Out.
     /// </param>
     public static void SystemInitializeExecuteScripts(
         this IDbAccess dbAccess,
@@ -482,7 +522,7 @@ public static class IDbAccessExtensions
                     {
                         using var cmd = trans.Connection.CreateCommand();
 
-                        // added so command won't timeout anymore...
+                        // added so command won't time out anymore...
                         cmd.CommandTimeout = timeOut;
                         cmd.Transaction = trans;
                         cmd.CommandType = CommandType.Text;

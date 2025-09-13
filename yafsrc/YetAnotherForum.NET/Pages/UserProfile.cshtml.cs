@@ -25,7 +25,6 @@
 namespace YAF.Pages;
 
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -34,10 +33,8 @@ using Microsoft.Extensions.Logging;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
-using YAF.Core.Services;
 using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
-using YAF.Types.Flags;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
@@ -201,13 +198,13 @@ public class UserProfileModel : ForumPage
     /// <summary>
     /// The on get.
     /// </summary>
-    public IActionResult OnGet(int u)
+    public async Task<IActionResult> OnGetAsync(int u)
     {
         return u == 0
             ?
             // No such user exists
             this.Get<ILinkBuilder>().RedirectInfoPage(InfoMessage.Invalid)
-            : this.BindData(u);
+            : await this.BindDataAsync(u);
     }
 
     /// <summary>
@@ -215,12 +212,12 @@ public class UserProfileModel : ForumPage
     /// </summary>
     /// <param name="u">The u.</param>
     /// <returns>System.Threading.Tasks.Task.</returns>
-    public Task OnPostRemoveSuspensionAsync(int u)
+    public async Task OnPostRemoveSuspensionAsync(int u)
     {
-        this.BindData(u);
+        await this.BindDataAsync(u);
 
         // un-suspend user
-        this.GetRepository<User>().Suspend(u);
+        await this.GetRepository<User>().SuspendAsync(u);
 
         if (this.PageBoardContext.BoardSettings.LogUserSuspendedUnsuspended)
         {
@@ -233,7 +230,7 @@ public class UserProfileModel : ForumPage
 
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(u));
 
-        return this.Get<ISendNotification>().SendUserSuspensionEndedNotificationAsync(
+        await this.Get<ISendNotification>().SendUserSuspensionEndedNotificationAsync(
             this.CombinedUser.Item1.Email,
             this.CombinedUser.Item1.DisplayOrUserName());
     }
@@ -245,7 +242,7 @@ public class UserProfileModel : ForumPage
     /// <returns>System.Threading.Tasks.Task.</returns>
     public async Task OnPostSuspendAsync(int u)
     {
-        this.BindData(u);
+        await this.BindDataAsync(u);
 
         var access = await this.GetRepository<VAccess>().GetSingleAsync(v => v.UserID == u);
 
@@ -300,7 +297,7 @@ public class UserProfileModel : ForumPage
         };
 
         // suspend user by calling appropriate method
-        this.GetRepository<User>().Suspend(u, suspend, this.SuspendReason.Trim(), this.PageBoardContext.PageUserID);
+        await this.GetRepository<User>().SuspendAsync(u, suspend, this.SuspendReason.Trim(), this.PageBoardContext.PageUserID);
 
         this.Get<ILogger<UserProfileModel>>().Log(
             this.PageBoardContext.PageUserID,
@@ -318,15 +315,15 @@ public class UserProfileModel : ForumPage
 
         this.SuspendReason = string.Empty;
 
-        this.BindData(u);
+        await this.BindDataAsync(u);
     }
 
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private IActionResult BindData(int userId)
+    private async Task<IActionResult> BindDataAsync(int userId)
     {
-        this.CombinedUser = this.Get<IAspNetUsersHelper>().GetBoardUser(userId);
+        this.CombinedUser = await this.Get<IAspNetUsersHelper>().GetBoardUserAsync(userId);
 
         if (this.CombinedUser is null || this.CombinedUser.Item1.ID == 0)
         {
@@ -344,7 +341,7 @@ public class UserProfileModel : ForumPage
         // Show User Medals
         if (this.PageBoardContext.BoardSettings.ShowMedals)
         {
-            this.ShowUserMedals();
+            this.Medals = this.Get<IUserMedalService>().GetUserMedals(userId);
         }
 
         this.AddPageLinks(this.CombinedUser.Item1.DisplayOrUserName());
@@ -403,50 +400,6 @@ public class UserProfileModel : ForumPage
         }
 
         this.Friends = this.GetRepository<Buddy>().GetAllFriends(this.CombinedUser.Item1.ID);
-    }
-
-    /// <summary>
-    /// Show the user medals.
-    /// </summary>
-    private void ShowUserMedals()
-    {
-        var key = string.Format(Constants.Cache.UserMedals, this.CombinedUser.Item1.ID);
-
-        // get the medals cached...
-        var userMedals = this.DataCache.GetOrSet(
-            key,
-            () => this.GetRepository<Medal>().ListUserMedals(this.CombinedUser.Item1.ID),
-            TimeSpan.FromMinutes(10));
-
-        if (userMedals.Count == 0)
-        {
-            return;
-        }
-
-        var ribbonBar = new StringBuilder();
-        var medals = new StringBuilder();
-
-        userMedals.ForEach(
-            medal =>
-            {
-                var flags = new MedalFlags(medal.Flags);
-
-                // skip hidden medals
-                if (flags.AllowHiding && medal.Hide)
-                {
-                    return;
-                }
-
-                var title = $"{medal.Name}{(flags.ShowMessage ? $": {medal.Message}" : string.Empty)}";
-
-                ribbonBar.AppendFormat(
-                    "<li class=\"list-inline-item\"><img src=\"/{2}/{0}\" alt=\"{1}\" title=\"{1}\" data-bs-toggle=\"tooltip\"></li>",
-                    medal.MedalURL,
-                    title,
-                    this.Get<BoardFolders>().Medals);
-            });
-
-        this.Medals = $"<ul class=\"list-inline\">{ribbonBar}{medals}</ul>";
     }
 
     /// <summary>

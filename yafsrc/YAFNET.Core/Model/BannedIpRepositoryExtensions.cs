@@ -79,7 +79,7 @@ public static class BannedIpRepositoryExtensions
             return false;
         }
 
-        var newId = repository.Insert(
+        repository.Insert(
             new BannedIP
                 {
                     BoardID = boardId ?? repository.BoardID,
@@ -88,8 +88,6 @@ public static class BannedIpRepositoryExtensions
                     UserID = userId,
                     Since = DateTime.Now
                 });
-
-        repository.FireNew(newId);
 
         return true;
     }

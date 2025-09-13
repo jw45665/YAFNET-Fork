@@ -55,13 +55,13 @@
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-envelope fa-fw text-secondary pe-1"></i>
+                    <i class="fa fa-envelope text-secondary pe-1"></i>
                     Mail testing
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="mb-3 col-md-6">
-                            <label class="form-label"
+                            <label class="form-label" info-button="true"
                                    localized-tag="FROM_MAIL"
                                    asp-for="Input.TestFromEmail">
                             </label>
@@ -72,7 +72,7 @@
                                    class="form-control" />
                         </div>
                         <div class="mb-3 col-md-6">
-                            <label class="form-label"
+                            <label class="form-label" info-button="true"
                                    localized-tag="TO_MAIL"
                                    asp-for="Input.TestToEmail">
                             </label>
@@ -113,5 +113,6 @@
 </form>
 
 @section Scripts {
+    @await Html.PartialAsync("_ChoicesScriptsPartial")
     @await Html.PartialAsync("_ValidationScriptPartial")
 }

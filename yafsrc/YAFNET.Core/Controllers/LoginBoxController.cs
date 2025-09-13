@@ -80,7 +80,7 @@ public class LoginBox : ForumBaseController
 
         if (!user.IsApproved)
         {
-            var yafUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
+            var yafUser = await this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKeyAsync(user.Id);
 
             // Ignore Deleted User
             if (yafUser.UserFlags.IsDeleted)
@@ -135,26 +135,6 @@ public class LoginBox : ForumBaseController
                     return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
                 }
         }
-    }
-
-    /// <summary>
-    /// Authentications the asynchronous.
-    /// </summary>
-    /// <param name="auth">The authentication.</param>
-    /// <returns>Task&lt;IActionResult&gt;.</returns>
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PartialViewResult))]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [HttpPost("Auth")]
-    public Task<IActionResult> AuthAsync(string auth)
-    {
-        var redirectUrl = this.Get<ILinkBuilder>().GetLink(
-            ForumPages.Account_Login,
-            new { auth, handler = "Callback" });
-
-        var properties = this.Get<SignInManager<AspNetUsers>>()
-            .ConfigureExternalAuthenticationProperties(auth, redirectUrl);
-
-        return Task.FromResult<IActionResult>(new ChallengeResult(auth, properties));
     }
 
     /// <summary>

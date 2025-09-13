@@ -51,27 +51,19 @@ public interface IFormatMessage
     string BBCodeForbiddenDetector(string stringToClear, string stringToMatch, char delimiter);
 
     /// <summary>
-    /// The format message.
+    /// Format message with all bb codes as an asynchronous operation.
     /// </summary>
-    /// <param name="messageId">
-    /// The message Id.
-    /// </param>
-    /// <param name="message">
-    /// The message.
-    /// </param>
-    /// <param name="messageFlags">
-    /// The message flags.
-    /// </param>
-    /// <param name="targetBlankOverride">
-    /// The target blank override.
-    /// </param>
-    /// <param name="messageLastEdited">
-    /// The message last edited.
-    /// </param>
-    /// <returns>
-    /// The formatted message.
-    /// </returns>
-    string Format(int messageId, string message, MessageFlags messageFlags, bool targetBlankOverride, DateTime messageLastEdited);
+    /// <param name="message">The message.</param>
+    /// <param name="messageId">The message identifier.</param>
+    /// <param name="messageAuthorUserId">The message author user identifier.</param>
+    /// <param name="targetBlankOverride">if set to <c>true</c> [target blank override].</param>
+    /// <param name="messageLastEdited">The message last edited.</param>
+    /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
+    Task<string> FormatMessageWithAllBBCodesAsync(string message,
+        int messageId,
+        int? messageAuthorUserId = null,
+        bool? targetBlankOverride = false,
+        DateTime? messageLastEdited = null);
 
     /// <summary>
     /// Format the Syndication Message
@@ -82,13 +74,10 @@ public interface IFormatMessage
     /// <param name="messageId">
     ///     The Message Id</param>
     /// <param name="messageAuthorId">The Message Author User Id</param>
-    /// <param name="messageFlags">
-    ///     The message flags.
-    /// </param>
     /// <returns>
     /// The formatted message.
     /// </returns>
-    Task<string> FormatSyndicationMessageAsync(string message, int messageId, int messageAuthorId, MessageFlags messageFlags);
+    Task<string> FormatSyndicationMessageAsync(string message, int messageId, int messageAuthorId);
 
     /// <summary>
     /// Removes nested quotes from the given message body.
@@ -129,13 +118,10 @@ public interface IFormatMessage
     /// <param name="html">
     /// The html.
     /// </param>
-    /// <param name="allowHtml">
-    /// The allow html.
-    /// </param>
     /// <returns>
     /// The repaired html.
     /// </returns>
-    string RepairHtml(string html, bool allowHtml);
+    string RepairHtml(string html);
 
     /// <summary>
     /// Surrounds a word list with prefix/postfix. Case insensitive.

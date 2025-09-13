@@ -123,12 +123,17 @@ public class GroupsModel : AdminPage
         this.BindData();
     }
 
-    public IActionResult OnPostAdd(string role)
+    /// <summary>
+    /// Called when [post add].
+    /// </summary>
+    /// <param name="role">The role.</param>
+    /// <returns>Microsoft.AspNetCore.Mvc.IActionResult.</returns>
+    public async Task<IActionResult> OnPostAddAsync(string role)
     {
         // save role and get its ID
         var groupFlags = new GroupFlags();
 
-        var groupId = this.GetRepository<Group>().Save(
+        var groupId = await this.GetRepository<Group>().SaveAsync(
             null,
             this.PageBoardContext.PageBoardID,
             role,
@@ -146,6 +151,10 @@ public class GroupsModel : AdminPage
         return this.Get<ILinkBuilder>().Redirect(ForumPages.Admin_EditGroup, new { i = groupId });
     }
 
+    /// <summary>
+    /// Called when [post delete net].
+    /// </summary>
+    /// <param name="role">The role.</param>
     public void OnPostDeleteNet(string role)
     {
         // delete role from provider data
@@ -184,10 +193,13 @@ public class GroupsModel : AdminPage
         this.availableRoles.Clear();
 
         // get all provider roles
-        (from role in this.Get<IAspNetRolesHelper>().GetAllRoles()
-         let _ = groups.Select(g => g.Name == role)
-         where groups.Count == 0
-         select role).ForEach(role1 => this.availableRoles.Add(role1));
+        var roles = this.Get<IAspNetRolesHelper>().GetAllRoles();
+
+        foreach (var role in roles.Where(role =>
+                     groups.All(g => !string.Equals(g.Name, role, StringComparison.CurrentCultureIgnoreCase))))
+        {
+            this.availableRoles.Add(role);
+        }
 
         // check if there are any roles for syncing
         // make it data-source

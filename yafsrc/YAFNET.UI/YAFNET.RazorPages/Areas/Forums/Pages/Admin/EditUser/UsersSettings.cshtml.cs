@@ -175,8 +175,9 @@ public class UsersSettingsModel : AdminPage
         }
 
         // save remaining settings to the DB
-        this.GetRepository<User>().Save(
+        await this.GetRepository<User>().SaveAsync(
             this.Input.UserId,
+            user.Item1.Flags,
             this.Input.TimeZone,
             language,
             culture,
@@ -252,16 +253,9 @@ public class UsersSettingsModel : AdminPage
                 themeFile = user.Item1.ThemeFile;
             }
 
-            if (this.Themes.Any(x => x.Value == themeFile))
+            if (this.Themes.Any(x => x.Value == themeFile) || this.Themes.Any(x => x.Value == "yaf"))
             {
                 this.Input.Theme = themeFile;
-            }
-            else
-            {
-                if (this.Themes.Any(x => x.Value == "yaf"))
-                {
-                    this.Input.Theme = themeFile;
-                }
             }
         }
 

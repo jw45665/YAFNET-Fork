@@ -52,12 +52,12 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     /// <summary>
     /// Gets the Current YAF Database Version
     /// </summary>
-    public int AppVersion { get; set; } = 1000;
+    public int AppVersion { get; set; } = 1001;
 
     /// <summary>
     /// Gets the Current YAF Build Date
     /// </summary>
-    public DateTime AppVersionDate { get; set; } = new (2025, 05, 15, 08, 17, 00, DateTimeKind.Utc);
+    public DateTime AppVersionDate { get; set; } = new (2025, 09, 03, 09, 14, 00, DateTimeKind.Utc);
 
     /// <summary>
     /// Creates a string that is the YAF Application Version from a long value
@@ -71,7 +71,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
         {
             Major = 4,
             Minor = 0,
-            Build = 1,
+            Build = 2,
             ReleaseType = ReleaseType.BETA,
             ReleaseNumber = 0
         };
@@ -104,21 +104,8 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     public string GetUrlToContentThemes(string resourceName)
     {
         ArgumentNullException.ThrowIfNull(resourceName);
+
         return this.Get<IUrlHelper>().Content($"~/css/themes/{resourceName}");
-    }
-
-    /// <summary>
-    /// Helper function that creates the URL to the Scripts folder.
-    /// </summary>
-    /// <param name="resourceName">Name of the resource.</param>
-    /// <returns>
-    /// Returns the URL including the Scripts path
-    /// </returns>
-    public string GetUrlToScripts(string resourceName)
-    {
-        ArgumentNullException.ThrowIfNull(resourceName);
-
-        return this.Get<IUrlHelper>().Content($"~/js/{resourceName}");
     }
 
     /// <summary>

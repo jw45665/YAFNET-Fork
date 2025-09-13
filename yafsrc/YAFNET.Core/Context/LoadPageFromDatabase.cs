@@ -82,7 +82,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
     /// The handle.
     /// </summary>
     /// <param name="event">
-    /// The event.
+    ///     The event.
     /// </param>
     public void Handle(InitPageLoadEvent @event)
     {
@@ -91,6 +91,8 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
             string userKey = null;
 
             var context = this.Get<IHttpContextAccessor>().HttpContext;
+
+            var ipAddress = context.GetUserRealIPAddress();
 
             if (BoardContext.Current.MembershipUser != null)
             {
@@ -111,14 +113,25 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
                 location = string.Empty;
             }
 
+            var referer = context!.Request.Headers.Referer.ToString();
+
+            var country = string.Empty;
+
+            if (this.Get<IGeoIpCountryService>().DatabaseExists())
+            {
+                country = this.Get<IGeoIpCountryService>().GetCountry(ipAddress).CountryCode;
+            }
+
             do
             {
                 pageRow = this.Get<DataBroker>().GetPageLoad(
                     context.Session.Id,
                     BoardContext.Current.PageBoardID,
                     userKey,
-                    context.GetUserRealIPAddress(),
+                    ipAddress,
                     location,
+                    referer,
+                    country,
                     forumPage,
                     @event.UserRequestData.Browser,
                     @event.UserRequestData.Platform,

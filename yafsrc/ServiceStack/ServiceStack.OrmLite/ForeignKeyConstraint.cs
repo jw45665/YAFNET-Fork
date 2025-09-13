@@ -57,7 +57,7 @@ public class ForeignKeyConstraint
     /// Gets the name of the foreign key.
     /// </summary>
     /// <value>The name of the foreign key.</value>
-    public string ForeignKeyName { get; private set; }
+    public string ForeignKeyName { get; }
 
     /// <summary>
     /// Gets the name of the foreign key.
@@ -76,12 +76,12 @@ public class ForeignKeyConstraint
         if (this.ForeignKeyName.IsNullOrEmpty())
         {
             var modelName = modelDef.IsInSchema
-                                ? $"{modelDef.Schema}_{namingStrategy.GetTableName(modelDef.ModelName)}"
-                                : namingStrategy.GetTableName(modelDef.ModelName);
+                                ? $"{modelDef.Schema}_{namingStrategy.GetTableName(modelDef)}"
+                                : namingStrategy.GetTableName(modelDef);
 
             var refModelName = refModelDef.IsInSchema
-                                   ? $"{refModelDef.Schema}_{namingStrategy.GetTableName(refModelDef.ModelName)}"
-                                   : namingStrategy.GetTableName(refModelDef.ModelName);
+                                   ? $"{refModelDef.Schema}_{namingStrategy.GetTableName(refModelDef)}"
+                                   : namingStrategy.GetTableName(refModelDef);
 
             var fkName = $"FK_{modelName}_{refModelName}_{fieldDef.FieldName}";
             return namingStrategy.ApplyNameRestrictions(fkName);

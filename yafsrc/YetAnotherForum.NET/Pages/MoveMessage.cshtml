@@ -69,20 +69,21 @@
 </form>
 
 @section Scripts {
-
-    <script>
+    @await Html.PartialAsync("_ChoicesScriptsPartial")
+	<script>
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.SelectForumsLoadJs(
-            "ForumList",
-            Model.GetText("select_forum_moveto"),
-            false,
-            false,
-            "Input_ForumListSelected",
-                    JavaScriptBlocks.LoadTopicsByForumJs())))
+	        "ForumList",
+	        Model.GetText("select_forum_moveto"),
+	        false,
+	        false,
+	        "Input_ForumListSelected",
+	        JavaScriptBlocks.LoadTopicsByForumJs())))
 
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.SelectTopicsLoadJs(
-            "TopicList",
-            "Input_TopicListSelected",
-            "Input_ForumListSelected",
-            Model.GetText("select_topic_moveto"))))
-    </script>
+	        "TopicList",
+	        "Input_TopicListSelected",
+	        "Input_ForumListSelected",
+	        Model.GetText("select_topic_moveto"))))
+    
+	</script>
 }

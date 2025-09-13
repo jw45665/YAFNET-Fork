@@ -568,7 +568,7 @@ public static class OrmLiteUtils
         {
             if (sbParams.Length > 0)
             {
-                sbParams.Append(",");
+                sbParams.Append(',');
             }
 
             sbParams.Append(dbCmd.AddParam(dbCmd.Parameters.Count.ToString(), item).ParameterName);
@@ -621,7 +621,7 @@ public static class OrmLiteUtils
                 }
             }
         }
-        return string.Format(sqlText, escapedParams.ToArray());
+        return string.Format(sqlText, [.. escapedParams]);
     }
 
     /// <summary>
@@ -654,7 +654,7 @@ public static class OrmLiteUtils
     /// <returns>string.</returns>
     public static string SqlTable(this string tableName, IOrmLiteDialectProvider dialect = null)
     {
-        return (dialect ?? OrmLiteConfig.DialectProvider).GetQuotedTableName(tableName);
+        return (dialect ?? OrmLiteConfig.DialectProvider).QuoteTable(tableName);
     }
 
     /// <summary>
@@ -843,7 +843,7 @@ public static class OrmLiteUtils
         {
             if (sb.Length > 0)
             {
-                sb.Append(",");
+                sb.Append(',');
             }
 
             sb.Append(dialect.GetQuotedValue(value, value.GetType()));
@@ -872,7 +872,7 @@ public static class OrmLiteUtils
         {
             if (sb.Length > 0)
             {
-                sb.Append(",");
+                sb.Append(',');
             }
 
             sb.Append(value is null
@@ -892,7 +892,7 @@ public static class OrmLiteUtils
     /// <returns>ServiceStack.OrmLite.SqlInValues.</returns>
     public static SqlInValues SqlInValues<T>(this T[] values, IOrmLiteDialectProvider dialect = null)
     {
-        return new(values, dialect);
+        return new SqlInValues(values, dialect);
     }
 
     /// <summary>
@@ -905,10 +905,7 @@ public static class OrmLiteUtils
     public static string SqlInParams<T>(this T[] values, IOrmLiteDialectProvider dialect = null)
     {
         var sb = StringBuilderCache.Allocate();
-        if (dialect == null)
-        {
-            dialect = OrmLiteConfig.DialectProvider;
-        }
+        dialect ??= OrmLiteConfig.DialectProvider;
 
         for (var i = 0; i < values.Length; i++)
         {
@@ -1225,7 +1222,7 @@ public static class OrmLiteUtils
             var parts = token.SplitOnLast('.');
             if (parts.Length > 1)
             {
-                sb.Append(" " + parts[parts.Length - 1]);
+                sb.Append(" " + parts[^1]);
             }
             else
             {
@@ -1239,7 +1236,12 @@ public static class OrmLiteUtils
     /// <summary>
     /// The quoted chars
     /// </summary>
-    private readonly static char[] QuotedChars = ['"', '`', '[', ']'];
+    readonly static internal char[] QuotedChars = ['"', '`', '[', ']'];
+
+    public static bool IsQuoted(string symbol)
+    {
+        return symbol.IndexOfAny(QuotedChars) >= 0;
+    }
 
     /// <summary>
     /// Aliases the or column.
@@ -1512,6 +1514,27 @@ public static class OrmLiteUtils
     }
 
     /// <summary>
+    /// Asserts that anonObjects is not a value type
+    /// </summary>
+    /// <param name="anonType">Type of the anon.</param>
+    /// <returns>System.Object.</returns>
+    static internal object AssertAnonObject(this object anonType)
+    {
+        if (anonType == null)
+        {
+            return null;
+        }
+
+        var type = anonType.GetType();
+        if (type.IsValueType || type == typeof(string))
+        {
+            throw new ArgumentException("Anonymous types should be a class");
+        }
+
+        return anonType;
+    }
+
+    /// <summary>
     /// Asserts the type of the not anon.
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -1704,7 +1727,7 @@ public static class OrmLiteUtils
     public static JoinFormatDelegate JoinAlias(string alias)
     {
         return (dialect, tableDef, expr) =>
-            $"{dialect.GetQuotedTableName(tableDef)} {alias} {expr.Replace(dialect.GetQuotedTableName(tableDef), dialect.GetQuotedTableName(alias))}";
+            $"{dialect.GetQuotedTableName(tableDef)} {alias} {expr.Replace(dialect.GetQuotedTableName(tableDef), dialect.QuoteTable(alias))}";
     }
 
     /// <summary>
@@ -1756,11 +1779,11 @@ public static class OrmLiteUtils
                 sb.Append(", ");
             }
 
-            var reverse = fieldName.StartsWith("-");
+            var reverse = fieldName.StartsWith('-');
             var useSuffix = reverse
                                 ? orderBySuffix == Asc ? Desc : Asc
                                 : orderBySuffix;
-            var useName = reverse ? fieldName.Substring(1) : fieldName;
+            var useName = reverse ? fieldName[1..] : fieldName;
             var quotedName = dialect.GetQuotedColumnName(useName);
 
             sb.Append(quotedName + useSuffix);

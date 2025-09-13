@@ -24,25 +24,21 @@
 
 namespace YAF.Pages.Install;
 
-using Microsoft.AspNetCore.Mvc;
-
-using YAF.Types.Interfaces.Data;
-
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-
-using YAF.Configuration;
-using YAF.Types.Extensions;
-using YAF.Types.Modals;
-using YAF.Core.Context;
-
 using System.Linq;
 using System.Threading.Tasks;
 
-using YAF.Core.Extensions;
-using YAF.Types.Interfaces.Identity;
-using YAF.Types.Models.Identity;
-
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Configuration;
+
+using YAF.Configuration;
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Interfaces.Identity;
+using YAF.Types.Modals;
+using YAF.Types.Models.Identity;
 
 /// <summary>
 /// Class InstallModel.
@@ -201,6 +197,7 @@ public class InstallModel : InstallPage
     /// Loads the installation finish page.
     /// </summary>
     /// <param name="forumName">Name of the forum.</param>
+    /// <param name="forumDescription">Description of the board.</param>
     /// <param name="cultures">The cultures.</param>
     /// <param name="forumEmailAddress">The forum email address.</param>
     /// <param name="forumBaseUrlMask">The forum base URL mask.</param>
@@ -210,6 +207,7 @@ public class InstallModel : InstallPage
     /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
     public async Task<IActionResult> OnPostInstallFinishedAsync(
         string forumName,
+        string forumDescription,
         string cultures,
         string forumEmailAddress,
         string forumBaseUrlMask,
@@ -219,7 +217,8 @@ public class InstallModel : InstallPage
     {
         var result =
             await
-                this.CreateForumAsync(forumName, cultures, forumEmailAddress, forumBaseUrlMask, userName, adminEmail, password1);
+                this.CreateForumAsync(forumName, forumDescription, cultures, forumEmailAddress, forumBaseUrlMask,
+                    userName, adminEmail, password1);
 
         if (!result.Result)
         {
@@ -251,13 +250,14 @@ public class InstallModel : InstallPage
     {
         this.Get<IDataCache>().Remove("Install");
 
-        return this.Get<ILinkBuilder>().Redirect(ForumPages.Index);
+        return this.Redirect(ForumPages.Index.GetPageName());
     }
 
     /// <summary>
     /// Create forum as an asynchronous operation.
     /// </summary>
     /// <param name="forumName">Name of the forum.</param>
+    /// <param name="forumDescription">Description of the board.</param>
     /// <param name="cultures">The cultures.</param>
     /// <param name="forumEmailAddress">The forum email address.</param>
     /// <param name="forumBaseUrlMask">The forum base URL mask.</param>
@@ -267,6 +267,7 @@ public class InstallModel : InstallPage
     /// <returns>A Task&lt;Tuple`2&gt; representing the asynchronous operation.</returns>
     private async Task<(bool Result, string Message)> CreateForumAsync(
         string forumName,
+        string forumDescription,
         string cultures,
         string forumEmailAddress,
         string forumBaseUrlMask,
@@ -321,9 +322,10 @@ public class InstallModel : InstallPage
             await this.Get<IAspNetUsersHelper>().SignOutAsync();
 
             // init forum...
-            this.InstallService.InitializeForum(
+            await this.InstallService.InitializeForumAsync(
                 applicationId,
                 forumName,
+                forumDescription,
                 cultures,
                 forumEmailAddress,
                 "YAFLogo.svg",

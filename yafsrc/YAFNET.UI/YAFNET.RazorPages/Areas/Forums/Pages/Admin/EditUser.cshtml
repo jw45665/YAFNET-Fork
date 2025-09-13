@@ -1,25 +1,19 @@
 @page "{u:int}/{tab=View1}/{handler?}"
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using YAF.Core.Context
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
-@using YAF.Core.Services
 @using YAF.Core.Utilities
 @using YAF.Types.Interfaces
 @using YAF.Types.Objects
 @using YAF.Web.HtmlHelpers
-@using YAF.Web.TagHelpers
 
 @inject BoardContext Current
 
-@section StyleSheets {
-    @if (Model.PageBoardContext.BoardSettings.UseFarsiCalender && Model.CurrentCultureInfo.IsFarsiCulture())
-    {
-        @await Html.PartialAsync("_DateTimePickerStylesSheetsPartial")
-    }
-}
-
 @model EditUserModel
+
+@section StyleSheets {
+	@await Html.PartialAsync("_FlagIconsStylesSheetsPartial")
+}
 
 @{
     var editUser = Model.EditUser;
@@ -129,6 +123,7 @@
 
 
 @section Scripts {
+    @await Html.PartialAsync("_ChoicesScriptsPartial")
     <script>
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.BootstrapTabsLoadJs("EditUserTabs", "LastTab")));
 
@@ -153,6 +148,6 @@
     {
         @await Html.PartialAsync("_DateTimePickerScriptsPartial")
     }
-    
-    <script src="@(Current.Get<BoardInfo>().GetUrlToScripts("editor.min.js"))"></script>
+
+    @await Html.PartialAsync("_EditorScriptsPartial")
 }

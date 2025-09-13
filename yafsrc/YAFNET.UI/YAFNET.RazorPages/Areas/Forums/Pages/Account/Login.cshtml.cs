@@ -28,7 +28,6 @@ using System;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
 using MimeKit;
@@ -136,7 +135,7 @@ public class LoginModel : AccountPage
 
         if (!user.IsApproved)
         {
-            var yafUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
+            var yafUser = await this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKeyAsync(user.Id);
 
             // Ignore Deleted User
             if (yafUser.UserFlags.IsDeleted)
@@ -218,25 +217,6 @@ public class LoginModel : AccountPage
             this.PageBoardContext.BoardSettings.ShowRulesForRegistration
                 ? ForumPages.Privacy
                 : ForumPages.Account_Register);
-    }
-
-    /// <summary>
-    /// External Login
-    /// </summary>
-    /// <param name="auth">
-    /// The Authentication Provider.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Task"/>.
-    /// </returns>
-    public Task<ActionResult> OnPostAuthAsync(string auth)
-    {
-        var redirectUrl = this.Get<ILinkBuilder>().GetLink(ForumPages.Account_Login, new { auth, handler = "Callback" });
-
-        var properties = this.Get<SignInManager<AspNetUsers>>()
-            .ConfigureExternalAuthenticationProperties(auth, redirectUrl);
-
-        return Task.FromResult<ActionResult>(new ChallengeResult(auth, properties));
     }
 
     /// <summary>

@@ -163,7 +163,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
             {
                 var roles = await this.Get<IAspNetRolesHelper>().GetRolesForUserAsync(user);
 
-                var yafUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
+                var yafUser = await this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKeyAsync(user.Id);
 
                 if (roles.NullOrEmpty())
                 {
@@ -177,16 +177,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
 
         this.Migrate(prevVersion);
 
-        this.AddOrUpdateExtensions();
-
-        try
-        {
-            this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
-        }
-        catch (Exception)
-        {
-            this.GetRepository<Registry>().Save("cdvversion", 1);
-        }
+        await this.AddOrUpdateExtensionsAsync();
 
         this.Get<IDataCache>().Remove(Constants.Cache.Version);
 
@@ -209,6 +200,13 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
         if (prevVersion < 1000)
         {
             var migrator = new Migrator(this.DbAccess.ResolveDbFactory(), typeof(Migration1000));
+
+            migrator.Run();
+        }
+
+        if (prevVersion < 1001)
+        {
+            var migrator = new Migrator(this.DbAccess.ResolveDbFactory(), typeof(Migration1001));
 
             migrator.Run();
         }
@@ -281,7 +279,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
     /// <summary>
     ///    Add or Update BBCode Extensions and Spam Words
     /// </summary>
-    private void AddOrUpdateExtensions()
+    private async Task AddOrUpdateExtensionsAsync()
     {
         var loadWrapper = new Action<string, Action<Stream>>(
             (file, streamAction) =>
@@ -300,7 +298,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
                 });
 
         // get all boards...
-        var boardIds = this.GetRepository<Board>().GetAll().Select(x => x.ID);
+        var boardIds = await this.GetRepository<Board>().GetAllBoardIdsAsync();
 
         // Upgrade all Boards
         boardIds.ForEach(
@@ -309,7 +307,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
                     this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(boardId));
 
                     // load default bbcode if available...
-                    loadWrapper(BbcodeImport, s => this.Get<IDataImporter>().BBCodeExtensionImport(boardId, s));
+                    loadWrapper(BbcodeImport, s => this.Get<IDataImporter>().BBCodeExtensionImportAsync(boardId, s));
 
                     // load default spam word if available...
                     loadWrapper(SpamWordsImport, s => this.Get<IDataImporter>().SpamWordsImport(boardId, s));
