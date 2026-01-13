@@ -22,7 +22,29 @@ _global.bootbox = bootbox;
 
 // Generic Functions
 document.addEventListener('DOMContentLoaded', () => {
-    const loginButton = document.querySelector<HTMLElement>('a.btn-login,input.btn-login, .btn-spinner')!;
+	// handle scroll position on form submit
+	document.querySelectorAll<HTMLButtonElement>('button[type="submit"]').forEach(button => {
+		if (button.closest('form')) {
+			button.addEventListener('click', handleSubmit);
+		};
+	});
+
+	function handleSubmit() {
+		sessionStorage.setItem('scrollPosition', window.scrollY.toString());
+	}
+
+	const scrollPosition = sessionStorage.getItem('scrollPosition');
+
+	if (scrollPosition) {
+		const pos = parseInt(scrollPosition);
+
+		if (pos > 0) {
+			sessionStorage.removeItem('scrollPosition');
+			window.scrollTo({ top: pos, behavior: 'instant' });
+		}
+	}
+
+	const loginButton = document.querySelector<HTMLElement>('a.btn-login,input.btn-login, .btn-spinner')!;
     if (loginButton) {
         loginButton.addEventListener('click', (event) => {
             const button = event.target as HTMLElement;

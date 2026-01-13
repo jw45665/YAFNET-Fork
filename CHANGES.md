@@ -1,6 +1,23 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v4.0.4
+* Upgraded to .NET 10.0
+* [NEW] Ban Ip Addresses by Country
+* [NEW] Allowed UserName Characters can be set via the host settings
+* [NEW] Application now is PWA ready
+* [NEW] Ability to send Device push notifications (Vapid Keys can be generated here: https://yetanotherforum.net/Vapid-Keys)
+* [NEW] Support for WebP image format
+* bug fixes
+
+# YetAnotherForum.NET v4.0.2
+* [NEW] added task to automatically import black listed ip addresses
+* [NEW] syntax highlighting for stack traces in bb code tags
+* [FIXED] active location
+* [FIXED] paging on the members page
+* redesigned the user profile page
+* bug fixes
+
 # YetAnotherForum.NET v4.0.1
 * [NEW] added support for note bbcode
 * [NEW] added host setting to set the enter mode for editor (line break)
@@ -23,6 +40,9 @@ YetAnotherForum.NET Changelog
 * Real-time Notifications for Received Thanks
 * Replaced Private Messages with real-time user chat
 * Two Factor Authentication
+
+# YetAnotherForum.NET v3.2.10
+* bug fixes
 
 # YetAnotherForum.NET v3.2.9
 * [NEW] added support for note bbcode

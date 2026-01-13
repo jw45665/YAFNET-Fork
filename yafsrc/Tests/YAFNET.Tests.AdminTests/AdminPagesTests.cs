@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -67,7 +67,7 @@ public class AdminPagesTests : TestBase
 
                     page.Console += (_, msg) =>
                     {
-                        Assert.That(msg.Type, Does.Not.Match("error"));
+                        Assert.That(msg.Type, Does.Not.Match("error"), $"Error on page: {pageName}");
                     };
 
                     Assert.That(pageSource, Does.Contain("Administration"), $"Error on page: {pageName}");

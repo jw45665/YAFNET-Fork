@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,7 +27,7 @@ namespace YAF.Core.Helpers;
 using System.IO;
 
 using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Formats.Webp;
 using SixLabors.ImageSharp.Processing;
 
 /// <summary>
@@ -41,9 +41,6 @@ public static class ImageHelper
     /// <param name="image">
     ///     The Image.
     /// </param>
-    /// <param name="imageFormat">
-    /// The Image Format
-    /// </param>
     /// <param name="x">
     ///     The image width.
     /// </param>
@@ -53,7 +50,7 @@ public static class ImageHelper
     /// <returns>
     /// A resized image stream Stream.
     /// </returns>
-    public static MemoryStream GetResizedImage(Image image, IImageFormat imageFormat, long x, long y)
+    public static MemoryStream GetResizedImage(Image image, long x, long y)
     {
         double newWidth = image.Width;
         double newHeight = image.Height;
@@ -74,7 +71,7 @@ public static class ImageHelper
 
         var resized = new MemoryStream();
 
-        image.Save(resized, imageFormat);
+        image.Save(resized, new WebpEncoder());
 
         return resized;
     }

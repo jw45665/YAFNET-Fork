@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -59,6 +59,7 @@ public class Migration01 : MigrationBase
         this.Db.CreateTable<BannedName>();
         this.Db.CreateTable<BannedEmail>();
         this.Db.CreateTable<BannedUserAgent>();
+        this.Db.CreateTable<BannedCountry>();
         this.Db.CreateTable<CheckEmail>();
         this.Db.CreateTable<Poll>();
         this.Db.CreateTable<Choice>();
@@ -90,6 +91,7 @@ public class Migration01 : MigrationBase
         this.Db.CreateTable<TopicTag>();
         this.Db.CreateTable<ProfileDefinition>();
         this.Db.CreateTable<ProfileCustom>();
+        this.Db.CreateTable<DeviceSubscription>();
 
         // Create Identity tables
         this.Db.CreateTable<AspNetUsers>();

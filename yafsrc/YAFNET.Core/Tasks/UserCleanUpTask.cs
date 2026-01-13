@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -46,9 +46,20 @@ public class UserCleanUpTask : IntermittentBackgroundTask
     }
 
     /// <summary>
-    /// Gets TaskName.
+    /// Gets the name of the task.
     /// </summary>
-    public static string TaskName => "UserCleanUpTask";
+    /// <value>
+    /// The name of the task.
+    /// </value>
+    public override string TaskName => nameof(UserCleanUpTask);
+
+    /// <summary>
+    /// Gets the task description.
+    /// </summary>
+    /// <value>
+    /// The task description.
+    /// </value>
+    public override string TaskDescription => "(Un)suspend users after suspension time is over.";
 
     /// <summary>
     /// The run once.
@@ -68,7 +79,7 @@ public class UserCleanUpTask : IntermittentBackgroundTask
         }
         catch (Exception x)
         {
-            this.Logger.Error(x, $"Error In {TaskName} Task");
+            this.Logger.Error(x, $"Error In {this.TaskName} Task");
         }
     }
 

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -101,7 +101,7 @@ public static class BitBoolExtensions
     {
        var builder = new StringBuilder(hashedBytes.Length * 2 + 2);
 
-        hashedBytes.ForEach(b => builder.AppendFormat("{0:X2}", b));
+        hashedBytes.ForEach(b => builder.Append($"{b:X2}"));
 
         return builder.ToString();
     }

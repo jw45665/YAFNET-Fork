@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -43,5 +43,15 @@ public static class ForumPagesExtensions
     public static string GetPageName(this ForumPages page)
     {
         return $"/{page.ToString().Replace("_", "/")}";
+    }
+
+    public static ForumPages ToPageName(this string pageName)
+    {
+        if (pageName.StartsWith('/'))
+        {
+            pageName = pageName[1..];
+        }
+
+        return pageName.Replace("/", "_").ToEnum<ForumPages>();
     }
 }

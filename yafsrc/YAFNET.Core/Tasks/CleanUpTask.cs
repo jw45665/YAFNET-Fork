@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -45,6 +45,22 @@ public class CleanUpTask : IntermittentBackgroundTask, ICriticalBackgroundTask
     /// Gets or sets TaskManager.
     /// </summary>
     public ITaskModuleManager TaskManager { get; set; }
+
+    /// <summary>
+    /// Gets the name of the task.
+    /// </summary>
+    /// <value>
+    /// The name of the task.
+    /// </value>
+    public override string TaskName => nameof(CleanUpTask);
+
+    /// <summary>
+    /// Gets the task description.
+    /// </summary>
+    /// <value>
+    /// The task description.
+    /// </value>
+    public override string TaskDescription => "Deletes the completed background tasks.";
 
     /// <summary>
     /// The run once.

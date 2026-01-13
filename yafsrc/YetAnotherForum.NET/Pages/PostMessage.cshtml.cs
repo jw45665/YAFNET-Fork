@@ -2,7 +2,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -186,8 +186,8 @@ public class PostMessageModel : ForumPage
         this.Input = new PostMessageInputModel();
 
         if (this.PageBoardContext.PageForumID == 0 ||
-            !this.PageBoardContext.ForumPostAccess && !this.PageBoardContext.ForumReplyAccess ||
-            this.PageBoardContext.PageTopic.TopicFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess)
+            (!this.PageBoardContext.ForumPostAccess && !this.PageBoardContext.ForumReplyAccess) ||
+            (this.PageBoardContext.PageTopic.TopicFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess))
         {
             return this.Get<ILinkBuilder>().AccessDenied();
         }
@@ -203,8 +203,7 @@ public class PostMessageModel : ForumPage
                 {
                     var quotedMessageText = HttpUtility.UrlDecode(text);
 
-                    this.quotedMessage.MessageText = HtmlTagHelper.StripHtml(
-                        BBCodeHelper.EncodeCodeBlocks(HtmlTagHelper.CleanHtmlString(quotedMessageText)));
+                    this.quotedMessage.MessageText = quotedMessageText;
                 }
 
                 if (this.quotedMessage.TopicID != this.PageBoardContext.PageTopicID || !this.CanQuotePostCheck(this.PageBoardContext.PageTopic))
@@ -336,56 +335,53 @@ public class PostMessageModel : ForumPage
         var message = HtmlTagHelper.StripHtml(this.Input.Editor);
 
         // Check for SPAM
-        if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess)
+        if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess && this.Get<ISpamCheck>().CheckPostForSpam(
+                this.PageBoardContext.IsGuest
+                    ? this.Input.From
+                    : this.PageBoardContext.PageUser.DisplayOrUserName(),
+                this.HttpContext.GetUserRealIPAddress(),
+                BBCodeHelper.StripBBCode(HtmlTagHelper.StripHtml(HtmlTagHelper.CleanHtmlString(this.Input.Editor)))
+                    .RemoveMultipleWhitespace(),
+                this.PageBoardContext.IsGuest ? null : this.PageBoardContext.MembershipUser.Email,
+                out var spamResult))
         {
             // Check content for spam
-            if (this.Get<ISpamCheck>().CheckPostForSpam(
-                    this.PageBoardContext.IsGuest
-                        ? this.Input.From
-                        : this.PageBoardContext.PageUser.DisplayOrUserName(),
-                    this.HttpContext.GetUserRealIPAddress(),
-                    BBCodeHelper.StripBBCode(HtmlTagHelper.StripHtml(HtmlTagHelper.CleanHtmlString(this.Input.Editor)))
-                        .RemoveMultipleWhitespace(),
-                    this.PageBoardContext.IsGuest ? null : this.PageBoardContext.MembershipUser.Email,
-                    out var spamResult))
+            var description =
+                $"""
+                 Spam Check detected possible SPAM ({spamResult}) Original message: [{this.Input.Editor}]
+                                                  posted by PageUser: {(this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName())}
+                 """;
+
+            switch (this.PageBoardContext.BoardSettings.SpamPostHandling)
             {
-                var description =
-                    $"""
-                     Spam Check detected possible SPAM ({spamResult}) Original message: [{this.Input.Editor}]
-                                                      posted by PageUser: {(this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName())}
-                     """;
+                case SpamPostHandling.DoNothing:
+                    this.Get<Logger<PostMessageModel>>().SpamMessageDetected(
+                        this.PageBoardContext.PageUserID,
+                        description);
+                    break;
+                case SpamPostHandling.FlagMessageUnapproved:
+                    this.spamApproved = false;
+                    isPossibleSpamMessage = true;
+                    this.Get<Logger<PostMessageModel>>().SpamMessageDetected(
+                        this.PageBoardContext.PageUserID,
+                        $"{description}, it was flagged as unapproved post.");
+                    break;
+                case SpamPostHandling.RejectMessage:
+                    this.Get<Logger<PostMessageModel>>().SpamMessageDetected(
+                        this.PageBoardContext.PageUserID,
+                        $"{description}, post was rejected");
+                    return this.PageBoardContext.Notify(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
+                case SpamPostHandling.DeleteBanUser:
+                    this.Get<Logger<PostMessageModel>>().SpamMessageDetected(
+                        this.PageBoardContext.PageUserID,
+                        $"{description}, user was deleted and banned");
 
-                switch (this.PageBoardContext.BoardSettings.SpamPostHandling)
-                {
-                    case SpamPostHandling.DoNothing:
-                        this.Get<Logger<PostMessageModel>>().SpamMessageDetected(
-                            this.PageBoardContext.PageUserID,
-                            description);
-                        break;
-                    case SpamPostHandling.FlagMessageUnapproved:
-                        this.spamApproved = false;
-                        isPossibleSpamMessage = true;
-                        this.Get<Logger<PostMessageModel>>().SpamMessageDetected(
-                            this.PageBoardContext.PageUserID,
-                            $"{description}, it was flagged as unapproved post.");
-                        break;
-                    case SpamPostHandling.RejectMessage:
-                        this.Get<Logger<PostMessageModel>>().SpamMessageDetected(
-                            this.PageBoardContext.PageUserID,
-                            $"{description}, post was rejected");
-                        return this.PageBoardContext.Notify(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
-                    case SpamPostHandling.DeleteBanUser:
-                        this.Get<Logger<PostMessageModel>>().SpamMessageDetected(
-                            this.PageBoardContext.PageUserID,
-                            $"{description}, user was deleted and banned");
+                    await this.Get<IAspNetUsersHelper>().DeleteAndBanUserAsync(
+                        this.PageBoardContext.PageUser,
+                        this.PageBoardContext.MembershipUser,
+                        this.PageBoardContext.PageUser.IP);
 
-                        await this.Get<IAspNetUsersHelper>().DeleteAndBanUserAsync(
-                            this.PageBoardContext.PageUser,
-                            this.PageBoardContext.MembershipUser,
-                            this.PageBoardContext.PageUser.IP);
-
-                        return this.Page();
-                }
+                    return this.Page();
             }
         }
 
@@ -511,7 +507,7 @@ public class PostMessageModel : ForumPage
     /// </param>
     private void InitQuotedReply(Message message)
     {
-        var messageContent = message.MessageText;
+        var messageContent = BBCodeHelper.DecodeCodeBlocks(message.MessageText);
 
         if (this.PageBoardContext.BoardSettings.RemoveNestedQuotes)
         {

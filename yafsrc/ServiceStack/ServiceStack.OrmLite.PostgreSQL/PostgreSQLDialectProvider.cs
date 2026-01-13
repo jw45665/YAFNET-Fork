@@ -102,13 +102,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         AppContext.SetSwitch("Npgsql.EnableLegacyCaseInsensitiveDbParameters", true);
 
-#if NET9_0_OR_GREATER
         this.RegisterConverter<DateOnly>(new PostgreSqlDateOnlyConverter());
-#endif
-
-#if NET48
-            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-#endif
 
         this.Variables = new Dictionary<string, string> {
             { OrmLiteVariables.SystemUtc, "now() at time zone 'utc'" },
@@ -139,19 +133,14 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     }
 
     /// <summary>
-    /// The normalize
-    /// </summary>
-    private bool normalize;
-
-    /// <summary>
     /// Gets or sets a value indicating whether this <see cref="PostgreSqlDialectProvider" /> is normalize.
     /// </summary>
     /// <value><c>true</c> if normalize; otherwise, <c>false</c>.</value>
     public bool Normalize {
-        get => this.normalize;
+        get;
         set {
-            this.normalize = value;
-            this.NamingStrategy = this.normalize
+            field = value;
+            this.NamingStrategy = field
                 ? new OrmLiteNamingStrategyBase()
                 : new PostgreSqlNamingStrategy();
         }
@@ -1307,7 +1296,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         [typeof(PhysicalAddress)] = NpgsqlDbType.MacAddr,
         [typeof(NpgsqlTsQuery)] = NpgsqlDbType.TsQuery,
         [typeof(NpgsqlTsVector)] = NpgsqlDbType.TsVector,
-#if NET9_0_OR_GREATER
+#if NET10_0_OR_GREATER
         [typeof(DateOnly)] = NpgsqlDbType.Date,
         [typeof(TimeOnly)] = NpgsqlDbType.Time,
 #endif
@@ -1531,6 +1520,30 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// </summary>
     /// <value>The SQL random.</value>
     public override string SqlRandom => "RANDOM()";
+
+    // strftime('%Y-%m-%d %H:%M:%S', 'now')
+    public Dictionary<string, string> DateFormatMap = new() {
+        {"%Y", "YYYY"},
+        {"%m", "MM"},
+        {"%d", "DD"},
+        {"%H", "HH24"},
+        {"%M", "MI"},
+        {"%S", "SS"},
+    };
+
+    public override string SqlDateFormat(string quotedColumn, string format)
+    {
+        var fmt = format.Contains('\'')
+            ? format.Replace("'", "")
+            : format;
+        foreach (var entry in DateFormatMap)
+        {
+            fmt = fmt.Replace(entry.Key, entry.Value);
+        }
+        return $"TO_CHAR({quotedColumn}, '{fmt}')";
+    }
+
+    public override string SqlChar(int charCode) => $"CHR({charCode})";
 
     /// <summary>
     /// Unwraps the specified database.

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -239,7 +239,9 @@ public class ForumsModel : ModerateForumPage
             await this.GetRepository<Topic>().DeleteAsync(this.PageBoardContext.PageForumID, x.TopicID);
         }
 
-        return this.PageBoardContext.Notify(this.GetText("moderate", "deleted"), MessageTypes.success);
+        this.PageBoardContext.SessionNotify(this.GetText("moderate", "deleted"), MessageTypes.success);
+
+        return this.Get<ILinkBuilder>().Redirect(ForumPages.Moderate_Forums, new { f = this.PageBoardContext.PageForumID });
     }
 
     /// <summary>

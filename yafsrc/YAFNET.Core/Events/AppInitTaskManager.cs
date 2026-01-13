@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -135,7 +135,7 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpContex
         this.appInstance = @event.HttpContext;
 
         // create intermittent cleanup task...
-        this.StartTask("CleanUpTask", () => new CleanUpTask { TaskManager = this });
+        this.StartTask(nameof(CleanUpTask), () => new CleanUpTask { TaskManager = this });
 
         this.Get<IEnumerable<IStartTasks>>().ForEach(
             instance =>

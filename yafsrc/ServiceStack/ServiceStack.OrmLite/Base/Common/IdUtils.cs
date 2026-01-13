@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 using System;
 using System.Linq;
 using System.Reflection;
@@ -29,21 +30,14 @@ public static class IdUtils<T>
     /// </summary>
     static IdUtils()
     {
+        var hasIdInterfaces = typeof(T).GetTypeInfo().ImplementedInterfaces.Where(t => t.GetTypeInfo().IsGenericType
+            && t.GetTypeInfo().GetGenericTypeDefinition() == typeof(IHasId<>)).ToArray();
 
-#if !SL5 && !IOS && !XBOX
-#if NET9_0_OR_GREATER
-            var hasIdInterfaces = typeof(T).GetTypeInfo().ImplementedInterfaces.Where(t => t.GetTypeInfo().IsGenericType
-                && t.GetTypeInfo().GetGenericTypeDefinition() == typeof(IHasId<>)).ToArray();
-#else
-        var hasIdInterfaces = typeof(T).FindInterfaces(
-            (t, critera) => t.IsGenericType && t.GetGenericTypeDefinition() == typeof(IHasId<>), null);
-#endif
         if (hasIdInterfaces.Length > 0)
         {
             CanGetId = HasId<T>.GetId;
             return;
         }
-#endif
 
         if (typeof(T).IsClass || typeof(T).IsInterface)
         {
@@ -139,17 +133,8 @@ static internal class HasId<TEntity>
     /// </summary>
     static HasId()
     {
-
-#if IOS || SL5
-            GetIdFn = HasPropertyId<TEntity>.GetId;
-#else
-#if NET9_0_OR_GREATER
         var hasIdInterfaces = typeof(TEntity).GetTypeInfo().ImplementedInterfaces.Where(t => t.GetTypeInfo().IsGenericType
-                && t.GetTypeInfo().GetGenericTypeDefinition() == typeof(IHasId<>)).ToArray();
-#else
-        var hasIdInterfaces = typeof(TEntity).FindInterfaces(
-            (t, critera) => t.IsGenericType && t.GetGenericTypeDefinition() == typeof(IHasId<>), null);
-#endif
+            && t.GetTypeInfo().GetGenericTypeDefinition() == typeof(IHasId<>)).ToArray();
         var genericArg = hasIdInterfaces[0].GetGenericArguments()[0];
         var genericType = typeof(HasIdGetter<,>).MakeGenericType(typeof(TEntity), genericArg);
 
@@ -166,7 +151,6 @@ static internal class HasId<TEntity>
             exprCallStaticMethod,
             oInstanceParam
         ).Compile();
-#endif
     }
 
     /// <summary>
@@ -219,26 +203,27 @@ public static class IdUtils
         return entity.GetType().GetIdProperty().GetGetMethod(nonPublic: true).Invoke(entity, TypeConstants.EmptyObjectArray);
     }
 
-    /// <summary>
-    /// Converts to id.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="entity">The entity.</param>
-    /// <returns>System.Object.</returns>
-    public static object ToId<T>(this T entity)
+    /// <typeparam name="T"></typeparam>
+    extension<T>(T entity)
     {
-        return entity.GetId();
-    }
+        /// <summary>
+        /// Converts to id.
+        /// </summary>
+        /// <returns>System.Object.</returns>
+        public object ToId()
+        {
+            return entity.GetId();
+        }
 
-    /// <summary>
-    /// Converts to urn.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="entity">The entity.</param>
-    /// <returns>System.String.</returns>
-    public static string ToUrn<T>(this T entity)
-    {
-        return entity.CreateUrn();
+        /// <summary>
+        /// Converts to urn.
+        /// </summary>
+        /// <returns>System.String.</returns>
+        public string ToUrn()
+        {
+            return entity.CreateUrn();
+        }
     }
 
     /// <summary>

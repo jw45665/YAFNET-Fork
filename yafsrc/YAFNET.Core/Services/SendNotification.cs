@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -36,6 +36,7 @@ using MimeKit;
 
 using YAF.Core.Model;
 using YAF.Types.Models;
+using YAF.Types.Objects;
 
 /// <summary>
 /// The YAF Send Notification.
@@ -75,21 +76,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     public async Task ToModeratorsThatMessageNeedsApprovalAsync(int forumId, int newMessageId, bool isSpamMessage)
     {
         var moderatorsFiltered = (await this.Get<DataBroker>().GetModeratorsAsync()).Where(f => f.ForumID.Equals(forumId));
-        var moderatorUserNames = new List<string>();
-
-        foreach (var moderator in moderatorsFiltered)
-        {
-            if (moderator.IsGroup)
-            {
-                var users = await this.Get<IAspNetRolesHelper>().GetUsersInRoleAsync(moderator.Name);
-
-                moderatorUserNames.AddRange(users.Select(u => u.UserName));
-            }
-            else
-            {
-                moderatorUserNames.Add(moderator.Name);
-            }
-        }
+        var moderatorUserNames = moderatorsFiltered.Select(moderator => moderator.Name).ToList();
 
         var cssPath = Path.Combine(
             this.Get<BoardInfo>().WebRootPath,
@@ -168,22 +155,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         try
         {
             var moderatorsFiltered = (await this.Get<DataBroker>().GetModeratorsAsync()).Where(f => f.ForumID.Equals(pageForumId));
-            var moderatorUserNames = new List<string>();
-
-            foreach (var moderator in moderatorsFiltered)
-            {
-                if (moderator.IsGroup)
-                {
-                    var users = await this.Get<IAspNetRolesHelper>().GetUsersInRoleAsync(moderator.Name);
-
-                    moderatorUserNames.AddRange(
-                        users.Select(u => u.UserName));
-                }
-                else
-                {
-                    moderatorUserNames.Add(moderator.Name);
-                }
-            }
+            var moderatorUserNames = moderatorsFiltered.Select(moderator => moderator.Name).ToList();
 
             // send each message...
             var moderators = moderatorUserNames.Distinct();
@@ -288,8 +260,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                      }
                              };
 
-        watchUsers.AsParallel().ForAll(
-            user =>
+        watchUsers.AsParallel().ForAll(async user =>
                 {
                     // Add to stream
                     if (user.Activity)
@@ -317,12 +288,19 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                     }
 
                     var languageFile = user.LanguageFile.IsSet() && this.Get<BoardSettings>().AllowUserLanguage
-                                           ? user.LanguageFile
-                                           : this.Get<BoardSettings>().Language;
+                        ? user.LanguageFile
+                        : this.Get<BoardSettings>().Language;
+
 
                     var subject = string.Format(
                         this.Get<ILocalization>().GetText("COMMON", "TOPIC_NOTIFICATION_SUBJECT", languageFile),
                         boardName);
+
+                    // Send push Notifications
+                    if (this.Get<VapidConfiguration>().IsPwaEnabled())
+                    {
+                        await this.Get<ISendPushNotification>().SendTopicPushNotificationAsync(user, message, newTopic, subject);
+                    }
 
                     watchEmail.TemplateLanguageFile = languageFile;
 

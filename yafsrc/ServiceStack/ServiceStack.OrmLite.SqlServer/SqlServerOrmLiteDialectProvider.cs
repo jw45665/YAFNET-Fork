@@ -706,7 +706,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 "object_id = OBJECT_ID(N'[{0}].[{1}]')",
                 this.NamingStrategy.GetSchemaName(modelDef),
                 this.NamingStrategy.GetTableName(modelDef));
-            sb.AppendFormat("and is_primary_key = 1");
+            sb.Append("and is_primary_key = 1");
 
             return StringBuilderCache.ReturnAndFree(sb);
         }
@@ -722,9 +722,18 @@ namespace ServiceStack.OrmLite.SqlServer
         {
             var sb = StringBuilderCache.Allocate();
 
-            var foreignKeyName = name.IsNullOrEmpty() ? $"PK_{this.NamingStrategy.GetTableName(modelDef)}" :
-                                 name.StartsWith("PK_", StringComparison.CurrentCultureIgnoreCase) ? name :
-                                 $"PK_{this.NamingStrategy.GetTableName(modelDef)}_{name}";
+            string foreignKeyName;
+
+            if (name.IsNullOrEmpty())
+            {
+                foreignKeyName = $"PK_{this.NamingStrategy.GetTableName(modelDef)}";
+            }
+            else
+            {
+                foreignKeyName = name.StartsWith("PK_", StringComparison.CurrentCultureIgnoreCase)
+                    ? name
+                    : $"PK_{this.NamingStrategy.GetTableName(modelDef)}_{name}";
+            }
 
             var tableName = this.GetQuotedTableName(modelDef);
 
@@ -1731,8 +1740,8 @@ namespace ServiceStack.OrmLite.SqlServer
         public override string SqlLimit(int? offset = null, int? rows = null)
         {
             return rows == null && offset == null ? string.Empty :
-                rows != null ? "OFFSET " + offset.GetValueOrDefault() + " ROWS FETCH NEXT " + rows + " ROWS ONLY" :
-                "OFFSET " + offset.GetValueOrDefault(int.MaxValue) + " ROWS";
+                rows != null ? $"OFFSET {offset.GetValueOrDefault()} ROWS FETCH NEXT {rows} ROWS ONLY" :
+                $"OFFSET {offset.GetValueOrDefault(int.MaxValue)} ROWS";
         }
 
         /// <summary>
@@ -1753,6 +1762,27 @@ namespace ServiceStack.OrmLite.SqlServer
         /// </summary>
         /// <value>The SQL random.</value>
         public override string SqlRandom => "NEWID()";
+
+        // strftime('%Y-%m-%d %H:%M:%S', 'now')
+        public Dictionary<string, string> DateFormatMap = new() {
+            {"%Y", "YYYY"},
+            {"%m", "MM"},
+            {"%d", "DD"},
+            {"%H", "HH"},
+            {"%M", "mm"},
+            {"%S", "ss"},
+        };
+        public override string SqlDateFormat(string quotedColumn, string format)
+        {
+            var fmt = format.Contains('\'')
+                ? format.Replace("'", "")
+                : format;
+            foreach (var entry in DateFormatMap)
+            {
+                fmt = fmt.Replace(entry.Key, entry.Value);
+            }
+            return $"FORMAT({quotedColumn}, '{fmt}')";
+        }
 
         /// <summary>
         /// Enables the foreign keys check.

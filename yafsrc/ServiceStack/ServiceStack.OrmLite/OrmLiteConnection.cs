@@ -25,7 +25,7 @@ using System;
 /// Wrapper IDbConnection class to allow for connection sharing, mocking, etc.
 /// </summary>
 public class OrmLiteConnection
-    : IDbConnection, IHasDbConnection, IHasDbTransaction, ISetDbTransaction, IHasDialectProvider, IHasName
+    : IDbConnection, IHasDbConnection, IHasDbTransaction, ISetDbTransaction, IHasDialectProvider, IHasTag
 {
     /// <summary>
     /// The factory
@@ -33,10 +33,10 @@ public class OrmLiteConnection
     public readonly OrmLiteConnectionFactory Factory;
 
     /// <summary>
-    /// Gets or sets the name.
+    /// Gets or sets the tag.
     /// </summary>
-    /// <value>The name.</value>
-    public string? Name { get; set; }
+    /// <value>The tag.</value>
+    public string? Tag { get; set; }
 
     /// <summary>
     /// Gets or sets the transaction.
@@ -181,7 +181,7 @@ public class OrmLiteConnection
             return;
         }
 
-        var id = Diagnostics.OrmLite.WriteConnectionCloseBefore(this.dbConnection);
+        var id = Diagnostics.OrmLite.WriteConnectionCloseBefore(this);
         var connectionId = this.dbConnection.GetConnectionId();
 
         Exception? e = null;
@@ -199,11 +199,11 @@ public class OrmLiteConnection
         {
             if (e != null)
             {
-                Diagnostics.OrmLite.WriteConnectionCloseError(id, connectionId, this.dbConnection, e);
+                Diagnostics.OrmLite.WriteConnectionCloseError(id, connectionId, this, e);
             }
             else
             {
-                Diagnostics.OrmLite.WriteConnectionCloseAfter(id, connectionId, this.dbConnection);
+                Diagnostics.OrmLite.WriteConnectionCloseAfter(id, connectionId, this);
             }
         }
     }
@@ -249,17 +249,14 @@ public class OrmLiteConnection
             return;
         }
 
-        var id = Diagnostics.OrmLite.WriteConnectionOpenBefore(dbConn);
+        var id = Diagnostics.OrmLite.WriteConnectionOpenBefore(this);
         Exception? e = null;
 
         try
         {
             dbConn.Open();
             //so the internal connection is wrapped for example by miniprofiler
-            if (this.Factory.ConnectionFilter != null)
-            {
-                dbConn = this.Factory.ConnectionFilter(dbConn);
-            }
+            this.dbConnection = this.Factory.ConnectionFilter(dbConn);
 
             this.DialectProvider.InitConnection(this);
         }
@@ -272,11 +269,11 @@ public class OrmLiteConnection
         {
             if (e != null)
             {
-                Diagnostics.OrmLite.WriteConnectionOpenError(id, dbConn, e);
+                Diagnostics.OrmLite.WriteConnectionOpenError(id, this, e);
             }
             else
             {
-                Diagnostics.OrmLite.WriteConnectionOpenAfter(id, dbConn);
+                Diagnostics.OrmLite.WriteConnectionOpenAfter(id, this);
             }
         }
     }
@@ -296,17 +293,14 @@ public class OrmLiteConnection
 
         if (dbConn.State == ConnectionState.Closed)
         {
-            var id = Diagnostics.OrmLite.WriteConnectionOpenBefore(dbConn);
+            var id = Diagnostics.OrmLite.WriteConnectionOpenBefore(this);
             Exception? e = null;
 
             try
             {
                 await this.DialectProvider.OpenAsync(dbConn, token).ConfigAwait();
                 //so the internal connection is wrapped for example by miniprofiler
-                if (this.Factory.ConnectionFilter != null)
-                {
-                    dbConn = this.Factory.ConnectionFilter(dbConn);
-                }
+                this.dbConnection = this.Factory.ConnectionFilter(dbConn);
 
                 this.DialectProvider.InitConnection(this);
             }
@@ -319,28 +313,23 @@ public class OrmLiteConnection
             {
                 if (e != null)
                 {
-                    Diagnostics.OrmLite.WriteConnectionOpenError(id, dbConn, e);
+                    Diagnostics.OrmLite.WriteConnectionOpenError(id, this, e);
                 }
                 else
                 {
-                    Diagnostics.OrmLite.WriteConnectionOpenAfter(id, dbConn);
+                    Diagnostics.OrmLite.WriteConnectionOpenAfter(id, this);
                 }
             }
         }
     }
 
     /// <summary>
-    /// The connection string
-    /// </summary>
-    private string? connectionString;
-
-    /// <summary>
     /// Gets or sets the string used to open a database.
     /// </summary>
     /// <value>The connection string.</value>
     public string? ConnectionString {
-        get => this.connectionString ?? this.Factory.ConnectionString;
-        set => this.connectionString = value;
+        get => field ?? this.Factory.ConnectionString;
+        set;
     }
 
     /// <summary>
@@ -395,23 +384,25 @@ internal interface ISetDbTransaction
 /// </summary>
 public static class OrmLiteConnectionUtils
 {
-    /// <summary>
-    /// Ins the transaction.
-    /// </summary>
     /// <param name="db">The database.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool InTransaction(this IDbConnection db)
+    extension(IDbConnection db)
     {
-        return db is IHasDbTransaction { DbTransaction: { } };
-    }
+        /// <summary>
+        /// Ins the transaction.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        public bool InTransaction()
+        {
+            return db is IHasDbTransaction { DbTransaction: { } };
+        }
 
-    /// <summary>
-    /// Gets the transaction.
-    /// </summary>
-    /// <param name="db">The database.</param>
-    /// <returns>IDbTransaction.</returns>
-    public static IDbTransaction? GetTransaction(this IDbConnection db)
-    {
-        return db is IHasDbTransaction setDb ? setDb.DbTransaction : null;
+        /// <summary>
+        /// Gets the transaction.
+        /// </summary>
+        /// <returns>IDbTransaction.</returns>
+        public IDbTransaction? GetTransaction()
+        {
+            return db is IHasDbTransaction setDb ? setDb.DbTransaction : null;
+        }
     }
 }

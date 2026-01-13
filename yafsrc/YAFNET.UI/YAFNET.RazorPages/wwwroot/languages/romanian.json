@@ -703,6 +703,14 @@
           {
             "@tag": "VIEWTHANKS",
             "#text": "Vezi info multumiri"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Vizualizează lista țărilor interzise"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES_EDIT",
+            "#text": "Editează țara interzisă"
           }
         ]
       },
@@ -819,6 +827,10 @@
       {
         "@name": "ADMIN_ADMIN",
         "Resource": [
+          {
+            "@tag": "ACTIVE_REQUESTS",
+            "#text": "Cereri active pentru această adresă IP"
+          },
           {
             "@tag": "ADMIN_APPROVE",
             "#text": "Approve"
@@ -1002,10 +1014,6 @@
           {
             "@tag": "USERS_DAY",
             "#text": "Utilizatori pe zi:"
-          },
-          {
-            "@tag": "ACTIVE_REQUESTS",
-            "#text": "Cereri active pentru această adresă IP"
           }
         ]
       },
@@ -1278,6 +1286,10 @@
           {
             "@tag": "MASK",
             "#text": "Mască"
+          },
+          {
+            "@tag": "MSG_ADDBAN_IP",
+            "#text": "Adresa IP sau masca"
           },
           {
             "@tag": "MSG_DELETE",
@@ -4031,6 +4043,14 @@
             "#text": "Lista de extensii de fișiere permise pentru atașamente."
           },
           {
+            "@tag": "ALLOWED_NAME_CHARS",
+            "#text": "Personaje de utilizator au permis:"
+          },
+          {
+            "@tag": "ALLOWED_NAME_CHARS_HELP",
+            "#text": "Lista extensiilor de fișiere permise pentru atașamente."
+          },
+          {
             "@tag": "AMOUNT_OF_SUBFORUMS",
             "#text": "Sub forumuri în lista forumurilor:"
           },
@@ -6478,6 +6498,10 @@
         "@name": "ADMIN_TAGS",
         "Resource": [
           {
+            "@tag": "CONFIRM_DELETE",
+            "#text": "Ștergeți eticheta?"
+          },
+          {
             "@tag": "SHOW_TOPICS",
             "#text": "Arată tema(e)"
           },
@@ -6897,6 +6921,10 @@
           {
             "@tag": "USERSANDROLES",
             "#text": "Utilizatori și roluri"
+          },
+          {
+            "@tag": "ADMIN_BANNED_COUNTRIES",
+            "#text": "Țări interzise"
           }
         ]
       },
@@ -9695,7 +9723,7 @@
           },
           {
             "@tag": "SELECT_FILE",
-            "#text": "Selectați un fișier imagine ('.jpg', '.gif', '.png' sau '.bmp') pe care doriți să îl încărcați."
+            "#text": "Selectați un fișier imagine ('.webp','.jpg','.jpeg', '.gif', '.png' sau '.bmp') pe care doriți să îl încărcați."
           },
           {
             "@tag": "TITLE",
@@ -14045,12 +14073,32 @@
         "@name": "SUBSCRIPTIONS",
         "Resource": [
           {
+            "@tag": "ACTIVE_SUBSCRIPTIONS",
+            "#text": "Abonamente active"
+          },
+          {
             "@tag": "ALLTOPICS",
             "#text": "Notificare pentru [b]toate postările pe toate subiectele[/b]"
           },
           {
+            "@tag": "APPINSTALLED",
+            "#text": "✅ Aplicație instalată! "
+          },
+          {
+            "@tag": "BROWSERNOTSUPPORTED",
+            "#text": "❌ Acest browser nu acceptă notificări"
+          },
+          {
+            "@tag": "CLICK_ENABLE",
+            "#text": "Faceți clic pe butonul pentru a activa notificările"
+          },
+          {
             "@tag": "DAILY_DIGEST",
             "#text": "Primiți o dată pe zi un rezumat zilnic al activității?"
+          },
+          {
+            "@tag": "ENABLE_NOTIFICATIONS",
+            "#text": "Activați notificările"
           },
           {
             "@tag": "FORUM",
@@ -14061,6 +14109,10 @@
             "#text": "Forumuri"
           },
           {
+            "@tag": "IOSHANDLING",
+            "#text": "📱 iOS requires: Tap Share ⬆️ → Add to Home Screen → Open from home screen, then enable notifications."
+          },
+          {
             "@tag": "LASTPOST",
             "#text": "Ultima postare"
           },
@@ -14069,20 +14121,76 @@
             "#text": "{0} de {1}"
           },
           {
+            "@tag": "MOBILE_INSTRUCTIONS",
+            "#text": "[b]"
+          },
+          {
             "@tag": "NONOTIFICATION",
             "#text": "Dezactivați notificările"
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKED",
+            "#text": "❌ Notificări blocate. "
+          },
+          {
+            "@tag": "NOTIFICATIONSBLOCKEDMOBILE",
+            "#text": "❌ Notificări blocate. "
           },
           {
             "@tag": "NOTIFICATIONSELECTION",
             "#text": "Selectați preferința de notificare prin e-mail:"
           },
           {
+            "@tag": "PERMISSIONDENIED",
+            "#text": "❌ Permisiune refuzată. "
+          },
+          {
+            "@tag": "PERMISSIONDENIEDMOBILE",
+            "#text": "❌ Permisiune refuzată. "
+          },
+          {
+            "@tag": "PERMISSIONDISMISSED",
+            "#text": "⚠️ Permisiune respinsă. "
+          },
+          {
+            "@tag": "PERMISSIONGRANTED",
+            "#text": "✅ Permisiune acordată! "
+          },
+          {
+            "@tag": "PUSH_NOTIFICATIONS",
+            "#text": "Notificări push pentru dispozitiv (browser)."
+          },
+          {
+            "@tag": "PWA_INSTALL",
+            "#text": "Adăugați la ecranul de pornire"
+          },
+          {
+            "@tag": "PWA_INSTALL_TITLE",
+            "#text": "Adăugați această aplicație pe ecranul de pornire pentru acces rapid și cea mai bună experiență!"
+          },
+          {
             "@tag": "REPLIES",
             "#text": "Raspunsuri"
           },
           {
+            "@tag": "REQUESTINGPERMISSION",
+            "#text": "🔔 Requesting notification permission... Please allow when prompted!"
+          },
+          {
             "@tag": "SAVED_NOTIFICATION_SETTING",
             "#text": "Setări de e-mail de notificare actualizate"
+          },
+          {
+            "@tag": "STOP_NOTIFICATIONS",
+            "#text": "Opriți notificările"
+          },
+          {
+            "@tag": "STOPPED",
+            "#text": "ℹ️ Notificările push au fost oprite. "
+          },
+          {
+            "@tag": "SUBSCRIBED",
+            "#text": "✅ Te-ai abonat la notificări push cu succes!"
           },
           {
             "@tag": "TITLE",
@@ -14624,6 +14732,56 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Ieri[/b] at {0:T}"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES",
+        "Resource": [
+          {
+            "@tag": "ADD_COUNTRY",
+            "#text": "Adăugați o țară nouă"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "Fără țări"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "În prezent, nu există țări interzise. "
+          },
+          {
+            "@tag": "MASK",
+            "#text": "ŢARĂ"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "Țara interzisă există deja!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "Țara a fost ștearsă cu succes"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Țări interzise"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_COUNTRIES_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "Ţară:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "Țara de interzis."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Adăugați țara interzisă"
           }
         ]
       }

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -95,17 +95,19 @@ public class Active : IEntity, IHaveBoardID
     public string Referer { get; set; }
 
     /// <summary>
+    /// Gets or sets the portion of the request path that identifies
+    /// the requested resource.
+    /// </summary>
+    /// <value>The path.</value>
+    [StringLength(500)]
+    public string Path { get; set; }
+
+    /// <summary>
     /// Gets or sets the country.
     /// </summary>
     /// <value>The country.</value>
     [StringLength(100)]
     public string Country { get; set; }
-
-    /// <summary>
-    /// Gets or sets the location.
-    /// </summary>
-    [StringLength(255)]
-    public string Location { get; set; }
 
     /// <summary>
     /// Gets or sets the login.

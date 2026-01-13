@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -143,7 +143,7 @@ public static class IPHelper
             var ipAddresses = ipString.Split(',');
             var firstNonLocalAddress =
                 Array.Find(ipAddresses,
-                    ip => IPAddress.TryParse(ipString.Split(',')[0].Trim(), out ipAddress) && ipAddress.IsRoutable());
+                    ip => IPAddress.TryParse(ipString.Split(',', StringSplitOptions.TrimEntries)[0], out ipAddress) && ipAddress.IsRoutable());
 
             if (firstNonLocalAddress.IsSet())
             {
@@ -158,7 +158,7 @@ public static class IPHelper
             return httpContext.Connection.RemoteIpAddress.ToString();
         }
 
-        return IPAddress.TryParse((ipString.Split(',').LastOrDefault() ?? string.Empty).Trim(), out ipAddress)
+        return IPAddress.TryParse((ipString.Split(',', StringSplitOptions.TrimEntries).LastOrDefault() ?? string.Empty), out ipAddress)
                    ? ipString
                    : httpContext.Connection.RemoteIpAddress.ToString();
     }

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -588,4 +588,9 @@ public interface IAspNetUsersHelper
         int? sortLastVisit,
         int? numPosts,
         int numPostCompare);
+
+    /// <summary>
+    /// Imports all AspNetUsers users in to the YAF DB, if they do not already exist.
+    /// </summary>
+    void ImportAllMembershipUsers();
 }

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -41,6 +41,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
                                   IHandleEvent<RepositoryEvent<User>>,
                                   IHandleEvent<RepositoryEvent<BannedIP>>,
                                   IHandleEvent<RepositoryEvent<BannedUserAgent>>,
+                                  IHandleEvent<RepositoryEvent<BannedCountry>>,
                                   IHandleEvent<RepositoryEvent<ReplaceWords>>,
                                   IHandleEvent<RepositoryEvent<SpamWords>>,
                                   IHandleEvent<RepositoryEvent<AccessMask>>,
@@ -169,6 +170,17 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     public void Handle(RepositoryEvent<BannedUserAgent> @event)
     {
         this.DataCache.Remove(Constants.Cache.BannedUserAgent);
+    }
+
+    /// <summary>
+    /// The handle.
+    /// </summary>
+    /// <param name="event">
+    ///     The event.
+    /// </param>
+    public void Handle(RepositoryEvent<BannedCountry> @event)
+    {
+        this.DataCache.Remove(Constants.Cache.BannedCountry);
     }
 
     /// <summary>

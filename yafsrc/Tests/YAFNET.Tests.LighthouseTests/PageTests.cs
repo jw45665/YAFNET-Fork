@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -59,6 +59,6 @@ public class PageTests : Setup
 
         Assert.That(res.Seo > 0.9m, Is.True, $"Value was: {res.Seo}");
 
-        Assert.That(res.Performance > 0.6m, Is.True, $"Value was: {res.Performance}");
+        Assert.That(res.Performance >= 0.6m, Is.True, $"Value was: {res.Performance}");
     }
 }

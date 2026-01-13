@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -133,35 +133,32 @@ public class UsersSignatureModel : AdminPage
             if (this.Signature.Length <= this.AllowedNumberOfCharacters)
             {
                 if (user.Item1.NumPosts <
-                    this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount)
+                    this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount && this.Get<ISpamWordCheck>().CheckForSpamWord(this.Signature, out var result))
                 {
                     // Check for spam
-                    if (this.Get<ISpamWordCheck>().CheckForSpamWord(this.Signature, out var result))
+                    switch (this.PageBoardContext.BoardSettings.BotHandlingOnRegister)
                     {
-                        switch (this.PageBoardContext.BoardSettings.BotHandlingOnRegister)
+                        // Log and Send Message to Admins
+                        case 1:
+                            this.Get<ILogger<EditSignatureModel>>().SpamBotDetected(
+                                this.Input.UserId,
+                                $"""
+                                 Internal Spam Word Check detected a SPAM BOT: (user name : '{user.Item1.Name}', user id : '{this.Input.UserId}') 
+                                 after the user included a spam word in his/her signature: {result}
+                                 """);
+                            break;
+                        case 2:
                         {
-                            // Log and Send Message to Admins
-                            case 1:
-                                this.Get<ILogger<EditSignatureModel>>().SpamBotDetected(
-                                    this.Input.UserId,
-                                    $"""
-                                     Internal Spam Word Check detected a SPAM BOT: (user name : '{user.Item1.Name}', user id : '{this.Input.UserId}') 
-                                     after the user included a spam word in his/her signature: {result}
-                                     """);
-                                break;
-                            case 2:
-                            {
-                                this.Get<ILogger<EditSignatureModel>>().SpamBotDetected(
-                                    this.Input.UserId,
-                                    $"""
-                                     Internal Spam Word Check detected a SPAM BOT: (
-                                                                                            user name : '{user.Item1.Name}',
-                                                                                            user id : '{this.Input.UserId}')
-                                                                                      after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.
-                                     """);
+                            this.Get<ILogger<EditSignatureModel>>().SpamBotDetected(
+                                this.Input.UserId,
+                                $"""
+                                 Internal Spam Word Check detected a SPAM BOT: (
+                                                                                        user name : '{user.Item1.Name}',
+                                                                                        user id : '{this.Input.UserId}')
+                                                                                  after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.
+                                 """);
 
-                                break;
-                            }
+                            break;
                         }
                     }
                 }

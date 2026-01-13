@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -43,110 +43,5 @@ public enum Gender
     /// <summary>
     /// The woman
     /// </summary>
-    Woman,
-
-    /// <summary>
-    /// The agender
-    /// </summary>
-    Agender,
-
-    /// <summary>
-    /// The androgyne
-    /// </summary>
-    Androgyne,
-
-    /// <summary>
-    /// The bigender
-    /// </summary>
-    Bigender,
-
-    /// <summary>
-    /// The cisgender
-    /// </summary>
-    Cisgender,
-
-    /// <summary>
-    /// The female to male
-    /// </summary>
-    FemaleToMale,
-
-    /// <summary>
-    /// The gender fluid
-    /// </summary>
-    GenderFluid,
-
-    /// <summary>
-    /// The gender nonconforming
-    /// </summary>
-    GenderNonconforming,
-
-    /// <summary>
-    /// The gender questioning
-    /// </summary>
-    GenderQuestioning,
-
-    /// <summary>
-    /// The genderqueer
-    /// </summary>
-    Genderqueer,
-
-    /// <summary>
-    /// The intersex
-    /// </summary>
-    Intersex,
-
-    /// <summary>
-    /// The male to female
-    /// </summary>
-    MaleToFemale,
-
-    /// <summary>
-    /// The non binary
-    /// </summary>
-    NonBinary,
-
-    /// <summary>
-    /// The pangender
-    /// </summary>
-    Pangender,
-
-    /// <summary>
-    /// The trans
-    /// </summary>
-    Trans,
-
-    /// <summary>
-    /// The transgender
-    /// </summary>
-    Transgender,
-
-    /// <summary>
-    /// The trans man
-    /// </summary>
-    TransMan,
-
-    /// <summary>
-    /// The trans woman
-    /// </summary>
-    TransWoman,
-
-    /// <summary>
-    /// The transfeminine
-    /// </summary>
-    Transfeminine,
-
-    /// <summary>
-    /// The transmasculine
-    /// </summary>
-    Transmasculine,
-
-    /// <summary>
-    /// The transsexual
-    /// </summary>
-    Transsexual,
-
-    /// <summary>
-    /// The two spirit
-    /// </summary>
-    TwoSpirit
+    Woman
 }

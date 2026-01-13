@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,8 +31,6 @@ using YAF.Types.Models;
 /// </summary>
 public interface IActivityStream
 {
-    // void AddAlbumImageToStream(int forumID, long topicID, int messageID, string topicTitle, string message);
-
     /// <summary>
     /// Adds the New Topic to the User's ActivityStream
     /// </summary>

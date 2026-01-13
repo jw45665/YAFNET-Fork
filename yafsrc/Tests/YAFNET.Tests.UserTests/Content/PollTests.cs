@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -91,14 +91,14 @@ public class PollTests : TestBase
                     });
 
                     // Go to edit Page
-                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "" }).First.ClickAsync();
+                    await page.GetByTitle("Tools").ClickAsync();
                     await page.Locator("//a[contains(@href,'EditMessage')]").First.ClickAsync();
 
                     Assert.That(
-                        await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Create Poll" }).IsVisibleAsync(), Is.True,
+                        await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Create Poll" }).IsVisibleAsync(), Is.True,
                         "Editing not allowed for that user. Or the user is not allowed to create Polls");
 
-                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Create Poll" }).ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Create Poll" }).ClickAsync();
 
                     var pageSource = await page.ContentAsync();
 

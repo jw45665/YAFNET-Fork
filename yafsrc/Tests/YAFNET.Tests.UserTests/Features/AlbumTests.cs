@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -304,7 +304,7 @@ public class AlbumTests : TestBase
 
                     Assert.That(pageSource, Does.Contain("Album Images"));
 
-                    await page.Locator(".album-image-caption").ClickAsync();
+                    await page.Locator(".dark-editable-element").First.ClickAsync();
 
                     var captionTextBox = page.GetByRole(AriaRole.Textbox);
 
@@ -312,15 +312,19 @@ public class AlbumTests : TestBase
 
                     await captionTextBox.ClearAsync();
 
-                    await captionTextBox.FillAsync("TestCaption");
+                    var testCaption = $"TestCaption{DateTime.UtcNow.Ticks}";
+
+                    await captionTextBox.FillAsync(testCaption);
 
                     await captionTextBox.PressAsync("Enter");
+
+                    await Task.Delay(15000);
 
                     await page.ReloadAsync();
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.That(pageSource, Does.Contain("TestCaption"), "Edit Caption Failed");
+                    Assert.That(pageSource, Does.Contain(testCaption), "Edit Caption Failed");
                 },
             this.BrowserType);
     }

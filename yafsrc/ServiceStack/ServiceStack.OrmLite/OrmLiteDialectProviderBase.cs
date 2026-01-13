@@ -123,7 +123,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         this.RegisterConverter<DateTime>(new DateTimeConverter());
         this.RegisterConverter<DateTimeOffset>(new DateTimeOffsetConverter());
 
-#if NET9_0_OR_GREATER
+#if NET10_0_OR_GREATER
         this.RegisterConverter<DateOnly>(new DateOnlyConverter());
         this.RegisterConverter<TimeOnly>(new TimeOnlyConverter());
 #endif
@@ -293,18 +293,12 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public IStringSerializer StringSerializer { get; set; } = new JsvStringSerializer();
 
     /// <summary>
-    /// The parameter name filter
-    /// </summary>
-    private Func<string, string> paramNameFilter;
-
-    /// <summary>
     /// Gets or sets the parameter name filter.
     /// </summary>
     /// <value>The parameter name filter.</value>
-    public Func<string, string> ParamNameFilter
-    {
-        get => this.paramNameFilter ?? OrmLiteConfig.ParamNameFilter;
-        set => this.paramNameFilter = value;
+    public Func<string, string> ParamNameFilter {
+        get => field ?? OrmLiteConfig.ParamNameFilter;
+        set;
     }
 
     /// <summary>
@@ -319,78 +313,50 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public string DefaultValueFormat = " DEFAULT ({0})";
 
     /// <summary>
-    /// The enum converter
-    /// </summary>
-    private EnumConverter enumConverter;
-
-    /// <summary>
     /// Gets or sets the enum converter.
     /// </summary>
     /// <value>The enum converter.</value>
-    public EnumConverter EnumConverter
-    {
-        get => this.enumConverter;
-        set
-        {
+    public EnumConverter EnumConverter {
+        get;
+        set {
             value.DialectProvider = this;
-            this.enumConverter = value;
+            field = value;
         }
     }
-
-    /// <summary>
-    /// The row version converter
-    /// </summary>
-    private RowVersionConverter rowVersionConverter;
 
     /// <summary>
     /// Gets or sets the row version converter.
     /// </summary>
     /// <value>The row version converter.</value>
-    public RowVersionConverter RowVersionConverter
-    {
-        get => this.rowVersionConverter;
-        set
-        {
+    public RowVersionConverter RowVersionConverter {
+        get;
+        set {
             value.DialectProvider = this;
-            this.rowVersionConverter = value;
+            field = value;
         }
     }
-
-    /// <summary>
-    /// The reference type converter
-    /// </summary>
-    private ReferenceTypeConverter referenceTypeConverter;
 
     /// <summary>
     /// Gets or sets the reference type converter.
     /// </summary>
     /// <value>The reference type converter.</value>
-    public ReferenceTypeConverter ReferenceTypeConverter
-    {
-        get => this.referenceTypeConverter;
-        set
-        {
+    public ReferenceTypeConverter ReferenceTypeConverter {
+        get;
+        set {
             value.DialectProvider = this;
-            this.referenceTypeConverter = value;
+            field = value;
         }
     }
-
-    /// <summary>
-    /// The value type converter
-    /// </summary>
-    private ValueTypeConverter valueTypeConverter;
 
     /// <summary>
     /// Gets or sets the value type converter.
     /// </summary>
     /// <value>The value type converter.</value>
-    public ValueTypeConverter ValueTypeConverter
-    {
-        get => this.valueTypeConverter;
-        set
-        {
+    public ValueTypeConverter ValueTypeConverter {
+        get;
+        set {
             value.DialectProvider = this;
-            this.valueTypeConverter = value;
+            field = value;
         }
     }
 
@@ -3945,6 +3911,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <value>The SQL random.</value>
     public virtual string SqlRandom => "RAND()";
+
+    public virtual string SqlDateFormat(string quotedColumn, string format) => $"strftime('{format}',{quotedColumn})";
+    public virtual string SqlChar(int charCode) => $"CHAR({charCode})";
 
     // Async API's, should be overriden by Dialect Providers to use .ConfigureAwait(false)
     // Default impl below uses TaskAwaiter shim in async.cs

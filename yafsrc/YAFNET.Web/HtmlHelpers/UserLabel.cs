@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,65 +29,65 @@ namespace YAF.Web.HtmlHelpers;
 /// </summary>
 public static class UserLabelHtmlHelper
 {
-    /// <summary>
-    /// The user link.
-    /// </summary>
     /// <param name="htmlHelper">
     /// The html helper.
     /// </param>
-    /// <param name="user">
-    /// The user.
-    /// </param>
-    /// <returns>
-    /// The <see cref="IHtmlContent"/>.
-    /// </returns>
-    public static IHtmlContent UserLabel(this IHtmlHelper htmlHelper, User user)
+    extension(IHtmlHelper htmlHelper)
     {
-        var content = new HtmlContentBuilder();
-        var context = BoardContext.Current;
-
-        var span = new TagBuilder(HtmlTag.Span);
-
-        if (user.UserStyle.IsSet() && context.BoardSettings.UseStyledNicks)
+        /// <summary>
+        /// The user link.
+        /// </summary>
+        /// <param name="user">
+        /// The user.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IHtmlContent"/>.
+        /// </returns>
+        public IHtmlContent UserLabel(User user)
         {
-            var styleFormatted = context.Get<IStyleTransform>().Decode(user.UserStyle);
+            var content = new HtmlContentBuilder();
+            var context = BoardContext.Current;
 
-            span.MergeAttribute(HtmlAttribute.Style, HttpUtility.HtmlEncode(styleFormatted));
+            var span = new TagBuilder(HtmlTag.Span);
+
+            if (user.UserStyle.IsSet() && context.BoardSettings.UseStyledNicks)
+            {
+                var styleFormatted = context.Get<IStyleTransform>().Decode(user.UserStyle);
+
+                span.MergeAttribute(HtmlAttribute.Style, HttpUtility.HtmlEncode(styleFormatted));
+            }
+
+            span.InnerHtml.AppendHtml(HttpUtility.HtmlEncode(user.DisplayOrUserName()));
+
+            return content.AppendHtml(span);
         }
 
-        span.InnerHtml.AppendHtml(HttpUtility.HtmlEncode(user.DisplayOrUserName()));
-
-        return content.AppendHtml(span);
-    }
-
-    /// <summary>
-    /// The user link.
-    /// </summary>
-    /// <param name="htmlHelper">
-    /// The html helper.
-    /// </param>
-    /// <param name="userName"></param>
-    /// <param name="userStyle"></param>
-    /// <param name="crawlerName"></param>
-    /// <returns>
-    /// The <see cref="IHtmlContent"/>.
-    /// </returns>
-    public static IHtmlContent UserLabel(this IHtmlHelper htmlHelper, string userName, string userStyle, string crawlerName = null)
-    {
-        var content = new HtmlContentBuilder();
-        var context = BoardContext.Current;
-
-        var span = new TagBuilder(HtmlTag.Span);
-
-        if (userStyle.IsSet() && context.BoardSettings.UseStyledNicks)
+        /// <summary>
+        /// The user link.
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="userStyle"></param>
+        /// <param name="crawlerName"></param>
+        /// <returns>
+        /// The <see cref="IHtmlContent"/>.
+        /// </returns>
+        public IHtmlContent UserLabel(string userName, string userStyle, string crawlerName = null)
         {
-            var styleFormatted = context.Get<IStyleTransform>().Decode(userStyle);
+            var content = new HtmlContentBuilder();
+            var context = BoardContext.Current;
 
-            span.MergeAttribute(HtmlAttribute.Style, HttpUtility.HtmlEncode(styleFormatted));
+            var span = new TagBuilder(HtmlTag.Span);
+
+            if (userStyle.IsSet() && context.BoardSettings.UseStyledNicks)
+            {
+                var styleFormatted = context.Get<IStyleTransform>().Decode(userStyle);
+
+                span.MergeAttribute(HtmlAttribute.Style, HttpUtility.HtmlEncode(styleFormatted));
+            }
+
+            span.InnerHtml.AppendHtml(HttpUtility.HtmlEncode(crawlerName.IsNotSet() ? userName : crawlerName));
+
+            return content.AppendHtml(span);
         }
-
-        span.InnerHtml.AppendHtml(HttpUtility.HtmlEncode(crawlerName.IsNotSet() ? userName : crawlerName));
-
-        return content.AppendHtml(span);
     }
 }

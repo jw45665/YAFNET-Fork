@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -38,11 +38,6 @@ using YAF.Types.Interfaces;
 public class DigestSendForumModule : BaseForumModule
 {
     /// <summary>
-    ///   The _key name.
-    /// </summary>
-    private const string KeyName = "DigestSendTask";
-
-    /// <summary>
     /// The init.
     /// </summary>
     public override void Init()
@@ -58,6 +53,6 @@ public class DigestSendForumModule : BaseForumModule
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     private void CurrentAfterInit(object sender, EventArgs e)
     {
-        this.Get<ITaskModuleManager>().StartTask(KeyName, () => new DigestSendTask());
+        this.Get<ITaskModuleManager>().StartTask(nameof(DigestSendTask), () => new DigestSendTask());
     }
 }

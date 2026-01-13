@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -55,14 +55,13 @@ public class AdminPage : ForumPage
     /// </returns>
 #pragma warning disable CA1822 // Mark members as static
     public string GetItemColor(bool value)
-
     {
         return value ? "badge text-bg-success mb-2" : "badge text-bg-danger mb-2";
     }
 #pragma warning restore CA1822 // Mark members as static
 
     /// <summary>
-    /// Get a user friendly item name.
+    /// Get a user-friendly item name.
     /// </summary>
     /// <param name="value">
     /// The bool value to check
@@ -72,6 +71,6 @@ public class AdminPage : ForumPage
     /// </returns>
     public string GetItemName(bool value)
     {
-        return value ? this.GetText("DEFAULT", "YES") : this.GetText("DEFAULT", "NO");
+        return this.GetText("DEFAULT", value ? "YES" : "NO");
     }
 }

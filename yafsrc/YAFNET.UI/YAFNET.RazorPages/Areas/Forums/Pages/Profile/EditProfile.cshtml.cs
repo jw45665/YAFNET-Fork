@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -53,11 +53,6 @@ using YAF.Types.Models.Identity;
 public class EditProfileModel : ProfilePage
 {
     /// <summary>
-    /// The current culture information
-    /// </summary>
-    private CultureInfo currentCultureInfo;
-
-    /// <summary>
     ///   Initializes a new instance of the <see cref = "EditProfileModel" /> class.
     /// </summary>
     public EditProfileModel()
@@ -107,16 +102,16 @@ public class EditProfileModel : ProfilePage
     /// </value>
     private CultureInfo CurrentCultureInfo {
         get {
-            if (this.currentCultureInfo != null)
+            if (field != null)
             {
-                return this.currentCultureInfo;
+                return field;
             }
 
-            this.currentCultureInfo = CultureInfoHelper.GetCultureByUser(
+            field = CultureInfoHelper.GetCultureByUser(
                 this.PageBoardContext.BoardSettings,
                 this.PageBoardContext.PageUser);
 
-            return this.currentCultureInfo;
+            return field;
         }
     }
 
@@ -177,37 +172,36 @@ public class EditProfileModel : ProfilePage
                     ForumPages.Profile_EditProfile);
             }
 
-            if (this.PageBoardContext.PageUser.NumPosts < this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount)
+            // Check for spam
+            if (this.PageBoardContext.PageUser.NumPosts <
+                this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount &&
+                this.Get<ISpamWordCheck>().CheckForSpamWord(this.Input.HomePage, out _))
             {
-                // Check for spam
-                if (this.Get<ISpamWordCheck>().CheckForSpamWord(this.Input.HomePage, out _))
+                switch (this.PageBoardContext.BoardSettings.BotHandlingOnRegister)
                 {
-                    switch (this.PageBoardContext.BoardSettings.BotHandlingOnRegister)
+                    // Log and Send Message to Admins
+                    case 1:
+                        this.Get<ILogger<EditProfileModel>>().Log(
+                            null,
+                            "Bot Detected",
+                            $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.PageBoardContext.PageUserID}') after the user changed the profile Homepage url to: {this.Input.HomePage}",
+                            EventLogTypes.SpamBotDetected);
+                        break;
+                    case 2:
                     {
-                        // Log and Send Message to Admins
-                        case 1:
-                            this.Get<ILogger<EditProfileModel>>().Log(
-                                null,
-                                "Bot Detected",
-                                $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.PageBoardContext.PageUserID}') after the user changed the profile Homepage url to: {this.Input.HomePage}",
-                                EventLogTypes.SpamBotDetected);
-                            break;
-                        case 2:
-                        {
-                            this.Get<ILogger<EditProfileModel>>().Log(
-                                null,
-                                "Bot Detected",
-                                $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.PageBoardContext.PageUserID}') after the user changed the profile Homepage url to: {this.Input.HomePage}, user was deleted and the name, email and IP Address are banned.",
-                                EventLogTypes.SpamBotDetected);
+                        this.Get<ILogger<EditProfileModel>>().Log(
+                            null,
+                            "Bot Detected",
+                            $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.PageBoardContext.PageUserID}') after the user changed the profile Homepage url to: {this.Input.HomePage}, user was deleted and the name, email and IP Address are banned.",
+                            EventLogTypes.SpamBotDetected);
 
-                            // Kill user
-                            await this.Get<IAspNetUsersHelper>().DeleteAndBanUserAsync(
-                                this.PageBoardContext.PageUser,
-                                this.PageBoardContext.MembershipUser,
-                                this.PageBoardContext.PageUser.IP);
+                        // Kill user
+                        await this.Get<IAspNetUsersHelper>().DeleteAndBanUserAsync(
+                            this.PageBoardContext.PageUser,
+                            this.PageBoardContext.MembershipUser,
+                            this.PageBoardContext.PageUser.IP);
 
-                            break;
-                        }
+                        break;
                     }
                 }
             }
@@ -216,18 +210,6 @@ public class EditProfileModel : ProfilePage
         if (this.Input.Blog.IsSet() && !ValidationHelper.IsValidUrl(this.Input.Blog.Trim()))
         {
             return this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_WEBLOG"), MessageTypes.warning,
-                ForumPages.Profile_EditProfile);
-        }
-
-        if (this.Input.Xmpp.IsSet() && !ValidationHelper.IsValidXmpp(this.Input.Xmpp))
-        {
-            return this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_XMPP"), MessageTypes.warning,
-                ForumPages.Profile_EditProfile);
-        }
-
-        if (this.Input.Facebook.IsSet() && !ValidationHelper.IsValidUrl(this.Input.Facebook))
-        {
-            return this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_FACEBOOK"), MessageTypes.warning,
                 ForumPages.Profile_EditProfile);
         }
 
@@ -328,12 +310,6 @@ public class EditProfileModel : ProfilePage
         this.Input.Occupation = this.PageBoardContext.MembershipUser.Profile_Occupation;
         this.Input.Interests = this.PageBoardContext.MembershipUser.Profile_Interests;
         this.Input.Blog = this.PageBoardContext.MembershipUser.Profile_Blog;
-
-        this.Input.Facebook = ValidationHelper.IsNumeric(this.PageBoardContext.MembershipUser.Profile_Facebook)
-                                  ? $"https://www.facebook.com/profile.php?id={this.PageBoardContext.MembershipUser.Profile_Facebook}"
-                                  : this.PageBoardContext.MembershipUser.Profile_Facebook;
-
-        this.Input.Xmpp = this.PageBoardContext.MembershipUser.Profile_XMPP;
 
         this.LoadCountriesAndRegions(this.PageBoardContext.MembershipUser.Profile_Country);
 
@@ -455,6 +431,8 @@ public class EditProfileModel : ProfilePage
     /// </summary>
     private Task<IdentityResult> UpdateUserProfileAsync()
     {
+        var genders = StaticDataHelper.Gender().ToList();
+
         var userProfile = new ProfileInfo {
                                               Country = this.Input.Country,
                                               Region = this.Input.Region.IsSet()
@@ -465,9 +443,6 @@ public class EditProfileModel : ProfilePage
                                                   this.Input.Location.IsSet() ? this.Input.Location.Trim() : null,
                                               Homepage =
                                                   this.Input.HomePage.IsSet() ? this.Input.HomePage.Trim() : null,
-                                              Facebook =
-                                                  this.Input.Facebook.IsSet() ? this.Input.Facebook.Trim() : null,
-                                              XMPP = this.Input.Xmpp.IsSet() ? this.Input.Xmpp.Trim() : null,
                                               RealName =
                                                   this.Input.RealName.IsSet() ? this.Input.RealName.Trim() : null,
                                               Occupation =
@@ -475,7 +450,7 @@ public class EditProfileModel : ProfilePage
                                               Interests = this.Input.Interests.IsSet()
                                                               ? this.Input.Interests.Trim()
                                                               : null,
-                                              Gender = this.Genders.FindIndex(g => g.Value == this.Input.Gender),
+                                              Gender = genders.FindIndex(g => g.Value == this.Input.Gender),
                                               Blog = this.Input.Blog.IsSet() ? this.Input.Blog.Trim() : null
                                           };
 
@@ -516,7 +491,6 @@ public class EditProfileModel : ProfilePage
         user.Profile_Blog = userProfile.Blog;
         user.Profile_Gender = userProfile.Gender;
         user.Profile_Homepage = userProfile.Homepage;
-        user.Profile_Facebook = userProfile.Facebook;
         user.Profile_Interests = userProfile.Interests;
         user.Profile_Location = userProfile.Location;
         user.Profile_Country = userProfile.Country;
@@ -524,7 +498,6 @@ public class EditProfileModel : ProfilePage
         user.Profile_City = userProfile.City;
         user.Profile_Occupation = userProfile.Occupation;
         user.Profile_RealName = userProfile.RealName;
-        user.Profile_XMPP = userProfile.XMPP;
 
         return this.Get<IAspNetUsersHelper>().UpdateUserAsync(user);
     }

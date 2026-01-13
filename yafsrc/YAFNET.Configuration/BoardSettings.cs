@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -172,6 +172,16 @@ public class BoardSettings
         get => this.RegistryBoard.GetValue("PasswordRequireUppercase", true);
 
         set => this.RegistryBoard.SetValue("PasswordRequireUppercase", value);
+    }
+
+    /// <summary>
+    /// Gets or sets the list of allowed characters in the username used to validate usernames. Defaults to abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+
+    /// </summary>
+    /// <value>The allowed username characters.</value>
+    public string AllowedUserNameCharacters {
+        get => this.RegistryBoard.GetValue("AllowedUserNameCharacters", "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+");
+
+        set => this.RegistryBoard.SetValue("AllowedUserNameCharacters", value);
     }
 
     /// <summary>
@@ -1811,7 +1821,7 @@ public class BoardSettings
         get =>
             this.Registry.GetValue(
                 "AllowedFileExtensions",
-                "bmp,doc,gif,jpg,jpeg,mov,mp3,mpg,png,rar,tif,txt,xls,xml,zip");
+                "bmp,doc,gif,jpg,jpeg,webp,mov,mp3,mpg,png,rar,tif,txt,xls,xml,zip");
 
         set => this.Registry.SetValue("AllowedFileExtensions", value.ToLower());
     }

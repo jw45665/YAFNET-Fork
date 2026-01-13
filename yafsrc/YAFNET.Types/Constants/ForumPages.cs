@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -185,11 +185,6 @@ public enum ForumPages
     Moderate_UnapprovedPosts,
 
     /// <summary>
-    /// The Jabber page.
-    /// </summary>
-    Jabber,
-
-    /// <summary>
     /// The Email page.
     /// </summary>
     Email,
@@ -278,6 +273,11 @@ public enum ForumPages
     /// The Admin forums page.
     /// </summary>
     Admin_Forums,
+
+    /// <summary>
+    /// The Admin banned countries page.
+    /// </summary>
+    Admin_BannedCountries,
 
     /// <summary>
     /// The Admin banned email page.

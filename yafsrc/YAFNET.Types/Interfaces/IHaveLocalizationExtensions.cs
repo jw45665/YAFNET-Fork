@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,66 +29,59 @@ namespace YAF.Types.Interfaces;
 /// </summary>
 public static class IHaveLocalizationExtensions
 {
-    /// <summary>
-    /// Gets a text localization using the page and tag name.
-    /// </summary>
     /// <param name="haveLocalization">
     /// The have localization.
     /// </param>
-    /// <param name="page">
-    /// The page.
-    /// </param>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    /// <returns>
-    /// The get text.
-    /// </returns>
-    public static string GetText(
-        this IHaveLocalization haveLocalization,
-        string page,
-        string tag)
+    extension(IHaveLocalization haveLocalization)
     {
-        return haveLocalization.Localization.GetText(page, tag);
-    }
+        /// <summary>
+        /// Gets a text localization using the page and tag name.
+        /// </summary>
+        /// <param name="page">
+        /// The page.
+        /// </param>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <returns>
+        /// The get text.
+        /// </returns>
+        public string GetText(string page,
+            string tag)
+        {
+            return haveLocalization.Localization.GetText(page, tag);
+        }
 
-    /// <summary>
-    /// Gets a text localization.
-    /// </summary>
-    /// <param name="haveLocalization">
-    /// The have localization.
-    /// </param>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    /// <returns>
-    /// The get text.
-    /// </returns>
-    public static string GetText(this IHaveLocalization haveLocalization, string tag)
-    {
-        return haveLocalization.Localization.GetText(tag);
-    }
+        /// <summary>
+        /// Gets a text localization.
+        /// </summary>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <returns>
+        /// The get text.
+        /// </returns>
+        public string GetText(string tag)
+        {
+            return haveLocalization.Localization.GetText(tag);
+        }
 
-    /// <summary>
-    /// Gets a text localization using formatting.
-    /// </summary>
-    /// <param name="haveLocalization">
-    /// The have localization.
-    /// </param>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    /// <param name="args">
-    /// The args.
-    /// </param>
-    /// <returns>
-    /// The get text formatted.
-    /// </returns>
-    public static string GetTextFormatted(
-        this IHaveLocalization haveLocalization,
-        string tag,
-        params object[] args)
-    {
-        return haveLocalization.Localization.GetTextFormatted(tag, args);
+        /// <summary>
+        /// Gets a text localization using formatting.
+        /// </summary>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <param name="args">
+        /// The args.
+        /// </param>
+        /// <returns>
+        /// The get text formatted.
+        /// </returns>
+        public string GetTextFormatted(string tag,
+            params object[] args)
+        {
+            return haveLocalization.Localization.GetTextFormatted(tag, args);
+        }
     }
 }

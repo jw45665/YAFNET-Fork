@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,45 +31,36 @@ using YAF.Types.EventProxies;
 /// </summary>
 public static class IRepositoryExtensions
 {
-    /// <summary>
-    /// The fire deleted.
-    /// </summary>
     /// <param name="repository">
     /// The repository.
     /// </param>
     /// <typeparam name="T">
     /// The Typed Parameter
     /// </typeparam>
-    public static void FireDeleted<T>(this IRepository<T> repository) where T : class, IEntity
+    extension<T>(IRepository<T> repository) where T : class, IEntity
     {
-        repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.Delete));
-    }
+        /// <summary>
+        /// The fire deleted.
+        /// </summary>
+        public void FireDeleted()
+        {
+            repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.Delete));
+        }
 
-    /// <summary>
-    /// The fire new.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <typeparam name="T">
-    /// The Typed Parameter
-    /// </typeparam>
-    public static void FireNew<T>(this IRepository<T> repository) where T : class, IEntity
-    {
-        repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.New));
-    }
+        /// <summary>
+        /// The fire new.
+        /// </summary>
+        public void FireNew()
+        {
+            repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.New));
+        }
 
-    /// <summary>
-    /// The fire updated.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <typeparam name="T">
-    /// The Typed Parameter
-    /// </typeparam>
-    public static void FireUpdated<T>(this IRepository<T> repository) where T : class, IEntity
-    {
-        repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.Update));
+        /// <summary>
+        /// The fire updated.
+        /// </summary>
+        public void FireUpdated()
+        {
+            repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.Update));
+        }
     }
 }

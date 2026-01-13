@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -43,27 +43,25 @@ public class Feed : ForumBaseController
     /// </summary>
     /// <returns>ActionResult.</returns>
     [Produces("application/rss+xml")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetLatestPosts")]
     public async Task<ActionResult> GetLatestPosts()
     {
-        if (!this.Get<BoardSettings>().ShowAtomLink)
+        if ((this.PageBoardContext.IsGuest && this.Get<BoardSettings>().RequireLogin) ||
+            !this.Get<BoardSettings>().ShowAtomLink || !(this.Get<BoardSettings>().ShowActiveDiscussions && this
+                .Get<IPermissions>()
+                .Check(this.Get<BoardSettings>().PostLatestFeedAccess)))
         {
             return this.NotFound();
         }
 
-        if (!(this.Get<BoardSettings>().ShowActiveDiscussions && this.Get<IPermissions>()
-                  .Check(this.Get<BoardSettings>().PostLatestFeedAccess)))
-        {
-            return this.NotFound();
-        }
 
         try
         {
             var feed = await this.Get<SyndicationFeeds>().GetPostLatestFeedAsync();
 
-            var settings = new XmlWriterSettings {Encoding = Encoding.UTF8, Async = true };
+            var settings = new XmlWriterSettings { Encoding = Encoding.UTF8, Async = true };
 
             using var stream = new MemoryStream();
             await using (var xmlWriter = XmlWriter.Create(stream, settings))
@@ -87,18 +85,15 @@ public class Feed : ForumBaseController
     /// <param name="f">The forum identifier.</param>
     /// <returns>ActionResult.</returns>
     [Produces("application/rss+xml")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetTopicsFeed")]
     public async Task<ActionResult> GetTopicsFeed(int f)
     {
-        if (!this.Get<BoardSettings>().ShowAtomLink)
-        {
-            return this.NotFound();
-        }
-
-        if (!(this.PageBoardContext.ForumReadAccess && this.Get<IPermissions>()
-                  .Check(this.Get<BoardSettings>().TopicsFeedAccess)))
+        if ((this.PageBoardContext.IsGuest && this.Get<BoardSettings>().RequireLogin) ||
+            !this.Get<BoardSettings>().ShowAtomLink || !(this.PageBoardContext.ForumReadAccess && this
+                .Get<IPermissions>()
+                .Check(this.Get<BoardSettings>().TopicsFeedAccess)))
         {
             return this.NotFound();
         }
@@ -131,18 +126,15 @@ public class Feed : ForumBaseController
     /// <param name="t">The topic identifier.</param>
     /// <returns>ActionResult.</returns>
     [Produces("application/rss+xml")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetPostsFeed")]
     public async Task<ActionResult> GetPostsFeed(int t)
     {
-        if (!this.Get<BoardSettings>().ShowAtomLink)
-        {
-            return this.NotFound();
-        }
-
-        if (!(this.PageBoardContext.ForumReadAccess && this.Get<IPermissions>()
-                  .Check(this.Get<BoardSettings>().PostsFeedAccess)))
+        if ((this.PageBoardContext.IsGuest && this.Get<BoardSettings>().RequireLogin) ||
+            !this.Get<BoardSettings>().ShowAtomLink || !(this.PageBoardContext.ForumReadAccess && this
+                .Get<IPermissions>()
+                .Check(this.Get<BoardSettings>().PostsFeedAccess)))
         {
             return this.NotFound();
         }
@@ -151,7 +143,7 @@ public class Feed : ForumBaseController
         {
             var feed = await this.Get<SyndicationFeeds>().GetPostsFeedAsync(t);
 
-            var settings = new XmlWriterSettings { Encoding = Encoding.UTF8, Async = true};
+            var settings = new XmlWriterSettings { Encoding = Encoding.UTF8, Async = true };
 
             using var stream = new MemoryStream();
             await using (var xmlWriter = XmlWriter.Create(stream, settings))

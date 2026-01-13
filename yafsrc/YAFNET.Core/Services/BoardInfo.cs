@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -52,12 +52,12 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     /// <summary>
     /// Gets the Current YAF Database Version
     /// </summary>
-    public int AppVersion { get; set; } = 1001;
+    public int AppVersion { get; set; } = 1003;
 
     /// <summary>
     /// Gets the Current YAF Build Date
     /// </summary>
-    public DateTime AppVersionDate { get; set; } = new (2025, 09, 03, 09, 14, 00, DateTimeKind.Utc);
+    public DateTime AppVersionDate { get; set; } = new (2026, 01, 10, 10, 37, 00, DateTimeKind.Utc);
 
     /// <summary>
     /// Creates a string that is the YAF Application Version from a long value
@@ -71,8 +71,8 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
         {
             Major = 4,
             Minor = 0,
-            Build = 2,
-            ReleaseType = ReleaseType.BETA,
+            Build = 4,
+            ReleaseType = ReleaseType.Regular,
             ReleaseNumber = 0
         };
 
@@ -121,7 +121,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     }
 
     /// <summary>
-    /// Gets complete application external (client-side) URL of the forum. (e.g. http://domain.com/forum
+    /// Gets complete application external (client-side) URL of the forum. (e.g. https://domain.com/forum
     /// </summary>
     public string ForumBaseUrl
     {

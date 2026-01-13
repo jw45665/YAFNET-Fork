@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -67,10 +67,10 @@ public class AvatarTests : TestBase
 
                     await page.Locator(".choices__list").First.ClickAsync();
 
-                    await page.GetByRole(AriaRole.Option, new PageGetByRoleOptions { Name = "SampleAvatar.gif SampleAvatar.gif" })
+                    await page.GetByRole(AriaRole.Option, new PageGetByRoleOptions { Name = "SampleAvatar.webp" })
                         .ClickAsync();
 
-                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Update" }).ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Update" }).ClickAsync();
 
                     // Check new avatar
                     var image = page.Locator(".img-thumbnail");
@@ -79,7 +79,7 @@ public class AvatarTests : TestBase
 
                     Assert.That(src, Is.Not.Null);
 
-                    Assert.That(src, Does.Contain("SampleAvatar.gif"), "Modify Avatar Failed");
+                    Assert.That(src, Does.Contain("SampleAvatar.webp"), "Modify Avatar Failed");
                 },
             this.BrowserType);
     }

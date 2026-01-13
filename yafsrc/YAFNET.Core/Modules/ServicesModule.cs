@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -22,12 +22,13 @@
  * under the License.
  */
 
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+
 namespace YAF.Core.Modules;
 
 using System.Reflection;
 
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 using YAF.Core.BaseModules;
 using YAF.Core.BBCode;
@@ -67,6 +68,7 @@ public class ServicesModule : BaseModule
         // optional defaults.
         builder.RegisterType<MailService>().As<IMailService>().SingleInstance().PreserveExistingDefaults();
         builder.RegisterType<ActivityStream>().As<IActivityStream>().SingleInstance().PreserveExistingDefaults();
+        builder.RegisterType<SendPushNotification>().As<ISendPushNotification>().SingleInstance().PreserveExistingDefaults();
         builder.RegisterType<SendNotification>().As<ISendNotification>().InstancePerLifetimeScope()
             .PreserveExistingDefaults();
         builder.RegisterType<DigestService>().As<IDigestService>().InstancePerLifetimeScope()

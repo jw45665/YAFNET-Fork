@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,6 +31,39 @@ namespace YAF.Core.Utilities;
 /// </summary>
 public static class JavaScriptBlocks
 {
+    public static string CreateSubscriptionsJs(
+        string textAppInstalled,
+        string textSubscribed,
+        string textBrowserNotSupported,
+        string textIosHandling,
+        string textStopped,
+        string textNotificationsBlocked,
+        string textNotificationsBlockedMobile,
+        string textRequestingPermission,
+        string textPermissionGranted,
+        string textPermissionDenied,
+        string textPermissionDeniedMobile,
+        string textPermissionDismissed)
+    {
+        return $$"""
+                  document.addEventListener('DOMContentLoaded', function () {
+                  	const _ = new Subscriptions("{{textAppInstalled}}",
+                  	                            "{{textSubscribed}}",
+                  	                            "{{textBrowserNotSupported}}",
+                  	                            "{{textIosHandling}}",
+                  	                            "{{textStopped}}",
+                  	                            "{{textNotificationsBlocked}}",
+                  	                            "{{textNotificationsBlockedMobile}}",
+                  	                            "{{textRequestingPermission}}",
+                  	                            "{{textPermissionGranted}}",
+                  	                            "{{textPermissionDenied}}",
+                  	                            "{{textPermissionDeniedMobile}}",
+                  	                            "{{textPermissionDismissed}}");
+                  });
+                  
+                  """;
+    }
+
     /// <summary>
     /// Gets the multi quote callback success JS.
     /// </summary>

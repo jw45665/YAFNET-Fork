@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -71,6 +71,22 @@ public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
     public ILogger<BaseBackgroundTask> Logger { get; set; }
 
     /// <summary>
+    /// Gets or sets the name of the task.
+    /// </summary>
+    /// <value>
+    /// The name of the task.
+    /// </value>
+    public virtual string TaskName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the task description.
+    /// </summary>
+    /// <value>
+    /// The task description.
+    /// </value>
+    public virtual string TaskDescription { get; set; }
+
+    /// <summary>
     /// Gets or sets BoardID.
     /// </summary>
     public virtual object Data
@@ -129,7 +145,7 @@ public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
     /// </summary>
     public virtual void Dispose()
     {
-        Dispose(true);
+        this.Dispose(true);
         GC.SuppressFinalize(this);
     }
 

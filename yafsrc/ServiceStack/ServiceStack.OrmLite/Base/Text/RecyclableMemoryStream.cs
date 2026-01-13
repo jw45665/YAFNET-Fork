@@ -85,7 +85,7 @@ public static class MemoryStreamFactory
     }
 }
 
-#if !NET9_0_OR_GREATER
+#if !NET10_0_OR_GREATER
 /// <summary>
 /// Enum EventLevel
 /// </summary>
@@ -1105,7 +1105,7 @@ public partial class RecyclableMemoryStreamManager
         return this.GetStream(Guid.NewGuid(), tag, buffer, offset, count);
     }
 
-#if NET9_0_OR_GREATER && !NETSTANDARD2_0
+#if NET10_0_OR_GREATER && !NETSTANDARD2_0
         /// <summary>
         /// Retrieve a new MemoryStream object with the given tag and with contents copied from the provided
         /// buffer. The provided buffer is not wrapped or used after construction.
@@ -1457,7 +1457,6 @@ public sealed class RecyclableMemoryStream : MemoryStream
 
             RecyclableMemoryStreamManager.Events.Writer.MemoryStreamFinalized(this.id, this.tag, this.AllocationStack);
 
-#if !NETSTANDARD1_4
             if (AppDomain.CurrentDomain.IsFinalizingForUnload())
             {
                 // If we're being finalized because of a shutdown, don't go any further.
@@ -1466,7 +1465,6 @@ public sealed class RecyclableMemoryStream : MemoryStream
                 base.Dispose(disposing);
                 return;
             }
-#endif
 
             this.memoryManager.ReportStreamFinalized();
         }
@@ -1495,11 +1493,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
     /// <summary>
     /// Equivalent to Dispose
     /// </summary>
-#if NETSTANDARD1_4
-        public void Close()
-#else
     public override void Close()
-#endif
     {
         this.Dispose(true);
     }
@@ -1622,11 +1616,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
     /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
     /// <remarks>IMPORTANT: Doing a Write() after calling GetBuffer() invalidates the buffer. The old buffer is held onto
     /// until Dispose is called, but the next time GetBuffer() is called, a new buffer from the pool will be required.</remarks>
-#if NETSTANDARD1_4
-        public byte[] GetBuffer()
-#else
     public override byte[] GetBuffer()
-#endif
     {
         this.CheckDisposed();
 
@@ -1716,7 +1706,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
         return amountRead;
     }
 
-#if !NETSTANDARD2_0 && NET9_0_OR_GREATER
+#if !NETSTANDARD2_0 && NET10_0_OR_GREATER
     /// <summary>
     /// Reads from the current position into the provided buffer
     /// </summary>
@@ -1820,7 +1810,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
         this.length = Math.Max(this.position, this.length);
     }
 
-#if !NETSTANDARD2_0 && NET9_0_OR_GREATER
+#if !NETSTANDARD2_0 && NET10_0_OR_GREATER
     /// <summary>
     /// Writes the buffer to the stream
     /// </summary>
@@ -2148,7 +2138,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
         return amountToCopy;
     }
 
-#if NET9_0_OR_GREATER
+#if NET10_0_OR_GREATER
         private int InternalRead(Span<byte> buffer, int fromPosition)
         {
             if (this.length - fromPosition <= 0)

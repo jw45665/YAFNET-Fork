@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -210,6 +210,20 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
 
             migrator.Run();
         }
+
+        if (prevVersion < 1002)
+        {
+            var migrator = new Migrator(this.DbAccess.ResolveDbFactory(), typeof(Migration1002));
+
+            migrator.Run();
+        }
+
+        if (prevVersion < 1003)
+        {
+            var migrator = new Migrator(this.DbAccess.ResolveDbFactory(), typeof(Migration1003));
+
+            migrator.Run();
+        }
     }
 
     /// <summary>
@@ -370,6 +384,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<BannedName>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<BannedEmail>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<BannedUserAgent>());
+        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<BannedCountry>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<CheckEmail>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Poll>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Choice>());
@@ -401,6 +416,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<TopicTag>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ProfileDefinition>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ProfileCustom>());
+        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<DeviceSubscription>());
     }
 
     private void MigrateAttachments()

@@ -2,7 +2,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -35,7 +35,7 @@ using YAF.Core.Extensions;
 public class TaskManagerModel : AdminPage
 {
     [BindProperty]
-    public IDictionary<string, IBackgroundTask> Tasks { get; set; }
+    public ICollection<IBackgroundTask> Tasks { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="TaskManagerModel"/> class.
@@ -60,7 +60,7 @@ public class TaskManagerModel : AdminPage
     /// </summary>
     protected void BindData()
     {
-        this.Tasks = this.Get<ITaskModuleManager>().TaskManagerSnapshot;
+        this.Tasks = this.Get<ITaskModuleManager>().TaskManagerSnapshot.Values;
     }
 
     /// <summary>

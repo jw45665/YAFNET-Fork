@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -161,7 +161,7 @@ public abstract class ForumPage : PageModel,
     public AspNetUsers AspNetUser => this.PageBoardContext.MembershipUser;
 
     /// <summary>
-    /// Gets or sets a value indicating whether no data base, Should only be set by the page that initialized the database.
+    /// Gets or sets a value indicating whether no database, Should only be set by the page that initialized the database.
     /// </summary>
     protected bool NoDataBase { get; set; }
 
@@ -178,7 +178,7 @@ public abstract class ForumPage : PageModel,
             return;
         }
 
-        // fire pre-load event...
+        // fire preload event...
         this.Get<IRaiseEvent>().Raise(new ForumPagePreLoadEvent());
 
         this.Get<IDataCache>().Remove("TopicID");
@@ -190,7 +190,7 @@ public abstract class ForumPage : PageModel,
     /// <param name="context">The <see cref="PageHandlerExecutedContext"/>.</param>
     public override void OnPageHandlerExecuted(PageHandlerExecutedContext context)
     {
-        // fire pre-load event...
+        // fire preload event...
         this.Get<IRaiseEvent>().Raise(new ForumPagePostLoadEvent());
     }
 

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -29,90 +29,81 @@ namespace YAF.Web.HtmlHelpers;
 /// </summary>
 public static class LocalizedTextHtmlHelper
 {
-    /// <summary>
-    /// The localized text.
-    /// </summary>
     /// <param name="_">
     /// The html helper.
     /// </param>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    /// <returns>
-    /// The <see cref="IHtmlContent"/>.
-    /// </returns>
-    public static IHtmlContent LocalizedText(
-        this IHtmlHelper _,
-        string tag)
+    extension(IHtmlHelper _)
     {
-        var content = new HtmlContentBuilder();
-
-        var text = BoardContext.Current.Get<ILocalization>().GetText(tag);
-
-        return content.AppendHtml(text);
-    }
-
-    /// <summary>
-    /// The localized text.
-    /// </summary>
-    /// <param name="_">
-    /// The html helper.
-    /// </param>
-    /// <param name="page">
-    /// The page.
-    /// </param>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    /// <param name="enableBBCode">
-    /// The enable bb code.
-    /// </param>
-    /// <returns>
-    /// The <see cref="IHtmlContent"/>.
-    /// </returns>
-    public static IHtmlContent LocalizedText(
-        this IHtmlHelper _,
-        string page,
-        string tag,
-        bool enableBBCode = false)
-    {
-        var content = new HtmlContentBuilder();
-
-        var text = BoardContext.Current.Get<ILocalization>().GetText(page, tag);
-
-        // convert from BBCode to HTML
-        if (enableBBCode)
+        /// <summary>
+        /// The localized text.
+        /// </summary>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IHtmlContent"/>.
+        /// </returns>
+        public IHtmlContent LocalizedText(string tag)
         {
-            text = BoardContext.Current.Get<IBBCodeService>().MakeHtml(text, true, true);
+            var content = new HtmlContentBuilder();
+
+            var text = BoardContext.Current.Get<ILocalization>().GetText(tag);
+
+            return content.AppendHtml(text);
         }
 
-        return content.AppendHtml(text);
-    }
+        /// <summary>
+        /// The localized text.
+        /// </summary>
+        /// <param name="page">
+        /// The page.
+        /// </param>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <param name="enableBBCode">
+        /// The enable bb code.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IHtmlContent"/>.
+        /// </returns>
+        public IHtmlContent LocalizedText(string page,
+            string tag,
+            bool enableBBCode = false)
+        {
+            var content = new HtmlContentBuilder();
 
-    /// <summary>
-    /// The localized text.
-    /// </summary>
-    /// <param name="_">
-    /// The html helper.
-    /// </param>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    /// <param name="args">
-    /// The parameters
-    /// </param>
-    /// <returns>
-    /// The <see cref="IHtmlContent"/>.
-    /// </returns>
-    public static IHtmlContent LocalizedTextFormatted(
-        this IHtmlHelper _,
-        string tag,
-        params object[] args)
-    {
-        var content = new HtmlContentBuilder();
+            var text = BoardContext.Current.Get<ILocalization>().GetText(page, tag);
 
-        var text = BoardContext.Current.Get<ILocalization>().GetTextFormatted(tag, args);
+            // convert from BBCode to HTML
+            if (enableBBCode)
+            {
+                text = BoardContext.Current.Get<IBBCodeService>().MakeHtml(text, true, true);
+            }
 
-        return content.AppendHtml(text);
+            return content.AppendHtml(text);
+        }
+
+        /// <summary>
+        /// The localized text.
+        /// </summary>
+        /// <param name="tag">
+        /// The tag.
+        /// </param>
+        /// <param name="args">
+        /// The parameters
+        /// </param>
+        /// <returns>
+        /// The <see cref="IHtmlContent"/>.
+        /// </returns>
+        public IHtmlContent LocalizedTextFormatted(string tag,
+            params object[] args)
+        {
+            var content = new HtmlContentBuilder();
+
+            var text = BoardContext.Current.Get<ILocalization>().GetTextFormatted(tag, args);
+
+            return content.AppendHtml(text);
+        }
     }
 }

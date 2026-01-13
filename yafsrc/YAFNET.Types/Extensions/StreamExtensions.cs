@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -31,36 +31,36 @@ using System.IO;
 /// </summary>
 public static class StreamExtensions
 {
-    /// <summary>
-    /// Converts a Stream to a String.
-    /// </summary>
     /// <param name="theStream">
     /// The Stream.
     /// </param>
-    /// <returns>
-    /// The stream to string.
-    /// </returns>
-    public static string AsString(this Stream theStream)
+    extension(Stream theStream)
     {
-        var reader = new StreamReader(theStream);
-        return reader.ReadToEnd();
-    }
+        /// <summary>
+        /// Converts a Stream to a String.
+        /// </summary>
+        /// <returns>
+        /// The stream to string.
+        /// </returns>
+        public string AsString()
+        {
+            var reader = new StreamReader(theStream);
+            return reader.ReadToEnd();
+        }
 
-    /// <summary>
-    /// Reads the stream into a byte array.
-    /// </summary>
-    /// <param name="stream">
-    /// The stream.
-    /// </param>
-    /// <returns>
-    /// The <see cref="byte[]"/>.
-    /// </returns>
-    public static byte[] ToArray(this Stream stream)
-    {
-        var data = new byte[stream.Length];
-        stream.Seek(0, SeekOrigin.Begin);
-        stream.ReadExactly(data, 0, (int)stream.Length);
+        /// <summary>
+        /// Reads the stream into a byte array.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="byte[]"/>.
+        /// </returns>
+        public byte[] ToArray()
+        {
+            var data = new byte[theStream.Length];
+            theStream.Seek(0, SeekOrigin.Begin);
+            theStream.ReadExactly(data, 0, (int)theStream.Length);
 
-        return data;
+            return data;
+        }
     }
 }

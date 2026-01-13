@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -192,7 +192,12 @@ public class Localizer
             this.CurrentCulture = new CultureInfo(BoardContext.Current.BoardSettings.Culture);
         }
 
-        var cultureUser = BoardContext.Current.PageUser.Culture;
+        if (BoardContext.Current.Get<IHttpContextAccessor>().HttpContext is null)
+        {
+            return;
+        }
+
+        var cultureUser =  BoardContext.Current.PageUser.Culture;
 
         if (!cultureUser.IsSet())
         {

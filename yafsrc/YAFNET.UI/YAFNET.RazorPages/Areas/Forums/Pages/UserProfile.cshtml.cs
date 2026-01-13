@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -103,22 +103,10 @@ public class UserProfileModel : ForumPage
     [BindProperty] public string Medals { get; set; }
 
     /// <summary>
-    /// Gets or sets the facebook URL.
-    /// </summary>
-    /// <value>The facebook URL.</value>
-    [BindProperty] public string FacebookUrl { get; set; }
-
-    /// <summary>
     /// Gets or sets the blog URL.
     /// </summary>
     /// <value>The blog URL.</value>
     [BindProperty] public string BlogUrl { get; set; }
-
-    /// <summary>
-    /// Gets or sets the XMPP URL.
-    /// </summary>
-    /// <value>The XMPP URL.</value>
-    [BindProperty] public string XmppUrl { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether [show add buddy link].
@@ -419,28 +407,7 @@ public class UserProfileModel : ForumPage
             this.BlogUrl = link;
         }
 
-        if (this.CombinedUser.Item2.Profile_Facebook.IsSet())
-        {
-            this.FacebookUrl = ValidationHelper.IsNumeric(this.CombinedUser.Item2.Profile_Facebook)
-                ? $"https://www.facebook.com/profile.php?id={this.CombinedUser.Item2.Profile_Facebook}"
-                : this.CombinedUser.Item2.Profile_Facebook;
-        }
-
-        if (this.CombinedUser.Item2.Profile_XMPP.IsSet())
-        {
-            this.XmppUrl = this.Get<ILinkBuilder>().GetLink(
-                ForumPages.Jabber,
-                new { u = this.CombinedUser.Item1.ID });
-        }
-
-        if (!this.BlogUrl.IsSet() && !this.XmppUrl.IsSet() && !this.FacebookUrl.IsSet())
-        {
-            this.ShowSocialMediaCard = false;
-        }
-        else
-        {
-            this.ShowSocialMediaCard = true;
-        }
+        this.ShowSocialMediaCard = this.BlogUrl.IsSet();
 
         this.CustomProfile = this.DataCache.GetOrSet(
             string.Format(Constants.Cache.UserCustomProfileData, this.CombinedUser.Item1.ID),
@@ -494,19 +461,6 @@ public class UserProfileModel : ForumPage
     /// </summary>
     private void SetupUserStatistics()
     {
-        var allPosts = 0.0;
-
-        var postsInBoard = this.GetRepository<Message>()
-            .Count(m => (m.Flags & 16) == 16 && (m.Flags & 8) != 8);
-
-        if (postsInBoard > 0)
-        {
-            allPosts = 100.0 * this.CombinedUser.Item1.NumPosts / postsInBoard;
-        }
-
-        var numberDays = DateTimeHelper.DateDiffDay(this.CombinedUser.Item1.Joined, DateTime.UtcNow) + 1;
-
-        this.Stats =
-            $"{this.CombinedUser.Item1.NumPosts:N0} [{this.GetTextFormatted("NUMALL", allPosts)} / {this.GetTextFormatted("NUMDAY", (double)this.CombinedUser.Item1.NumPosts / numberDays)}]";
+        this.Stats = this.CombinedUser.Item1.NumPosts.ToString();
     }
 }

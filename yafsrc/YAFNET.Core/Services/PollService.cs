@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -95,7 +95,7 @@ public class PollService : IHaveServiceLocator
     /// </returns>
     public bool IsPollClosed(Poll poll)
     {
-        var dtr = this.DaysToRun(poll, out _);
+        var dtr = this.Get<PollService>().DaysToRun(poll, out _);
         return dtr == 0;
     }
 

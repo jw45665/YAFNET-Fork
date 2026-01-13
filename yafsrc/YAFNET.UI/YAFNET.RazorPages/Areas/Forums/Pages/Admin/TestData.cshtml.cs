@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -641,8 +641,6 @@ public class TestDataModel : AdminPage
 
         int posts;
 
-        const int replyTo = -1;
-
         for (posts = 0; posts < numMessages; posts++)
         {
             this.randomGuid = Guid.NewGuid().ToString();
@@ -652,10 +650,10 @@ public class TestDataModel : AdminPage
                 topic,
                 this.PageBoardContext.PageUser,
                 $"msgd-{this.randomGuid}  {this.Input.MyMessage}",
-                this.PageBoardContext.PageUser.Name,
+                null,
                 this.Request.GetUserRealIPAddress(),
                 DateTime.UtcNow,
-                replyTo,
+                null,
                 this.GetMessageFlags());
         }
 

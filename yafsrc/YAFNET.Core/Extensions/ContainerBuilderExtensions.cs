@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -34,17 +34,22 @@ namespace YAF.Core.Extensions;
 /// </summary>
 public static class ContainerBuilderExtensions
 {
-    /// <summary>
-    /// Registers the yaf modules.
-    /// </summary>
     /// <param name="builder">The builder.</param>
-    public static void RegisterYafModules(this ContainerBuilder builder)
+    extension(ContainerBuilder builder)
     {
-        builder.RegisterModule<BootstrapModule>();
+        /// <summary>
+        /// Registers the yaf modules.
+        /// </summary>
+        public void RegisterYafModules()
+        {
+            builder.RegisterModule<BootstrapModule>();
 
-        builder.Register(k => k.Resolve<IComponentContext>().Resolve<IOptions<MailConfiguration>>().Value)
-            .As<MailConfiguration>();
-        builder.Register(k => k.Resolve<IComponentContext>().Resolve<IOptions<BoardConfiguration>>().Value)
-            .As<BoardConfiguration>();
+            builder.Register(k => k.Resolve<IComponentContext>().Resolve<IOptions<MailConfiguration>>().Value)
+                .As<MailConfiguration>();
+            builder.Register(k => k.Resolve<IComponentContext>().Resolve<IOptions<BoardConfiguration>>().Value)
+                .As<BoardConfiguration>();
+            builder.Register(k => k.Resolve<IComponentContext>().Resolve<IOptions<VapidConfiguration>>().Value)
+                .As<VapidConfiguration>();
+        }
     }
 }

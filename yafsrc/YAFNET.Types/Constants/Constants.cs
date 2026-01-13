@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -53,6 +53,11 @@ public static class Constants
         ///   The banned UserAgent.
         /// </summary>
         public const string BannedUserAgent = "BannedUserAgent";
+
+        /// <summary>
+        ///   The banned Country.
+        /// </summary>
+        public const string BannedCountry = "BannedCountry";
 
         /// <summary>
         ///  The board moderators cache.

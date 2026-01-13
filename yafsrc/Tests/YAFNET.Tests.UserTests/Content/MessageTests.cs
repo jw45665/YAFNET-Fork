@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -62,8 +62,8 @@ public class MessageTests : TestBase
                     // Topic doesn't exist create a topic first
                     Assert.That(await page.CreateNewTestTopicAsync(this.Base.TestSettings), Is.True, "Topic Creating failed");
 
-                    // Wait 60 seconds to avoid post flood
-                    await Task.Delay(31000);
+                    await page.GetByTitle("Tools").ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Edit", Exact = true }).ClickAsync();
                 }
 
                 // Edit message
@@ -180,7 +180,7 @@ public class MessageTests : TestBase
                         await Task.Delay(60000);
                     }
 
-                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Reply with Quote" }).First.ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Reply with Quote" }).First.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
@@ -300,7 +300,7 @@ public class MessageTests : TestBase
                     await page.Locator("//input[contains(@id,'multiQuote')]").Nth(2).CheckAsync();
                     await page.Locator("//input[contains(@id,'multiQuote')]").Nth(3).CheckAsync();
 
-                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = " Reply" }).Last.ClickAsync();
+                    await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Reply with Quote" }).Last.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 

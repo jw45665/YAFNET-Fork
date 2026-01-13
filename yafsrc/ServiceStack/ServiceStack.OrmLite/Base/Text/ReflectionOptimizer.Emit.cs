@@ -4,8 +4,6 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-#if NETFX || NET9_0_OR_GREATER
-
 using System;
 using System.Linq;
 using System.Reflection;
@@ -22,14 +20,10 @@ namespace ServiceStack.OrmLite.Base.Text;
 public sealed class EmitReflectionOptimizer : ReflectionOptimizer
 {
     /// <summary>
-    /// The provider
-    /// </summary>
-    private static EmitReflectionOptimizer provider;
-    /// <summary>
     /// Gets the provider.
     /// </summary>
     /// <value>The provider.</value>
-    public static EmitReflectionOptimizer Provider => provider ??= new EmitReflectionOptimizer();
+    public static EmitReflectionOptimizer Provider => field ??= new EmitReflectionOptimizer();
     /// <summary>
     /// Prevents a default instance of the <see cref="EmitReflectionOptimizer"/> class from being created.
     /// </summary>
@@ -446,7 +440,7 @@ public static class DynamicProxy
     static DynamicProxy()
     {
         var assemblyName = new AssemblyName("DynImpl");
-#if NET9_0_OR_GREATER
+#if NET10_0_OR_GREATER
         DynamicAssembly = AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
 #else
             DynamicAssembly = AppDomain.CurrentDomain.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.RunAndSave);
@@ -477,7 +471,7 @@ public static class DynamicProxy
             IncludeType(face, typeBuilder);
         }
 
-#if NET9_0_OR_GREATER
+#if NET10_0_OR_GREATER
         return typeBuilder.CreateTypeInfo().AsType();
 #else
             return typeBuilder.CreateType();
@@ -591,5 +585,3 @@ public static class DynamicProxy
         propertyBuilder.SetSetMethod(backingSet);
     }
 }
-
-#endif

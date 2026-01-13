@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -115,7 +115,7 @@ public class CheckBannedUserAgents : IHaveServiceLocator
     /// <returns>bool.</returns>
     private static bool MachUserAgent(string userAgent, string pattern)
     {
-        var check = Regex.Match(userAgent, pattern, RegexOptions.None, TimeSpan.FromMilliseconds(100));
+        var check = Regex.Match(userAgent, pattern, RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
 
         return check.Success;
     }

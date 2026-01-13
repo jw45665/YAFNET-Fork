@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -44,12 +44,12 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
     /// <summary>
     /// Initializes a new instance of the <see cref="ButtonHelper"/> class.
     /// </summary>
-    /// <param name="serviceLocator">
-    /// The service locator.
-    /// </param>
-    public ButtonHelper(IServiceLocator serviceLocator)
+    /// <param name="serviceLocator">The service locator.</param>
+    /// <param name="html">The HTML.</param>
+    public ButtonHelper(IServiceLocator serviceLocator, IHtmlHelper html)
     {
         this.ServiceLocator = serviceLocator;
+        this.html = html;
     }
 
     /// <summary>
@@ -222,6 +222,12 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
         var cssClass = new StringBuilder();
 
         cssClass.Append(actionClass);
+
+        // add unique id if not exists
+        if (!output.Attributes.ContainsName("id"))
+        {
+            output.Attributes.SetAttribute("id", context.UniqueId);
+        }
 
         if (output.Attributes.ContainsName("class"))
         {
@@ -431,7 +437,6 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
                 ButtonStyle.Light => "btn btn-light",
                 ButtonStyle.Dark => "btn btn-dark",
                 ButtonStyle.Link => "btn btn-link",
-                ButtonStyle.None => string.Empty,
                 _ => string.Empty
             };
     }

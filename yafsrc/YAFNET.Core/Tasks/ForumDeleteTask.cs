@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -41,9 +41,20 @@ public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
     private readonly static string[] BlockingTaskNames = Constants.ForumRebuild.BlockingTaskNames;
 
     /// <summary>
-    /// Gets TaskName.
+    /// Gets the name of the task.
     /// </summary>
-    public static string TaskName => "ForumDeleteTask";
+    /// <value>
+    /// The name of the task.
+    /// </value>
+    public override string TaskName => nameof(ForumDeleteTask);
+
+    /// <summary>
+    /// Gets the task description.
+    /// </summary>
+    /// <value>
+    /// The task description.
+    /// </value>
+    public override string TaskDescription => "Deletes the selected forums.";
 
     /// <summary>
     /// Gets or sets ForumId.
@@ -81,7 +92,7 @@ public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
         if (!BoardContext.Current.Get<ITaskModuleManager>().AreTasksRunning(BlockingTaskNames))
         {
             BoardContext.Current.Get<ITaskModuleManager>().StartTask(
-                TaskName,
+                nameof(ForumDeleteTask),
                 () => new ForumDeleteTask { Data = boardId, ForumId = forumId, ForumNewId = -1 });
         }
         else
@@ -121,7 +132,7 @@ public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
         }
 
         BoardContext.Current.Get<ITaskModuleManager>().StartTask(
-            TaskName,
+            nameof(ForumDeleteTask),
             () => new ForumDeleteTask { Data = boardId, ForumId = forumOldId, ForumNewId = forumNewId });
 
         return true;

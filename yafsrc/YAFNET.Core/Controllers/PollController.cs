@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -78,6 +78,11 @@ public class PollController : ForumBaseController
     [Route("Vote/{choiceId:int}/{topicId:int}/{pollId:int}/{forumId:int}")]
     public async Task<IActionResult> Vote(int choiceId, int topicId, int pollId, int forumId)
     {
+        if (!this.ModelState.IsValid)
+        {
+            return this.NotFound();
+        }
+
         var poll = await this.GetRepository<Poll>().GetByIdAsync(pollId);
         var topic = await this.GetRepository<Topic>().GetByIdAsync(topicId);
         var forumAccess = await this.GetRepository<ActiveAccess>()
@@ -85,9 +90,9 @@ public class PollController : ForumBaseController
         var userPollVotes = this.GetRepository<PollVote>().VoteCheck(poll.ID, this.PageBoardContext.PageUserID);
 
         var isClosed = this.Get<PollService>().IsPollClosed(poll);
-        var canVote = forumAccess.VoteAccess && (userPollVotes.NullOrEmpty() || userPollVotes.TrueForAll(v => choiceId != v.ChoiceID))
-                      || poll.PollFlags.AllowMultipleChoice && forumAccess.VoteAccess
-                                                            && userPollVotes.TrueForAll(v => choiceId != v.ChoiceID);
+        var canVote = (forumAccess.VoteAccess && (userPollVotes.NullOrEmpty() || userPollVotes.TrueForAll(v => choiceId != v.ChoiceID)))
+                      || (poll.PollFlags.AllowMultipleChoice && forumAccess.VoteAccess
+                                                             && userPollVotes.TrueForAll(v => choiceId != v.ChoiceID));
 
         var redirect = this.Get<ILinkBuilder>().Redirect(
             ForumPages.Posts,

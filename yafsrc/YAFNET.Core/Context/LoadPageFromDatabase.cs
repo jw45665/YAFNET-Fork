@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,6 +25,9 @@
 namespace YAF.Core.Context;
 
 using System;
+using System.Collections.Generic;
+
+using Microsoft.AspNetCore.Routing;
 
 #if !DEBUG
 using Microsoft.AspNetCore.Http.Extensions;
@@ -47,13 +50,22 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
     /// <param name="serviceLocator">The service locator.</param>
     /// <param name="logger">The logger.</param>
     /// <param name="dataCache">The data cache.</param>
+    /// <param name="endpointSources">The endpoint sources.</param>
     public LoadPageFromDatabase(
-        IServiceLocator serviceLocator, ILogger<LoadPageFromDatabase> logger, IDataCache dataCache)
+        IServiceLocator serviceLocator, ILogger<LoadPageFromDatabase> logger, IDataCache dataCache, IEnumerable<EndpointDataSource> endpointSources)
     {
         this.ServiceLocator = serviceLocator;
         this.Logger = logger;
         this.DataCache = dataCache;
+        this.EndpointSources = endpointSources
+            .SelectMany(es => es.Endpoints).Select(x => x.DisplayName.Replace("Page: ", "")).OrderByDescending(x => x);
     }
+
+    /// <summary>
+    /// Gets or sets the endpoint sources.
+    /// </summary>
+    /// <value>The endpoint sources.</value>
+    public IEnumerable<string> EndpointSources { get; set; }
 
     /// <summary>
     /// Gets or sets the logger.
@@ -102,15 +114,26 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
             var tries = 0;
             Tuple<PageLoad, User, Category, Forum, Topic, Message> pageRow;
 
-            var forumPage = BoardContext.Current.CurrentForumPage != null
-                ? BoardContext.Current.CurrentForumPage.PageName.ToString()
-                : string.Empty;
+            var path = context!.Request.Path.ToString();
 
-            var location = context!.Request.GetQueryOrRouteValue<string>("u");
+            string forumPage;
 
-            if (location.IsNotSet())
+            try
             {
-                location = string.Empty;
+                if (!path.Equals("/"))
+                {
+                    var endpointPath = this.EndpointSources.Where(x => path.Contains(x)).ToList();
+
+                    forumPage = endpointPath.Count != 0 ? endpointPath[0].ToPageName().ToString() : path.ToPageName().ToString();
+                }
+                else
+                {
+                    forumPage = string.Empty;
+                }
+            }
+            catch (Exception)
+            {
+                forumPage = string.Empty;
             }
 
             var referer = context!.Request.Headers.Referer.ToString();
@@ -129,7 +152,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
                     BoardContext.Current.PageBoardID,
                     userKey,
                     ipAddress,
-                    location,
+                    path,
                     referer,
                     country,
                     forumPage,

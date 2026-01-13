@@ -79,7 +79,7 @@
                                     <div class="d-flex w-100 justify-content-between">
                                         <input type="hidden" ID="fID" Value='@Html.Raw(item.ID)' />
                                         <h5 class="mb-1 text-break">
-                                            @Html.Raw(item.UserAgent)
+                                            @item.UserAgent
                                         </h5>
                                     </div>
                                     <small>
@@ -172,8 +172,8 @@
         <div class="col-auto">
             <pager page-size="@Model.Size"
                    count="!Model.List.NullOrEmpty()
-             ? Model.GetRepository<BannedUserAgent>()
-                   .Count(x => x.BoardID == Model.PageBoardContext.PageBoardID).ToType<int>()
+             ? (await Model.GetRepository<BannedUserAgent>()
+                                      .CountAsync(x => x.BoardID == Model.PageBoardContext.PageBoardID)).ToType<int>()
              : 0">
             </pager>
         </div>

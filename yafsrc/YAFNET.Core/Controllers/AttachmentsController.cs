@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -51,13 +51,18 @@ public class Attachments : ForumBaseController
     /// <param name="attachmentId">The attachment identifier.</param>
     /// <param name="editor">if set to <c>true</c> [editor].</param>
     /// <returns>ActionResult.</returns>
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetAttachment")]
     public async Task<ActionResult> GetAttachment(int attachmentId, bool editor = false)
     {
         try
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.NotFound();
+            }
+
             // AttachmentID
             var attachment = await this.GetRepository<Attachment>().GetByIdAsync(attachmentId);
 
@@ -135,13 +140,18 @@ public class Attachments : ForumBaseController
     /// <param name="attachmentId">The attachment identifier.</param>
     /// <param name="editor">if set to <c>true</c> [editor].</param>
     /// <returns>ActionResult.</returns>
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetResponseAttachment")]
     public async Task<ActionResult> GetResponseAttachment(int attachmentId, bool editor = false)
     {
         try
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.NotFound();
+            }
+
             // AttachmentID
             var attachment = await this.GetRepository<Attachment>().GetByIdAsync(attachmentId);
 

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -165,6 +165,11 @@ public class AdminModel : AdminPage
     /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
     public async Task<IActionResult> OnPostBanIpAsync(string mask, int p, int p2)
     {
+        if (await this.GetRepository<BannedIP>().ExistsAsync(x => x.Mask == mask))
+        {
+            return this.Page();
+        }
+
         var bannedIp = new BannedIP
         {
             BoardID = this.PageBoardContext.PageBoardID,
@@ -174,9 +179,12 @@ public class AdminModel : AdminPage
             Since = DateTime.Now
         };
 
+
         await this.GetRepository<BannedIP>().InsertAsync(bannedIp);
 
         await this.BindDataAsync(p, p2);
+
+        this.PageBoardContext.Notify(this.GetTextFormatted("MSG_ADDBAN_IP", mask), MessageTypes.success);
 
         return this.Page();
     }
@@ -256,6 +264,17 @@ public class AdminModel : AdminPage
     }
 
     /// <summary>
+    /// Counts the ip requests.
+    /// </summary>
+    /// <param name="ip">The ip address.</param>
+    /// <returns></returns>
+    public string CountRequests(string ip)
+    {
+        return
+            $"{this.ActiveUserIpList.First(x => x.Label == ip).Data}{this.GetText("ADMIN_ADMIN", "ACTIVE_REQUESTS")}";
+    }
+
+    /// <summary>
     /// Shows the upgrade message.
     /// </summary>
     private async Task ShowUpgradeMessageAsync()
@@ -299,8 +318,12 @@ public class AdminModel : AdminPage
 
         this.ActiveUserList = activeUsers;
 
-        this.ActiveUserIpList = this.GetRepository<Active>().GetByBoardId().GroupBy(x => x.IP)
-            .Select(a => new StatsData { Label = a.Key, Data = a.Count() }).ToList();
+        this.ActiveUserIpList =
+        [
+            .. this.GetRepository<Active>().GetByBoardId().GroupBy(x => x.IP)
+                .Select(a => new StatsData { Label = a.Key, Data = a.Count() })
+                .OrderByDescending(x => x.Data)
+        ];
     }
 
 
@@ -327,7 +350,7 @@ public class AdminModel : AdminPage
 
         await this.BindUnverifiedUsersAsync(p2);
 
-        // get stats for current board, selected board or all boards (see function)
+        // get stats for current board
         var data = await this.Get<IDataCache>().GetOrSetAsync(
             Constants.Cache.AdminStats, () => this.GetRepository<Board>().StatsAsync(this.PageBoardContext.PageBoardID));
 

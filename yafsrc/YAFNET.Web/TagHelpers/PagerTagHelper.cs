@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -44,14 +44,9 @@ using RouteData = Microsoft.AspNetCore.Routing.RouteData;
 public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocalization
 {
     /// <summary>
-    ///   The localization.
-    /// </summary>
-    private ILocalization localization;
-
-    /// <summary>
     ///   Gets Localization.
     /// </summary>
-    public ILocalization Localization => this.localization ??= this.Get<ILocalization>();
+    public ILocalization Localization => field ??= this.Get<ILocalization>();
 
     /// <summary>
     ///   Gets or sets ServiceLocator.
@@ -95,6 +90,11 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
     /// </summary>
     [HtmlAttributeName("page-size")]
     public int PageSize { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether to use Submit buttons or links.
+    /// </summary>
+    [HtmlAttributeName("use-submit")] public bool UseSubmit { get; set; } = true;
 
     /// <summary>
     /// Synchronously executes the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelper" /> with the given <paramref name="context" /> and
@@ -147,7 +147,7 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
 
         listItem.AddCssClass("page-item disabled");
 
-        var item = new TagBuilder(HtmlTag.A);
+        var item = new TagBuilder(HtmlTag.Button);
 
         item.AddCssClass("page-link");
         item.MergeAttribute(HtmlAttribute.Href, "#");
@@ -172,7 +172,7 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
     /// The output links.
     /// </summary>
     /// <param name="routeData"></param>
-    private IHtmlContent OutputLinks(RouteData routeData)
+    private HtmlContentBuilder OutputLinks(RouteData routeData)
     {
         var query = routeData.Values.ToDictionary(q => q.Key, q => q.Value.ToString());
 
@@ -196,14 +196,18 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
             var listItem = new TagBuilder(HtmlTag.Li);
             listItem.AddCssClass("page-item");
 
-            var link = new TagBuilder(HtmlTag.A);
+            var link = new TagBuilder(this.UseSubmit ? HtmlTag.Button : HtmlTag.A);
 
             link.AddCssClass("page-link");
 
-            link.MergeAttribute(HtmlAttribute.Role, HtmlTag.Button);
+            if (this.UseSubmit)
+            {
+                link.MergeAttribute(HtmlAttribute.Type, "submit");
+            }
+
             link.MergeAttribute("data-bs-toggle", "tooltip");
             link.MergeAttribute(HtmlAttribute.Title, this.GetText("GOTOFIRSTPAGE_TT"));
-            link.MergeAttribute(HtmlAttribute.Href, this.GetLinkUrl(query, 1));
+            link.MergeAttribute(this.UseSubmit ? HtmlAttribute.Formaction: HtmlAttribute.Href, this.GetLinkUrl(query, 1));
 
             link.InnerHtml.AppendHtml(this.Get<IHtmlHelper>().Icon("angle-double-left"));
 
@@ -217,14 +221,18 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
             var listItem = new TagBuilder(HtmlTag.Li);
             listItem.AddCssClass("page-item");
 
-            var link = new TagBuilder(HtmlTag.A);
+            var link = new TagBuilder(this.UseSubmit ? HtmlTag.Button : HtmlTag.A);
 
             link.AddCssClass("page-link");
 
-            link.MergeAttribute(HtmlAttribute.Role, HtmlTag.Button);
+            if (this.UseSubmit)
+            {
+                link.MergeAttribute(HtmlAttribute.Type, "submit");
+            }
+
             link.MergeAttribute("data-bs-toggle", "tooltip");
             link.MergeAttribute(HtmlAttribute.Title, this.GetText("GOTOPREVPAGE_TT"));
-            link.MergeAttribute(HtmlAttribute.Href, this.GetLinkUrl(query, this.CurrentPageIndex));
+            link.MergeAttribute(this.UseSubmit ? HtmlAttribute.Formaction : HtmlAttribute.Href, this.GetLinkUrl(query, this.CurrentPageIndex));
 
             link.InnerHtml.AppendHtml(this.Get<IHtmlHelper>().Icon("angle-left"));
 
@@ -240,14 +248,18 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
             var listItem = new TagBuilder(HtmlTag.Li);
             listItem.AddCssClass(i == this.CurrentPageIndex ? "page-item active" : "page-item");
 
-            var link = new TagBuilder(HtmlTag.A);
+            var link = new TagBuilder(this.UseSubmit ? HtmlTag.Button : HtmlTag.A);
 
             link.AddCssClass("page-link");
 
-            link.MergeAttribute(HtmlAttribute.Role, HtmlTag.Button);
+            if (this.UseSubmit)
+            {
+                link.MergeAttribute(HtmlAttribute.Type, "submit");
+            }
+
             link.MergeAttribute("data-bs-toggle", "tooltip");
             link.MergeAttribute(HtmlAttribute.Title, $"{this.GetText("GOTOPAGE_HEADER")}{page}");
-            link.MergeAttribute(HtmlAttribute.Href, this.GetLinkUrl(query, i + 1));
+            link.MergeAttribute(this.UseSubmit ? HtmlAttribute.Formaction : HtmlAttribute.Href, this.GetLinkUrl(query, i + 1));
 
             link.InnerHtml.Append(page);
 
@@ -261,14 +273,18 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
             var listItem = new TagBuilder(HtmlTag.Li);
             listItem.AddCssClass("page-item");
 
-            var link = new TagBuilder(HtmlTag.A);
+            var link = new TagBuilder(this.UseSubmit ? HtmlTag.Button : HtmlTag.A);
 
             link.AddCssClass("page-link");
 
-            link.MergeAttribute(HtmlAttribute.Role, HtmlTag.Button);
+            if (this.UseSubmit)
+            {
+                link.MergeAttribute(HtmlAttribute.Type, "submit");
+            }
+
             link.MergeAttribute("data-bs-toggle", "tooltip");
             link.MergeAttribute(HtmlAttribute.Title, this.GetText("GOTONEXTPAGE_TT"));
-            link.MergeAttribute(HtmlAttribute.Href, this.GetLinkUrl(query, this.CurrentPageIndex + 2));
+            link.MergeAttribute(this.UseSubmit ? HtmlAttribute.Formaction : HtmlAttribute.Href, this.GetLinkUrl(query, this.CurrentPageIndex + 2));
 
             link.InnerHtml.AppendHtml(this.Get<IHtmlHelper>().Icon("angle-right"));
 
@@ -285,14 +301,18 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
         var listItemNext = new TagBuilder(HtmlTag.Li);
         listItemNext.AddCssClass("page-item");
 
-        var linkGoToNext = new TagBuilder(HtmlTag.A);
+        var linkGoToNext = new TagBuilder(this.UseSubmit ? HtmlTag.Button : HtmlTag.A);
 
         linkGoToNext.AddCssClass("page-link");
 
-        linkGoToNext.MergeAttribute(HtmlAttribute.Role, HtmlTag.Button);
+        if (this.UseSubmit)
+        {
+            linkGoToNext.MergeAttribute(HtmlAttribute.Type, "submit");
+        }
+
         linkGoToNext.MergeAttribute("data-bs-toggle", "tooltip");
         linkGoToNext.MergeAttribute(HtmlAttribute.Title, this.GetText("GOTONEXTPAGE_TT"));
-        linkGoToNext.MergeAttribute(HtmlAttribute.Href, this.GetLinkUrl(query, this.PageCount()));
+        linkGoToNext.MergeAttribute(this.UseSubmit ? HtmlAttribute.Formaction : HtmlAttribute.Href, this.GetLinkUrl(query, this.PageCount()));
 
         linkGoToNext.InnerHtml.AppendHtml(this.Get<IHtmlHelper>().Icon("angle-double-right"));
 
@@ -309,7 +329,7 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
     /// <returns>
     /// The get link url.
     /// </returns>
-    private string GetLinkUrl(IDictionary<string, string> query, int page)
+    private string GetLinkUrl(Dictionary<string, string> query, int page)
     {
         query[this.QueryName] = page.ToString();
 
@@ -323,8 +343,7 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
             ForumPages.Posts => this.Get<ILinkBuilder>()
                 .GetLink(ForumPages.Posts,
                     new { t = this.PageContext.PageTopicID, p = page, name = this.PageContext.PageTopic.TopicName }),
-            _ => this.Get<ILinkBuilder>()
-                .GetLink(this.PageContext.CurrentForumPage.PageName, query)
+            _ => this.Get<ILinkBuilder>().GetLink(this.PageContext.CurrentForumPage.PageName, query)
                 .Replace("p=", $"{this.QueryName}=")
         };
 

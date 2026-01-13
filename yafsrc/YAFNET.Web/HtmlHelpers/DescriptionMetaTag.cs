@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -50,7 +50,6 @@ public static class DescriptionMetaTagHtmlHelper
         }
 
         var descriptionMetaTag = new TagBuilder(HtmlTag.Meta);
-
 
         descriptionMetaTag.MergeAttribute(HtmlAttribute.Content, context.BoardSettings.Description);
         descriptionMetaTag.MergeAttribute(HtmlAttribute.Name, "description");

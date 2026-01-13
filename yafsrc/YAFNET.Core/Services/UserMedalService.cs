@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -94,6 +94,6 @@ public class UserMedalService : IUserMedalService, IHaveServiceLocator
                     this.Get<BoardFolders>().Medals);
             });
 
-       return $"<ul class=\"list-inline\">{ribbonBar}{medals}</ul>";
+       return $"<ul class=\"list-inline d-inline\">{ribbonBar}{medals}</ul>";
     }
 }

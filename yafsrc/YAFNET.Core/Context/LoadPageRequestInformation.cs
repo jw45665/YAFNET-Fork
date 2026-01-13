@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -55,7 +55,12 @@ public class LoadPageRequestInformation : IHandleEvent<InitPageLoadEvent>, IHave
         IUserAgentParser parser)
     {
         this.ServiceLocator = serviceLocator;
-        this.HttpRequestBase = accessor.HttpContext.Request;
+
+        if (accessor?.HttpContext != null)
+        {
+            this.HttpRequestBase = accessor.HttpContext.Request;
+        }
+
         this.userAgentParser = parser.ClientInfo;
     }
 
@@ -88,7 +93,7 @@ public class LoadPageRequestInformation : IHandleEvent<InitPageLoadEvent>, IHave
         var browser = $"{this.userAgentParser.Browser.Family} {this.userAgentParser.Browser.Version}";
         var platform = this.userAgentParser.OS.ToString();
 
-        var userAgent = this.HttpRequestBase.Headers.UserAgent.ToString();
+        var userAgent = this.HttpRequestBase != null ? this.HttpRequestBase.Headers.UserAgent.ToString() : string.Empty;
 
         var isSearchEngine = UserAgentHelper.SearchEngineSpiderName(userAgent);
 

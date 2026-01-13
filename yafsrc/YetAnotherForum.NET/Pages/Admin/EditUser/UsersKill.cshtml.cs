@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -49,11 +49,6 @@ using YAF.Types.Models.Identity;
 public class UsersKillModel : AdminPage
 {
     /// <summary>
-    ///   The _all posts by user.
-    /// </summary>
-    private IOrderedEnumerable<Message> allPostsByUser;
-
-    /// <summary>
     /// Gets or sets the User Data.
     /// </summary>
     public User EditUser { get; set; }
@@ -69,7 +64,7 @@ public class UsersKillModel : AdminPage
     ///   Gets AllPostsByUser.
     /// </summary>
     public IOrderedEnumerable<Message> AllPostsByUser =>
-        this.allPostsByUser ??= this.GetRepository<Message>().GetAllUserMessages(this.EditUser.ID);
+        field ??= this.GetRepository<Message>().GetAllUserMessages(this.EditUser.ID);
 
     /// <summary>
     ///   Gets the IPAddresses.

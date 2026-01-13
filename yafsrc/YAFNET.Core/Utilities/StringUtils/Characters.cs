@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,7 +32,7 @@ using System.Collections.Concurrent;
 /// </summary>
 public static partial class Unidecoder
 {
-    static ConcurrentDictionary<int, string[]> characters = new(3, 256);
+    private readonly static ConcurrentDictionary<int, string[]> characters = new(3, 256);
 
     /// <summary>
     /// Initializes static members of the <see cref="Unidecoder"/> class.

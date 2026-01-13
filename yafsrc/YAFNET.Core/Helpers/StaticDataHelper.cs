@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -601,8 +601,5 @@ public static class StaticDataHelper
     /// Get a string array of the supported image file types.
     /// </summary>
     /// <returns>System.String[].</returns>
-    public static string[] ImageFormats()
-    {
-        return ["jpg", "jpeg", "gif", "png", "bmp"];
-    }
+    public static string[] ImageFormats => ["webp", "jpg", "jpeg", "gif", "png", "bmp"];
 }

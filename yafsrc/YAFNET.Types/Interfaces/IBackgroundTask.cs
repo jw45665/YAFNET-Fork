@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -30,10 +30,25 @@ namespace YAF.Types.Interfaces;
 public interface IBackgroundTask : IDisposable
 {
     /// <summary>
+    /// Gets the name of the task.
+    /// </summary>
+    /// <value>
+    /// The name of the task.
+    /// </value>
+    string TaskName { get; }
+
+    /// <summary>
+    /// Gets the task description.
+    /// </summary>
+    /// <value>
+    /// The task description.
+    /// </value>
+    string TaskDescription { get; }
+
+    /// <summary>
     /// Sets Data
     /// </summary>
-    object Data
-    {
+    object Data {
         set;
     }
 

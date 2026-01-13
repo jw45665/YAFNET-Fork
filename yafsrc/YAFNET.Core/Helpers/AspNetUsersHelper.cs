@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,6 +28,7 @@ namespace YAF.Core.Helpers;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -337,7 +338,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         // Check if there are any avatar images in the uploads folder
         if (!this.Get<BoardSettings>().UseFileTable && this.Get<BoardSettings>().AvatarUpload)
         {
-            var imageExtensions = StaticDataHelper.ImageFormats();
+            var imageExtensions = StaticDataHelper.ImageFormats;
 
             imageExtensions.ForEach(
                 extension =>
@@ -1250,13 +1251,8 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
                     Expression<Func<User, bool>> whereCriteria = u => u.BoardID == (boardId ?? this.GetRepository<User>().BoardID) && (u.Flags & 2) == 2;
 
-                    // -- count total
-                    var countTotalExpression = db.Connection.From<User>();
-
                     expression.Join<AspNetUsers>((u, a) => a.Id == u.ProviderUserKey)
                         .Join<Rank>((u, r) => r.ID == u.RankID);
-
-                    countTotalExpression.Where(whereCriteria);
 
                     expression.Where(whereCriteria);
 
@@ -1265,19 +1261,15 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                         // filter by name
                         if (name.IsSet())
                         {
-                            countTotalExpression.And<User>(u => u.Name.Contains(name) || u.DisplayName.Contains(name));
-
                             expression.And<User>(u => u.Name.Contains(name) || u.DisplayName.Contains(name));
                         }
                     }
                     else
                     {
-                        countTotalExpression.And<User>(
-                            u => u.Name.StartsWith(startLetter.ToString()) ||
-                                 u.DisplayName.StartsWith(startLetter.ToString()));
+                        var startsWith = startLetter == '#' ? string.Empty : startLetter.ToString();
 
-                        expression.And<User>(u => u.Name.StartsWith(startLetter.ToString()) ||
-                                                  u.DisplayName.StartsWith(startLetter.ToString()));
+                        expression.And<User>(u => u.Name.StartsWith(startsWith) ||
+                                                  u.DisplayName.StartsWith(startsWith));
                     }
 
                     // Remove Guests amd deleted
@@ -1289,18 +1281,12 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                         switch (numPostCompare)
                         {
                             case 1:
-                                countTotalExpression.And<User>(u => u.NumPosts == numPosts.Value);
-
                                 expression.And<User>(u => u.NumPosts == numPosts.Value);
                                 break;
                             case 2:
-                                countTotalExpression.And<User>(u => u.NumPosts <= numPosts.Value);
-
                                 expression.And<User>(u => u.NumPosts <= numPosts.Value);
                                 break;
                             case 3:
-                                countTotalExpression.And<User>(u => u.NumPosts >= numPosts.Value);
-
                                 expression.And<User>(u => u.NumPosts >= numPosts.Value);
                                 break;
                         }
@@ -1309,21 +1295,12 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                     // filter by rank
                     if (rankId.HasValue)
                     {
-                        countTotalExpression.And<User>(u => u.RankID == rankId.Value);
-
                         expression.And<User>(u => u.RankID == rankId.Value);
                     }
 
                     // filter by group
                     if (groupId.HasValue)
                     {
-                        countTotalExpression.UnsafeAnd(
-                            $"""
-                             exists(select 1 from {countTotalExpression.Table<UserGroup>()} x
-                                                                            where x.{countTotalExpression.Column<UserGroup>(x => x.UserID)} = {countTotalExpression.Column<User>(x => x.ID, true)}
-                                                                            and x.{countTotalExpression.Column<UserGroup>(x => x.GroupID)} = {groupId.Value})
-                             """);
-
                         expression.UnsafeAnd(
                             $"""
                              exists(select 1 from {expression.Table<UserGroup>()} x
@@ -1332,8 +1309,11 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                              """);
                     }
 
-                    var countTotalSql = countTotalExpression
-                        .Select(Sql.Count($"{countTotalExpression.Column<User>(x => x.ID)}")).ToSelectStatement();
+                    // -- count total
+                    var countTotalExpression2 = expression;
+
+                    var countTotalSql = countTotalExpression2
+                        .Select(Sql.Count($"{countTotalExpression2.Column<User>(x => x.ID)}")).ToSelectStatement();
 
                     expression.Select<User, AspNetUsers, Rank>(
                         (u, a, r) => new {
@@ -1420,5 +1400,62 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
                     return db.Connection.Select<PagedUser>(expression);
                 });
+    }
+
+    /// <summary>
+    /// Imports all AspNetUsers users in to the YAF DB, if they do not already exist.
+    /// </summary>
+    public void ImportAllMembershipUsers()
+    {
+        // get all users in membership...
+        var users = BoardContext.Current.GetRepository<AspNetUsers>().Get(x => x.Email != null && x.Id != null);
+
+        ParallelOptions parallelOptions = new()
+        {
+            MaxDegreeOfParallelism = 3
+        };
+
+        // create/update users...
+        Parallel.ForEachAsync(users, parallelOptions, async (user, _) =>
+        {
+            await this.ImportForumUser(user);
+        });
+    }
+
+    /// <summary>
+    /// Imports the AspNetUsers user in to the YAF DB.
+    /// </summary>
+    /// <param name="user">Current AspNetUsers user</param>
+    /// <returns>
+    /// The new forum user Id.
+    /// </returns>
+    private async Task ImportForumUser([NotNull] AspNetUsers user)
+    {
+        var yafUser = await this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKeyAsync(user.Id);
+
+        if (yafUser is not null)
+        {
+            return;
+        }
+
+        // inject user in to YAF
+        var newAspNetUser = new AspNetUsers
+        {
+            Id = user.Id,
+            ApplicationId = BoardContext.Current.BoardSettings.ApplicationId,
+            UserName = user.UserName,
+            LoweredUserName = user.UserName.ToLower(),
+            Email = user.Email,
+            LoweredEmail = user.Email.ToLower(),
+            IsApproved = true,
+            EmailConfirmed = true,
+            Profile_Birthday = null
+        };
+
+        // setup initial roles (if any) for this user
+        await this.Get<IAspNetRolesHelper>().SetupUserRolesAsync(BoardContext.Current.BoardSettings.BoardId, newAspNetUser);
+
+        // create the user in the YAF DB as well as sync roles...
+        await this.Get<IAspNetRolesHelper>().CreateForumUserAsync(newAspNetUser, BoardContext.Current.BoardSettings.BoardId);
     }
 }

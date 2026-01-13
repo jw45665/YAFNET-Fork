@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -171,8 +171,8 @@ public class DataBroker : IHaveServiceLocator
     /// <param name="ip">
     /// The IP Address.
     /// </param>
-    /// <param name="location">
-    /// The location.
+    /// <param name="path">
+    ///  The portion of the request path that identifies the requested resource.
     /// </param>
     /// <param name="referer">
     /// The referer.
@@ -218,7 +218,7 @@ public class DataBroker : IHaveServiceLocator
         int boardId,
         string userKey,
         string ip,
-        string location,
+        string path,
         string referer,
         string country,
         string forumPage,
@@ -448,8 +448,8 @@ public class DataBroker : IHaveServiceLocator
                             UserID = userId,
                             IP = ip,
                             LastActive = DateTime.UtcNow,
-                            Location = location,
                             Referer = referer,
+                            Path = path,
                             Country = country,
                             ForumID = forumId,
                             TopicID = topicId,
@@ -469,8 +469,8 @@ public class DataBroker : IHaveServiceLocator
                             UserID = userId,
                             IP = ip,
                             LastActive = DateTime.UtcNow,
-                            Location = location,
                             Referer = referer,
+                            Path = path,
                             Country = country,
                             ForumID = forumId,
                             TopicID = topicId,
@@ -494,8 +494,8 @@ public class DataBroker : IHaveServiceLocator
                         IP = ip,
                         Login = DateTime.UtcNow,
                         LastActive = DateTime.UtcNow,
-                        Location = location,
                         Referer = referer,
+                        Path = path,
                         Country = country,
                         ForumID = forumId,
                         TopicID = topicId,

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -47,13 +47,13 @@ public class AvatarController : ForumBaseController
     /// The user id.
     /// </param>
     /// <returns>
-    /// The <see cref="FileStreamResult"/>.
+    /// The <see cref="ActionResult"/>.
     /// </returns>
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [OutputCache(Duration = int.MaxValue)]
     [HttpGet("GetTextAvatar")]
-    public FileStreamResult GetTextAvatar(int userId)
+    public ActionResult GetTextAvatar(int userId)
     {
         try
         {
@@ -62,7 +62,7 @@ public class AvatarController : ForumBaseController
 
             if (user == null)
             {
-                return null;
+                return this.NotFound();
             }
 
             var name = new UnicodeEncoder().XSSEncode(user.DisplayOrUserName());
@@ -113,7 +113,7 @@ public class AvatarController : ForumBaseController
                     $"Exception: {x}",
                     EventLogTypes.Information);
 
-            return null;
+            return this.NotFound();
         }
     }
 
@@ -124,10 +124,10 @@ public class AvatarController : ForumBaseController
     /// The User Id.
     /// </param>
     /// <returns>
-    /// The <see cref="FileStreamResult"/>.
+    /// The <see cref="ActionResult"/>.
     /// </returns>
     [HttpGet("GetResponseLocalAvatar")]
-    public FileStreamResult GetResponseLocalAvatar(int userId)
+    public ActionResult GetResponseLocalAvatar(int userId)
     {
         try
         {
@@ -136,7 +136,7 @@ public class AvatarController : ForumBaseController
 
             if (user == null)
             {
-                return null;
+                return this.NotFound();
             }
 
             var data = user.AvatarImage;
@@ -159,7 +159,7 @@ public class AvatarController : ForumBaseController
                     $"Exception: {x}",
                     EventLogTypes.Information);
 
-            return null;
+            return this.NotFound();
         }
     }
 }

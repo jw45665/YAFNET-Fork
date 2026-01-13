@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2025 Ingo Herbote
+ * Copyright (C) 2014-2026 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -52,13 +52,18 @@ public class Albums : ForumBaseController
     /// <param name="imageId">The image identifier.</param>
     /// <returns>The album image</returns>
     [Produces("image/png")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetImage")]
     public async Task<ActionResult> GetImage(int imageId)
     {
         try
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.NotFound();
+            }
+
             // ImageID
             var image = await this.GetRepository<UserAlbumImage>()
                 .GetImageAsync(imageId);
@@ -102,13 +107,18 @@ public class Albums : ForumBaseController
     /// <param name="imageId">The image identifier.</param>
     /// <returns>The album image preview</returns>
     [Produces("image/png")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetImagePreview")]
     public async Task<ActionResult> GetImagePreview(int imageId)
     {
         try
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.NotFound();
+            }
+
             // ImageID
             var image = await this.GetRepository<UserAlbumImage>()
                 .GetImageAsync(imageId);
@@ -143,13 +153,18 @@ public class Albums : ForumBaseController
     /// <param name="coverId">The cover identifier.</param>
     /// <returns>The Album Cover Image</returns>
     [Produces("image/png")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ActionResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetAlbumCover")]
     public async Task<ActionResult> GetAlbumCover(int albumId, int coverId)
     {
         try
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.NotFound();
+            }
+
             // Check if user has access
             if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ProfileViewPermissions))
             {
